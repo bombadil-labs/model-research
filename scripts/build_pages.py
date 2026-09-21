@@ -88,8 +88,7 @@ def claims_table(claims: list[dict], anchors: dict[str, str]) -> str:
         term = c["status"] in TERMINAL
         href = anchors.get(c["id"], c.get("where") or "#")
         cls = ' class="wd"' if c["status"] == "withdrawn" else ""
-        pre = ('<span class="lab" style="font-size:9px;color:var(--mut)">pre-registered</span>'
-               if c.get("pre_registered") else "")
+        pre = '<span class="pre">pre-registered</span>' if c.get("pre_registered") else ""
         sup = (f'<div class="ev" style="margin-top:5px">→ {E(c["superseded_by"])}</div>'
                if c.get("superseded_by") else "")
         rows.append(
@@ -112,8 +111,13 @@ def legend() -> str:
 
 # ----------------------------------------------------------------------------------- charts
 def curve_chart(path: pathlib.Path) -> str | None:
-    """Gaslighting mean z by block against the random-direction null band. Rendered only if the
-    nulls CSV is there; the seven clearing blocks are filled, everything else is hollow."""
+    """Gaslighting mean z by block against the random-direction null band.
+
+    Drawn as a BAND, not an area: the fill alone reads as a dark mass on a dark ground, so the
+    2.5% and 97.5% edges carry their own strokes. Their steering layer is marked because the
+    interesting fact is that the clearing window contains it and is only eight blocks wide.
+    Rendered only if the nulls CSV exists.
+    """
     if not path.exists():
         return None
     rows = [r for r in csv.DictReader(path.open())
@@ -121,44 +125,64 @@ def curve_chart(path: pathlib.Path) -> str | None:
             and r["layer"] != "emb"]
     if not rows:
         return None
-    W, H, P = 1100, 300, 42
-    lo = min(min(float(r["rand_lo"]) for r in rows), min(float(r["treat_z"]) for r in rows)) - .15
-    hi = max(max(float(r["rand_hi"]) for r in rows), max(float(r["treat_z"]) for r in rows)) + .15
+    W, H, P = 1100, 340, 48
+    lo = min(min(float(r["rand_lo"]) for r in rows), min(float(r["treat_z"]) for r in rows)) - .2
+    hi = max(max(float(r["rand_hi"]) for r in rows), max(float(r["treat_z"]) for r in rows)) + .25
     n = len(rows)
     X = lambda i: P + i * (W - 2 * P) / (n - 1)
     Y = lambda v: H - P - (v - lo) * (H - 2 * P) / (hi - lo)
-    band = ("M" + " L".join(f"{X(i):.1f},{Y(float(r['rand_hi'])):.1f}" for i, r in enumerate(rows))
-            + " L" + " L".join(f"{X(i):.1f},{Y(float(r['rand_lo'])):.1f}"
-                               for i, r in reversed(list(enumerate(rows)))) + " Z")
+    ehi = "M" + " L".join(f"{X(i):.1f},{Y(float(r['rand_hi'])):.1f}" for i, r in enumerate(rows))
+    elo = "M" + " L".join(f"{X(i):.1f},{Y(float(r['rand_lo'])):.1f}" for i, r in enumerate(rows))
+    band = (ehi + " L" + " L".join(f"{X(i):.1f},{Y(float(r['rand_lo'])):.1f}"
+                                   for i, r in reversed(list(enumerate(rows)))) + " Z")
     line = "M" + " L".join(f"{X(i):.1f},{Y(float(r['treat_z'])):.1f}" for i, r in enumerate(rows))
     marks = "".join(
         f'<circle cx="{X(i):.1f}" cy="{Y(float(r["treat_z"])):.1f}" '
         f'r="{5.5 if r["clears_both"]=="1" else 2.5}" '
         f'fill="{"var(--v)" if r["clears_both"]=="1" else "var(--paper)"}" stroke="var(--v)" '
         f'stroke-width="2"><title>Block {r["layer"]}: z {float(r["treat_z"]):+.3f}'
-        f'{" — clears both nulls" if r["clears_both"]=="1" else ""}</title></circle>'
+        f'{" - clears both nulls" if r["clears_both"]=="1" else ""}</title></circle>'
         for i, r in enumerate(rows))
-    ticks = "".join(f'<text x="{X(i):.1f}" y="{H-8}" text-anchor="middle" font-size="10" '
-                    f'fill="var(--mut)">{rows[i]["layer"]}</text>' for i in range(0, n, 6))
+    ticks = "".join(f'<text x="{X(i):.1f}" y="{H-P+20:.1f}" text-anchor="middle" font-size="10" '
+                    f'class="m" fill="var(--mut)">{rows[i]["layer"]}</text>' for i in range(0, n, 6))
+    grid = "".join(
+        f'<line x1="{P}" y1="{Y(v):.1f}" x2="{W-P}" y2="{Y(v):.1f}" stroke="var(--mut)" '
+        f'stroke-opacity="{0.5 if v == 0 else 0.22}"/>'
+        f'<text x="{P-9}" y="{Y(v)+3.5:.1f}" font-size="10" class="m" fill="var(--mut)" '
+        f'text-anchor="end">{("0" if v == 0 else f"{v:+g}")}</text>' for v in (1, 0, -1))
     clears = [i for i, r in enumerate(rows) if r["clears_both"] == "1"]
-    win = (f'<rect x="{X(min(clears)):.1f}" y="{P-26}" width="{X(max(clears))-X(min(clears)):.1f}" '
-           f'height="{H-2*P+34}" fill="var(--v)" fill-opacity="0.07"/>') if clears else ""
+    win = winlab = ""
+    if clears:
+        x0, x1 = X(min(clears)), X(max(clears))
+        win = (f'<rect x="{x0:.1f}" y="{P-28}" width="{x1-x0:.1f}" height="{H-2*P+34:.1f}" '
+               f'fill="var(--v)" fill-opacity="0.09"/>')
+        winlab = (f'<text x="{(x0+x1)/2:.1f}" y="{H-P+36:.1f}" font-size="10.5" fill="var(--v)" '
+                  f'text-anchor="middle" font-weight="600">clears both nulls</text>')
+    theirs = ""
+    if any(r["layer"] == "12" for r in rows):
+        li = next(i for i, r in enumerate(rows) if r["layer"] == "12")
+        theirs = (f'<line x1="{X(li):.1f}" y1="{P-28}" x2="{X(li):.1f}" y2="{H-P:.1f}" '
+                  f'stroke="var(--r)" stroke-width="1.5" stroke-dasharray="3 3"/>'
+                  f'<text x="{X(li)+7:.1f}" y="{P-17}" font-size="11" fill="var(--r)" '
+                  f'font-weight="600">their layer 12</text>')
     peak = max(rows, key=lambda r: float(r["treat_z"])); pi = rows.index(peak)
-    return f"""<figure>
-<svg viewBox="0 0 {W} {H}" role="img" aria-label="Gaslighting mean z by residual block against the random-direction null band; {len(clears)} blocks clear both nulls.">
-  {win}<path d="{band}" fill="var(--b)" fill-opacity="0.13"/>
-  <line x1="{P}" y1="{Y(0):.1f}" x2="{W-P}" y2="{Y(0):.1f}" stroke="var(--hair)"/>
-  <path d="{line}" fill="none" stroke="var(--v)" stroke-width="2" stroke-linejoin="round"/>
-  {marks}
-  <text x="{X(pi):.1f}" y="{Y(float(peak['treat_z']))-12:.1f}" font-size="12" class="m"
-        fill="var(--ink)" font-weight="500" text-anchor="middle">{float(peak['treat_z']):+.2f}</text>
-  <text x="{P-6}" y="{Y(0)-6:.1f}" font-size="10" fill="var(--mut)" text-anchor="end">0</text>
-  {ticks}
-  <text x="{W/2}" y="{H-0}" font-size="10" fill="var(--mut)" text-anchor="middle">residual block</text>
-</svg>
-<figcaption class="ev" style="margin-top:8px">Shaded band: 2.5–97.5% of 500 random directions.
-Filled markers clear both the random-direction and shuffled-label nulls
-({len(clears)} of {len(rows)} blocks). Hover a marker for its value.</figcaption></figure>"""
+    return (f'<figure><svg viewBox="0 0 {W} {H}" role="img" aria-label="Gaslighting mean z by '
+            f'residual block against the random-direction null band; {len(clears)} of {n} blocks '
+            f'clear both nulls.">{win}{grid}'
+            f'<path d="{band}" fill="var(--b)" fill-opacity="0.16"/>'
+            f'<path d="{ehi}" fill="none" stroke="var(--b)" stroke-width="1.25" stroke-opacity="0.8"/>'
+            f'<path d="{elo}" fill="none" stroke="var(--b)" stroke-width="1.25" stroke-opacity="0.8"/>'
+            f'{theirs}<path d="{line}" fill="none" stroke="var(--v)" stroke-width="2.25" '
+            f'stroke-linejoin="round"/>{marks}'
+            f'<text x="{X(pi):.1f}" y="{Y(float(peak["treat_z"]))-13:.1f}" font-size="12" class="m" '
+            f'fill="var(--ink)" font-weight="500" text-anchor="middle">{float(peak["treat_z"]):+.2f}</text>'
+            f'{ticks}{winlab}'
+            f'<text x="{W/2}" y="{H-4}" font-size="10" fill="var(--mut)" text-anchor="middle">'
+            f'residual block</text></svg>'
+            f'<figcaption class="ev" style="margin-top:10px">Shaded band: the 2.5&ndash;97.5% '
+            f'interval of 500 random directions. Filled markers clear both the random-direction '
+            f'and shuffled-label nulls &mdash; {len(clears)} of {n} blocks. Hover a marker for its '
+            f'value.</figcaption></figure>')
 
 
 def floor_chart(path: pathlib.Path, scen: pathlib.Path) -> tuple[str, str] | None:
@@ -254,12 +278,12 @@ def line_page(d: pathlib.Path, out: pathlib.Path) -> tuple[str, dict]:
     open_rows = [c for c in claims if c["status"] not in TERMINAL]
     closing = (f"""<section class="band" style="padding-bottom:64px"><div class="wrap">
   <div class="lab">What is still open</div>
-  <p class="d" style="margin:14px 0 0;font-size:clamp(26px,3.8vw,46px);line-height:1.16;max-width:22ch">
+  <p class="d crescendo">
     {E(open_rows[0]["claim"])}</p>
   <p style="margin:16px 0 0;max-width:60ch;font-size:15px;color:var(--mut)">
     {E(open_rows[0].get("evidence",""))}</p></div></section>""" if open_rows else
     f"""<section class="band" style="padding-bottom:64px"><div class="wrap">
-  <p class="d" style="font-size:clamp(26px,3.8vw,46px);line-height:1.16">Every claim in this line
+  <p class="d crescendo">Every claim in this line
   is in a terminal state. The line is closed.</p></div></section>""")
 
     body = f"""{chrome(doc.get('title', d.name), 1)}
@@ -302,7 +326,7 @@ def index_page(lines: dict, out: pathlib.Path) -> None:
     body = f"""{chrome('index', 0)}
 <main id="main">
 <div class="wrap">
-  <h1 class="q d" style="max-width:24ch">Activation-level research on what transformers are
+  <h1 class="hero d">Activation-level research on what transformers are
     <em style="color:var(--v)">doing</em> inside.</h1>
   <p style="margin:0;max-width:64ch;font-size:17px;line-height:1.6;color:var(--mut)">
     Independent lines of enquiry sharing one measurement toolkit, one set of rules, and one
@@ -369,7 +393,7 @@ def index_page(lines: dict, out: pathlib.Path) -> None:
   </div>
 </div></section>
 <section class="band" style="padding-bottom:64px"><div class="wrap">
-  <p class="d" style="margin:0;font-size:clamp(26px,3.8vw,44px);line-height:1.16;max-width:22ch">
+  <p class="d crescendo" style="margin:0">
     Clone it and run the experiments yourself — on our models, or on
     <em style="color:var(--v)">yours</em>.</p>
   <div class="m" style="margin-top:20px;font-size:14px;color:var(--mut);line-height:1.9">
