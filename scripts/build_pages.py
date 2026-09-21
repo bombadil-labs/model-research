@@ -292,7 +292,7 @@ def line_page(d: pathlib.Path, out: pathlib.Path) -> tuple[str, dict]:
 
     body = f"""{chrome(doc.get('title', d.name), 1)}
 <main id="main">
-<div class="wrap">
+<div class="wrap lede">
   <div class="lab">{E(doc.get('audience',''))}</div>
   <h1 class="q d">{E(doc.get('question',''))}</h1>
   <p style="margin:0 0 6px;max-width:62ch;font-size:16px;line-height:1.6;color:var(--mut)">
@@ -329,7 +329,7 @@ def index_page(lines: dict, out: pathlib.Path) -> None:
 </a>"""
     body = f"""{chrome('index', 0)}
 <main id="main">
-<div class="wrap">
+<div class="wrap lede">
   <h1 class="hero d">Activation-level research on what transformers are
     <em style="color:var(--v)">doing</em> inside.</h1>
   <p style="margin:0;max-width:64ch;font-size:17px;line-height:1.6;color:var(--mut)">

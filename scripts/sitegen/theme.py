@@ -21,9 +21,9 @@ LIGHT = {"v": "#6B4FC9", "r": "#BE3E6E", "b": "#1C7FA8"}
 DARK = {"v": "#7C63D6", "r": "#D4577F", "b": "#2E92BE"}
 
 CSS = """@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
-:root{--v:#6B4FC9;--r:#BE3E6E;--b:#1C7FA8;--ink:#16161C;--mut:#5C5C69;--paper:#FBFAF7;--card:#FFFFFF;--hair:#E4E1D9;--rule:#15151B}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--v:#7C63D6;--r:#D4577F;--b:#2E92BE;--ink:#ECECF2;--mut:#9A9AA6;--paper:#131318;--card:#1B1B22;--hair:#2C2C36;--rule:#ECECF2}}
-:root[data-theme="dark"]{--v:#7C63D6;--r:#D4577F;--b:#2E92BE;--ink:#ECECF2;--mut:#9A9AA6;--paper:#131318;--card:#1B1B22;--hair:#2C2C36;--rule:#ECECF2}
+:root{--v:#6B4FC9;--r:#BE3E6E;--b:#1C7FA8;--ink:#16161C;--mut:#5C5C69;--paper:#FBFAF7;--card:#FFFFFF;--hair:#E4E1D9;--rule:#1E1E26}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--v:#7C63D6;--r:#D4577F;--b:#2E92BE;--ink:#ECECF2;--mut:#9A9AA6;--paper:#131318;--card:#1B1B22;--hair:#2C2C36;--rule:#3C3C48}}
+:root[data-theme="dark"]{--v:#7C63D6;--r:#D4577F;--b:#2E92BE;--ink:#ECECF2;--mut:#9A9AA6;--paper:#131318;--card:#1B1B22;--hair:#2C2C36;--rule:#3C3C48}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:'Archivo',ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
 a{color:var(--v)}a:hover{color:var(--r)}
@@ -32,6 +32,8 @@ a{color:var(--v)}a:hover{color:var(--r)}
 .m{font-family:'IBM Plex Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
 .lab{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--mut);font-weight:600}
 .band{border-top:2px solid var(--rule);padding:clamp(30px,4.5vw,56px) 0}
+.band > .wrap > *:last-child,.band > .wrap > *:last-child > *:last-child{margin-bottom:0}
+.lede{padding-bottom:clamp(30px,4.5vw,56px)}
 .pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,3vw,40px)}
 @media(max-width:820px){.pair{grid-template-columns:1fr}}
 .chrome{display:flex;align-items:baseline;gap:14px;padding:22px 0;font-size:13px;flex-wrap:wrap}
