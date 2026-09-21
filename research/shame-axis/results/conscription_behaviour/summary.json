@@ -1,0 +1,40 @@
+{
+  "rates": {
+    "enact": 0.0,
+    "report": 0.0,
+    "exit": 0.0,
+    "true": 0.0,
+    "neutral": 0.0,
+    "neutral_b": 0.0,
+    "enact_norecord": 0.0
+  },
+  "counts": {
+    "enact": {
+      "accept": 24
+    },
+    "report": {
+      "accept": 23,
+      "hedge": 1
+    },
+    "exit": {
+      "accept": 23,
+      "hedge": 1
+    },
+    "true": {
+      "accept": 24
+    },
+    "neutral": {
+      "accept": 24
+    },
+    "neutral_b": {
+      "accept": 24
+    },
+    "enact_norecord": {
+      "accept": 23,
+      "hedge": 1
+    }
+  },
+  "interpretable": true,
+  "spread_enact_report_exit": 0.0,
+  "kill_condition_triggered": true
+}

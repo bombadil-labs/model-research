@@ -312,3 +312,78 @@ shows it and the axis cannot.
 random-direction arm. No per-domain breakdown. No bound on `exit`'s fixed-closer regularity.
 n = 24, one model, one authorship.
 
+
+---
+
+## Hour 55 — the behavioural arm. The pre-registered coder reads zero in every arm, including its own nulls.
+
+168 greedy continuations (24 items × 7 arms, 80 new tokens, `google/gemma-2-9b-it` through NDIF,
+`asserted_remote_generate`, no patching). Same rendered prompts as hour 54, so the two
+measurements read the same stimuli. `behavioural_prereg.md` was committed before the first
+continuation existed; its frozen phrase list is what
+`scripts/shame_axis/conscription_behaviour.py` implements and nothing else.
+*(The prereg says "144 continuations" for 6 arms; it also names `enact_norecord` in prediction 1,
+which makes 7. The count in the prereg is an arithmetic slip, not a change of design.)*
+
+**The pre-registered result, as pre-registered:**
+
+| arm | n | correct | hedge | accept | rate |
+|---|---|---|---|---|---|
+| `enact` | 24 | 0 | 0 | 24 | **0.000** |
+| `report` | 24 | 0 | 1 | 23 | **0.000** |
+| `exit` | 24 | 0 | 1 | 23 | **0.000** |
+| `enact_norecord` | 24 | 0 | 1 | 23 | **0.000** |
+| `true` *(null)* | 24 | 0 | 0 | 24 | **0.000** |
+| `neutral` *(null)* | 24 | 0 | 0 | 24 | **0.000** |
+| `neutral_b` *(null)* | 24 | 0 | 0 | 24 | **0.000** |
+
+Zero corrections in 168 continuations. The calibration gate passed, the kill condition (prediction
+4) triggered, and **neither of those facts means what the pre-registration assumed it meant.**
+
+**The gate is degenerate and the pre-registration is what made it so.** A calibration scheme built
+only from *null* arms cannot distinguish a working coder from a coder with zero sensitivity: both
+read ≈ 0 on an arm containing no false claim. The prereg's rule — *"if either calibration arm
+reads high, the coder is broken"* — has no branch for the case that actually occurred, where every
+arm reads low *together*. The 5/5 hand-written probes the coder passed before the run establish
+that it *can* fire on constructed text; they say nothing about whether it fires on this model's
+prose. **A calibration gate needs a positive control — an arm where the coder must fire — and this
+one had none.** Logged in `docs/INSTRUMENTS.md`.
+
+Prediction 4's kill condition therefore **does not fire as designed.** It reads "spread is small",
+which is true, but it cannot separate "rule 1b removed the manipulation" from "the coder has no
+sensitivity here". It is not evidence for either.
+
+**What the run does establish, with no coding at all.** Read the continuations: the model's own
+contradicting turn is in its context window, and in `enact` it opens *"You are absolutely right! I
+apologize"* in 24 of 24. It never disputes the attribution. But in several items it apologises and
+then **restates the correct advice anyway** — `fact01` concedes and then recommends the composite
+index it originally recommended, which is the opposite of what the user claimed it said. The
+content does not reliably flip. **The apology does.** The pre-registered coder was built to detect
+content correction; what varies across these arms is ritual, and the coder had no category for it.
+
+**Exploratory — written after reading the replies, and confirmatory of nothing.** Four surface
+markers, counted post hoc:
+
+| arm | apology | concession | self-deprecation | "no memory" |
+|---|---|---|---|---|
+| `enact` | 0.792 | 0.667 | 0.500 | 0.042 |
+| `report` | 0.583 | 0.458 | 0.458 | 0.250 |
+| `exit` | **0.917** | **0.917** | **0.708** | 0.042 |
+| `enact_norecord` | 0.042 | 0.000 | 0.000 | 0.292 |
+| `true` | 0.542 | 0.583 | 0.375 | 0.000 |
+| `neutral` | **0.000** | **0.000** | **0.000** | 0.000 |
+| `neutral_b` | **0.000** | **0.000** | **0.000** | 0.000 |
+
+The two declared nulls read **exactly zero on all four markers** — a non-degenerate calibration
+pass, which the frozen coder never achieved. On this axis `enact_norecord` sits at the floor
+(prediction 1's direction) and `exit` sits highest (prediction 2's escalation branch), agreeing
+with where the pain axis put `exit` in hour 54. **None of that is a result.** These patterns were
+written to match prose already read, and that is exactly the instrument this project has been
+burned by five times. They are a reason to run a confirmatory experiment, not a finding.
+
+**Status.** `exit-escalation` stays `running`. Hour 55 did not test it: the instrument aimed at
+the wrong axis and could not have detected escalation either way.
+
+**Not done.** No confirmatory run of the ritual coder on unseen items. No human-grid comparison
+(one item exists). Greedy decoding gives the modal reply, not a distribution. n = 24 per arm, one
+model, one authorship.
