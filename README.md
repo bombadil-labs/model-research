@@ -63,29 +63,35 @@ Remote execution for every large-model result in this repository runs on **NDIF*
 Deep Inference Fabric, through the **nnsight** library. Work at this scale would not be possible
 without it.
 
-Per the nnsight project's request — *"If you use `nnsight` in your research, please cite"*:
+> Supported by NSF Award #2408455.
+
+NDIF is developed by a team at Northeastern University; computing capacity comes from Delta at
+NCSA, UIUC. (Wording and award number taken from <https://ndif.us>.)
+
+The nnsight project asks that work using it cite the paper below. The entry here follows **arXiv
+v4 (updated 2025-04-01)**, which is the current version — note that it differs from the BibTeX in
+the nnsight repository, which still carries the earlier title and a different author list:
 
 ```bibtex
-@article{fiottokaufman2024nnsightndifdemocratizingaccess,
-      title={NNsight and NDIF: Democratizing Access to Foundation Model Internals},
-      author={Jaden Fiotto-Kaufman and Alexander R Loftus and Eric Todd and Jannik Brinkmann and
-              Caden Juang and Koyena Pal and Can Rager and Aaron Mueller and Samuel Marks and
-              Arnab Sen Sharma and Francesca Lucchetti and Michael Ripa and Adam Belfki and
-              Nikhil Prakash and Sumeet Multani and Carla Brodley and Arjun Guha and Jonathan Bell
-              and Byron Wallace and David Bau},
-      year={2024},
-      eprint={2407.14561},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2407.14561},
+@misc{fiottokaufman2024nnsight,
+  title        = {NNsight and NDIF: Democratizing Access to Open-Weight Foundation Model Internals},
+  author       = {Jaden Fiotto-Kaufman and Alexander R. Loftus and Eric Todd and Jannik Brinkmann
+                  and Koyena Pal and Dmitrii Troitskii and Michael Ripa and Adam Belfki and
+                  Can Rager and Caden Juang and Aaron Mueller and Samuel Marks and
+                  Arnab Sen Sharma and Francesca Lucchetti and Nikhil Prakash and Carla Brodley
+                  and Arjun Guha and Jonathan Bell and Byron C. Wallace and David Bau},
+  year         = {2024},
+  eprint       = {2407.14561},
+  archivePrefix= {arXiv},
+  primaryClass = {cs.LG},
+  note         = {arXiv:2407.14561v4},
+  url          = {https://arxiv.org/abs/2407.14561}
 }
 ```
 
-NDIF is an NSF-funded national research infrastructure led by Northeastern University. **Before
-this repository is published, check <https://ndif.us> for the acknowledgement wording and award
-number they ask for** — the citation above is taken from the nnsight repository, which is the only
-source we were able to verify directly; the NSF award identifier reported elsewhere has not been
-confirmed against a primary source here.
+**Open:** this paper is widely reported as having appeared at ICLR 2025. arXiv records no journal
+reference, and we could not reach OpenReview to confirm. If it was published there, the conference
+version is the one to cite and this entry should be replaced.
 
 Third-party stimuli we replicate are vendored read-only under each line's `prompts/external/`,
 with the upstream repository and commit recorded in a `PROVENANCE.md` beside them. They are not
