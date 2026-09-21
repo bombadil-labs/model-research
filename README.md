@@ -56,3 +56,40 @@ extraction, patching or ranking, not the report of it.
 
 Negatives and confounds are recorded with the same care as positives. **Retraction is a first-class
 operation**: a withdrawn result is edited in place, where it was claimed, with what replaced it.
+
+## Acknowledgements
+
+Remote execution for every large-model result in this repository runs on **NDIF**, the National
+Deep Inference Fabric, through the **nnsight** library. Work at this scale would not be possible
+without it.
+
+Per the nnsight project's request — *"If you use `nnsight` in your research, please cite"*:
+
+```bibtex
+@article{fiottokaufman2024nnsightndifdemocratizingaccess,
+      title={NNsight and NDIF: Democratizing Access to Foundation Model Internals},
+      author={Jaden Fiotto-Kaufman and Alexander R Loftus and Eric Todd and Jannik Brinkmann and
+              Caden Juang and Koyena Pal and Can Rager and Aaron Mueller and Samuel Marks and
+              Arnab Sen Sharma and Francesca Lucchetti and Michael Ripa and Adam Belfki and
+              Nikhil Prakash and Sumeet Multani and Carla Brodley and Arjun Guha and Jonathan Bell
+              and Byron Wallace and David Bau},
+      year={2024},
+      eprint={2407.14561},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2407.14561},
+}
+```
+
+NDIF is an NSF-funded national research infrastructure led by Northeastern University. **Before
+this repository is published, check <https://ndif.us> for the acknowledgement wording and award
+number they ask for** — the citation above is taken from the nnsight repository, which is the only
+source we were able to verify directly; the NSF award identifier reported elsewhere has not been
+confirmed against a primary source here.
+
+Third-party stimuli we replicate are vendored read-only under each line's `prompts/external/`,
+with the upstream repository and commit recorded in a `PROVENANCE.md` beside them. They are not
+ours and their authors' licence and authorship govern reuse.
+
+**Jev** (TypeSafe) is used as a prose-quality gate in the narrative line, evaluated against blind
+human labels before adoption; the evaluation is in `research/narrative/notes/jev_prose_gate.md`.
