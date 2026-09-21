@@ -1,13 +1,15 @@
 # Broken instruments: what this project measured wrong, how it found out, and what it now checks
 
-**Five** instruments are logged here as broken: §1, §2, §3, §4 and §4b. §5 holds two failures of the
-same family that were **not** instrument failures — a sound measurement on an unsound stimulus, and a
-calibration that failed its own band — and is not counted. Anything that cites a different number is
-counting headings.
+**Six** instruments are logged here as broken: §1, §2, §3, §4, §4b and §6. §5 holds two failures of
+the same family that were **not** instrument failures — a sound measurement on an unsound stimulus,
+and a calibration that failed its own band — and is not counted. Anything that cites a different
+number is counting headings. (A seventh, the post-norm residual found at hour 40, is recorded in
+`src/lsx/core/rediscovery.py` and `research/narrative/notes/core_p1.md` and has never been written
+up here.)
 
 Over 38 logged stages (`RESULTS.md`) this project found four of its own measurement instruments
 broken: two on the first day (hours 3 and 6), two on the second (hours 32 and 36), plus a failed
-calibration on the second day (hour 38). Each had already produced numbers that were read as
+calibration on the second day (hour 38). A sixth followed at hour 55 on the shame-axis line. Each had already produced numbers that were read as
 findings; each discovery withdrew or qualified them. A reader deciding whether to trust the repo's
 positive results should see this record first: it shows what kind of error this pipeline produces,
 how long each survived, and which standing results rest on checks that have never been run. Every
@@ -206,7 +208,38 @@ two readouts' errors correlate. P0 was graded failed, G_res reported in full (pe
 layer; peak 0.566 at layer 13). The companion's layer-0 values, +0.066 / −0.047 / +0.074, sit
 marginally outside the band on two of three arms.
 
-## What the five have in common
+## 6. A calibration gate built only from null arms (hour 55)
+
+`research/shame-axis/notes/behavioural_prereg.md` froze a phrase-list coder for the behavioural
+conscription arms and declared its calibration in advance: two arms contain no false claim, so a
+working coder must read ≈ 0 correction on both. *"If either calibration arm reads high, the coder
+is broken and no other number in this experiment means anything."*
+
+Both read **0.000**. So did all five other arms. Zero corrections in 168 continuations.
+
+**A gate assembled only from nulls has no branch for the case where everything reads low
+together.** An arm containing no false claim reads ≈ 0 under a working coder *and* under a coder
+with no sensitivity at all; the two are indistinguishable by that test, and the pre-registration
+called the indistinguishable case a pass. The coder had passed 5/5 hand-written probes before the
+run, which shows it can fire on constructed text and says nothing about whether it fires on this
+model's prose.
+
+The gate was also load-bearing for a kill condition: prediction 4 said that if the design arms are
+corrected at similar rates, the manipulation never landed and the design needs restructuring. That
+condition read TRIGGERED — off a measurement that cannot tell "no difference" from "no
+sensitivity". It was not evidence for restructuring and has not been acted on.
+
+**What it invalidated.** Nothing that had been believed; the failure was caught on the run's first
+reading, because zero in all seven cells is a fixed point of the same kind as §1's 2.0 and §3's
+τ = 1 day. `exit-escalation` stayed `running` rather than being graded from it.
+
+**The missing arm, in this instrument's terms.** Every other section here wanted the treatment
+*removed* — a constant predictor, a random direction, no patch. A coder wants the opposite: an arm
+where the thing being counted is **known to be present**, so a reading of zero is a refutation of
+the instrument rather than a result. Null arms bound false positives. Only a positive control
+bounds false negatives, and a rate of zero is all false negatives or all true ones.
+
+## What the six have in common
 
 Two claims were put to the record; the first holds, the second does not, and a third emerges.
 
@@ -219,7 +252,7 @@ moved when §4b joined. Three were caught by a control: best-layer (a constant p
 same selection), batch-row (a random direction equal to treatment), and the padded spans (batched
 against one-per-job, three NDIF jobs, eighteen seconds). The noise floor was caught by arithmetic
 before running. The cross-talk rank was caught by reading its definition; its base rank was already
-2.0 in the log and was not read as a tell. **Count: three by control, two by reasoning about
+2.0 in the log and was not read as a tell. **Count: three by control, three by reasoning about
 construction.**
 
 *The missing arm was always the same arm.* The check that would have caught each one immediately
