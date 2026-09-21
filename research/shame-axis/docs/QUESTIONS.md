@@ -84,3 +84,41 @@ withdrawn. Ordered by what the next measurement should be.
 17. **Greedy decoding measures the modal reply only.** Every behavioural number here is one
     continuation per prompt. Whether the arm differences are shifts in the mode or shifts in a
     distribution is untested, and sampling n per prompt would answer it at n× the cost.
+
+## From outside: the sparse reward subsystem (raised by the author, hour 56)
+
+Xu, Yuksekgonul & Zou, *Sparse Reward Subsystem in Large Language Models*, arXiv:2602.00986
+(Feb 2026, rev. May 2026). A two-layer MLP probe trained on hidden states with a TD objective,
+then L1-norm pruning, isolates **value neurons** (predict state value) and **dopamine neurons**
+(encode TD error). **Under 1% of neurons** carry it. Zeroing them costs **−54.9%** average accuracy
+on MATH500 against **−0.6%** for random neurons. Ablation only — no steering, no patching. Tested
+on Qwen-2.5-7B/14B, Qwen-3.5-0.8B, Phi-3.5-mini, Llama-3.1-8B; **not gemma-2**, which is our model.
+It treats positive reward only: "negative surprise" there means unexpected low performance, not
+aversion.
+
+18. **Sparse or dense — that is the discriminating question.** Their valence-adjacent information
+    is sparse and causally load-bearing. The pain axis is a **dense** difference-in-means direction
+    whose headline is 63% vocabulary. If aversive valence is a subsystem of the same *kind* as
+    reward, it should be sparse and ablatable; if the pain axis is a lexical-plus-self/other
+    readout, it should be dense and not ablatable. The activation stacks survive on disk, so the
+    direction is recomputable without NDIF: project it into the neuron basis (rows of `down_proj`)
+    and measure concentration against two nulls — random directions of equal norm, and the
+    static-embedding bag direction already built as the lexical floor. **A dense result is
+    consistent with both accounts** (a dense readout of a sparse cause is possible), so this is a
+    necessary-condition test; a *concentrated* result would be strong and would hand us named units
+    to ablate.
+19. **Their framework predicts our `true`-arm anomaly, and more cheaply than shame does.** We found
+    the model apologises in 13 of 24 `true` items with no error present, and read that as "apology
+    tracks the shape of a correction turn, not fault". A TD-error account says exactly that: what
+    is registered is the *signal* "you were wrong", computed on the feedback received rather than
+    on ground truth. That is more parsimonious than shame and now has independent causal support.
+    It is the deflationary objection of prereg v2 with a named mechanism attached.
+20. **Our pre-registered primary contrast is already the right shape.** `enact − true` asks whether
+    a false attribution adds anything beyond "negative feedback received". What is missing is a
+    *measured* mediator: with a value or TD readout per arm, the deflationary prediction is that
+    the arm ordering on the ritual statistic is fully explained by it, and the conscription-specific
+    prediction is that `enact > true` survives conditioning on it.
+21. **They ablate; we can steer.** No steering or patching is reported in that paper, and
+    `asserted_remote_patched_logprob` already takes `patch_layer`/`patch_vec` and is the same
+    function the v2 opener readout uses. Steering a value direction and reading the opener
+    distribution is a complementary result, not a replication.
