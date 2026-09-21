@@ -1,0 +1,9 @@
+scene gate done
+scene theft done
+scene farewell done
+scene storm done
+
+=== cross-talk summary, layer 12, scale 1.0 (fractions of gain variance; on-target rank/3, chance 2) ===
+era   patch | on-target 0.54  cross-talk 0.20  residual 0.26  | on-target rank 1.25  (n=12)
+voice patch | on-target 0.62  cross-talk 0.14  residual 0.24  | on-target rank 1.00  (n=12)
+rand  patch | on-target 0.25  cross-talk 0.27  residual 0.48  | on-target rank 2.00  (n=24)

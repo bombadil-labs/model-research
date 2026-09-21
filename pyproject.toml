@@ -1,7 +1,7 @@
 [project]
-name = "lsx"
+name = "model-research"
 version = "0.0.1"
-description = "Latent space exploration: relational shapes, operators, and narrative factors in transformer activations"
+description = "Activation-level research on transformer internals: a shared measurement toolkit and several research lines"
 requires-python = ">=3.11"
 dependencies = [
   "torch", "transformers", "safetensors", "numpy", "scipy", "scikit-learn", "pot", "huggingface_hub",

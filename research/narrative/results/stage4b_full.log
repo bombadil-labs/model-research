@@ -1,0 +1,16 @@
+model=Qwen/Qwen2.5-1.5B layer=20 ridge=10.0 lams=[1.0]
+biology      lam=1.0 | extra gain on target span: relation +0.98  wrong-source -0.94  random -0.26  | role-only rank 1.67
+law          lam=1.0 | extra gain on target span: relation -1.03  wrong-source -1.42  random -0.50  | role-only rank 1.33
+mathematics  lam=1.0 | extra gain on target span: relation -0.20  wrong-source -0.56  random -0.15  | role-only rank 2.50
+music        lam=1.0 | extra gain on target span: relation -0.15  wrong-source +0.12  random +0.14  | role-only rank 1.50
+narrative    lam=1.0 | extra gain on target span: relation +0.03  wrong-source -0.21  random -0.20  | role-only rank 1.67
+physics      lam=1.0 | extra gain on target span: relation -0.05  wrong-source -0.09  random -0.04  | role-only rank 1.67
+psychology   lam=1.0 | extra gain on target span: relation +0.90  wrong-source +0.64  random -0.29  | role-only rank 3.17
+software     lam=1.0 | extra gain on target span: relation -0.68  wrong-source -1.49  random -0.24  | role-only rank 1.33
+
+=== summary ===
+lam=1.0 relation      | extra gain on target -0.024 (n=48) | rank 2.15 (role-only 1.85)
+lam=1.0 wrong_source  | extra gain on target -0.492 (n=48) | rank 2.40 (role-only 1.85)
+lam=1.0 rand          | extra gain on target -0.192 (n=96) | rank 2.05 (role-only 1.85)
+mean |pred|/|dir_T| = 1.062
+exit 0

@@ -1,0 +1,43 @@
+=== recompose_sweep_reimpose_2.0
+20/72 mean 0.48s
+40/72 mean 0.49s
+60/72 mean 0.49s
+wrote results/jev/recompose_sweep_reimpose_2.0.json: 72 scored, 0 failed, mean 0.49s
+=== recompose_sweep_reimpose_3.0
+20/72 mean 0.48s
+40/72 mean 0.50s
+60/72 mean 0.49s
+wrote results/jev/recompose_sweep_reimpose_3.0.json: 72 scored, 0 failed, mean 0.50s
+=== recompose_sweep_prefix_2.0
+20/72 mean 0.49s
+40/72 mean 0.47s
+60/72 mean 0.46s
+wrote results/jev/recompose_sweep_prefix_2.0.json: 72 scored, 0 failed, mean 0.47s
+=== recompose_sweep_70b_2.0
+20/72 mean 0.49s
+40/72 mean 0.48s
+60/72 mean 0.49s
+wrote results/jev/recompose_sweep_70b_2.0.json: 72 scored, 0 failed, mean 0.49s
+=== recompose_sweep_70b_3.0
+20/72 mean 0.43s
+40/72 mean 0.46s
+60/72 mean 0.46s
+wrote results/jev/recompose_sweep_70b_3.0.json: 72 scored, 0 failed, mean 0.46s
+=== recompose_gen_gemma9b
+20/144 mean 0.45s
+40/144 mean 0.46s
+60/144 mean 0.45s
+80/144 mean 0.45s
+100/144 mean 0.44s
+120/144 mean 0.45s
+140/144 mean 0.45s
+wrote results/jev/recompose_gen_gemma9b.json: 144 scored, 0 failed, mean 0.45s
+=== recompose_gen_llama70b
+20/144 mean 0.48s
+40/144 mean 0.46s
+60/144 mean 0.47s
+80/144 mean 0.47s
+100/144 mean 0.47s
+120/144 mean 0.47s
+140/144 mean 0.47s
+wrote results/jev/recompose_gen_llama70b.json: 144 scored, 0 failed, mean 0.47s

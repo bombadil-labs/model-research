@@ -1,0 +1,11 @@
+resuming 135
+scene debt done 0s
+scene message done 0s
+scene door done 0s
+scene meal done 137s
+
+=== google/gemma-2-9b-it patch@14 read@20 scale=1.0 ===
+base : era read = e1 0.97 | theme read = t 0.94
+shift: era read = e2 (moved) 0.88 | era read = e1 (stayed) 0.12 | theme read = t (kept) 0.94   (n=72)
+rand : era read = e2 (moved) 0.00 | era read = e1 (stayed) 0.99 | theme read = t (kept) 0.93   (n=72)
+exit 0

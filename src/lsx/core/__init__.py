@@ -9,6 +9,9 @@ Piece 2: the instrument registry (§8), the calibration battery (§5) and the th
 calibration key so that `Claim` can refuse a stale measured report.
 
 Existing `scripts/` are frozen and do not use this package (spec §10).
+
+This package is SHARED across research lines. Line-specific modules live in
+`lsx.narrative` and `lsx.shame_axis` and must never be imported from here.
 """
 from . import (checks, extract, instruments, ledger, planted, rediscovery, registry,
                remote, reproduce, types)

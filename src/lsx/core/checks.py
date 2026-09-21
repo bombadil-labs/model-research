@@ -671,7 +671,7 @@ def run_calibration(stat: Callable, *, shape: tuple[int, ...] | None = None,
 # the calibration cache (spec §5): keyed by the instrument's own source + null + invariances, so
 # editing one instrument re-calibrates that one and only that one.
 # --------------------------------------------------------------------------------------------
-CALIBRATION_DIR = pathlib.Path(__file__).resolve().parents[3] / "results" / "calibration"
+CALIBRATION_DIR = pathlib.Path(__file__).resolve().parents[3] / "research/narrative/results" / "calibration"
 
 
 def calibration_path(instrument: str, key: str, cache_dir=None) -> pathlib.Path:

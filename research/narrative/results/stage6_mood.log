@@ -1,0 +1,24 @@
+(A) leave-one-scene-out decodability (chance era 1/3, mood 1/3)
+  layer  0: era 0.53  mood 0.56
+  layer  4: era 0.69  mood 0.67
+  layer  8: era 0.69  mood 0.64
+  layer 12: era 0.97  mood 0.64
+  layer 16: era 0.94  mood 0.61
+  layer 20: era 0.92  mood 0.58
+  layer 24: era 1.00  mood 0.58
+  layer 28: era 0.89  mood 0.53
+scene gate done
+scene theft done
+scene farewell done
+scene storm done
+
+=== summary layer=14 scale=1.0 ===
+(B) era    lens: rank/3 factor-dir 1.19  random 1.92   (chance 2.0)
+(B) mood   lens: rank/3 factor-dir 1.28  random 1.89   (chance 2.0)
+(D) all 2 factors composed: rank/9 1.89   (chance 5.0)
+(X) cross-talk: rows = patched factor, cols = fraction of gain variance explained by each factor
+              era     mood
+    era      0.68     0.09
+   mood      0.15     0.57
+   rand      0.31     0.25
+exit 0

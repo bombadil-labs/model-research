@@ -1,0 +1,22 @@
+model=Qwen/Qwen2.5-1.5B layers=[20] scales=[0.5, 1.0] nrand=2
+biology      scale=  0 | rank(role dir)=1.50  rank(random)=3.92  | dir/resid norm=0.193
+biology      scale=  1 | rank(role dir)=1.50  rank(random)=3.17  | dir/resid norm=0.193
+law          scale=  0 | rank(role dir)=1.33  rank(random)=3.42  | dir/resid norm=0.187
+law          scale=  1 | rank(role dir)=1.33  rank(random)=2.67  | dir/resid norm=0.187
+mathematics  scale=  0 | rank(role dir)=2.67  rank(random)=3.50  | dir/resid norm=0.192
+mathematics  scale=  1 | rank(role dir)=2.67  rank(random)=3.42  | dir/resid norm=0.192
+music        scale=  0 | rank(role dir)=1.33  rank(random)=3.58  | dir/resid norm=0.193
+music        scale=  1 | rank(role dir)=1.33  rank(random)=3.08  | dir/resid norm=0.193
+narrative    scale=  0 | rank(role dir)=1.33  rank(random)=3.08  | dir/resid norm=0.179
+narrative    scale=  1 | rank(role dir)=1.33  rank(random)=3.42  | dir/resid norm=0.179
+physics      scale=  0 | rank(role dir)=1.50  rank(random)=3.17  | dir/resid norm=0.178
+physics      scale=  1 | rank(role dir)=1.67  rank(random)=2.92  | dir/resid norm=0.178
+psychology   scale=  0 | rank(role dir)=2.17  rank(random)=3.08  | dir/resid norm=0.184
+psychology   scale=  1 | rank(role dir)=2.33  rank(random)=3.33  | dir/resid norm=0.184
+software     scale=  0 | rank(role dir)=1.33  rank(random)=3.33  | dir/resid norm=0.183
+software     scale=  1 | rank(role dir)=1.33  rank(random)=4.00  | dir/resid norm=0.183
+
+=== summary (chance 3.5) ===
+scale=  0 | role-dir rank 1.65 (n=48)  random rank 3.39 (n=96)  | mean logp gain: target span +0.67, other spans -0.26
+scale=  1 | role-dir rank 1.69 (n=48)  random rank 3.25 (n=96)  | mean logp gain: target span +1.10, other spans -0.76
+exit 0

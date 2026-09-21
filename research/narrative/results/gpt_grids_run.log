@@ -1,0 +1,48 @@
+saved results/stacks_qwen2.5_1.5b_narrative_factors_gpt_v1.npz 36 (29, 1536)
+saved results/stacks_qwen2.5_1.5b_narrative_theme_gpt_v1.npz 36 (29, 1536)
+=== factors gpt: decodability ===
+(A) leave-one-scene-out decodability (chance era 1/3, voice 1/3)
+  layer  0: era 0.42  voice 0.78
+  layer  4: era 0.64  voice 0.78
+  layer  8: era 0.78  voice 0.72
+  layer 12: era 0.75  voice 0.75
+  layer 16: era 0.81  voice 0.78
+  layer 20: era 0.78  voice 0.75
+  layer 24: era 0.78  voice 0.72
+  layer 28: era 0.75  voice 0.72
+=== theme gpt: decodability ===
+(A) leave-one-scene-out decodability (chance era 1/3, theme 1/3)
+  layer  0: era 0.81  theme 0.75
+  layer  4: era 0.89  theme 0.58
+  layer  8: era 0.94  theme 0.72
+  layer 12: era 0.94  theme 0.81
+  layer 16: era 0.94  theme 0.78
+  layer 20: era 0.94  theme 0.86
+  layer 24: era 0.97  theme 0.61
+  layer 28: era 0.97  theme 0.56
+=== factors gpt: battery L14 ===
+=== summary layers=[14] scale=1.0 ===
+(B) era    lens: rank/3 factor-dir 1.31  random 2.25   (chance 2.0)
+(B) voice  lens: rank/3 factor-dir 1.39  random 2.00   (chance 2.0)
+(D) all 2 factors composed: rank/9 2.33   (chance 5.0)
+(X) cross-talk: rows = patched factor, cols = fraction of gain variance explained by each factor
+              era    voice
+    era      0.52     0.14
+  voice      0.13     0.54
+   rand      0.26     0.28
+=== theme gpt: battery L20 ===
+=== summary layers=[20] scale=1.0 ===
+(B) era    lens: rank/3 factor-dir 1.06  random 1.83   (chance 2.0)
+(B) theme  lens: rank/3 factor-dir 1.25  random 2.25   (chance 2.0)
+(D) all 2 factors composed: rank/9 1.56   (chance 5.0)
+(X) cross-talk: rows = patched factor, cols = fraction of gain variance explained by each factor
+              era    theme
+    era      0.80     0.07
+  theme      0.14     0.67
+   rand      0.34     0.26
+=== theme gpt: era shift ===
+=== Qwen/Qwen2.5-1.5B patch@14 read@20 scale=1.0 ===
+base : era read = e1 0.94 | theme read = t 0.86
+shift: era read = e2 (moved) 0.94 | era read = e1 (stayed) 0.03 | theme read = t (kept) 0.86   (n=72)
+rand : era read = e2 (moved) 0.07 | era read = e1 (stayed) 0.90 | theme read = t (kept) 0.79   (n=72)
+exit 0

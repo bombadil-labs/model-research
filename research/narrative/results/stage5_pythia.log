@@ -1,0 +1,26 @@
+(A) leave-one-scene-out decodability by nearest factor direction (chance: era 1/3, voice 1/3)
+  layer  0: era acc 0.50  voice acc 0.89
+  layer  2: era acc 0.67  voice acc 0.86
+  layer  4: era acc 0.72  voice acc 0.92
+  layer  6: era acc 0.78  voice acc 0.92
+  layer  8: era acc 0.81  voice acc 0.92
+  layer 10: era acc 0.67  voice acc 0.92
+  layer 12: era acc 0.69  voice acc 0.94
+  layer 14: era acc 0.75  voice acc 0.89
+  layer 16: era acc 0.92  voice acc 0.86
+  layer 18: era acc 0.94  voice acc 0.83
+  layer 20: era acc 0.94  voice acc 0.83
+  layer 22: era acc 0.92  voice acc 0.86
+  layer 24: era acc 0.92  voice acc 0.94
+scene gate done
+scene theft done
+scene farewell done
+scene storm done
+
+=== summary  layer=12 layer2=18 scale=1.0 ===
+(B) era lens: rank/3 factor-dir 1.11  random 2.11   (chance 2.0)
+(B) voice lens: rank/3 factor-dir 1.11  random 2.14   (chance 2.0)
+(C) voice readout under +era: rank 2.00  (base 2.00)
+(C) era readout under +voice: rank 2.00  (base 2.00)
+(D) era+voice composed: rank/9 1.44   (chance 5.0)
+(E) era@12+voice@18: 1.33   voice@12+era@18: 1.56   mean |rank gap| 0.61   gain-profile corr 0.83

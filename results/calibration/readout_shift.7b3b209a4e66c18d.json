@@ -5,14 +5,14 @@
  "instrument": "readout_shift",
  "invariance": [
   {
-   "after": 2.0154473299893314,
-   "before": 2.0154473299893314,
+   "after": 2.003865795716339,
+   "before": 2.0038657957163384,
    "claimed": true,
    "name": "scale"
   },
   {
-   "after": 2.0154473299893314,
-   "before": 2.0154473299893314,
+   "after": 2.0038657957163384,
+   "before": 2.0038657957163384,
    "claimed": true,
    "name": "rotation"
   }
@@ -23,8 +23,8 @@
  "known_zero_failed": false,
  "known_zero_value": 0.0,
  "noise_failed": false,
- "noise_sd": 1.7473899601549068e-18,
- "noise_value": -8.567289079051292e-19,
+ "noise_sd": 6.48974473743173e-19,
+ "noise_value": -3.6462346051189217e-19,
  "notes": [],
  "self_floor_failed": false,
  "self_floor_value": 0.0,
@@ -36,10 +36,10 @@
  ],
  "sensitivity_failed": false,
  "sensitivity_values": [
-  0.2519309162486665,
-  0.5038618324973329,
-  1.007723664994666,
-  2.0154473299893314
+  0.2504832244645423,
+  0.5009664489290846,
+  1.0019328978581692,
+  2.0038657957163384
  ],
  "tests_run": [
   "noise",

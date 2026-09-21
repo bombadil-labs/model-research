@@ -1,0 +1,9 @@
+=== --rank 0 --ridge 10 --role-center ===
+mean role_rank over all pairs & layers: {'role_rank': 2.21, 'role_rank_offset': 4.0, 'role_rank_identity': 4.0, 'role_rank_mean': 3.45}
+=== --rank 0 --ridge 10 --role-center --null-seed 1 ===
+mean role_rank over all pairs & layers: {'role_rank': 3.49, 'role_rank_offset': 4.0, 'role_rank_identity': 4.0, 'role_rank_mean': 3.45}
+=== --rank 0 --ridge 10 --role-center --null-seed 2 ===
+mean role_rank over all pairs & layers: {'role_rank': 3.53, 'role_rank_offset': 4.0, 'role_rank_identity': 4.0, 'role_rank_mean': 3.45}
+=== --rank 0 --ridge 10 ===
+mean role_rank over all pairs & layers: {'role_rank': 1.37, 'role_rank_offset': 2.7, 'role_rank_identity': 4.0, 'role_rank_mean': 1.1}
+exit 0

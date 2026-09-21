@@ -39,8 +39,10 @@ from .types import Arm, Claim, Direction, Floor, Grid, Item, Measured, Selection
 REPO = pathlib.Path(__file__).resolve().parents[3]
 # Stacks and result JSONs live in the MAIN checkout: `.npz` is gitignored and a worktree does not
 # share untracked files. Both paths are tried, the worktree's first.
-DATA_DIRS = [REPO / "results", pathlib.Path("/home/user/latent-space-exploration/results")]
-PROMPT_DIRS = [REPO / "prompts", pathlib.Path("/home/user/latent-space-exploration/prompts")]
+DATA_DIRS = [REPO / "research/narrative/results",
+             pathlib.Path("/home/user/latent-space-exploration/results")]
+PROMPT_DIRS = [REPO / "research/narrative/prompts",
+               pathlib.Path("/home/user/latent-space-exploration/prompts")]
 
 LOCAL_TOLERANCE = 0.02
 

@@ -40,7 +40,7 @@ from .checks import (HandDeclaredCalibration, LedgerConflict, ProvenanceIncomple
                      ProvenanceNotFromStack, SweepNotExecuted)
 from .types import Claim, stack_signature
 
-DEFAULT_PATH = pathlib.Path(__file__).resolve().parents[3] / "results" / "ledger.jsonl"
+DEFAULT_PATH = pathlib.Path(__file__).resolve().parents[3] / "research/narrative/results" / "ledger.jsonl"
 
 # §9's row shape names these in `provenance`. `template` may legitimately be None (a base model has
 # no chat template) and `lib_versions.nnsight` may be None locally; the KEY must still be there.

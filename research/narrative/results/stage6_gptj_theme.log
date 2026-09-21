@@ -1,0 +1,34 @@
+scene debt done 198s
+scene message done 398s
+scene door done 592s
+scene meal done 790s
+
+=== EleutherAI/gpt-j-6b layer=14 scale=1.0 ===
+(B) era    lens: rank/3 factor-dir 1.22  random 2.19   (chance 2.0)
+(B) theme  lens: rank/3 factor-dir 1.11  random 2.06   (chance 2.0)
+(D) all 2 factors composed: rank/9 1.75   (chance 5.0)
+(X) cross-talk: rows = patched factor, cols = fraction of gain variance explained by each factor
+              era    theme
+    era      0.76     0.06
+  theme      0.14     0.62
+   rand      0.30     0.16
+Traceback (most recent call last):
+  File "/home/user/latent-space-exploration/scripts/ndif_factors.py", line 83, in <module>
+    if a.out: json.dump(res, open(a.out, "w"), indent=1)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/lib/python3.12/json/__init__.py", line 179, in dump
+    for chunk in iterable:
+                 ^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/lib/python3.12/json/encoder.py", line 430, in _iterencode
+    yield from _iterencode_list(o, _current_indent_level)
+  File "/root/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/lib/python3.12/json/encoder.py", line 326, in _iterencode_list
+    yield from chunks
+  File "/root/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/lib/python3.12/json/encoder.py", line 406, in _iterencode_dict
+    yield from chunks
+  File "/root/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/lib/python3.12/json/encoder.py", line 439, in _iterencode
+    o = _default(o)
+        ^^^^^^^^^^^
+  File "/root/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/lib/python3.12/json/encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type int64 is not JSON serializable
+exit 0

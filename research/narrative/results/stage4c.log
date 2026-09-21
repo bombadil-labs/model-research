@@ -1,0 +1,17 @@
+Loading weights:   0%|          | 0/338 [00:00<?, ?it/s]Loading weights:   0%|          | 1/338 [00:00<05:17,  1.06it/s]Loading weights:  36%|███▋      | 123/338 [00:01<00:01, 132.63it/s]Loading weights:  45%|████▍     | 151/338 [00:01<00:01, 109.44it/s]Loading weights:  50%|█████     | 170/338 [00:01<00:01, 101.78it/s]Loading weights:  55%|█████▍    | 185/338 [00:02<00:02, 70.44it/s] Loading weights:  58%|█████▊    | 196/338 [00:02<00:02, 67.92it/s]Loading weights:  61%|██████    | 207/338 [00:02<00:01, 68.02it/s]Loading weights:  64%|██████▎   | 215/338 [00:02<00:01, 62.04it/s]Loading weights:  66%|██████▌   | 222/338 [00:03<00:02, 55.27it/s]Loading weights:  68%|██████▊   | 231/338 [00:03<00:02, 53.34it/s]Loading weights:  72%|███████▏  | 243/338 [00:03<00:01, 52.82it/s]Loading weights:  75%|███████▌  | 255/338 [00:03<00:01, 52.16it/s]Loading weights:  79%|███████▉  | 267/338 [00:03<00:01, 51.49it/s]Loading weights:  83%|████████▎ | 279/338 [00:04<00:01, 53.67it/s]Loading weights:  84%|████████▍ | 285/338 [00:04<00:01, 52.49it/s]Loading weights:  86%|████████▌ | 291/338 [00:04<00:00, 48.26it/s]Loading weights:  90%|████████▉ | 303/338 [00:04<00:00, 52.66it/s]Loading weights:  93%|█████████▎| 315/338 [00:04<00:00, 51.41it/s]Loading weights:  95%|█████████▍| 321/338 [00:05<00:00, 51.46it/s]Loading weights:  97%|█████████▋| 327/338 [00:05<00:00, 48.64it/s]Loading weights: 100%|██████████| 338/338 [00:05<00:00, 64.81it/s]
+model=Qwen/Qwen2.5-1.5B layer=16 ridge=10.0 lams=[0.5]
+physics      lam=0.5 | extra gain on target span: relation -0.00  wrong-source +0.12  random -0.00  | role-only rank 1.25
+psychology   lam=0.5 | extra gain on target span: relation +0.63  wrong-source +0.63  random -0.34  | role-only rank 1.00
+music        lam=0.5 | extra gain on target span: relation -0.41  wrong-source -0.03  random -0.39  | role-only rank 1.00
+law          lam=0.5 | extra gain on target span: relation +0.29  wrong-source +0.01  random -0.14  | role-only rank 1.50
+software     lam=0.5 | extra gain on target span: relation +0.44  wrong-source +0.37  random +0.07  | role-only rank 1.00
+biology      lam=0.5 | extra gain on target span: relation -1.37  wrong-source -1.39  random -0.36  | role-only rank 1.00
+economics    lam=0.5 | extra gain on target span: relation +0.63  wrong-source +0.51  random +0.14  | role-only rank 1.00
+parenting    lam=0.5 | extra gain on target span: relation +1.21  wrong-source +0.71  random -0.19  | role-only rank 1.00
+
+=== summary ===
+lam=0.5 relation      | extra gain on target +0.176 (n=32) | rank 1.31 (role-only 1.09)
+lam=0.5 wrong_source  | extra gain on target +0.114 (n=160) | rank 1.38 (role-only 1.09)
+lam=0.5 rand          | extra gain on target -0.151 (n=32) | rank 1.31 (role-only 1.09)
+mean |pred|/|dir_T| = 1.079
+exit 0

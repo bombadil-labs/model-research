@@ -1,0 +1,15 @@
+scene debt done 773s
+scene message done 1365s
+scene door done 1963s
+scene meal done 2567s
+
+=== google/gemma-2-9b-it layer=20 scale=1.0 ===
+(B) era    lens: rank/3 factor-dir 1.17  random 2.08   (chance 2.0)
+(B) theme  lens: rank/3 factor-dir 1.25  random 2.11   (chance 2.0)
+(D) all 2 factors composed: rank/9 1.97   (chance 5.0)
+(X) cross-talk: rows = patched factor, cols = fraction of gain variance explained by each factor
+              era    theme
+    era      0.59     0.13
+  theme      0.14     0.55
+   rand      0.35     0.21
+exit 0

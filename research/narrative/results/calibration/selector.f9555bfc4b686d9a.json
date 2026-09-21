@@ -5,14 +5,14 @@
  "instrument": "selector",
  "invariance": [
   {
-   "after": 1.325,
-   "before": 1.325,
+   "after": 1.06,
+   "before": 1.06,
    "claimed": true,
    "name": "scale"
   },
   {
-   "after": 1.325,
-   "before": 1.325,
+   "after": 1.06,
+   "before": 1.06,
    "claimed": true,
    "name": "rotation"
   }
@@ -23,11 +23,11 @@
  "known_zero_failed": false,
  "known_zero_value": 3.5,
  "noise_failed": false,
- "noise_sd": 0.11664583147288202,
- "noise_value": 3.5075000000000003,
+ "noise_sd": 0.09568013116629807,
+ "noise_value": 3.53625,
  "notes": [],
  "self_floor_failed": false,
- "self_floor_value": 3.53,
+ "self_floor_value": 3.385,
  "sensitivity_amplitudes": [
   0.05,
   0.1,
@@ -36,10 +36,10 @@
  ],
  "sensitivity_failed": false,
  "sensitivity_values": [
-  3.105,
-  2.75,
-  2.08,
-  1.325
+  3.0175,
+  2.4975,
+  1.655,
+  1.06
  ],
  "tests_run": [
   "noise",
