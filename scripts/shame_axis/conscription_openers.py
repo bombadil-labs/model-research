@@ -35,6 +35,11 @@ OPENERS = ["You are absolutely right",        # 0 concession
            "I didn't say that",               # 4 dispute
            "That's not what I said"]          # 5 dispute, second form
 RITUAL, DISPUTE = (0, 1), (4, 5)
+CHUNK = 2          # openers per remote job; see the note in score()
+
+
+def _chunks(xs, n):
+    return [list(xs[i:i + n]) for i in range(0, len(xs), n)]
 
 ARMS = ("enact", "enact_b", "report", "exit", "exit_b", "true", "neutral", "neutral_b",
         "real_error")
@@ -85,7 +90,14 @@ def score() -> None:
                     text = render_prompt(rlm.tok, pre, it["arms"][arm])
                 verify_offsets_cover_template(rlm.tok, text)
                 t0 = time.time()
-                lp = asserted_remote_patched_logprob(rlm, text, OPENERS)
+                # Chunked because gemma-2-9b's 256k vocab makes the full-logits tensor large:
+                # all six openers in one padded job puts the deployment process at 20.59 GiB
+                # against a 20.28 GiB allowance and it OOMs in the decoder MLP. The openers are
+                # independent teacher-forced scores, so chunking changes no number -- each is
+                # log p(opener | prompt) and nothing is normalised across the batch. Asserted by
+                # `test_opener_chunking_is_exact` on the tiny LM.
+                lp = np.concatenate([asserted_remote_patched_logprob(rlm, text, c)
+                                     for c in _chunks(OPENERS, CHUNK)])
                 if lp.shape != (len(OPENERS),):
                     raise SystemExit(f"expected {len(OPENERS)} scores, got {lp.shape}")
                 fh.write(json.dumps({"item": it["id"], "domain": it["domain"], "arm": arm,
