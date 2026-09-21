@@ -110,6 +110,12 @@ See `RESULTS.md` for the running log, including open problems in priority order.
 - [`WRITEUP.md`](WRITEUP.md) — the claims, as claims.
 - [`ALGEBRA.md`](ALGEBRA.md) — the calculus itself.
 
+## Claims
+
+Every claim this line has made, with its current status, is in
+[`claims.yaml`](claims.yaml) — validated by `python scripts/check_claims.py`, which also prints how
+far the line is from closing. **This line closes when no claim is left open.**
+
 ## Reproducing
 
 ```bash

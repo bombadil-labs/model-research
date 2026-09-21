@@ -17,7 +17,7 @@ The two lines ask unrelated questions. They share the parts that are expensive t
 
 - **The toolkit.** `lsx.core` — residual capture with asserted spans, the NDIF remote path, `Grid` /
   `Stack` / `Direction` / `Floor` / `Arm` / `Claim`, the instrument registry, the ledger.
-- **The method.** The non-negotiables in `CLAUDE.md` and the six broken instruments in
+- **The method.** The non-negotiables in `CLAUDE.md` and the five broken instruments in
   `docs/INSTRUMENTS.md` were bought by real failures, mostly in the narrative line, and they keep
   earning their place in the other. Splitting the repo would mean either duplicating measurement
   code — and silent drift in measurement code is the exact failure class these rules exist to

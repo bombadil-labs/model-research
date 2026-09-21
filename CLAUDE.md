@@ -6,7 +6,7 @@ measurement toolkit (`src/lsx`), one set of rules (below), and one retraction le
 
 ## Read these before touching measurement code
 
-- **`docs/INSTRUMENTS.md`** — the six instruments this project found broken and what each invalidated.
+- **`docs/INSTRUMENTS.md`** — the five instruments this project found broken and what each invalidated.
   Shared across lines: an instrument found broken invalidates results everywhere at once.
 - **`docs/DELEGATION.md`** — the plan → review → execute → screen → integrate flow, and the rules
   each retraction bought.
@@ -54,6 +54,17 @@ Line code depends on the core, never the other way round, and never on another l
   then are not your batch size. Every extraction script is shard-checkpointed for that reason —
   retry, do not redesign.
 - Disk is limited. Download nothing large. `.npz` stacks are gitignored and will not survive.
+
+## Claims and closure
+
+Each line keeps `research/<line>/claims.yaml` — every claim it has made and where that claim now
+stands (`open` · `running` · `holds` · `narrowed` · `falsified` · `withdrawn` · `retired`).
+**A line is closed when no claim is left non-terminal.** That is the only definition of done here.
+
+`python scripts/check_claims.py` validates every table and prints each line's progress. A terminal
+claim must point at its answer; a `withdrawn` claim must name what replaced it. Spec:
+`docs/specs/claims_v1.md`. **Add the open rows, not only the answered ones** — a table listing only
+what you resolved will report a line closed while its open problems run to a page.
 
 ## Conventions
 

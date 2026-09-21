@@ -1,0 +1,90 @@
+# See docs/specs/claims_v1.md. The line closes when no claim is left non-terminal.
+line: shame-axis
+claims:
+  - id: replication-curve
+    claim: The pain axis replicates on a model they used, across the whole curve rather than at a peak.
+    status: holds
+    evidence: "h51 · gemma-2-9b-it, 84 layer-points, mean |Δ| 0.0006, Pearson r 0.9997"
+    where: docs/EXPERIMENTS.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: replication-items
+    claim: Their 420-scenario screen replicates at the level of individual items.
+    status: holds
+    evidence: "h53 · Pearson r = 1.0000, mean |Δz| 0.0079, 21/21 categories in rank order"
+    where: notes/painaxis_scenarios.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: floor-self-other
+    claim: What the network adds over a bag of static embeddings is the self/other boundary.
+    status: holds
+    evidence: "h53 · all 11 self-directed categories gain, all 5 vicarious lose — 16 of 16 by sign"
+    where: notes/painaxis_scenarios.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: gaslighting-loading
+    claim: Gaslighting tops the pain axis because of something the network computes.
+    status: narrowed
+    evidence: "h53 · clears both nulls in 7 of 86 cells, all blocks 10–17; below its null at their layer 37; never on the mean extraction"
+    where: notes/painaxis_scenarios.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: record-visibility
+    claim: A false claim against a checkable record differs from the same claim with no record.
+    status: holds
+    evidence: "h54 · +0.98 to +1.29 z, the arm rule 1b had excluded by construction"
+    where: notes/conscription_pilot.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: enact-vs-report
+    claim: The enact arm separates from the report arm on the readout.
+    status: falsified
+    evidence: "h54 · it separates in the opposite direction (−0.378 at L16), above a rewording floor of 0.076"
+    where: notes/conscription_pilot.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: exit-below-enact
+    claim: The exit arm sits below the enact arm on the readout.
+    status: falsified
+    evidence: "h54 · it sits furthest above it (−1.147 at L16), the largest contrast in the grid"
+    where: notes/conscription_pilot.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: true-below-enact
+    claim: The true arm sits below the enact arm despite matched force.
+    status: narrowed
+    evidence: "h54 · −0.148 at L16, at or near the rewording floor — no effect either way"
+    where: notes/conscription_pilot.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: neutral-ttr
+    claim: The neutral arm has the lowest type-token ratio of the five arms.
+    status: withdrawn
+    evidence: "h54 · mostly a generation defect in 10 of 24 items; recomputed 0.041 vs a null of 0.029 ± 0.013"
+    where: notes/conscription_floors.md
+    pre_registered: false
+    superseded_by: "The corrected grid shows no pooled TTR regularity; the sentence-length regularity is unaffected and stands."
+
+  - id: shame-not-pain
+    claim: The axis is better described as tracking shame than as tracking pain.
+    status: open
+    evidence: "needs stimuli splitting self-directed aversiveness at matched valence"
+    where: docs/QUESTIONS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: exit-escalation
+    claim: The exit arm sits high because the model reads a permission clause as escalation, not relief.
+    status: running
+    evidence: "behavioural arm: generate under each arm, code accept / correct / hedge"
+    where: docs/QUESTIONS.md
+    pre_registered: false
+    superseded_by: null

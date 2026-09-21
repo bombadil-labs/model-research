@@ -1,5 +1,10 @@
 # Broken instruments: what this project measured wrong, how it found out, and what it now checks
 
+**Five** instruments are logged here as broken: §1, §2, §3, §4 and §4b. §5 holds two failures of the
+same family that were **not** instrument failures — a sound measurement on an unsound stimulus, and a
+calibration that failed its own band — and is not counted. Anything that cites a different number is
+counting headings.
+
 Over 38 logged stages (`RESULTS.md`) this project found four of its own measurement instruments
 broken: two on the first day (hours 3 and 6), two on the second (hours 32 and 36), plus a failed
 calibration on the second day (hour 38). Each had already produced numbers that were read as
@@ -201,7 +206,7 @@ two readouts' errors correlate. P0 was graded failed, G_res reported in full (pe
 layer; peak 0.566 at layer 13). The companion's layer-0 values, +0.066 / −0.047 / +0.074, sit
 marginally outside the band on two of three arms.
 
-## What the four have in common
+## What the five have in common
 
 Two claims were put to the record; the first holds, the second does not, and a third emerges.
 
@@ -209,16 +214,20 @@ Two claims were put to the record; the first holds, the second does not, and a t
 fixed point that coincided with a meaningful reading. 2.0 read as orthogonality; 2.01 as transfer;
 τ = 1 day as "no subject clock"; 1.22 as a sharp lens, and it was the true value.
 
-*Three of four were caught by a control or baseline.* Not confirmed. Two were: best-layer (a
-constant predictor through the same selection) and batch-row (a random direction equal to
-treatment). The noise floor was caught by arithmetic before running. The cross-talk rank was caught
-by reading its definition; its base rank was already 2.0 in the log and was not read as a tell.
-Count: two by control, two by reasoning about construction.
+*Three of four were caught by a control or baseline.* Not confirmed as put, and the arithmetic
+moved when §4b joined. Three were caught by a control: best-layer (a constant predictor through the
+same selection), batch-row (a random direction equal to treatment), and the padded spans (batched
+against one-per-job, three NDIF jobs, eighteen seconds). The noise floor was caught by arithmetic
+before running. The cross-talk rank was caught by reading its definition; its base rank was already
+2.0 in the log and was not read as a tell. **Count: three by control, two by reasoning about
+construction.**
 
 *The missing arm was always the same arm.* The check that would have caught each one immediately
 measures the instrument with the treatment removed: a constant predictor, Gaussian noise, no patch.
 Each was run only after the fact. The noise floor survived three hours, two models and a vocabulary
-rewrite; the batch-row bug would have survived indefinitely had the control not failed.
+rewrite; the batch-row bug would have survived indefinitely had the control not failed; the padded
+spans survived two hours and a cross-model replication, and fell in eighteen seconds once the arm
+was run.
 
 ## What currently rests on instruments that have never been independently checked
 

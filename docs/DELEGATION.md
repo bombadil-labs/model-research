@@ -1,6 +1,6 @@
 # The delegation pattern, and what each part of it was bought with
 
-*Written after 40 stages, six broken instruments and one honest conversation about why. This is not
+*Written after 40 stages, five broken instruments and one honest conversation about why. This is not
 general advice. Every rule here was paid for by a specific retraction in `RESULTS.md`, and the
 citation is given so a future reader can check whether the rule still earns its place.*
 
@@ -9,7 +9,7 @@ citation is given so a future reader can check whether the rule still earns its 
 Interest follows feedback. Ideas give feedback immediately: a bad one stops cohering while you hold
 it. Index arithmetic, batch semantics and padding conventions give none at all; they work silently
 or fail silently. So attention drifts to the conceptual work and away from the plumbing, and in this
-project **all six instrument failures lived in the plumbing.**
+project **all five instrument failures lived in the plumbing.**
 
 Delegation is the same impulse one level up. Handing measurement code to an agent and reading its
 summary feels like leverage. It is not: it moves the unglamorous work out of sight while leaving it

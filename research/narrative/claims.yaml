@@ -1,0 +1,192 @@
+# See docs/specs/claims_v1.md. Triaged from Checkpoint 2 of docs/EXPERIMENTS.md, which had been
+# carrying this table in prose. The line closes when no claim is left non-terminal.
+line: narrative
+claims:
+  - id: cross-domain-shape
+    claim: The same relational shape appears across domains above chance.
+    status: falsified
+    evidence: "stage 2 · the shuffled-holonic control kills the by-content signal; the shape is mostly slot position"
+    where: docs/EXPERIMENTS.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: role-identity-direction
+    claim: Role identity is a domain-independent linear direction.
+    status: holds
+    evidence: "stage 3 · constant baseline rank 1.07; survives position balancing"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: role-lens-transfers
+    claim: The role direction selects the corresponding span in a held-out domain.
+    status: holds
+    evidence: "stage 4 · rank 1.3–1.7 vs 3.3 random, all eight held-out domains, peak layers 14–20"
+    where: docs/EXPERIMENTS.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: relation-lens
+    claim: The relation itself can be carried to a held-out domain as an operator.
+    status: falsified
+    evidence: "stage 4b · null (−0.02 nats vs −0.19 random); measurable, not controllable"
+    where: docs/EXPERIMENTS.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: era-clears-floor
+    claim: Era is a factor direction that clears its own lexical floor.
+    status: holds
+    evidence: "h47 · 1.25 against a measured floor of exactly chance, 2.00"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: tense-clears-floor
+    claim: Tense is a factor direction that clears its own lexical floor.
+    status: falsified
+    evidence: "h47 · sits exactly on its floor, 1.0278 both"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: voice-clears-floor
+    claim: Voice is a factor direction that clears its own lexical floor.
+    status: falsified
+    evidence: "h47 · worse than its floor, 1.2361 against 1.0278"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: factors-compose
+    claim: The three narrative factors compose beyond what their words give away.
+    status: withdrawn
+    evidence: "h8 claimed 2.81 against chance 9.50; at h47 the composition gain is −0.04 of a rank inside a ±1.83 band"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: "The patch effect is real (no-patch arm 9.50 exactly); what fell is the comparison to chance rather than to a measured lexical floor. Four ledger rows withdrawn."
+
+  - id: subject-clocks-absent
+    claim: Subject-relative timescales are absent from the residual stream.
+    status: withdrawn
+    evidence: "h28/30/31 · withdrawn at h32 — the probe sat at its own noise floor (residual/floor 1.1–1.4; Gaussian noise returns the same verdict)"
+    where: docs/INSTRUMENTS.md
+    pre_registered: false
+    superseded_by: "No claim about subject clocks is currently made in either direction. The line was closed with the reason on record."
+
+  - id: shared-clock
+    claim: A shared clock direction encodes interval length and selects on it.
+    status: falsified
+    evidence: "h47 · per subject against the grid's own t0 controls the gain is +0.067 inside a ±0.40 band; at this design's resolution the clock is the interval phrase"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: clock-depth-gain
+    claim: The clock is a computed quantity showing real gain over a lexical floor.
+    status: narrowed
+    evidence: "h38 · gain 0.297, z 7.6 — but order-invariant and non-transferring: a computed register detector, not a clock"
+    where: docs/INSTRUMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: era-shift-keeps-form
+    claim: An era shift moves the address of a passage and keeps its form.
+    status: withdrawn
+    evidence: "h14/h23, writeup claim 6 · withdrawn at h40 — the readout was taken after the patch layer, so the movement is vector addition exactly"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: "Recomposition now rests solely on the h29/h33 generation results, which re-read unpatched text and are confirmed clean."
+
+  - id: llama-selector-battery
+    claim: The Llama selector battery measures factor directions across a scale jump.
+    status: withdrawn
+    evidence: "h34 · withdrawn at h36 — the harness patched batch row 0 of a bare tensor, and rank-1-on-ties pinned every rank at 1.22 for any direction"
+    where: docs/INSTRUMENTS.md
+    pre_registered: false
+    superseded_by: "Re-run at h37 on the fixed harness: tuning sharpens era (1.50 → 1.06), theme is tuning-invariant. h33's depth-fraction confound is open again."
+
+  - id: generation-recomposition
+    claim: A re-imposed era shift at 3x moves generated text, against its own arms.
+    status: holds
+    evidence: "h29, confirmed h47 · treatment 0.8364, random 0.1429, no-patch 0.1111 against a declared null of 0.1111"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: theme-generator
+    claim: Theme is a reliable generator as well as a selector.
+    status: narrowed
+    evidence: "h10 · a reliable selector over multi-sentence spans, a poor generator; multi-layer patches do not move the boundary (h11)"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: core-reproduces
+    claim: The measurement core reproduces every number this project logged that it can recompute.
+    status: narrowed
+    evidence: "h45–47 · reproduces to the logged decimals, refuses three, and fails its own gate on coverage until piece 5"
+    where: docs/EXPERIMENTS.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: scale-substitutes-tuning
+    claim: Sufficient scale substitutes for instruction tuning in factor recomposition.
+    status: retired
+    evidence: "Checkpoint 2 · untestable with available access — Llama-3.1-405B is not reachable with this key (h34)"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  # --- open, from the ordered open-problems list in docs/EXPERIMENTS.md ------------------
+  # These were missing from the first triage, which captured only resolved claims and so
+  # reported the line CLOSED. A table that lists only what you answered is not a table.
+
+  - id: depth-fraction-confound
+    claim: The recomposition cap is explained by depth fraction rather than by scale.
+    status: open
+    evidence: "h33's layer sweep was withdrawn with the h34 selector battery at h36, so this is open again"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: permutation-arm-below-null
+    claim: The permutation arm sits below its declared null across the replication rows.
+    status: open
+    evidence: "h48 · below null on 25 of 25 rows, mean −0.117 — an arm off its null is a bug until proven otherwise"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: mood-voice-interference
+    claim: Two register-like factors interfere with each other more than era does with either.
+    status: open
+    evidence: "the mood x voice grid is specified and not yet run"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: paraphrase-effective-n
+    claim: Real per-domain paraphrases raise the effective n enough to recover a content shape.
+    status: open
+    evidence: "the main lever identified for both stage 3 and the relation lens; never run"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: token-cloud-correspondence
+    claim: Token-level clouds under Gromov-Wasserstein find role correspondence without assuming it.
+    status: open
+    evidence: "open problem 5; would test the stage-2 result without the slot-position confound"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: cached-npz-ledger
+    claim: A measurement built from a cached .npz stack can reach the ledger.
+    status: narrowed
+    evidence: "h50 · narrowed — re-extraction lets fifteen rows through; the provenance wall was partly a property of how h48 ran"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+

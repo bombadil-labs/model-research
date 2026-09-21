@@ -57,6 +57,12 @@ is retired with the reason on the record. Not "we got a number."
 Full log: [`docs/EXPERIMENTS.md`](docs/EXPERIMENTS.md). Open questions:
 [`docs/QUESTIONS.md`](docs/QUESTIONS.md).
 
+## Claims
+
+Every claim this line has made, with its current status, is in
+[`claims.yaml`](claims.yaml) — validated by `python scripts/check_claims.py`, which also prints how
+far the line is from closing. **This line closes when no claim is left open.**
+
 ## Reproducing
 
 Stimuli from the original paper are vendored read-only under `research/shame-axis/prompts/external/pain_axis/` with
