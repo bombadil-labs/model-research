@@ -133,9 +133,53 @@ def test_a_clean_build_produces_a_page_per_line_and_an_index(tmp_path):
                         "--out", str(tmp_path / "s")], capture_output=True, text=True)
     assert r.returncode == 0, r.stderr
     out = tmp_path / "s"
-    assert (out / "index.html").exists() and (out / "assets" / "site.css").exists()
+    assert (out / "index.html").exists()
+    assert list((out / "assets").glob("site.*.css")), "no stylesheet emitted"
     for line in ("narrative", "shame-axis"):
         assert (out / line / "index.html").exists()
     # the index must not claim a line is closed while it has open rows
     idx = (out / "index.html").read_text()
     assert "still open" in idx
+
+
+def test_every_page_links_a_stylesheet_that_exists(tmp_path):
+    """A dangling stylesheet href unstyles the whole site while every page still returns 200 —
+    the failure looks like a design problem and is actually a broken link. Cheap to pin."""
+    import subprocess, sys as _s, re
+    r = subprocess.run([_s.executable, str(ROOT / "scripts" / "build_pages.py"),
+                        "--out", str(tmp_path / "s")], capture_output=True, text=True)
+    assert r.returncode == 0, r.stderr
+    out = tmp_path / "s"
+    pages = list(out.rglob("index.html"))
+    assert pages
+    hrefs = set()
+    for page in pages:
+        m = re.search(r'<link rel="stylesheet" href="([^"]+)"', page.read_text())
+        assert m, f"{page} links no stylesheet"
+        target = (page.parent / m.group(1)).resolve()
+        assert target.exists(), f"{page} links {m.group(1)}, which does not exist"
+        hrefs.add(target)
+    assert len(hrefs) == 1, f"pages disagree about the stylesheet: {hrefs}"
+
+
+def test_the_stylesheet_name_is_content_hashed(tmp_path):
+    """GitHub Pages serves assets with cache-control max-age=600. With a fixed filename a reader
+    who visits during a deploy window gets the previous stylesheet against the current HTML, which
+    is how the site misrepresented itself once. A new build must produce a new URL."""
+    import subprocess, sys as _s, re
+    def build_and_get_href(dest, mutate=None):
+        theme = ROOT / "scripts" / "sitegen" / "theme.py"
+        original = theme.read_text()
+        try:
+            if mutate:
+                theme.write_text(original.replace("body{margin:0;", "body{margin:0;letter-spacing:0;"))
+            subprocess.run([_s.executable, str(ROOT / "scripts" / "build_pages.py"),
+                            "--out", str(dest)], capture_output=True, text=True, check=True)
+            html = (dest / "index.html").read_text()
+            return re.search(r'href="([^"]*site[^"]*\.css)"', html).group(1)
+        finally:
+            theme.write_text(original)
+    a = build_and_get_href(tmp_path / "a")
+    b = build_and_get_href(tmp_path / "b", mutate=True)
+    assert re.match(r"assets/site\.[0-9a-f]{10}\.css", a), a
+    assert a != b, "changing the stylesheet did not change its URL — caches will serve the old one"

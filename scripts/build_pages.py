@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import datetime as dt
 import html
 import pathlib
@@ -34,6 +35,9 @@ E = lambda s: html.escape(str(s), quote=False)
 
 
 # ----------------------------------------------------------------------------- page furniture
+CSS_HREF = "assets/site.css"   # replaced with the hashed name by main()
+
+
 def shell(title: str, desc: str, body: str, depth: int) -> str:
     up = "../" * depth
     return f"""<!doctype html>
@@ -45,7 +49,7 @@ def shell(title: str, desc: str, body: str, depth: int) -> str:
 <meta name="description" content="{E(desc)}">
 <meta property="og:title" content="{E(title)}">
 <meta property="og:description" content="{E(desc)}">
-<link rel="stylesheet" href="{up}assets/site.css">
+<link rel="stylesheet" href="{up}{CSS_HREF}">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -421,7 +425,13 @@ def main() -> int:
 
     out = ROOT / a.out
     (out / "assets").mkdir(parents=True, exist_ok=True)
-    (out / "assets" / "site.css").write_text(f"/* seed {SEED} — see scripts/sitegen/theme.py */\n" + CSS)
+    sheet = f"/* seed {SEED} — see scripts/sitegen/theme.py */\n" + CSS
+    digest = hashlib.sha256(sheet.encode()).hexdigest()[:10]
+    global CSS_HREF
+    CSS_HREF = f"assets/site.{digest}.css"
+    for stale in (out / "assets").glob("site*.css"):   # matches the unhashed name too
+        stale.unlink()
+    (out / CSS_HREF).write_text(sheet)
     (out / ".nojekyll").write_text("")
 
     lines = {}
