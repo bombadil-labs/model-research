@@ -26,6 +26,26 @@ REQUIRED = ("id", "claim", "status")
 ID_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 
 
+def resolve_where(line_dir: pathlib.Path, where: str) -> str | None:
+    """Resolve a claim's `where` to a path relative to the REPOSITORY ROOT, or None.
+
+    A `where` may be written relative to the line (`notes/foo.md`) or to the repo root
+    (`docs/INSTRUMENTS.md`, which is shared across lines). Both are legitimate, so both are
+    accepted — but the resolution must happen in ONE place. It did not: the validator tried both
+    bases while the page builder assumed the line, and every claim citing the shared instruments
+    ledger rendered a link that 404'd. This is that one place; the builder imports it.
+    """
+    if not where:
+        return None
+    bare = where.split("#")[0].strip()
+    if not bare:
+        return None
+    for base, prefix in ((line_dir, f"research/{line_dir.name}/"), (ROOT, "")):
+        if (base / bare).exists():
+            return prefix + where
+    return None
+
+
 def check_line(d: pathlib.Path) -> tuple[list[str], int, int]:
     path = d / "claims.yaml"
     if not path.exists():
@@ -67,10 +87,11 @@ def check_line(d: pathlib.Path) -> tuple[list[str], int, int]:
                 errs.append(f"{tag}: `claim` must be a sentence ending in a full stop")
             if len(text.split()) < 4:
                 errs.append(f"{tag}: `claim` reads as a topic, not an assertion")
-        # a `where` that names a repo file must exist
-        w = (c.get("where") or "").split("#")[0].strip()
-        if w and "/" in w and not (d / w).exists() and not (ROOT / w).exists():
-            errs.append(f"{tag}: `where` points at {w!r}, which does not exist")
+        # a `where` that names a repo file must exist, under the line or at the repo root
+        w = (c.get("where") or "").strip()
+        if w and "/" in w and resolve_where(d, w) is None:
+            errs.append(f"{tag}: `where` points at {w.split('#')[0]!r}, which exists under "
+                        "neither the line nor the repository root")
     return errs, terminal, len(claims)
 
 

@@ -91,7 +91,7 @@ def test_unknown_status_fails(tmp_path):
 
 def test_where_pointing_at_a_missing_file_fails(tmp_path):
     d = write(tmp_path, [{**BASE, "where": "docs/NOPE.md"}])
-    assert any("does not exist" in e for e in cc.check_line(d)[0])
+    assert any("exists under neither" in e for e in cc.check_line(d)[0])
 
 
 def test_the_real_lines_validate_and_neither_is_falsely_closed():
@@ -183,3 +183,43 @@ def test_the_stylesheet_name_is_content_hashed(tmp_path):
     b = build_and_get_href(tmp_path / "b", mutate=True)
     assert re.match(r"assets/site\.[0-9a-f]{10}\.css", a), a
     assert a != b, "changing the stylesheet did not change its URL — caches will serve the old one"
+
+
+def test_resolve_where_accepts_both_bases_and_reports_which():
+    """A `where` may be line-relative or repo-root-relative; both are legitimate. What is not
+    legitimate is resolving them in two places with two different assumptions, which is how every
+    claim citing the shared instruments ledger came to render a 404."""
+    narr = ROOT / "research" / "narrative"
+    assert cc.resolve_where(narr, "docs/EXPERIMENTS.md") == "research/narrative/docs/EXPERIMENTS.md"
+    assert cc.resolve_where(narr, "docs/INSTRUMENTS.md") == "docs/INSTRUMENTS.md"   # repo root
+    assert cc.resolve_where(narr, "docs/EXPERIMENTS.md#h51").endswith("EXPERIMENTS.md#h51")
+    assert cc.resolve_where(narr, "docs/NOPE.md") is None
+    assert cc.resolve_where(narr, "") is None
+
+
+def test_no_built_page_emits_a_link_that_cannot_resolve(tmp_path):
+    """Every terminal claim links its evidence. Those links pointed into the SITE, which contains
+    only index pages, so each one 404'd while the validator -- checking the repository -- passed.
+    Checked offline: relative hrefs must exist in the output, and GitHub blob hrefs must name a
+    file that exists in the repo."""
+    import subprocess, sys as _s, re
+    r = subprocess.run([_s.executable, str(ROOT / "scripts" / "build_pages.py"),
+                        "--out", str(tmp_path / "s")], capture_output=True, text=True)
+    assert r.returncode == 0, r.stderr
+    out = tmp_path / "s"
+    BLOB = "https://github.com/bombadil-labs/model-research/blob/main/"
+    bad = []
+    for page in out.rglob("*.html"):
+        for href in re.findall(r'href="([^"]+)"', page.read_text()):
+            if href.startswith("#") or href == BLOB.rstrip("/").replace("/blob/main", ""):
+                continue
+            if href.startswith(BLOB):
+                rel = href[len(BLOB):].split("#")[0]
+                if not (ROOT / rel).exists():
+                    bad.append(f"{page.name} -> {href} (no such file in the repo)")
+            elif href.startswith(("http://", "https://")):
+                continue
+            else:
+                if not (page.parent / href.split("#")[0]).exists():
+                    bad.append(f"{page.name} -> {href} (not in the built site)")
+    assert not bad, "unresolvable links:\n  " + "\n  ".join(bad)

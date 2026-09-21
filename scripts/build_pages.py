@@ -28,9 +28,27 @@ import yaml
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
+from check_claims import resolve_where  # noqa: E402
 from sitegen.theme import CSS, GLYPH, SEED  # noqa: E402
 
 TERMINAL = {"holds", "narrowed", "falsified", "withdrawn", "retired"}
+REPO = "https://github.com/bombadil-labs/model-research"
+BLOB = REPO + "/blob/main"
+
+
+def evidence_href(line: str, where: str) -> str:
+    """Where a claim's evidence actually lives, as a URL a reader can open.
+
+    `where` is a repo path (docs/EXPERIMENTS.md, notes/foo.md#h51) because that is what
+    check_claims.py validates against. The built site contains only index pages, so emitting it
+    as a relative href produced a 404 on every terminal claim: the validator was checking the
+    repository while the page was linking the site. Markdown evidence therefore points at the
+    source on GitHub, which renders it and honours the heading anchor; in-page anchors stay local.
+    """
+    if not where or where.startswith(("#", "http://", "https://")):
+        return where or "#"
+    rel = resolve_where(ROOT / "research" / line, where)
+    return f"{BLOB}/{rel}" if rel else "#"
 E = lambda s: html.escape(str(s), quote=False)
 
 
@@ -85,12 +103,12 @@ def meter(term: int, tot: int, w: int = 300) -> str:
             f'<rect width="{w*frac:.0f}" height="8" rx="4" fill="var(--ink)"/></svg>')
 
 
-def claims_table(claims: list[dict], anchors: dict[str, str]) -> str:
+def claims_table(claims: list[dict], anchors: dict[str, str], line: str) -> str:
     rows = []
     for c in claims:
         g, col, lab = GLYPH[c["status"]]
         term = c["status"] in TERMINAL
-        href = anchors.get(c["id"], c.get("where") or "#")
+        href = anchors.get(c["id"]) or evidence_href(line, c.get("where", ""))
         cls = ' class="wd"' if c["status"] == "withdrawn" else ""
         pre = '<span class="pre">pre-registered</span>' if c.get("pre_registered") else ""
         sup = (f'<div class="ev" style="margin-top:5px">→ {E(c["superseded_by"])}</div>'
@@ -280,6 +298,7 @@ def line_page(d: pathlib.Path, out: pathlib.Path) -> tuple[str, dict]:
   {c}<div style="margin-top:22px">{t}</div></div></section>"""
 
     open_rows = [c for c in claims if c["status"] not in TERMINAL]
+    src = f"{BLOB}/research/{d.name}"
     closing = (f"""<section class="band" style="padding-bottom:64px"><div class="wrap">
   <div class="lab">What is still open</div>
   <p class="d crescendo">
@@ -303,7 +322,7 @@ def line_page(d: pathlib.Path, out: pathlib.Path) -> tuple[str, dict]:
     <span class="m" style="font-size:13px"><strong>{term} of {len(claims)}</strong>
       <span style="color:var(--mut)">claims terminal</span></span>
     <span style="font-size:13px;color:var(--mut)">· the line closes when none are left open</span></div>
-  {claims_table(claims, anchors)}
+  {claims_table(claims, anchors, d.name)}
   {legend()}
 </div></section>
 {ev}{closing}
