@@ -2,7 +2,7 @@
 
 Honest running record. Numbers are from the scripts in `scripts/`, JSON in `results/`. Negative
 and null results are kept. Models: Qwen2.5-0.5B (24 layers, d=896), Qwen2.5-1.5B (28 layers,
-d=1536), CPU, float32. Grid: `prompts/holonic_v1.json` (8 domains x {holonic, flat}, 6 roles).
+d=1536), CPU, float32. Grid: `research/narrative/prompts/holonic_v1.json` (8 domains x {holonic, flat}, 6 roles).
 
 ## CHECKPOINT 2 — 2026-09-12, after 38 stages
 
@@ -85,7 +85,7 @@ history is written up separately in `docs/INSTRUMENTS.md`.*
   order-invariantly — not a representation of elapsed time. `transform: translate (parameterized)` is
   withdrawn from ALGEBRA as a time operator. Subject-relative clocks dropped with reasons on record.
 - **Llama-3.1-405B is unreachable** for this key: "Model is not pinned and hotswapping is not
-  supported", deterministic, 3/3 attempts (h34). `results/ndif_pinned.txt` is stale. The
+  supported", deterministic, 3/3 attempts (h34). `research/narrative/results/ndif_pinned.txt` is stale. The
   scale-vs-tuning spec's "or sufficient scale substitutes for tuning" clause cannot be tested; 70B is
   the largest reachable base model.
 
@@ -210,8 +210,8 @@ residual stream and generating (stage 4), which is the only test that matters fo
 ## 2026-09-11 (hour 2) — Shuffled-holonic control: the stage-2 "shape" is mostly slot position
 
 **Setup.** For each holonic prompt, keep the connective template and all six spans, but permute
-spans across slots with a different derangement per domain (`scripts/make_shuffled.py`, perms
-saved in `prompts/holonic_v1_shuffled.json`). Stacks can then be labeled by SLOT (position in the
+spans across slots with a different derangement per domain (`scripts/narrative/make_shuffled.py`, perms
+saved in `research/narrative/prompts/holonic_v1_shuffled.json`). Stacks can then be labeled by SLOT (position in the
 template) or, using the saved permutation, by CONTENT (which original role the span was). Because
 each domain uses a different derangement, position and content are decorrelated across domains.
 
@@ -225,7 +225,7 @@ each domain uses a different derangement, position and content are decorrelated 
 | holonic~shuffled labeled by CONTENT | 0.05 | 0.2 |
 | prompt vs its own scrambled twin, by CONTENT | 0.34 (1.00 at layer 0) | |
 
-Full sweep: `results/stage2_qwen1.5b_rsa_content.json`, `results/stage2_qwen1.5b_rsa_shuffled.json`.
+Full sweep: `research/narrative/results/stage2_qwen1.5b_rsa_content.json`, `research/narrative/results/stage2_qwen1.5b_rsa_shuffled.json`.
 
 **Reading.** Almost all of the cross-domain agreement measured in stage 2 is explained by *which
 slot of the template a span sits in*. Relabel by content and the agreement is at chance from layer
@@ -266,23 +266,23 @@ points. Stage 4 readout can proceed on the content-offset directions, which are 
 5-dim span of per-slot mean vectors (leave-pair-out, estimated on the shuffled set) cuts
 slot-labeled cross-domain RSA from 0.52 to 0.23 at layer 20 (0.38 at layer 28) and lifts
 content-labeled RSA only from 0.05 to 0.13. Position is not confined to a small linear subspace,
-and the 6-point pooled RSA remains blind to content. `scripts/stage2_deslot.py`,
-`results/stage2_qwen1.5b_deslot.json`. Conclusion: fix the design (rotate content through slots
+and the 6-point pooled RSA remains blind to content. `scripts/narrative/stage2_deslot.py`,
+`research/narrative/results/stage2_qwen1.5b_deslot.json`. Conclusion: fix the design (rotate content through slots
 across paraphrases), not the post-processing.
 
 ## 2026-09-11 (hour 3) — Position-balanced grid: role identity is a linear signature; a genuine relation signal survives after removing it
 
-**Setup.** `scripts/make_rotated.py`: each domain's six holonic spans presented with role-neutral
+**Setup.** `scripts/narrative/make_rotated.py`: each domain's six holonic spans presented with role-neutral
 connectives ("First, … Second, …") in all six cyclic rotations, so every content role sits in every
 slot once per domain. 48 prompts, roles labeled by content. Extracted on Qwen2.5-1.5B
-(`results/stacks_qwen2.5_1.5b_holonic_v1_rotated.npz`).
+(`research/narrative/results/stacks_qwen2.5_1.5b_holonic_v1_rotated.npz`).
 
 **Stage 2 on the rotated grid (RSA, cross-domain, layer 20).** Same-rotation pairs (position and
 content aligned) 0.56; different-rotation pairs labeled by slot (position only) 0.49; different
 rotation labeled by content (content only) 0.17; per-domain average over rotations (position
 balanced) 0.22. Content-only RSA at layer 0 is already 0.15. **The six-point pooled RSA is a
 position detector; the layers add almost no content shape beyond embedding-level lexical
-similarity.** `scripts/stage2_rotated.py`, `results/stage2_qwen1.5b_rotated.json`.
+similarity.** `scripts/narrative/stage2_rotated.py`, `research/narrative/results/stage2_qwen1.5b_rotated.json`.
 
 **Stage 3, and a correction to hours 1–2.** With 42 training examples the full affine map
 (ridge 10) scored role_rank 2.0 and, at the best layer, 1.08. But the *constant* mean-target
@@ -306,7 +306,7 @@ domain? Null: shuffle the source/target pairing among training rows within each 
 Per layer: 3.68 at layer 0, 3.20 at 4, 3.00 at 8, 2.77 at 14, **2.58 at 20**, 3.22 at 28. Predicted-
 target cosine rises from 0.00 (layer 0) to 0.19 (layers 18–28). Easiest relations:
 objectified→disturbance (1.9), disturbance→embedded (2.1), embedded→from_above (2.3). Hardest:
-anything →new_subject or →from_below (3.6–3.8). `results/stage3_qwen1.5b_rotated_rolecentered.json`.
+anything →new_subject or →from_below (3.6–3.8). `research/narrative/results/stage3_qwen1.5b_rotated_rolecentered.json`.
 
 **Reading.** After removing position (balanced by design), role identity (centered), and domain
 address (candidates are from the same prompt), an affine map fit on seven domains still moves a
@@ -329,7 +329,7 @@ block 20). Add s·dir_R at every position during a teacher-forced pass over
 `"<lead> First, <span_r>."` for each of the held-out domain's six spans. gain_r = log p(span_r | +dir_R)
 − log p(span_r | base). If dir_R is a lens, gain is largest for r = R. Control: random directions of
 the same norm (two per condition). ‖dir_R‖ is 18–19% of the mean residual norm at layer 20.
-`scripts/stage4.py`, `results/stage4_qwen1.5b_roledir_l20.json`.
+`scripts/narrative/stage4.py`, `research/narrative/results/stage4_qwen1.5b_roledir_l20.json`.
 
 **Qwen2.5-1.5B, rank of the target role's span by log-prob gain (1 = best, chance 3.5).**
 
@@ -348,7 +348,7 @@ others. Equal-norm random directions do nothing. This is a held-out, controlled 
 the role directions from hour 3 are causally usable, not just decodable. It is the first "lens"
 result: a shape learned elsewhere, pointed at a new domain, selects the right part.
 
-**Qualitative generations** (`scripts/stage4_generate.py`, greedy, 1.5B base model) are much
+**Qualitative generations** (`scripts/narrative/stage4_generate.py`, greedy, 1.5B base model) are much
 weaker than the numbers. Shifts are visible but subtle: +from_above pulls continuations into
 retrospective past tense ("the story was about… what was the change?"), matching how those spans
 were written; +new_subject pulls toward relationships between parts ("what is the relationship
@@ -369,8 +369,8 @@ on the other 7 domains × 6 rotations (ridge 10, layer 20), predict d's target-c
 its source residual, and patch `dir_T + pred` versus `dir_T` alone. Controls: `dir_T + random`
 (same norm as pred, ×2) and `dir_T + pred_from_wrong_source` (map applied to a different role's
 residual, rescaled). Metric: extra log-prob gain on the target span beyond the role-only patch.
-‖pred‖ ≈ 1.06 ‖dir_T‖. Six pairs × 8 domains. `scripts/stage4_relation.py`,
-`results/stage4b_qwen1.5b_relation_l20.json`.
+‖pred‖ ≈ 1.06 ‖dir_T‖. Six pairs × 8 domains. `scripts/narrative/stage4_relation.py`,
+`research/narrative/results/stage4b_qwen1.5b_relation_l20.json`.
 
 | patch added to dir_T | extra gain on target span (nats) | rank of target (role-only: 1.85) |
 |---|---|---|
@@ -406,12 +406,12 @@ larger target gain with less collateral damage than layer 20; later runs should 
 
 ## 2026-09-11 (hour 6) — Narrative factors: era and voice are directions, they compose, and order barely matters
 
-**Grid.** `prompts/narrative_factors_v1.json`: 4 scenes (gate, theft, farewell, storm) × 3 eras
+**Grid.** `research/narrative/prompts/narrative_factors_v1.json`: 4 scenes (gate, theft, farewell, storm) × 3 eras
 (medieval, 1920s, far future) × 3 voices (terse, ornate, childlike) = 36 spans, each rendering the
 same scene event in one era and one voice. One prompt per span (`"A moment from a story: <span>"`),
 pooled over span tokens. Directions are leave-one-scene-out: dir_era[e] = mean(era e) − grand
-mean over the other three scenes; same for voice. `scripts/extract_factors.py`,
-`scripts/stage5_factors.py`, `results/stage5_qwen1.5b_factors_l14.json`.
+mean over the other three scenes; same for voice. `scripts/narrative/extract_factors.py`,
+`scripts/narrative/stage5_factors.py`, `research/narrative/results/stage5_qwen1.5b_factors_l14.json`.
 
 **(A) Decodability, no model needed** (nearest factor direction, held-out scene; chance 0.33).
 Voice: 0.92 at layer 0, ~0.92 throughout. Era: **0.28 at layer 0**, 0.64 at 2, 0.89 at 10,
@@ -433,7 +433,7 @@ pair of layers the factors nearly commute. The holonomy we speculated about is s
 variants averages to exactly 2 by construction, so the "readout under patch" numbers in the log are
 meaningless. Replaced by a variance decomposition of the 3×3 gain matrix under a single-factor
 patch (fraction explained by the on-target factor vs the other factor vs residual);
-`scripts/stage5_crosstalk.py`, `results/stage5_qwen1.5b_crosstalk_l14.json`.
+`scripts/narrative/stage5_crosstalk.py`, `research/narrative/results/stage5_qwen1.5b_crosstalk_l14.json`.
 
 | patch (layer 14, scale 1) | on-target factor | other factor (cross-talk) | residual | on-target rank/3 |
 |---|---|---|---|---|
@@ -483,7 +483,7 @@ interference.
 
 ## 2026-09-11 — Qualitative: factor directions in generation
 
-`scripts/stage5_generate.py`, Qwen2.5-1.5B base, greedy, layer 14, scale 1.5, directions built
+`scripts/narrative/stage5_generate.py`, Qwen2.5-1.5B base, greedy, layer 14, scale 1.5, directions built
 from all four scenes. Prompt: *"A moment from a story: The door opened and"*.
 
 - **base:** a man walked in. He was tall and thin, with a shock of white hair and a beard that reached down to his chest. He wore a long, flowing robe and a pair of spectacles
@@ -505,10 +505,10 @@ evidence.
 
 ## 2026-09-11 (hour 8) — Three factors: era × voice × tense compose, with a clean cross-talk matrix
 
-**Grid.** `prompts/narrative_factors_v2.json`: the 36 spans of v1 (tense = past) plus minimal
+**Grid.** `research/narrative/prompts/narrative_factors_v2.json`: the 36 spans of v1 (tense = past) plus minimal
 present-tense rewrites of each (verb forms only), 72 spans, 4 scenes × 3 eras × 3 voices × 2 tenses.
-`scripts/stage6_factors.py` generalizes stage 5 to any number of factors. Qwen2.5-1.5B, layer 14,
-scale 1, leave-one-scene-out. `results/stage6_qwen1.5b_three_l14.json`.
+`scripts/narrative/stage6_factors.py` generalizes stage 5 to any number of factors. Qwen2.5-1.5B, layer 14,
+scale 1, leave-one-scene-out. `research/narrative/results/stage6_qwen1.5b_three_l14.json`.
 
 **(A) Decodability.** Era 0.31 at layer 0 → 0.92 at layer 12 (computed). Voice 0.92 throughout
 (lexical, stable). Tense **1.00 at layer 0** → 0.78 at layer 28 (lexical, decays as the residual
@@ -550,7 +550,7 @@ factor (mood, point of view, genre) is the harder test and still requires writin
 
 ## 2026-09-11 (hour 9) — Mood: a semantic factor, weaker than era, integrated at the end of the sentence
 
-**Grid.** `prompts/narrative_mood_v1.json`: 4 scenes × 3 eras × 3 moods (dread, tender, comic) =
+**Grid.** `research/narrative/prompts/narrative_mood_v1.json`: 4 scenes × 3 eras × 3 moods (dread, tender, comic) =
 36 spans, one neutral voice, same scene event in each. Mood is carried by *what happens in the last
 clause* (the horse's eyes are wrong; a note in a hand he had taught to write; the Duke had already
 arrived twice), not by vocabulary throughout.
@@ -594,7 +594,7 @@ steer. Mean-pooled directions at layer 14 and scale 1.5 did **not** produce visi
 the last-token, layer-18, scale-2+ setting is what works.
 
 **Quantitative (mean-pooled directions, layer 14, scale 1, leave-one-scene-out).**
-`results/stage6_qwen1.5b_mood_l14.json`.
+`research/narrative/results/stage6_qwen1.5b_mood_l14.json`.
 
 | | factor direction | random | chance |
 |---|---|---|---|
@@ -619,7 +619,7 @@ generator.
 
 ## 2026-09-11 (hour 10) — Theme over multi-sentence spans: a reliable selector, a poor generator
 
-**Grid.** `prompts/narrative_theme_v1.json`: 4 situations (a debt comes due, a message arrives, a
+**Grid.** `research/narrative/prompts/narrative_theme_v1.json`: 4 situations (a debt comes due, a message arrives, a
 door, a meal) × 3 eras × 3 themes (betrayal, sacrifice, homecoming) = 36 passages of ~61 words,
 three sentences each, neutral voice. Theme is what the passage is *about*, distributed over the
 whole span rather than carried by one clause.
@@ -635,7 +635,7 @@ The mirror image of mood: theme is distributed, so mean pooling reads it and the
 not. Two-thirds of it is already present at the embedding layer (lexical cueing: *sworn, forged,
 seal* vs *gave, so that* vs *gone … years ago, asked whether*), and the stack adds ~10 points.
 
-**Quantitative (mean-pooled directions, layer 20, scale 1).** `results/stage6_qwen1.5b_theme_l20.json`.
+**Quantitative (mean-pooled directions, layer 20, scale 1).** `research/narrative/results/stage6_qwen1.5b_theme_l20.json`.
 
 | | factor direction | random | chance |
 |---|---|---|---|
@@ -658,7 +658,7 @@ directions do not rescue it. Faint traces at ×2.5: +sacrifice → "She was tire
 of the fighting, tired of the killing… of her friends, and… her enemies, and… her family";
 +betrayal → "She had been so sure that she would be safe, but now she was afraid"; +homecoming →
 "I thought it was lost, but it wasn't. I found it again." The rest is base-like or degenerate.
-`results/stage6_theme_gens.log`.
+`research/narrative/results/stage6_theme_gens.log`.
 
 **Reading.** This is the first factor where the selector/generator gap is wide, and it is the
 factor the additive picture was expected to strain on. A theme is a *relation among events across
@@ -678,7 +678,7 @@ the relation-operator idea from stage 3 brought back at the plot level.
 
 **Multi-layer, re-imposed.** Same theme grid; the (factor, level) direction is estimated at each of
 layers 12, 16, 20, 24 and added at all four (scale 0.5 each) so that later blocks cannot erode it.
-`results/stage6_qwen1.5b_theme_multilayer.json`.
+`research/narrative/results/stage6_qwen1.5b_theme_multilayer.json`.
 
 | | single layer 20, scale 1 | four layers, scale 0.5 each |
 |---|---|---|
@@ -696,7 +696,7 @@ collapse suppressed, the base model's other failure mode appears: it drifts into
 not of the patch. Inside the prose that survives, traces are faint and factor-appropriate:
 +sacrifice → hunger, starving, "no food for them", "they ate some of their own meat";
 +homecoming → "carrying his pack… walking for days", "waiting for it… hope of rescue… what they'd
-found out about him"; +betrayal → nothing consistent. `results/stage6_theme_gens_multi.log`.
+found out about him"; +betrayal → nothing consistent. `research/narrative/results/stage6_theme_gens_multi.log`.
 
 **Reading.** The theme boundary from hour 10 stands. Neither erosion (fixed by multi-layer
 re-imposition) nor degenerate decoding (fixed by the penalty) was the obstacle; the obstacle is
@@ -708,7 +708,7 @@ with the competence (instruction-tuned or larger), not a better patch.
 ## 2026-09-11 (hour 12) — Instruct model: theme steering becomes partly legible, and hits the refusal direction
 
 Same theme grid, extracted on **Qwen2.5-1.5B-Instruct**; directions from its own activations.
-`results/stage6_qwen1.5b_instruct_theme_l20.json`, `results/stage6_theme_gens_instruct.log`.
+`research/narrative/results/stage6_qwen1.5b_instruct_theme_l20.json`, `research/narrative/results/stage6_theme_gens_instruct.log`.
 
 **Quantitative (layer 20, scale 1).** Theme decodability 0.81 (vs 0.78 base). Theme lens 1.22/3
 (random 1.92). Era + theme composed 1.97/9. Cross-talk era→theme 0.11, theme→era 0.18. Same as
@@ -782,11 +782,11 @@ At 6B the theme lens is near-perfect, composition is tighter, and era leaks into
 Gemma-2-9B-it's selector numbers match the 1.5B rather than GPT-J, even though its theme
 *decodability* (0.94) and its *generation* (hour 13) are the best of the three: the selector test
 saturates early, and the model that steers generation is not the one with the tightest selector.
-`results/stage6_gemma_theme.log`, `results/stage6_gemma9b_theme_l20.json`.
-`results/stage6_gptj_theme.log` (the per-case JSON for this run was lost to a serialization bug,
+`research/narrative/results/stage6_gemma_theme.log`, `research/narrative/results/stage6_gemma9b_theme_l20.json`.
+`research/narrative/results/stage6_gptj_theme.log` (the per-case JSON for this run was lost to a serialization bug,
 fixed since; the summary is in the log).
 
-**Gemma-2-9B-it generations** (`scripts/ndif_generate.py`; direction added at block 20 on every
+**Gemma-2-9B-it generations** (`scripts/narrative/ndif_generate.py`; direction added at block 20 on every
 decoding step, greedy, 60 tokens; directions from Gemma's own activations).
 
 *Raw continuation, "It was late when the news reached her, and":*
@@ -812,11 +812,11 @@ accepts. Selector-level numbers on Gemma follow when the battery completes.
 
 ## 2026-09-11 (hour 14) — Move the address, keep the form: an era shift preserves theme
 
-**Setup.** `scripts/stage7_shift.py`. For each of the 36 theme passages (era e1, theme t), add the
+**Setup.** `scripts/narrative/stage7_shift.py`. For each of the 36 theme passages (era e1, theme t), add the
 era-shift patch dir_era[e2] − dir_era[e1] (leave-one-situation-out, layer 14, scale 1) at every
 position while the model reads the passage. Read the span representation at layer 20 and classify
 it by nearest era direction and nearest theme direction. Controls: no patch; a random direction of
-the same norm. Qwen2.5-1.5B. `results/stage7_qwen1.5b_shift.json`.
+the same norm. Qwen2.5-1.5B. `research/narrative/results/stage7_qwen1.5b_shift.json`.
 
 | condition | era reads as target e2 | era reads as original e1 | theme reads as t |
 |---|---|---|---|
@@ -824,7 +824,7 @@ the same norm. Qwen2.5-1.5B. `results/stage7_qwen1.5b_shift.json`.
 | **era shift** | **0.89** | 0.04 | **0.81** |
 | random, same norm | 0.03 | 0.93 | 0.79 |
 
-**Gemma-2-9B-it, same protocol via NDIF** (`scripts/ndif_shift.py`, `results/stage7_gemma9b_shift.json`):
+**Gemma-2-9B-it, same protocol via NDIF** (`scripts/narrative/ndif_shift.py`, `research/narrative/results/stage7_gemma9b_shift.json`):
 
 | condition | era reads as target e2 | era reads as original e1 | theme reads as t |
 |---|---|---|---|
@@ -846,11 +846,11 @@ fair to the held-out situation but shares training data across era and theme.
 
 ## 2026-09-11 (hour 15) — Deterritorialization via dictionary width: narrower dictionaries keep more general features
 
-**Setup.** Gemma-2-9B-it, block-20 residuals per token (via NDIF, `scripts/ndif_tokens.py`) for a
-canonical Picard description (`prompts/picard.json`) and 72 reference passages (the theme and mood
+**Setup.** Gemma-2-9B-it, block-20 residuals per token (via NDIF, `scripts/narrative/ndif_tokens.py`) for a
+canonical Picard description (`research/narrative/prompts/picard.json`) and 72 reference passages (the theme and mood
 grids). Gemma Scope JumpReLU dictionaries at layer 20, widths **16k** (L0≈47) and **131k**
 (L0≈43). Generality of a feature = fraction of reference passages on which it fires at least once
-(label-free; Neuronpedia is unreachable here). `scripts/sae_ladder.py`, `results/sae_ladder_picard.json`.
+(label-free; Neuronpedia is unreachable here). `scripts/narrative/sae_ladder.py`, `research/narrative/results/sae_ladder_picard.json`.
 
 **Distribution.** Content features active on the description (anchored on an alphabetic token,
 excluding features that fire on >90% of references):
@@ -879,15 +879,15 @@ similarity only.
 
 ## 2026-09-11 (hour 16) — The relation lens with forty domains: the relation was starved, not absent
 
-**Setup.** `prompts/holonic_v2.json`: the original 8 holonic domains plus 32 generated by
-Gemma-2-9B-it from the schema spec (`scripts/ndif_gen_domains.py`) and reviewed by Claude
-(`prompts/holonic_candidates_review.json`; 8 domains had clauses that copied the example's wording
+**Setup.** `research/narrative/prompts/holonic_v2.json`: the original 8 holonic domains plus 32 generated by
+Gemma-2-9B-it from the schema spec (`scripts/narrative/ndif_gen_domains.py`) and reviewed by Claude
+(`research/narrative/prompts/holonic_candidates_review.json`; 8 domains had clauses that copied the example's wording
 paraphrased minimally). Rotated into the position-balanced Latin-square form (240 prompts),
 extracted on Qwen2.5-1.5B, and run through the hour-3 protocol unchanged: role-centering
 (subtract each role's cross-domain mean from training folds), full affine operator fit in dual
 form (ridge 10), leave-one-domain-out, role_rank = where the true target role lands among the
 held-out prompt's six roles by cosine to the prediction (chance 3.5), null = shuffle the
-source/target pairing within training folds. Layers 0–28 step 4. `results/stage3_v2.log`.
+source/target pairing within training folds. Layers 0–28 step 4. `research/narrative/results/stage3_v2.log`.
 
 | | role_rank, all layers (chance 3.5) |
 |---|---|
@@ -905,7 +905,7 @@ chance. This is the strong form of the original hypothesis, and it now has suppo
 learned in known domains transfers to an unknown one, and its weakness at seven domains was a
 data limit.**
 
-**Per-layer profile** (`results/stage3_qwen1.5b_v2_rolecentered.json`): role_rank 2.73 at layer 0,
+**Per-layer profile** (`research/narrative/results/stage3_qwen1.5b_v2_rolecentered.json`): role_rank 2.73 at layer 0,
 2.20 at 4, 1.98 at 10, **1.73 at 16**, 1.86 at 20, 2.39 at 24, 2.73 at 28; predicted-target cosine
 rises from 0.08 to 0.35–0.39. Compared with seven domains (3.68 → 2.58 → 3.22), the whole curve
 has shifted down by about one rank and the peak moved earlier (16 vs 20). Layer 0 is now below
@@ -922,9 +922,9 @@ target, hour 5: null at 7 domains) is the next test, now with a real operator to
 
 ## 2026-09-11 (hour 17) — Derivative curves: theme accumulates in the middle beat, era is lexically early, mood is last-token
 
-**Setup** (agent run, `scripts/derivative_curves.py`, `scripts/derivative_figures.py`,
-`results/derivative_curves.json`, `results/notes/derivative_curves.md`, figures under
-`results/figures/`). Qwen2.5-1.5B. Per-token projection of the layer-20 residual onto
+**Setup** (agent run, `scripts/narrative/derivative_curves.py`, `scripts/narrative/derivative_figures.py`,
+`research/narrative/results/derivative_curves.json`, `research/narrative/notes/derivative_curves.md`, figures under
+`research/narrative/results/figures/`). Qwen2.5-1.5B. Per-token projection of the layer-20 residual onto
 leave-one-situation-out theme and era directions across each three-sentence theme passage;
 per-sentence means; beat-to-beat differences; the mood grid at layers 16–20. Control: random
 direction triples of matched norm (margin 0.000 ± 0.002, hit 0.33 at every position).
@@ -959,9 +959,9 @@ cosines; a naive sentence split drops 2 of 36 passages from the per-sentence ana
 
 ## 2026-09-11 (hour 18) — Absential ring by decoder geometry: falsified as "implied but absent content"
 
-**Setup** (agent run; `scripts/absential_ring.py`, `scripts/ndif_absential_probe.py`,
-`results/absential_census.json`, `results/absential_probe_gemma9b.json`,
-`results/notes/absential.md`). Gemma Scope 16k, layer 20, Gemma-2-9B-it. Active set A = features
+**Setup** (agent run; `scripts/narrative/absential_ring.py`, `scripts/narrative/ndif_absential_probe.py`,
+`research/narrative/results/absential_census.json`, `research/narrative/results/absential_probe_gemma9b.json`,
+`research/narrative/notes/absential.md`). Gemma Scope 16k, layer 20, Gemma-2-9B-it. Active set A = features
 firing on any non-BOS token; formatting features (generality > 0.9) excluded. Ring R = inactive
 features whose decoder direction has cosine ≥ 0.40 to some active content feature. The inactive
 max-cosine distribution is smooth with no shoulder, so τ = 0.40 is the 97.5th percentile, a choice
@@ -998,8 +998,8 @@ in VISION.md and comes with semantics attached.
 
 ## 2026-09-11 (hour 19) — Commutator trajectories: factor patches do not commute under generation, but divergence is bounded and one factor dominates by depth
 
-**Setup** (agent run; `scripts/ndif_commutator.py`, `results/commutator_gemma9b.json`,
-`results/notes/commutator.md`). Gemma-2-9B-it via NDIF. Pairs (era, theme) and (era, voice), all
+**Setup** (agent run; `scripts/narrative/ndif_commutator.py`, `research/narrative/results/commutator_gemma9b.json`,
+`research/narrative/notes/commutator.md`). Gemma-2-9B-it via NDIF. Pairs (era, theme) and (era, voice), all
 3 × 3 level combinations, two neutral prompts, greedy 60-token generations under base, A alone,
 B alone, AB (A at block 14 + B at block 20) and BA (B at 14 + A at 20), patch re-applied every
 step. Divergence measured two ways: token-level (first differing token, Hamming) and readout-level
@@ -1039,7 +1039,7 @@ layer sweep is the cheapest next control.
 ## 2026-09-11 (hour 20) — Generative relation lens at forty domains: better than random, not source-specific
 
 **Setup** (agent run, terminated by a rate limit after the sweep finished; analysis by the
-integrator). `scripts/stage4b_relation_v2.py`, `results/stage4b_qwen1.5b_v2_relation.json`.
+integrator). `scripts/narrative/stage4b_relation_v2.py`, `research/narrative/results/stage4b_qwen1.5b_v2_relation.json`.
 Qwen2.5-1.5B. Twelve held-out domains (the original eight plus four generated), six role pairs
 (four easy, two hard), operator fit on the other 39 domains at layer 16 and patched at layer 16:
 `dir_T + λ·pred` vs `dir_T` alone. Controls: random direction of the same norm (×2) and the
@@ -1068,9 +1068,9 @@ missing: source-specificity under patching.
 ## 2026-09-11 (hour 21) — Continuation-defined absential test: null at n = 8 on the confound-free readouts
 
 **Setup** (agent run, terminated by a rate limit after the data were collected; pre-registered
-design in the script docstring; analysis by the integrator). `prompts/absential_v1.json` (8 items ×
+design in the script docstring; analysis by the integrator). `research/narrative/prompts/absential_v1.json` (8 items ×
 3 variants, written by Claude: withheld / delivered / neutral, differing in one sentence each),
-`scripts/ndif_absential_continuation.py`, `results/absential_continuation_gemma9b.json`.
+`scripts/narrative/ndif_absential_continuation.py`, `research/narrative/results/absential_continuation_gemma9b.json`.
 Gemma-2-9B-it, block 20, theme directions from the theme grid.
 
 **Readout A, representational.** Last-token projection onto the withheld theme's direction:
@@ -1096,8 +1096,8 @@ a null, not a falsification: the design is right, the sample is small.
 
 ## 2026-09-11 (hour 22) — Commutator controls: divergence under generation is generic; dominance is real; regimes are noise
 
-**Setup** (agent run; `scripts/ndif_commutator.py` extended with `--null`, `--layers`, two more
-prompts; `results/commutator_gemma9b_v2.json`, `results/notes/commutator_v2.md`; the hour-19 rule
+**Setup** (agent run; `scripts/narrative/ndif_commutator.py` extended with `--null`, `--layers`, two more
+prompts; `research/narrative/results/commutator_gemma9b_v2.json`, `research/narrative/notes/commutator_v2.md`; the hour-19 rule
 and outputs untouched and reproduced exactly). Gemma-2-9B-it. Null: matched-norm random direction
 pairs through the identical AB/BA protocol. Four prompts. Second layer pair (16/24) for era × theme.
 
@@ -1132,11 +1132,11 @@ boundedly. The predictions written before this run (RESULTS hour 22 conversation
 ## 2026-09-11 (hour 23) — External-author replication: GPT-written grids reproduce the factor results
 
 **Setup.** Two grids written by GPT from a spec (no Claude-written spans shown; scenes disjoint from
-every Claude grid): `prompts/narrative_factors_gpt_v1.json` (river rescue, accusation at a table,
-wound dressed, bargain struck × 3 eras × 3 voices) and `prompts/narrative_theme_gpt_v1.json`
+every Claude grid): `research/narrative/prompts/narrative_factors_gpt_v1.json` (river rescue, accusation at a table,
+wound dressed, bargain struck × 3 eras × 3 voices) and `research/narrative/prompts/narrative_theme_gpt_v1.json`
 (inheritance divided, boat launched, sick animal, contest entered × 3 eras × 3 themes, three
 sentences each). Same scripts, same layers, same leave-one-scene-out protocol, Qwen2.5-1.5B.
-`results/gpt_grids_run.log`, `results/stage6_qwen1.5b_*_gpt_*.json`, `results/stage7_qwen1.5b_shift_gpt.json`.
+`research/narrative/results/gpt_grids_run.log`, `results/stage6_qwen1.5b_*_gpt_*.json`, `research/narrative/results/stage7_qwen1.5b_shift_gpt.json`.
 
 | measure | Claude grids | GPT grids |
 |---|---|---|
@@ -1161,14 +1161,14 @@ model authors agree; no human-written grid yet.
 
 ## 2026-09-11 (hour 24) — The relation operator is source-specific at the selector level
 
-**Setup** (agent run, pre-registered in `scripts/stage3_source_specificity.py`; the agent was
+**Setup** (agent run, pre-registered in `scripts/narrative/stage3_source_specificity.py`; the agent was
 stopped before writing its note; analysis by the integrator). Same protocol as hour 16 (40
 domains, role-centered, dual-form affine, ridge 10, leave-one-domain-out). New comparison: for each
 held-out prompt and pair S→T, feed the fitted operator the prompt's true source residual and,
 separately, each of the prompt's five *other* role residuals (same prompt, so domain address is
 held fixed). Paired win = fraction of (prompt, pair, wrong role) triples where the true source
 ranks the target higher; ties count half. Gate for the patch rerun, fixed in advance: paired win
-≥ 0.60 at layer 16. `results/stage3_source_specificity.json`.
+≥ 0.60 at layer 16. `research/narrative/results/stage3_source_specificity.json`.
 
 | layer | role_rank, true source | role_rank, wrong source | paired win | contrastive fit: rank / win |
 |---|---|---|---|---|
@@ -1190,7 +1190,7 @@ norm, is running.
 
 ## 2026-09-11 (hour 25) — Refined patch test: source-specificity under patching is marginal
 
-**Setup.** `scripts/stage4c_relation_wrong_sources.py`, `results/stage4c_qwen1.5b_v2_wrong_sources.json`.
+**Setup.** `scripts/narrative/stage4c_relation_wrong_sources.py`, `research/narrative/results/stage4c_qwen1.5b_v2_wrong_sources.json`.
 Qwen2.5-1.5B, operator fit at layer 16 on 39 domains (role-centered, ridge 10), patched at layer
 16 with λ = 0.5 on top of the role direction. Eight held-out domains, four easy pairs. Conditions:
 relation (true source), every one of the five wrong sources of the same prompt at its **natural
@@ -1216,9 +1216,9 @@ the relation operator is a source-specific selector and a weakly source-specific
 
 ## 2026-09-11 (hour 26) — Abstraction ladder extended: the fixed points are trivial, and the flow is an ordering, not an optimum
 
-**Setup** (agent run; `scripts/sae_ladder_v2.py`, `scripts/ndif_gen_broad.py`,
-`results/sae_ladder_v2.json`, `results/broad_corpus.json`, `results/notes/sae_ladder_v2.md`,
-`results/figures/sae_ladder_v2.png`). Gemma-2-9B-it; Gemma Scope 16k dictionaries at layers 9, 20,
+**Setup** (agent run; `scripts/narrative/sae_ladder_v2.py`, `scripts/narrative/ndif_gen_broad.py`,
+`research/narrative/results/sae_ladder_v2.json`, `research/narrative/results/broad_corpus.json`, `research/narrative/notes/sae_ladder_v2.md`,
+`research/narrative/results/figures/sae_ladder_v2.png`). Gemma-2-9B-it; Gemma Scope 16k dictionaries at layers 9, 20,
 31 (only the two new 16k files downloaded); a broad 111-passage, 12-genre reference corpus
 generated by Gemma for generality; an abstraction flow at layer 20 keeping only features with
 generality ≥ g_k and reconstructing each of the 72 narrative passages from the survivors.
@@ -1250,14 +1250,14 @@ is not: separation is best at the bottom of the ladder and decays, so what the f
 general; merges go up) survives the broad corpus with a smaller effect size.
 
 **Cost note.** This agent spent ~300k tokens and ~270 NDIF jobs; two full token-fetch runs were
-lost to hung jobs before it added per-text checkpointing (`scripts/ndif_tokens_resume.py`). Future
+lost to hung jobs before it added per-text checkpointing (`scripts/narrative/ndif_tokens_resume.py`). Future
 briefs should point agents at the resumable fetch.
 
 ## 2026-09-12 (hour 27) — Generation-level recomposition: the era shift does not move generated text, on 70B or 9B (agent)
 
-**Question.** Hour 14 showed the era shift moves the era *readout* (0.88–0.89) while keeping theme. Does the same patch move the era of the *generated continuation*, and does the largest NDIF model do it more cleanly? Pre-registered prediction in `scripts/ndif_recompose_gen.py`: 70B moves more cleanly than 9B.
+**Question.** Hour 14 showed the era shift moves the era *readout* (0.88–0.89) while keeping theme. Does the same patch move the era of the *generated continuation*, and does the largest NDIF model do it more cleanly? Pre-registered prediction in `scripts/narrative/ndif_recompose_gen.py`: 70B moves more cleanly than 9B.
 
-**Setup.** `prompts/narrative_theme_v1.json`, chat-templated prefix (raw prompts made both instruct models answer comprehension questions; a pilot switched form before measurement). Llama-3.1-70B-Instruct via NDIF, patch at block 26, read at 40 (80 blocks, d = 8192); Gemma-2-9B-it patch 14, read 20. 144 generations each at scale 1.0; nine Gemma generations lost to empty NDIF payloads. The random condition has no target, so the fair control is "leaves e1". Lexical check: does the shifted continuation gain its target era's vocabulary?
+**Setup.** `research/narrative/prompts/narrative_theme_v1.json`, chat-templated prefix (raw prompts made both instruct models answer comprehension questions; a pilot switched form before measurement). Llama-3.1-70B-Instruct via NDIF, patch at block 26, read at 40 (80 blocks, d = 8192); Gemma-2-9B-it patch 14, read 20. 144 generations each at scale 1.0; nine Gemma generations lost to empty NDIF payloads. The random condition has no target, so the fair control is "leaves e1". Lexical check: does the shifted continuation gain its target era's vocabulary?
 
 | | Llama-70B-Instruct | Gemma-9B-it |
 |---|---|---|
@@ -1269,7 +1269,7 @@ briefs should point agents at the resumable fetch.
 
 **Reading.** Near-null. Against 0.88 at the representational level, the generated text stays in its original era on both models; not one continuation on either model gained target-era vocabulary. The 70B does it *less* than the 9B, so the prediction is falsified. Theme is "kept" identically under every condition and carries no weight. The scale-1.5 arm was not run (budget), so "not fixed by scale" is inferred, not measured. Two infrastructure fixes reached the 70B: `.cpu()` in the layer stack on the model-parallel host, and per-span checkpointing with `retry_job`.
 
-**Consequence for the algebra.** L4 (address/form separation) is a gauge law only. The engine does not carry the shifted address into text at either scale, which is the same boundary as L3 with a different factor. Files: `scripts/ndif_recompose_gen.py`, `results/recompose_gen_{llama70b,gemma9b}.json`, `results/notes/recompose_gen.md`. Cost: ~230k agent tokens.
+**Consequence for the algebra.** L4 (address/form separation) is a gauge law only. The engine does not carry the shifted address into text at either scale, which is the same boundary as L3 with a different factor. Files: `scripts/narrative/ndif_recompose_gen.py`, `results/recompose_gen_{llama70b,gemma9b}.json`, `research/narrative/notes/recompose_gen.md`. Cost: ~230k agent tokens.
 
 ## 2026-09-12 (hour 28) — Parameterized time translation: a shared clock exists and selects; subject-relative timescales do not appear (agent)
 
@@ -1289,7 +1289,7 @@ briefs should point agents at the resumable fetch.
 
 **Grades.** P1 partial (variance and adjacency hold; monotonicity does not). P2 fell: the knee is undiscriminating, and under a fallback knee the mayfly lands at the slow end. P3 partial: the orchard is the only subject whose displacement shrinks at one year, but the six-month/one-year cosine is 0.56, not below 0.5. P4 fell: the real and fictional populations never align. P5 held on gain ranking. P6 partial: the shared displacement is 2.8× the phrase alone, but the cosine to the phrase direction is flat across depth rather than declining.
 
-**Reading.** There is a shared, phrase-independent clock direction that the model computes from the state description, and it works as a selector, strongest at geological Δt. What is missing is the subject-relative part: residual curves are flat, so "the mountain's million years" is not a knee in this grid. **Confound:** the far-Δt passages share an erasure vocabulary across subjects, so the shared clock at 10 ky–1 My may be that vocabulary, and that is where the selector effect lives; the random control is worse than chance (5.65), so part of the gap is avoided disruption. Single model, single author. Files: `prompts/time_translation_v1.json`, `scripts/time_translation{,_selector}.py`, `results/time_translation_{measures,selector}.json`, `results/notes/time_translation.md`, five figures under `results/figures/time_translation_*.png`. Cost: ~170k agent tokens.
+**Reading.** There is a shared, phrase-independent clock direction that the model computes from the state description, and it works as a selector, strongest at geological Δt. What is missing is the subject-relative part: residual curves are flat, so "the mountain's million years" is not a knee in this grid. **Confound:** the far-Δt passages share an erasure vocabulary across subjects, so the shared clock at 10 ky–1 My may be that vocabulary, and that is where the selector effect lives; the random control is worse than chance (5.65), so part of the gap is avoided disruption. Single model, single author. Files: `research/narrative/prompts/time_translation_v1.json`, `scripts/time_translation{,_selector}.py`, `results/time_translation_{measures,selector}.json`, `research/narrative/notes/time_translation.md`, five figures under `results/figures/time_translation_*.png`. Cost: ~170k agent tokens.
 
 ## 2026-09-12 (hour 29) — The generation boundary is a magnitude, not a wall: era shift at 3× re-imposed moves generated text (agent)
 
@@ -1306,11 +1306,11 @@ briefs should point agents at the resumable fetch.
 
 **Reading.** At 3× with re-imposition the generated text reads as the target era in 0.84 of cases, matching the representational number from hour 14 (0.88), and 0.30 of continuations use target-era vocabulary ("starship", "airlock", "sword"), with theme kept at its baseline. Prose did not degrade at any scale; the cost is vocabulary bleed inside coherent sentences and a rising NDIF job-loss rate (5, 13, 17 of 72 at 0.5×, 2×, 3×; prefix-only lost none). Prediction 1 half-held (threshold crossed, no prose cost). Prediction 2 was mis-premised: hour 27's script already re-imposed at every step (`tracer.all()`), confirmed by a smoke test in which prefix-only reproduces the unpatched output exactly. So re-imposition alone does nothing at 1×; it helps once scale is raised (0.18 vs 0.08 at 2×). Hour 27's inference "not fixed by scale" is overturned for 9B; the 70B was tested at 1× only.
 
-**Consequence for the algebra.** L3 stands as stated (gauge results do not transfer at matched norm) but its boundary is now quantified: the engine needs roughly 3× the gauge-level norm, applied throughout decoding, to write the address. L4 crosses into generation under those conditions. Files: `scripts/ndif_recompose_sweep.py`, `results/recompose_sweep_*.json`, `results/notes/recompose_sweep.md`. Cost: ~125k agent tokens.
+**Consequence for the algebra.** L3 stands as stated (gauge results do not transfer at matched norm) but its boundary is now quantified: the engine needs roughly 3× the gauge-level norm, applied throughout decoding, to write the address. L4 crosses into generation under those conditions. Files: `scripts/narrative/ndif_recompose_sweep.py`, `results/recompose_sweep_*.json`, `research/narrative/notes/recompose_sweep.md`. Cost: ~125k agent tokens.
 
 ## 2026-09-12 (hour 30) — Vocabulary-matched time grid: the shared clock is not the shared vocabulary (agent, finished by hand after a container restart)
 
-**Question.** Hour 28's shared clock might be the erasure/geological vocabulary that all far-interval passages shared. Rewrite the Δt ≥ 100 y states so no content word appears for more than two subjects (checker: `scripts/time_translation_vocab_check.py`, zero violations in v2 vs up to five subjects per word in v1) and rerun everything unchanged. Prediction, written first: shared variance drops below 0.4; the 1 My selector worsens past 3.0 but beats random.
+**Question.** Hour 28's shared clock might be the erasure/geological vocabulary that all far-interval passages shared. Rewrite the Δt ≥ 100 y states so no content word appears for more than two subjects (checker: `scripts/narrative/time_translation_vocab_check.py`, zero violations in v2 vs up to five subjects per word in v1) and rerun everything unchanged. Prediction, written first: shared variance drops below 0.4; the 1 My selector worsens past 3.0 but beats random.
 
 | layer 14 | v1 | v2 |
 |---|---|---|
@@ -1322,7 +1322,7 @@ briefs should point agents at the resumable fetch.
 | at 1 ky / 10 ky / 1 My: clock | 3.12 / 3.25 / 1.62 | 1.38 / 2.75 / 3.25 |
 | τ(s) | 1 day, all | 1 day, all |
 
-**Grades.** "Shared fraction < 0.4" fell: it rose. "1 My > 3.0 but < random" held (3.25 vs 4.38), but the effect moved to 1 ky rather than shrinking, and the overall selector improved. **Reading.** The clock survives the removal of its suspected lexical cause, points the same way (cos ≈ 0.9), and is more monotone in log Δt than before. Hour 28's confound is closed; the shared clock stands as a computed, phrase-independent direction. Subject-relative timescales remain absent. The v1 vs v2 random controls differ (5.65 vs 4.83), so the random baseline is noisy at n = 8 per Δt. Files: `prompts/time_translation_v2.json`, `scripts/time_translation_vocab_check.py`, `scripts/_build_v2_states.py`, `results/time_translation_v2_*.json`, `results/time_translation_v1_v2_shared_cos.json`, `results/notes/time_translation_v2.md`, five figures. Cost: ~150k agent tokens; the agent's final write-up was lost to a container restart and written from its saved outputs.
+**Grades.** "Shared fraction < 0.4" fell: it rose. "1 My > 3.0 but < random" held (3.25 vs 4.38), but the effect moved to 1 ky rather than shrinking, and the overall selector improved. **Reading.** The clock survives the removal of its suspected lexical cause, points the same way (cos ≈ 0.9), and is more monotone in log Δt than before. Hour 28's confound is closed; the shared clock stands as a computed, phrase-independent direction. Subject-relative timescales remain absent. The v1 vs v2 random controls differ (5.65 vs 4.83), so the random baseline is noisy at n = 8 per Δt. Files: `research/narrative/prompts/time_translation_v2.json`, `scripts/narrative/time_translation_vocab_check.py`, `scripts/narrative/_build_v2_states.py`, `results/time_translation_v2_*.json`, `research/narrative/results/time_translation_v1_v2_shared_cos.json`, `research/narrative/notes/time_translation_v2.md`, five figures. Cost: ~150k agent tokens; the agent's final write-up was lost to a container restart and written from its saved outputs.
 
 ## 2026-09-12 (hour 31) — Time grid on Gemma-9B: the shared clock is model-invariant; subject clocks are still absent (agent)
 
@@ -1336,7 +1336,7 @@ briefs should point agents at the resumable fetch.
 | ‖shared_exp‖/‖shared_ctrl‖ | ~3.1 | 1.67 |
 | τ(s) | 1 day, all 8 | 1 day, all 8, all layers |
 
-**Grades.** Clock replication held on both numbers. Subject timescales fell: 0 of 8, no ordering to grade. **Reading.** The shared clock's variance share, monotonicity, and cosine geometry are the same across a 6× parameter jump and a different family; it is a computed direction, not a small-model artifact. The phrase-only ratio is weaker at 9B (1.67), still above 1 at every Δt. Subject-relative timescales are absent at both scales, which moves the question from model size to the probe: state-span mean pooling under a fixed template may average out exactly the subject-specific change. Files: `scripts/ndif_time_translation_extract.py`, `results/time_translation_gemma_measures.json`, `results/notes/time_translation_gemma.md`, `results/figures/time_translation_gemma_*.png`; `scripts/time_translation.py` gained `--stacks/--out/--suffix`. Cost: ~115k agent tokens, 15 min wall.
+**Grades.** Clock replication held on both numbers. Subject timescales fell: 0 of 8, no ordering to grade. **Reading.** The shared clock's variance share, monotonicity, and cosine geometry are the same across a 6× parameter jump and a different family; it is a computed direction, not a small-model artifact. The phrase-only ratio is weaker at 9B (1.67), still above 1 at every Δt. Subject-relative timescales are absent at both scales, which moves the question from model size to the probe: state-span mean pooling under a fixed template may average out exactly the subject-specific change. Files: `scripts/narrative/ndif_time_translation_extract.py`, `research/narrative/results/time_translation_gemma_measures.json`, `research/narrative/notes/time_translation_gemma.md`, `results/figures/time_translation_gemma_*.png`; `scripts/narrative/time_translation.py` gained `--stacks/--out/--suffix`. Cost: ~115k agent tokens, 15 min wall.
 
 ## 2026-09-12 (hour 32) — The subject-clock probe was reading its own noise; and the time grid has a lexical confound (agent, spec `docs/specs/subject_clocks_v1.md`)
 
@@ -1350,7 +1350,7 @@ briefs should point agents at the resumable fetch.
 
 **Other grades.** P2 fell (partial: τ determinate 7/7, asteroid null, mayfly ≤ 1 week all hold; ordering does not). P3 fell with a twist: per-subject directions dominate at 9 of 9 intervals, but flat in Δt, which is subject identity rather than a clock; an added Δt-centred test gives 4 of 9 at Δt ≥ 100 y, p < 0.001, so there is direction-level subject specificity with no subject-ordered timing. P5 fell. P6 partial (layer 0 exactly zero as predicted; peak at 20–27, not 14–20). **Power rule:** r = 6.37 at layer 14, above the 4.1 threshold, so the grid is adequate at three paraphrases and piece 2 must not write more.
 
-**Consequence.** Three logged "negatives" are withdrawn as untested, and one standing positive (the shared clock) is now qualified by a lexical confound. Any Gemma re-run needs a v3 grid whose state texts do not restate the interval. Files: `scripts/subject_clocks_{build,report}.py`, `scripts/subject_clocks.py`, `prompts/subject_clocks_v1.json`, `results/subject_clocks_measures.json`, `results/notes/subject_clocks.md`, 8 figures. Cost: ~160k agent tokens, 35 min wall.
+**Consequence.** Three logged "negatives" are withdrawn as untested, and one standing positive (the shared clock) is now qualified by a lexical confound. Any Gemma re-run needs a v3 grid whose state texts do not restate the interval. Files: `scripts/subject_clocks_{build,report}.py`, `scripts/narrative/subject_clocks.py`, `research/narrative/prompts/subject_clocks_v1.json`, `research/narrative/results/subject_clocks_measures.json`, `research/narrative/notes/subject_clocks.md`, 8 figures. Cost: ~160k agent tokens, 35 min wall.
 
 ## 2026-09-12 (hour 33) — The 70B does not cross the generation boundary the 9B crosses (agent)
 
@@ -1367,13 +1367,13 @@ briefs should point agents at the resumable fetch.
 
 **Grades.** The crossing prediction is refuted: at 3× the 70B reaches 0.43, below Gemma's *scale-2* value of 0.58, and never crosses 0.5. The lexical comparison held (0.25 vs 0.30), and by more than expected in proportion: the 70B's vocabulary resists more than its era readout does, so readout and surface text do not move in lockstep. Prose stayed fluent at both scales; the cost is vocabulary bleed. Zero job losses across 144 generations, against Gemma's rising loss rate at the same scales.
 
-**Reading.** The magnitude threshold found in hour 29 is not a constant of the method: the same patch at the same relative depth and the same multiple of norm moves a 9B and not a 70B. Either the larger model's prior is harder to displace, or its era competence lives elsewhere. **Confound the agent flagged:** patch 26 / read 40 of 80 blocks is the same *depth fraction* as Gemma's 14 / 20 of 42, not the same absolute depth or the same mechanism; a layer sweep on the 70B is the missing control. This also sharpens what the scale-vs-tuning spec must test: bigger is not more steerable, so the 9B-instruct advantage of claim 7 may be tuning rather than size. Files: `results/recompose_sweep_70b_{2.0,3.0}.json`, `results/notes/recompose_sweep_70b.md`. Cost: ~115k agent tokens, ~2 h NDIF.
+**Reading.** The magnitude threshold found in hour 29 is not a constant of the method: the same patch at the same relative depth and the same multiple of norm moves a 9B and not a 70B. Either the larger model's prior is harder to displace, or its era competence lives elsewhere. **Confound the agent flagged:** patch 26 / read 40 of 80 blocks is the same *depth fraction* as Gemma's 14 / 20 of 42, not the same absolute depth or the same mechanism; a layer sweep on the 70B is the missing control. This also sharpens what the scale-vs-tuning spec must test: bigger is not more steerable, so the 9B-instruct advantage of claim 7 may be tuning rather than size. Files: `results/recompose_sweep_70b_{2.0,3.0}.json`, `research/narrative/notes/recompose_sweep_70b.md`. Cost: ~115k agent tokens, ~2 h NDIF.
 
 ## 2026-09-12 (hour 34) — 405B is unreachable, and the random-direction control collapses on every Llama (agent, spec `docs/specs/scale_vs_tuning_v1.md`)
 
 **Piece 1** of the scale-vs-tuning spec: smoke tests on four Llamas with a numeric 405B go/no-go, theme-grid extraction on Llama-3.1-8B / 70B / 70B-Instruct, the selector battery, plus a cheap layer sweep aimed at hour 33's depth-fraction confound. Piece 2 (generation arms) not run.
 
-**405B: no-go, and permanently so for this key.** `ndif_smoke.py` fails deterministically, 3 of 3 attempts in ~0.2 s: "Model is not pinned and hotswapping is not supported for this API key". A hard server refusal, not a timeout, and it contradicts our own `results/ndif_pinned.txt`, whose "PINNED RUNNING" entry for 405B is stale. **Consequence:** the spec's Outcome B escape clause, "or sufficient scale substitutes for tuning", cannot be tested at all. If piece 2 lands in Outcome B, the tuning claim stands at 70B as the largest reachable base model, full stop.
+**405B: no-go, and permanently so for this key.** `ndif_smoke.py` fails deterministically, 3 of 3 attempts in ~0.2 s: "Model is not pinned and hotswapping is not supported for this API key". A hard server refusal, not a timeout, and it contradicts our own `research/narrative/results/ndif_pinned.txt`, whose "PINNED RUNNING" entry for 405B is stale. **Consequence:** the spec's Outcome B escape clause, "or sufficient scale substitutes for tuning", cannot be tested at all. If piece 2 lands in Outcome B, the tuning claim stands at 70B as the largest reachable base model, full stop.
 
 **Smoke latencies** (all fine): 8B 4.1 s, 70B 3.7 s, 70B-Instruct 3.8 s end to end. **Extraction:** 36 of 36 spans on each model, zero losses (8B 228 s, 70B 782 s, 70B-Instruct 720 s).
 
@@ -1381,7 +1381,7 @@ briefs should point agents at the resumable fetch.
 
 **Layer sweep (extra).** Selector at layer 14 (Gemma's absolute depth) vs 26 (fraction-matched) on both 70Bs: era and theme lens ranks differ by at most ~0.15. So hour 33's cap at 0.43 is not explained by picking the wrong depth for the *selector* signal, though it does not identify the right depth either. A generation-level layer sweep is the real test and belongs to piece 2.
 
-**Next, in order.** (1) Diagnose the random-control collapse before spending anything on piece 2. (2) Correct `results/ndif_pinned.txt`. (3) Piece 2 with a generation-level layer sweep on the 70B pair, 405B dropped. Files: `results/scale_vs_tuning_selector_*.json`, `results/notes/scale_vs_tuning_p1.md`. Cost: ~130k agent tokens, ~45 min NDIF.
+**Next, in order.** (1) Diagnose the random-control collapse before spending anything on piece 2. (2) Correct `research/narrative/results/ndif_pinned.txt`. (3) Piece 2 with a generation-level layer sweep on the 70B pair, 405B dropped. Files: `results/scale_vs_tuning_selector_*.json`, `research/narrative/notes/scale_vs_tuning_p1.md`. Cost: ~130k agent tokens, ~45 min NDIF.
 
 ## 2026-09-12 (hour 35) — The shared clock survives removing the interval restatement, but a lexical floor remains (agent)
 
@@ -1403,11 +1403,11 @@ briefs should point agents at the resumable fetch.
 
 **Reading.** The clock is not an artifact of restated intervals; removing every duration expression costs it almost nothing, and the direction found in the clean grid is the same direction. But a lexical floor remains that duration-word removal cannot close: far-interval states necessarily use a different register (denudation, cadastres, broods) from near-interval ones (unchanged, identical), so magnitude of change is readable from a bag of embeddings. That is realistic content rather than a bug, and it means no text-based time grid can drive layer-0 discrimination to chance. Any future version must either accept the floor and measure the *gain* over it with depth, or move to non-lexical manipulations.
 
-Files: `prompts/time_translation_v3.json`, `scripts/time_translation_leak_check.py`, `scripts/time_translation_discrimination.py`, `scripts/_build_v3_states.py`, `results/time_translation_v3_measures.json`, `results/notes/time_translation_v3.md`, figures. Cost: ~300k agent tokens (480 hand-written leak-free passages), ~30 min compute.
+Files: `research/narrative/prompts/time_translation_v3.json`, `scripts/narrative/time_translation_leak_check.py`, `scripts/narrative/time_translation_discrimination.py`, `scripts/narrative/_build_v3_states.py`, `research/narrative/results/time_translation_v3_measures.json`, `research/narrative/notes/time_translation_v3.md`, figures. Cost: ~300k agent tokens (480 hand-written leak-free passages), ~30 min compute.
 
 ## 2026-09-12 (hour 36) — Two bugs in the remote selector harness; hour 34's numbers withdrawn, the Llama lens is real after the fix (agent)
 
-**Cause, definitive.** In `scripts/ndif_factors.py` the patch was written `B[l].output[0][:] = B[l].output[0] + v`. Under transformers ≥ 4.54 a Llama, Gemma or Qwen decoder layer returns a **bare tensor** `[batch, seq, d]`, so `output[0]` is *batch row 0*, not the hidden states. Hour 34 ran with `NDIF_CHUNK=9`, all nine candidates in one padded batch, so every patch — factor and random alike — touched exactly one of nine texts and left the other eight identical to base. Second bug: `rank = 1 + #{gain[c] > gain[target]}` returns rank 1 on ties, so the eight untouched candidates all read "rank 1". Together these **fix the expected rank at 11/9 = 1.22 for any direction whatsoever**, which is the entire hour-34 band of 1.00–1.28. Fingerprint: every cross-talk row in all five hour-34 files is exactly 0.25/0.25 (one combination moved, eight identical), where hour 13 on Gemma ranges 0.007–0.846. A third, minor bug: `padding_side` is `left` on all three remote models while the lead mask assumed right padding.
+**Cause, definitive.** In `scripts/narrative/ndif_factors.py` the patch was written `B[l].output[0][:] = B[l].output[0] + v`. Under transformers ≥ 4.54 a Llama, Gemma or Qwen decoder layer returns a **bare tensor** `[batch, seq, d]`, so `output[0]` is *batch row 0*, not the hidden states. Hour 34 ran with `NDIF_CHUNK=9`, all nine candidates in one padded batch, so every patch — factor and random alike — touched exactly one of nine texts and left the other eight identical to base. Second bug: `rank = 1 + #{gain[c] > gain[target]}` returns rank 1 on ties, so the eight untouched candidates all read "rank 1". Together these **fix the expected rank at 11/9 = 1.22 for any direction whatsoever**, which is the entire hour-34 band of 1.00–1.28. Fingerprint: every cross-talk row in all five hour-34 files is exactly 0.25/0.25 (one combination moved, eight identical), where hour 13 on Gemma ranges 0.007–0.846. A third, minor bug: `padding_side` is `left` on all three remote models while the lead mask assumed right padding.
 
 **Evidence.** On NDIF with Llama-3.1-8B, three texts in one batch: as-shipped gains `[-7.47, 0, 0]`; whole-tensor patch `[-7.47, -2.23, -6.79]`; layer output shape `[3, 18, 4096]`. Locally on Qwen2.5-1.5B the collapse reproduces on a non-Llama: correct patch gives factor 1.22/1.33 and random 2.00/2.11; row-0-only patch gives factor 1.11/1.17 and **random 1.31/1.14**. So the cause is the control's application, not a Llama property and not metric degeneracy.
 
@@ -1417,7 +1417,7 @@ Files: `prompts/time_translation_v3.json`, `scripts/time_translation_leak_check.
 
 **Withdrawn:** all five hour-34 selector files (8B, 70B, 70B-Instruct and both layer-14 sweeps), all three cross-talk matrices from that hour, the "random control collapses on every Llama" finding, and the layer-sweep conclusion — so **hour 33's depth-fraction confound is NOT narrowed and remains open**. **Standing:** decodability 0.89/0.89/0.92 and the 405B no-go from hour 34; hour 13; every local battery (hours 6–11, 23, 28–32); and all generation-level NDIF results (hours 12–14, 19, 22, 27, 29, 31, 33), which all ran at batch 1 and never hit the bug. **One flag for later:** hour 8's `tense` random control reads 1.44, closer to the treatment than it should be.
 
-**Fix applied** (commit `fe31abb`): a tuple-or-tensor `resid()` helper, mid-rank tie handling, a no-patch arm, and right padding. Piece 2 of the scale-vs-tuning spec must re-run the 70B pair's battery from scratch (no valid Llama-70B selector numbers exist), require factor, random and no-patch in every battery, and assert that the number of moved candidates equals the batch size. Files: `results/notes/random_control_diagnosis.md`, corrected `scripts/ndif_factors.py`. Cost: ~180k agent tokens.
+**Fix applied** (commit `fe31abb`): a tuple-or-tensor `resid()` helper, mid-rank tie handling, a no-patch arm, and right padding. Piece 2 of the scale-vs-tuning spec must re-run the 70B pair's battery from scratch (no valid Llama-70B selector numbers exist), require factor, random and no-patch in every battery, and assert that the number of moved candidates equals the batch size. Files: `research/narrative/notes/random_control_diagnosis.md`, corrected `scripts/narrative/ndif_factors.py`. Cost: ~180k agent tokens.
 
 ## 2026-09-12 (hour 37) — First valid Llama-70B selector numbers: instruction tuning sharpens era, not theme (agent)
 
@@ -1436,7 +1436,7 @@ Files: `prompts/time_translation_v3.json`, `scripts/time_translation_leak_check.
 
 **Note against hour 33.** The 70B's generation-level cap (0.43 era-as-target at 3× re-imposed, against Gemma's 0.84) sits alongside a 70B-Instruct era selector of 1.06, which is as sharp as any we have measured. Sharp selector, weak engine: another instance of the gauge/engine split, now at fixed size.
 
-Files: `results/scale_vs_tuning_selector_70b*_fixed.json`, `results/notes/scale_vs_tuning_70b_fixed.md`, assertion in `scripts/ndif_factors.py`. Cost: ~170k agent tokens, under an hour of NDIF.
+Files: `results/scale_vs_tuning_selector_70b*_fixed.json`, `research/narrative/notes/scale_vs_tuning_70b_fixed.md`, assertion in `scripts/narrative/ndif_factors.py`. Cost: ~170k agent tokens, under an hour of NDIF.
 
 ## 2026-09-12 (hour 38) — The clock is more than vocabulary, but it is order-invariant and does not transfer: the line closes (agent, spec `docs/specs/clock_depth_gain_v1.md`)
 
@@ -1452,7 +1452,7 @@ Files: `results/scale_vs_tuning_selector_70b*_fixed.json`, `results/notes/scale_
 
 **Verdict.** The kill condition is not met: there is real gain over the lexical floor, far above noise. But the gain survives word-shuffling, so it is order-invariant, and it does not transfer to the case where the model must supply the change itself. That is a **computed register detector**, not a clock: the model reads "how much change is described here" from a bag of words, more accurately than the embeddings alone allow, and does not build a representation of elapsed time. The Gemma gate is **no-go** (it required S2, S3 and S4). This is the finding the planner predicted and it is the end of the line; the standing result is the shared-direction geometry of hours 28–35, now correctly named.
 
-Files: `scripts/clock_gain*.py`, `prompts/clock_gain_v1.json`, `results/clock_gain_v1_*.json`, `results/notes/clock_depth_gain.md`, two figures. Cost: ~220k agent tokens, ~43 min compute.
+Files: `scripts/clock_gain*.py`, `research/narrative/prompts/clock_gain_v1.json`, `results/clock_gain_v1_*.json`, `research/narrative/notes/clock_depth_gain.md`, two figures. Cost: ~220k agent tokens, ~43 min compute.
 
 ## 2026-09-12 (hour 39) — Instrument audit: a padding bug corrupted 76% of hour 31; its numbers are replaced, its conclusion survives (agent)
 
@@ -1500,10 +1500,10 @@ two dictionaries' *different marginal* generality distributions (not 50%); a siz
 random-feature control on the width effect; matched-count and label-permutation nulls on the flow.
 Cost: one CPU-only session, no NDIF, since corpus residuals are cached.
 
-**(e)** `results/ndif_pinned.txt` rewritten from the live status endpoint: base 405B has no running
+**(e)** `research/narrative/results/ndif_pinned.txt` rewritten from the live status endpoint: base 405B has no running
 deployment (warm, unpinned); five pinned running models listed with provenance.
 
-Files: `results/notes/instrument_audit.md`, `docs/INSTRUMENTS.md` §4b, fixes across eight scripts.
+Files: `research/narrative/notes/instrument_audit.md`, `docs/INSTRUMENTS.md` §4b, fixes across eight scripts.
 Cost: ~235k agent tokens, ~70 min wall.
 
 ## 2026-09-13 (hour 40) — Stage 14 was residual arithmetic: claim 6 is withdrawn, and recomposition survives only in generation (agent)
@@ -1552,7 +1552,7 @@ foundation was arithmetic.
 log-prob readout passes through the unembedding rather than being a linear readout of the same
 stream, but it has not been checked. **Confirmed clean:** the role lens (h3, h16) never patches.
 
-Files: `scripts/passthrough_test.py`, `results/passthrough_h14.json`, `results/notes/passthrough_h14.md`.
+Files: `scripts/narrative/passthrough_test.py`, `research/narrative/results/passthrough_h14.json`, `research/narrative/notes/passthrough_h14.md`.
 Cost: ~135k agent tokens, ~35 min.
 
 ## 2026-09-17 (hour 41) — PHASE 0.1: the selector effect is not the direct path. Claims 2 and 4 describe computation (agent, spec `docs/specs/selector_direct_path_v1.md` v2)
@@ -1608,14 +1608,14 @@ Also flagged: era's random arm reads +0.20 rather than null.
 first. Claim 3 (relation selector 2.21/6) is out of scope and remains so: `stage3.py` never constructs
 a model and never patches, verified in review.
 
-Files: `scripts/selector_direct_path{,_report}.py`, 5 result JSONs, `results/notes/selector_direct_path.md`
+Files: `scripts/selector_direct_path{,_report}.py`, 5 result JSONs, `research/narrative/notes/selector_direct_path.md`
 (491 lines), `LM.pre_norm_residual` and `Patch(n_layers)` in `src/lsx/model.py`, 4 new invariants.
 Cost: ~240k agent tokens, 3 h 22 min compute (two concurrent fp32 processes OOM at 15 GB; run sequentially).
 
 ## 2026-09-17 (hour 42) — PHASE 0.2: the abstraction ladder survives its two missing nulls; hour 26's "flow is an ordering" is downgraded to unconfirmed (agent + hand-finished)
 
 The ladder was the only standing claim with no null anywhere. All three specified at hour 39 ran.
-Full numbers and constructions in `results/notes/sae_ladder_nulls.md`.
+Full numbers and constructions in `research/narrative/notes/sae_ladder_nulls.md`.
 
 **Merge test (null 1).** 13 of 15 merges more general, against an exact Poisson-binomial null drawn
 from the same 16,384-feature population the cosine search ranges over: null mean 3.99 (narrative) and
@@ -1640,7 +1640,7 @@ of turn mid-computation. It had solved a real problem worth recording: git workt
 untracked files, so the cached Gemma Scope dictionaries were absent, and it symlinked them from the
 main checkout rather than re-downloading onto a disk a previous session had already filled. The run
 then produced every number and died at serialization (memory) before writing its JSON; the numbers
-here are from the run log, and the script is recovered at `scripts/sae_ladder_nulls.py`.
+here are from the run log, and the script is recovered at `scripts/narrative/sae_ladder_nulls.py`.
 
 **Not tested:** layers other than 20; the selection of the 15 features (the null matches the search
 population, not the selection).
@@ -1749,7 +1749,7 @@ tree than the one being edited — a path shim is now in `tests/conftest.py`, an
 future worktree agent.
 
 Tests 52 passed in 0.54 s. Files: `src/lsx/core/{__init__,types,checks,extract,rediscovery}.py`,
-`tests/test_core_rediscovery.py`, `results/notes/core_p1.md`. `scripts/` untouched, as the spec
+`tests/test_core_rediscovery.py`, `research/narrative/notes/core_p1.md`. `scripts/` untouched, as the spec
 requires. Cost: ~190k agent tokens, ~45 min, no downloads, no NDIF.
 
 ## 2026-09-18 (hour 44) — PHASE 1 piece 2: the registry and calibration battery, and the fix reproduced its own bug (agent)
@@ -1809,7 +1809,7 @@ report, which is the last hole; measure **two** tolerances, the remote re-run sp
 reproduce hour 8 through `composition` against its null of 9.50 rather than as three selector calls.
 
 Files: `src/lsx/core/{planted,registry,instruments}.py`, `tests/test_core_registry.py` (30 tests),
-`results/calibration/*.json`, `results/notes/core_p2.md`. Cost: ~225k agent tokens, ~55 min, no
+`results/calibration/*.json`, `research/narrative/notes/core_p2.md`. Cost: ~225k agent tokens, ~55 min, no
 downloads, no NDIF. `scripts/` untouched.
 
 ## 2026-09-18 (hour 45) — PHASE 1 piece 3: the core reproduces every number it can compute, refuses three, and fails its own gate on coverage (agent)
@@ -1938,13 +1938,13 @@ designed, and closing the gate now means going back and re-running those batteri
 controls, not adjusting the core.
 
 Cost: ~515k agent tokens, ~2 h 10 min, 7 NDIF jobs. Files: `src/lsx/core/remote.py`,
-`tests/test_core_{instruments_p4,remote}.py`, `results/notes/core_p4.md`, calibration reports.
+`tests/test_core_{instruments_p4,remote}.py`, `research/narrative/notes/core_p4.md`, calibration reports.
 
 ## 2026-09-18 (hour 47) — PHASE 1 piece 5: the five refused batteries re-run; the gate closes, and three of our numbers mean less than the record said (agent)
 
 The five §1A targets piece 4 refused on *reporting* grounds were re-run with the arms they were
 missing. **Nothing failed a tolerance. Every number came back inside it. What moved is the floor
-under three of them.** Note: `results/notes/core_p5.md`. 152 tests pass; the rediscovery harness is
+under three of them.** Note: `research/narrative/notes/core_p5.md`. 152 tests pass; the rediscovery harness is
 12/12.
 
 **Phase 1's gate CLOSES, with one target outstanding and named.** §1B: 12 of 12. §1A: seven rows
@@ -2109,7 +2109,7 @@ before the gate decision rather than after it.
 
 ## 2026-09-18 (hour 48) — PHASE 2 derivable batch: the arm-band fix, 27 measurements, and NOT ONE of them reached the ledger (agent, spec `docs/specs/phase2_v1.md` §5)
 
-Note: `results/notes/phase2_derivable.md`. 175 tests pass (152 + 23). Rediscovery harness now 13
+Note: `research/narrative/notes/phase2_derivable.md`. 175 tests pass (152 + 23). Rediscovery harness now 13
 cases (10 pure + 3 model), all caught.
 
 **The headline is the failure, and it invalidates my own spec.** All 27 claims this batch built were
@@ -2214,7 +2214,7 @@ anything the ledger would accept.
 
 ## 2026-09-18 (hour 49) — The band fix's own permissive direction, closed the hour after it opened (agent, open problem 4j)
 
-Note: `results/notes/phase2_unit_band.md`. **179 tests pass** (175 + 4). Rediscovery harness: **14
+Note: `research/narrative/notes/phase2_unit_band.md`. **179 tests pass** (175 + 4). Rediscovery harness: **14
 cases, 11 caught pure, 3 needing a model fixture.**
 
 h48 replaced a band that was wrong by *refusing clean arms* with one that could be wrong by
@@ -2260,7 +2260,7 @@ declares an independent unit, so both bands remain exercised only by tests and p
 
 ## 2026-09-18 (hour 50) — Fifteen rows reach the ledger: the provenance wall was partly a property of how hour 48 ran (agent)
 
-Note: `results/notes/phase2_qwen_ledger.md`. **181 tests pass** (179 + 2). `results/ledger.jsonl`:
+Note: `research/narrative/notes/phase2_qwen_ledger.md`. **181 tests pass** (179 + 2). `research/narrative/results/ledger.jsonl`:
 **21 → 36 rows.**
 
 **I checked hour 48's premise instead of inheriting it, and it was half wrong.** Hour 48 reported
@@ -2357,7 +2357,7 @@ was left alone, already ledgered by the pre-existing route.
 5. Token-level clouds + Gromov-Wasserstein, no role correspondence assumed.
 6. ~~A second model family~~ Pythia-1.4B: everything replicates, slightly stronger.
 7. ~~Commutator controls~~ done (hour 22): divergence generic, dominance real, regimes noise.
-8. ~~Generation-level recomposition at 70B~~ done (hour 27): null at 1×. ~~Scale sweep~~ done (hour 29): 3× re-imposed moves generated text (0.84) on 9B. ~~Same sweep on 70B~~ done (hour 33): only 0.43, does not cross. ~~Layer sweep (selector level)~~ done (hour 34): depth does not explain the cap. ~~Piece 1~~ done (hour 34): **405B unreachable for this key**. The apparent control collapse was OUR BUG (hour 36: batch-row patching plus tie-ranking); hour 34's selector numbers are withdrawn, the fix is in, and the Llama lens is real (8B: era 1.22, theme 1.33, random 2.11, no-patch 2.00). ~~Re-run the 70B pair battery~~ done (hour 37): tuning sharpens era (1.50→1.06), theme is tuning-invariant; sharp selector alongside hour 33's weak engine. Next: piece 2 (generation arms) with a generation-level layer sweep; re-check hour 8's tense control (1.44); correct the stale `results/ndif_pinned.txt`.
+8. ~~Generation-level recomposition at 70B~~ done (hour 27): null at 1×. ~~Scale sweep~~ done (hour 29): 3× re-imposed moves generated text (0.84) on 9B. ~~Same sweep on 70B~~ done (hour 33): only 0.43, does not cross. ~~Layer sweep (selector level)~~ done (hour 34): depth does not explain the cap. ~~Piece 1~~ done (hour 34): **405B unreachable for this key**. The apparent control collapse was OUR BUG (hour 36: batch-row patching plus tie-ranking); hour 34's selector numbers are withdrawn, the fix is in, and the Llama lens is real (8B: era 1.22, theme 1.33, random 2.11, no-patch 2.00). ~~Re-run the 70B pair battery~~ done (hour 37): tuning sharpens era (1.50→1.06), theme is tuning-invariant; sharp selector alongside hour 33's weak engine. Next: piece 2 (generation arms) with a generation-level layer sweep; re-check hour 8's tense control (1.44); correct the stale `research/narrative/results/ndif_pinned.txt`.
 9. ~~Parameterized time translation~~ done (hour 28): shared clock holds and selects; subject clocks absent.
    ~~Vocabulary-matched far-Δt passages~~ done (hour 30): the clock survives. ~~Residual curves on Gemma-9B~~ done (hour 31): clock invariant. **The "subject clocks absent" finding of hours 28/30/31 is WITHDRAWN (hour 32): the probe was at its noise floor.** The shared-clock numbers in those hours are also confounded: the v2 state texts restate the interval phrase, so Δt is lexically recoverable at layer 0. ~~v3 grid~~ done (hour 35). ~~Clock as depth gain~~ done (hour 38): real gain over the floor (0.297, z 7.6) but order-invariant and non-transferring — a computed register detector, not a clock. **Line closed**; Gemma gate no-go. Subject clocks dropped with reasons on record;
    a subject-clock grid where the same Δt phrase appears with subject-appropriate change only.

@@ -81,7 +81,7 @@ the merge hook now puts it in front of you; the rule is that you actually read i
 
 ## Phase 2 — Re-derive the writeup through the core  *(gate: every standing claim is a ledger entry or withdrawn)*
 
-Every claim in `WRITEUP.md` becomes a `Claim` in `results/ledger.jsonl` with provenance, or is
+Every claim in `WRITEUP.md` becomes a `Claim` in `research/narrative/results/ledger.jsonl` with provenance, or is
 withdrawn. `RESULTS.md` hour entries from here on are generated from the ledger. Then write
 **Checkpoint 3** and the **fifth-draft writeup**, which for the first time can say: every number in
 this document was produced by an instrument that has reproduced our prior results and rediscovered

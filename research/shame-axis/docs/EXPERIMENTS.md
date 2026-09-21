@@ -14,9 +14,9 @@ attribution of authorship. Retractions in this log are first-class and are writt
 
 ---
 
-## 2026-09-21 (hour 51) — GOAL 1: the pain axis replicates on a model they used, across the whole curve (agent, spec `results/notes/painaxis_replication_targets.md`)
+## 2026-09-21 (hour 51) — GOAL 1: the pain axis replicates on a model they used, across the whole curve (agent, spec `research/shame-axis/notes/painaxis_replication_targets.md`)
 
-Note: `results/notes/painaxis_tierB.md`. 219 tests pass. Targets were pre-registered and committed
+Note: `research/shame-axis/notes/painaxis_tierB.md`. 219 tests pass. Targets were pre-registered and committed
 before any run, from their published `s1_kfold_summary.csv`.
 
 **Both targets hit on `google/gemma-2-9b-it`, their `Gemma_2_9B_instruct` row.**
@@ -83,8 +83,8 @@ orthogonality claim is still unchecked on gemma. No base `gemma-2-9b`, no shame 
 
 ## 2026-09-21 (hour 52) — GOAL 2: the null arms are clean, and the floor nobody measured takes most of the effect (agent)
 
-Note: `results/notes/painaxis_floor_nulls.md`. **227 tests pass.** Every number below verified from
-`results/painaxis_floor_nulls/floor_null_curves.csv` directly, not from the agent's summary.
+Note: `research/shame-axis/notes/painaxis_floor_nulls.md`. **227 tests pass.** Every number below verified from
+`research/shame-axis/results/painaxis_floor_nulls/floor_null_curves.csv` directly, not from the agent's summary.
 
 **Tier A's numbers survive as a signal and do not survive as a finding about computation.**
 
@@ -154,15 +154,15 @@ chance-to-peak distance on `mean`.
 
 ## 2026-09-21 (hour 53) — GOAL 2: the gaslighting result replicates exactly, and the floor says the network's job is the self/other boundary
 
-Note: `results/notes/painaxis_scenarios.md`. **259 tests pass.** Every number below read from
-`results/painaxis_scenarios/category_z_by_layer.csv` and `nulls_by_layer.csv` directly.
+Note: `research/shame-axis/notes/painaxis_scenarios.md`. **259 tests pass.** Every number below read from
+`research/shame-axis/results/painaxis_scenarios/category_z_by_layer.csv` and `nulls_by_layer.csv` directly.
 
 **Why this hour happened at all.** Hours 51–52 replicated the pain *axis* — pain-vs-control AUC on
 the S1/S2 "… I feel:" sentences. The paper's *gaslighting* claim is a different measurement: its
 Section 4.1 projects 420 conversation scenarios onto that axis and z-scores each against the pool
 of 420. That file had been vendored here since hour 50 and **no script in this repo had ever read
 it**. The whole conscription design decomposes an effect this project had not reproduced. An
-adversarial review of two pending design decisions (`results/notes/conscription_direction.md`,
+adversarial review of two pending design decisions (`research/shame-axis/notes/conscription_direction.md`,
 Fable) found that, and found both decisions ill-posed for related reasons. This is the fix, and it
 cost nothing from the human author.
 
@@ -224,7 +224,7 @@ offered as evidence for a design decision. The sentence-length regularity in the
 **And a false attribution, which is on the record because the study is about false attribution.**
 I told the human author "**your** pre-registration says the arms 'separate on the readout'". That
 file's own second sentence records that Claude wrote it. The author corrected it and asked for the
-questions themselves to be reviewed rather than answered. `results/notes/conscription_prereg.md`
+questions themselves to be reviewed rather than answered. `research/shame-axis/notes/conscription_prereg.md`
 now carries a decision-provenance table naming who decided what and the commit that proves it —
 the only human-authored text in the study is one grid item — and the rule it fixes extends
 non-negotiable 5 from code to provenance: a claim about what a document says is checked against the
@@ -250,7 +250,7 @@ machine-grid items × 6 arms, including an `enact_norecord` arm in the form rule
 
 ## 2026-09-21 (hour 54) — GOAL 2 step 2: the conscription arms separate, and the design's two central predictions are falsified
 
-Note: `results/notes/conscription_pilot.md`. **261 tests pass.** 24 machine-authored items × 7
+Note: `research/shame-axis/notes/conscription_pilot.md`. **261 tests pass.** 24 machine-authored items × 7
 arms on gemma-2-9b-it, read at the generation token, projected onto the externally-fitted `s2`
 pain axis in scenario-pool z units, minus the same paired projection on the static-embedding bag.
 

@@ -2,8 +2,8 @@
 
 Companion to `time_translation.md` (v1). Same eight subjects, intervals, paraphrases, phrase-only
 controls, model (Qwen2.5-1.5B), layers, scripts, seed. Only the state spans for Δt ≥ 100 years
-were rewritten (`scripts/_build_v2_states.py`) so that no content word appears in the far-Δt
-state of more than two subjects. `scripts/time_translation_vocab_check.py` confirms: in v1 the
+were rewritten (`scripts/narrative/_build_v2_states.py`) so that no content word appears in the far-Δt
+state of more than two subjects. `scripts/narrative/time_translation_vocab_check.py` confirms: in v1 the
 far-Δt states shared words such as *sea, ice, gone, sediment, species, geological* across up to
 five subjects; in v2 the maximum is two at every Δt ≥ 100 y, with no violations.
 

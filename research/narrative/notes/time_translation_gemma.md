@@ -1,10 +1,10 @@
 # Time translation on Gemma-2-9B-it (hour 30, scale check)
 
 Companion to `time_translation.md` (v1, Qwen2.5-1.5B) and `time_translation_v2.md` (vocabulary-
-matched far-Δt states, Qwen2.5-1.5B). Same v2 grid (`prompts/time_translation_v2.json`, 480
+matched far-Δt states, Qwen2.5-1.5B). Same v2 grid (`research/narrative/prompts/time_translation_v2.json`, 480
 passages: 240 experimental + 240 phrase-only control), same measurements 1-7
 (`docs/specs/time_translation_v1.md`), no selector test (measurement 8), run on Gemma-2-9B-it via
-NDIF at layers 9, 20, 31 (state span mean-pooled). Extraction: `scripts/ndif_time_translation_extract.py`.
+NDIF at layers 9, 20, 31 (state span mean-pooled). Extraction: `scripts/narrative/ndif_time_translation_extract.py`.
 Measurement: `scripts/time_translation.py prompts/time_translation_v2.json --model
 google/gemma-2-9b-it --layers 9,20,31 --suffix gemma --stage measure`.
 
@@ -33,13 +33,13 @@ Graded against the actual numbers below.
 | real vs fictional residual cos, min / where | (0.49–0.59 range, 100y→1My) | 0.21 at 6 months (min); 0.61 at 1 week (max) |
 
 (Qwen column reproduces `time_translation_v2.md`'s L14 row; full per-Δt numbers are in that note
-and in `results/time_translation_measures.json`.)
+and in `research/narrative/results/time_translation_measures.json`.)
 
 ## τ per subject, Gemma layers 9/20/31
 
 All eight subjects hit half-max residual norm at the smallest Δt tested (1 day) at every layer —
 identical to both Qwen runs. There is no knee to report; the full curves
-(`results/figures/time_translation_gemma_resid_curves.png`) are noisy but flat: residual norm at
+(`research/narrative/results/figures/time_translation_gemma_resid_curves.png`) are noisy but flat: residual norm at
 Δt = 1 day is already comparable to or larger than at Δt = 1,000,000 years for every subject
 (e.g. layer 20: street 41.8 at 1 day vs 77.5 at 1 My, mayfly 52.6 vs 65.4, mountain 51.5 vs 55.8,
 asteroid 71.2 vs 51.1 — no monotone growth, no ordering by subject identity).
@@ -79,7 +79,7 @@ here (e.g. a per-subject direction fit on held-out Δt, not just its norm).
 ## Confounds / caveats
 
 - Layers are not perfectly depth-matched: 20/42 (48%) for Gemma vs 14/28 (50%) for Qwen — close
-  but not identical; layer-9 and layer-31 rows in the full `results/time_translation_gemma_measures.json`
+  but not identical; layer-9 and layer-31 rows in the full `research/narrative/results/time_translation_gemma_measures.json`
   bracket layer 20 similarly to how Qwen's own layer sweep behaves.
 - No selector test (measurement 8) was run per the task's scope, so there is no evidence here on
   whether Gemma's shared direction functions causally as a selector the way Qwen's did (mean rank

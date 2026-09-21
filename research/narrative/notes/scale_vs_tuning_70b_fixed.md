@@ -2,21 +2,21 @@
 
 Re-run of `docs/specs/scale_vs_tuning_v1.md` Piece 1's selector battery on
 `meta-llama/Llama-3.1-70B` and `meta-llama/Llama-3.1-70B-Instruct` with the hour-36 fix to
-`scripts/ndif_factors.py` (tuple-or-tensor `resid()`, mid-rank ties, a no-patch arm, right
+`scripts/narrative/ndif_factors.py` (tuple-or-tensor `resid()`, mid-rank ties, a no-patch arm, right
 padding). No valid 70B selector numbers existed before this run (hour 34's five files, including
 both layer-14 sweeps, were withdrawn as an artifact of the batch-row bug — see
-`results/notes/random_control_diagnosis.md`). Grid: `prompts/narrative_theme_v1.json` (4 scenes ×
+`research/narrative/notes/random_control_diagnosis.md`). Grid: `research/narrative/prompts/narrative_theme_v1.json` (4 scenes ×
 3 eras × 3 themes). Layers: 26 (this spec's assigned patch depth, 26/40 of 80) and 14 (the
 absolute depth used for Gemma-2-9B-it, h13/h27/h29), so the hour-33 depth-fraction confound can
 finally be checked on real 70B numbers rather than the withdrawn hour-34 sweep.
 
-Stacks freshly extracted (`scripts/ndif_extract.py`, not reused — none existed under `results/`):
+Stacks freshly extracted (`scripts/narrative/ndif_extract.py`, not reused — none existed under `results/`):
 `results/stacks_llama_3.1_70b_narrative_theme_v1.npz`, `results/stacks_llama_3.1_70b_instruct_narrative_theme_v1.npz`
 (`results/extract_70b.log`, `results/extract_70b_instruct.log`; ~12-13 min each, 36/36 spans).
 
 ## The positive-control assertion (new, mandatory per task)
 
-`scripts/ndif_factors.py` now asserts, after every factor/random patch, that the number of
+`scripts/narrative/ndif_factors.py` now asserts, after every factor/random patch, that the number of
 candidates whose gain changed is not the hour-36 batch-row signature. That signature is
 **n_changed == 1** (only batch row 0 moves, the other 8 are bit-identical to base, gain exactly
 0.0) — this is what produced hour 34's flat ranks. On the 70B pair the assertion fired first at a
@@ -130,7 +130,7 @@ discriminate era vs. theme competence at generation time, which is Piece 2's job
   (too strict — an occasional single-candidate bf16-precision tie on this scale of model tripped
   it, twice, on independent runs) to `n_changed > 1` (matching the actual documented failure
   signature: batch row 0 only). Both the tighter and the final threshold are recorded in
-  `scripts/ndif_factors.py`; every partial-miss case is logged as a `WARNING` line with the full
+  `scripts/narrative/ndif_factors.py`; every partial-miss case is logged as a `WARNING` line with the full
   gain dict for audit, in the four `.log` files.
 - No other failures. All four battery runs and both extractions completed without job loss on the
   first or second attempt.
@@ -145,9 +145,9 @@ similar. Total wall time for this task: well under an hour.
 
 - `results/stacks_llama_3.1_70b_narrative_theme_v1.npz`, `results/stacks_llama_3.1_70b_instruct_narrative_theme_v1.npz`
   (new, gitignored)
-- `results/scale_vs_tuning_selector_70b_fixed.json` (l26), `results/scale_vs_tuning_selector_70b_instruct_fixed.json` (l26)
-- `results/scale_vs_tuning_selector_70b_l14_fixed.json`, `results/scale_vs_tuning_selector_70b_instruct_l14_fixed.json`
+- `research/narrative/results/scale_vs_tuning_selector_70b_fixed.json` (l26), `research/narrative/results/scale_vs_tuning_selector_70b_instruct_fixed.json` (l26)
+- `research/narrative/results/scale_vs_tuning_selector_70b_l14_fixed.json`, `research/narrative/results/scale_vs_tuning_selector_70b_instruct_l14_fixed.json`
 - `results/extract_70b.log`, `results/extract_70b_instruct.log`
 - `results/scale_vs_tuning_selector_70b_fixed.log`, `results/scale_vs_tuning_selector_70b_instruct_fixed.log`,
   `results/scale_vs_tuning_selector_70b_l14_fixed.log`, `results/scale_vs_tuning_selector_70b_instruct_l14_fixed.log`
-- `scripts/ndif_factors.py` (the positive-control assertion added by this task)
+- `scripts/narrative/ndif_factors.py` (the positive-control assertion added by this task)

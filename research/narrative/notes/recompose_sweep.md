@@ -1,8 +1,8 @@
 # Hour 29: crossing the recomposition boundary — scale and re-imposition on Gemma-2-9B-it
 
-Script: `scripts/ndif_recompose_sweep.py` (pre-registered design is its docstring).
-Data: `results/recompose_sweep_reimpose_0.5.json`, `..._reimpose_2.0.json`, `..._reimpose_3.0.json`,
-`..._prefix_1.0.json`, `..._prefix_2.0.json`. Baseline reused unchanged: `results/recompose_gen_gemma9b.json`.
+Script: `scripts/narrative/ndif_recompose_sweep.py` (pre-registered design is its docstring).
+Data: `research/narrative/results/recompose_sweep_reimpose_0.5.json`, `..._reimpose_2.0.json`, `..._reimpose_3.0.json`,
+`..._prefix_1.0.json`, `..._prefix_2.0.json`. Baseline reused unchanged: `research/narrative/results/recompose_gen_gemma9b.json`.
 
 ## Question
 
@@ -13,7 +13,7 @@ that number past the boundary?
 
 **A note on the premise, recorded before running.** The task brief describes hour 27's patch as a
 "prefix patch" and re-imposition (patching every generated token via `tracer.all()`) as a new condition
-to test. Reading `scripts/ndif_recompose_gen.py`, hour 27's run already uses `tracer.all()` — its
+to test. Reading `scripts/narrative/ndif_recompose_gen.py`, hour 27's run already uses `tracer.all()` — its
 scale-1.0 "shift" numbers (era target 0.27, lex 0.00) are a re-imposition run. So the two axes actually
 tested here are: **(A) scale**, at the re-imposition mechanism hour 27 used, and **(B) mechanism**, a true
 prefix-only patch (verified below to apply only at the prompt's forward pass, iteration 0, and not to any

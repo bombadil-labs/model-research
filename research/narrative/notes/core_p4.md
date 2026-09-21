@@ -16,7 +16,7 @@ batteries — arms that were never run — and two remote targets whose stacks a
 Files added: `src/lsx/core/remote.py`, `tests/test_core_{instruments_p4,remote}.py`,
 `results/{ndif_probe_asserted.json,repro_h16.json,repro_summary_p4.json}`. Modified:
 `planted.py`, `registry.py`, `instruments.py`, `checks.py`, `types.py`, `rediscovery.py`,
-`reproduce.py`, `__init__.py`, `results/ledger.jsonl`. `docs/specs/core_v1.md` edited in §5 and §8,
+`reproduce.py`, `__init__.py`, `research/narrative/results/ledger.jsonl`. `docs/specs/core_v1.md` edited in §5 and §8,
 each marked in the text as written in after the fact. `scripts/` untouched; `RESULTS.md`,
 `WRITEUP.md`, `VISION.md`, `README.md` and `docs/ALGEBRA.md` untouched.
 
@@ -194,7 +194,7 @@ reaches the ledger on the same terms as a local one and no others.
 contract without enforcing it reads as a guarantee, which is worse than no type.
 
 **Measured on a live deployment**, `google/gemma-2-9b-it`, 7 jobs, 24.4 s
-(`results/ndif_probe_asserted.json`):
+(`research/narrative/results/ndif_probe_asserted.json`):
 
 | | |
 |---|---|
@@ -254,7 +254,7 @@ The full 15-layer curve, step 2:
 **And it exposed a number in `RESULTS.md` that disagrees with this repo's own artefact.** §1A's
 target is **2.21**, and the mean of this curve is **2.1692**, which is 0.04 outside
 the ±0.02 local tolerance. That looked like a failure, so it was localised before it was judged:
-`results/stage3_qwen1.5b_v2_rolecentered.json` — h16's own saved per-layer output — was re-read and
+`research/narrative/results/stage3_qwen1.5b_v2_rolecentered.json` — h16's own saved per-layer output — was re-read and
 averaged.
 
 | | value |
@@ -326,7 +326,7 @@ a remark beside it.
 
 **4 reproduced, 5 refused,
 2 deferred, 0 failed.** 4 rows published to
-`results/ledger.jsonl` this piece (eb9bb692bc985d8b, 40fdebdce44586bd, e327e35569f99c96, 80ab67181ac5ef2e), which now holds 7 standing rows.
+`research/narrative/results/ledger.jsonl` this piece (eb9bb692bc985d8b, 40fdebdce44586bd, e327e35569f99c96, 80ab67181ac5ef2e), which now holds 7 standing rows.
 
 **Nothing is withdrawn**, because nothing was re-derived and came back outside its tolerance. Every
 number that could be recomputed came back to the logged decimals: h8 composed 2.806 against 2.81,
@@ -402,7 +402,7 @@ in a way this project has actually been bad, and record what fired.
 | 11 | a swept axis carried as the caller's prose — the exact string that walks past the `Selection` regex | `Ledger.append` → `SweepNotExecuted` | the same claim with a core-computed 7-point curve publishes |
 
 All nine earlier cases still pass by their named mechanisms. A test asserts the harness never writes
-to `results/ledger.jsonl`: these are demonstrations that a mechanism fires, not results, and a
+to `research/narrative/results/ledger.jsonl`: these are demonstrations that a mechanism fires, not results, and a
 harness row in the ledger would be a fabricated one.
 
 Two of the nine had to change, and the change made them stronger rather than weaker. Cases 5 and 7

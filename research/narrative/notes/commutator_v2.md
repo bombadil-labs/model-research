@@ -1,13 +1,13 @@
 # Commutator trajectories, v2: the controls hour 19 lacked
 
-`scripts/ndif_commutator.py` (extended: `--null`, `--layers`, four prompts) ·
-`results/commutator_gemma9b_v2.json` · previous note: `results/notes/commutator.md`.
+`scripts/narrative/ndif_commutator.py` (extended: `--null`, `--layers`, four prompts) ·
+`research/narrative/results/commutator_gemma9b_v2.json` · previous note: `research/narrative/notes/commutator.md`.
 
 Hour 19 ran the AB/BA commutator protocol on Gemma-2-9B-it and reported that factor patches do not
 commute under generation, that the divergence is bounded, and that one factor of each pair dominates
 the surface text by depth. Its own caveat list named three missing controls. This run adds all three,
 **without touching the pre-registered regime rule** (still the module docstring of
-`scripts/ndif_commutator.py`, committed in `8d4b4f9` before the first run):
+`scripts/narrative/ndif_commutator.py`, committed in `8d4b4f9` before the first run):
 
 1. a **random-direction null** — pairs of random directions at matched norm through the identical
    AB/BA protocol;
@@ -19,8 +19,8 @@ the surface text by depth. Its own caveat list named three missing controls. Thi
 Everything else is hour 19's protocol verbatim: Gemma-2-9B-it via NDIF, greedy, 60 new tokens, patch
 re-applied at every decoding step, readout at block 20 on unpatched re-runs of the generated texts,
 divergence in units of the base continuation's own per-token spread (sigma). The hour-19
-generations for `news`/`road` at L14/L20 are **reused, not re-run**: `results/commutator_gemma9b_v2.json`
-was seeded from `results/commutator_gemma9b.json`, whose numbers reproduce exactly under the
+generations for `news`/`road` at L14/L20 are **reused, not re-run**: `research/narrative/results/commutator_gemma9b_v2.json`
+was seeded from `research/narrative/results/commutator_gemma9b.json`, whose numbers reproduce exactly under the
 re-analysis. 308 new NDIF jobs (34 + 34 null, 76 + 76 new prompts, 88 second layer pair), ~25 min.
 
 ## The null

@@ -1,5 +1,5 @@
 > **CORRECTION (Opus, on merge).** Section 3 below calls layer 0 "the bag-of-embeddings
-> baseline" and "the embedding layer". **It is neither.** `scripts/painaxis_extract.py`'s own
+> baseline" and "the embedding layer". **It is neither.** `scripts/shame_axis/painaxis_extract.py`'s own
 > docstring is correct — layer index i is the residual *after block i* — so layer 0 is the output
 > of the first transformer block, one full attention+MLP in. Checked directly: every prompt in
 > S2_1P ends with the identical token "I feel:", so a true embedding readout at the final token
@@ -20,10 +20,10 @@ hold. This is an **extension**, not a replication — Qwen2.5-1.5B is not among 
 there is no published number to hit.
 
 Model: `Qwen/Qwen2.5-1.5B-Instruct`, 28 layers, d_model 1536, local CPU fp32, `.venv` py3.11.
-Stimuli: their vendored `prompts/external/pain_axis/3.1_pain_and_control_datasets.json`, read-only,
+Stimuli: their vendored `research/shame-axis/prompts/external/pain_axis/3.1_pain_and_control_datasets.json`, read-only,
 sets `S1_1P S1_3P S2_1P S2_3P ControlSupplement_1P` (900 sentences, 0.8 s/sentence, ~13 min).
-Code: `scripts/painaxis_extract.py`, `scripts/painaxis_analyze.py`, `scripts/painaxis_numpy_impl.py`,
-`tests/test_painaxis_port.py`. Outputs: `results/painaxis_tierA/` (`layer_curves.csv`,
+Code: `scripts/shame_axis/painaxis_extract.py`, `scripts/shame_axis/painaxis_analyze.py`, `scripts/shame_axis/painaxis_numpy_impl.py`,
+`tests/test_painaxis_port.py`. Outputs: `research/shame-axis/results/painaxis_tierA/` (`layer_curves.csv`,
 `s1_kfold_summary.csv`, `per_category_auc.csv`, `cosines.csv`, `summary.json`, and the five
 gitignored `acts_*.npz` checkpoints, 413 MB).
 
@@ -32,7 +32,7 @@ gitignored `acts_*.npz` checkpoints, 413 MB).
 sklearn 1.9.1 **is** installed in `.venv`, so every number below was produced by **their** calls:
 `sklearn.decomposition.PCA`, `sklearn.metrics.roc_auc_score`, `sklearn.model_selection.KFold`, with
 their constants read out of their file (`N_FOLDS = 5`, `RANDOM_SEED = 42`, `DENOISE_VARIANCE = 0.5`).
-`scripts/painaxis_numpy_impl.py` holds independent numpy versions (PCA by SVD on the centred
+`scripts/shame_axis/painaxis_numpy_impl.py` holds independent numpy versions (PCA by SVD on the centred
 controls; ROC-AUC by the Mann-Whitney rank identity with ties averaged) which are **not** on the
 path that produced these numbers — they exist so `tests/test_painaxis_port.py` can check the
 arithmetic against a second implementation, and so the port runs unchanged where sklearn is absent.
@@ -87,7 +87,7 @@ nearly matches it. The `final_token` curve, which starts at 0.795 and adds 0.15,
 shows the model building something. Their paper's headline numbers are of the `mean` kind; on this
 model I would not read `mean` as the stronger result, even though it is numerically comparable.
 
-Full per-fold CSV: `results/painaxis_tierA/layer_curves.csv`.
+Full per-fold CSV: `research/shame-axis/results/painaxis_tierA/layer_curves.csv`.
 
 ## 2. Best layer by their own K-fold, in their `s1_kfold_summary.csv` shape
 

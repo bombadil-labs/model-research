@@ -16,7 +16,7 @@ failed its tolerance, so nothing is withdrawn from the writeup on §1A's rule. W
 of is *coverage*: three of §8's six instruments are unbuilt and two §1A rows need them.
 
 Files added: `src/lsx/core/{ledger,reproduce}.py`, `tests/test_core_ledger.py`,
-`results/ledger.jsonl`, `results/{posid_remote,remote_tolerance,repro_h8,repro_summary}.json`.
+`research/narrative/results/ledger.jsonl`, `results/{posid_remote,remote_tolerance,repro_h8,repro_summary}.json`.
 Modified: `checks.py` (the publication refusals), `types.py` (`stack_signature`, and piece 2's
 stale-report hole), `extract.py` (the signature and `asserted_patched_logprob`), `__init__.py`.
 **`docs/specs/core_v1.md` edited in three places, each marked in the text as written in after the
@@ -48,7 +48,7 @@ The reason is arithmetic, not luck: RoPE attention depends on position *differen
 padding offsets every real token of a row by the same `n_pad`, so a uniform shift cancels in every
 attention logit and leaves the value path untouched.
 
-**Remotely** (`results/posid_remote.json`), on `google/gemma-2-9b-it` through the `tracer.invoke`
+**Remotely** (`research/narrative/results/posid_remote.json`), on `google/gemma-2-9b-it` through the `tracer.invoke`
 idiom that `ndif_recompose_gen`, `ndif_recompose_sweep` and `ndif_time_translation_extract` use,
 left padding, four texts of 10–51 tokens: the shortest item carried **41 tokens of padding** and
 matched its batch-of-one extraction at cosine 0.999979 (last token), 0.999990 (a marked span),
@@ -64,7 +64,7 @@ RoPE, and the two checks are the standing evidence rather than the argument.
 
 ## 2. The ledger, and the three refusals that happen at publication
 
-`results/ledger.jsonl` is append-only, one JSON object per line, in §9's shape. `id` is the
+`research/narrative/results/ledger.jsonl` is append-only, one JSON object per line, in §9's shape. `id` is the
 provenance hash, so the same experiment re-run is recognised rather than duplicated and a changed
 grid, code version or library version produces a new id (tested both ways). `withdraw(id, reason,
 superseded_by)` appends a retraction line rather than editing the row, so the record keeps the fact
@@ -113,7 +113,7 @@ barrier to thinking. Written into the spec at §4.
 **What was run.** h29's re-imposed era shift at scale 3.0 on Gemma-2-9B-it — `ndif_recompose_sweep.py`
 unchanged, the same grid, the same cached direction stacks — twice, end to end, concurrently, nothing
 different between them. 144 generation jobs and 20 scoring jobs in total.
-`results/remote_tolerance.json`.
+`research/narrative/results/remote_tolerance.json`.
 
 | | run 1 | run 2 | logged (h29) |
 |---|---|---|---|
@@ -145,7 +145,7 @@ should re-measure rather than inherit 0.018.
 piece 2 could not supply one: the instrument's own null spread is 0 by construction, so it shipped
 `sqrt(2/d)` as a declared stand-in and said so.
 
-**Measured on the stage-14 configuration** (`results/repro_summary.json`). The gain is per case
+**Measured on the stage-14 configuration** (`research/narrative/results/repro_summary.json`). The gain is per case
 `1{model readout reads as the target era} − 1{pass-through readout reads as the target era}`; within
 each (e1, e2, theme) cell the four scenes are four wordings of the same content, so the pooled
 within-cell spread of the gain is paraphrase noise and nothing else.
@@ -166,7 +166,7 @@ is what a too-tight interval would have licensed. It enters the registry as
 
 ## 5. §1A, target by target
 
-Verdicts as graded: `results/repro_summary.json`, ledger rows in `results/ledger.jsonl`.
+Verdicts as graded: `research/narrative/results/repro_summary.json`, ledger rows in `research/narrative/results/ledger.jsonl`.
 
 | target | logged | reproduced | tolerance | verdict |
 |---|---|---|---|---|
@@ -215,7 +215,7 @@ rows §1A itself restates as refusals, so they are the acceptance test passing. 
 - **h37**'s Llama-3.1-70B direction stacks are not cached and §11.3 says defer rather than
   re-extract. It is *not* blocked by position ids: `ndif_factors` pads right.
 
-**Retraction.** `results/ledger.jsonl` holds three standing rows and no withdrawals, because nothing
+**Retraction.** `research/narrative/results/ledger.jsonl` holds three standing rows and no withdrawals, because nothing
 re-derived here failed its target. `withdraw()` is implemented and exercised in
 `tests/test_core_ledger.py` (append → withdraw → render, the reason and `superseded_by` inline, the
 file append-only so the history of the retraction survives, and a withdrawal of an unknown id

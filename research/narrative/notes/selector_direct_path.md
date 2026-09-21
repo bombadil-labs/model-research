@@ -1,11 +1,11 @@
 # Phase 0.1 — the direct-path test for the log-prob selectors (piece 1)
 
-Spec: `docs/specs/selector_direct_path_v1.md` (v2). Script: `scripts/selector_direct_path.py`; `pre_28` captured by a forward-pre-hook on `model.model.norm` (never `hidden_states[28]`).
+Spec: `docs/specs/selector_direct_path_v1.md` (v2). Script: `scripts/narrative/selector_direct_path.py`; `pre_28` captured by a forward-pre-hook on `model.model.norm` (never `hidden_states[28]`).
 
-- `results/selector_direct_path_role.json` — role BD layers 20,14 scale 1.0; py 3.11.15, torch 2.14.0+cu130, transformers 5.17.0; tied embeddings **True**; r_L {'20': 83.3, '14': 56.6}, r_28 291.7; 49 min
-- `results/selector_direct_path_factors.json` — factors BD layers 14 scale 1.0; py 3.11.15, torch 2.14.0+cu130, transformers 5.17.0; tied embeddings **True**; r_L {'14': 57.9}, r_28 339.8; 115 min
-- `results/selector_direct_path_factors_D_gate5.json` — factors P layers 14 scale 1.0; py 3.11.15, torch 2.14.0+cu130, transformers 5.17.0; tied embeddings **True**; r_L {'14': 57.9}, r_28 339.8; 14 min
-- `results/selector_direct_path_role_l27.json` — role BD layers 27 scale 1.0; py 3.11.15, torch 2.14.0+cu130, transformers 5.17.0; tied embeddings **True**; r_L {'27': 297.1}, r_28 291.7; 24 min
+- `research/narrative/results/selector_direct_path_role.json` — role BD layers 20,14 scale 1.0; py 3.11.15, torch 2.14.0+cu130, transformers 5.17.0; tied embeddings **True**; r_L {'20': 83.3, '14': 56.6}, r_28 291.7; 49 min
+- `research/narrative/results/selector_direct_path_factors.json` — factors BD layers 14 scale 1.0; py 3.11.15, torch 2.14.0+cu130, transformers 5.17.0; tied embeddings **True**; r_L {'14': 57.9}, r_28 339.8; 115 min
+- `research/narrative/results/selector_direct_path_factors_D_gate5.json` — factors P layers 14 scale 1.0; py 3.11.15, torch 2.14.0+cu130, transformers 5.17.0; tied embeddings **True**; r_L {'14': 57.9}, r_28 339.8; 14 min
+- `research/narrative/results/selector_direct_path_role_l27.json` — role BD layers 27 scale 1.0; py 3.11.15, torch 2.14.0+cu130, transformers 5.17.0; tied embeddings **True**; r_L {'27': 297.1}, r_28 291.7; 24 min
 
 ## Result in one paragraph
 

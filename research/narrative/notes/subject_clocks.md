@@ -4,9 +4,9 @@ Spec: `docs/specs/subject_clocks_v1.md` (§§1–5, piece 1 of §8). Qwen2.5-1.5
 layers 0/8/14/20/27. 504 passages extracted (C1 240, C3 264), ~130 tokens each.
 Wall time: build 1 s, extraction 625 s (1.24 s/passage, incl. model load ~40 s), measure stage
 ~4 min per run (two runs: the second added the Δt-centred dominance addendum). Agent context ≈ 60k
-tokens. Files: `scripts/subject_clocks_build.py`, `scripts/subject_clocks.py`,
-`scripts/subject_clocks_report.py`, `prompts/subject_clocks_v1.json`,
-`results/subject_clocks_measures.json`, `results/subject_clocks_stacks.npz` (gitignored),
+tokens. Files: `scripts/narrative/subject_clocks_build.py`, `scripts/narrative/subject_clocks.py`,
+`scripts/narrative/subject_clocks_report.py`, `research/narrative/prompts/subject_clocks_v1.json`,
+`research/narrative/results/subject_clocks_measures.json`, `results/subject_clocks_stacks.npz` (gitignored),
 `results/figures/subject_clocks_{floor,ycurves_C1,ycurves_C3,ycurves_C2,kappa,resolv,
 crosssubject,pertoken}.png`.
 
@@ -22,7 +22,7 @@ dominance D = 1.7 / 4.0 at layer 14, p < 0.001).
 
 ## 1. Grid built (§1)
 
-`prompts/subject_clocks_v1.json`, derived from `prompts/time_translation_v2.json`.
+`research/narrative/prompts/subject_clocks_v1.json`, derived from `research/narrative/prompts/time_translation_v2.json`.
 C1 = 216 Δt rows + 24 t0 rows (null phrase, reworded t0 state, null phrase alternating by p);
 C3 = 216 Δt rows + 48 null rows (both null phrases × 8 × 3). Total 504, as specified.
 Decoding prefixes (264) and candidates (240) for piece 2 are emitted by the same builder.

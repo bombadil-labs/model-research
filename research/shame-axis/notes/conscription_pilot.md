@@ -15,8 +15,8 @@ failures survive the control that would have explained them away.
 
 24 machine-authored items × 6 arms on `google/gemma-2-9b-it`, read at the generation token,
 projected onto the externally-fitted `s2` pain axis in scenario-pool z units, minus the same
-paired projection on the static-embedding bag. Code `scripts/conscription_pilot.py`; output
-`results/conscription_pilot/pilot_contrasts.csv` (430 rows).
+paired projection on the static-embedding bag. Code `scripts/shame_axis/conscription_pilot.py`; output
+`research/shame-axis/results/conscription_pilot/pilot_contrasts.csv` (430 rows).
 
 ## 0. The free check that the two paths are the same arithmetic
 

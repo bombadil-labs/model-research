@@ -17,10 +17,10 @@ L10, the dip and plateau at 0.88–0.91 for the remaining 31 layers, and the slo
 of `mean` to a broad plateau after L29.
 
 Model: `google/gemma-2-9b-it` on NDIF, 42 blocks, d_model 3584, bf16 remote, `.venv312` py3.12,
-nnsight 0.7.0. Stimuli: their vendored `prompts/external/pain_axis/3.1_pain_and_control_datasets.json`,
-read-only, sets `S1_1P S1_3P S2_1P S2_3P` (800 sentences). Code: `scripts/painaxis_tierB.py`,
+nnsight 0.7.0. Stimuli: their vendored `research/shame-axis/prompts/external/pain_axis/3.1_pain_and_control_datasets.json`,
+read-only, sets `S1_1P S1_3P S2_1P S2_3P` (800 sentences). Code: `scripts/shame_axis/painaxis_tierB.py`,
 `src/lsx/core/painaxis_remote.py`; analysis functions imported **unchanged** from
-`scripts/painaxis_analyze.py`. Outputs: `results/painaxis_tierB/` (`curve_comparison.csv`,
+`scripts/shame_axis/painaxis_analyze.py`. Outputs: `research/shame-axis/results/painaxis_tierB/` (`curve_comparison.csv`,
 `s1_kfold_layer_curves.csv`, `s1_kfold_summary.csv`, `embed_layer_auc.csv`, `extract_meta.json`,
 and 8 gitignored `shards/*.npz`, 560 MB).
 
@@ -47,7 +47,7 @@ S1_3P. Their `s1_heldout_auc_at_best_layer` is the mean of those two, which repr
 
 `auc_vs_all_controls`, 5-fold split by sentence set, vector fitted on training sets only.
 `theirs`/`ours` are the mean of S1_1P and S1_3P. Full per-dataset CSV:
-`results/painaxis_tierB/curve_comparison.csv`.
+`research/shame-axis/results/painaxis_tierB/curve_comparison.csv`.
 
 | L | ft theirs | ft ours | ft Δ | mean theirs | mean ours | mean Δ |
 |---|---|---|---|---|---|---|
@@ -281,12 +281,12 @@ not dropped work. 40 batch jobs + 40 batched-vs-single equivalence jobs = 80.
   sense.** There is no random-vector arm and no shuffled-label arm here, so I have not estimated
   what AUC this K-fold returns when there is nothing to find. Their method has no such arm either,
   so the port is faithful — but "faithful to a method with no null" is not the same as "has a
-  null". `scripts/painaxis_floor_nulls.py` is owned by another agent and I did not touch it. The
+  null". `scripts/shame_axis/painaxis_floor_nulls.py` is owned by another agent and I did not touch it. The
   replication claim in this note is a claim about **agreement with their numbers**, which does not
   depend on a floor; any claim about what the axis *means* does.
 - **No pass-through arm** — non-negotiable 2 does not apply, as nothing here is patched. This is
   pure extraction, no forward is modified.
-- **No unit tests for the new code.** The brief scoped my writable files to `scripts/painaxis_tierB.py`
+- **No unit tests for the new code.** The brief scoped my writable files to `scripts/shame_axis/painaxis_tierB.py`
   and `src/lsx/core/painaxis_remote.py`, which excludes a test file. The assertions above are
   runtime assertions on the real run plus the live deliberate-bug check (§6.4), not pytest cases.
   That is a real gap: nothing in CI will catch a regression in `painaxis_remote.py`.
@@ -299,4 +299,4 @@ not dropped work. 40 batch jobs + 40 batched-vs-single equivalence jobs = 80.
   instruct-vs-base contrast is unreplicated.
 - Did not run the missing-shame-control experiment; deliberately not contaminated into this run.
 - Did not edit `RESULTS.md`, `WRITEUP.md`, `VISION.md`, `README.md`, `docs/`, `prompts/`,
-  `scripts/painaxis_extract.py`, `scripts/painaxis_analyze.py` or `scripts/painaxis_floor_nulls.py`.
+  `scripts/shame_axis/painaxis_extract.py`, `scripts/shame_axis/painaxis_analyze.py` or `scripts/shame_axis/painaxis_floor_nulls.py`.

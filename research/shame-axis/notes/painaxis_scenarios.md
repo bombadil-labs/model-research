@@ -10,8 +10,8 @@ picture is not that the network finds gaslighting painful; it is that the networ
 counting other people's pain**. Every one of their 11 self-directed categories gains on the axis
 over the bag of words, and every one of their 5 vicarious categories loses. 16 of 16 by sign.
 
-Code: `scripts/painaxis_scenarios.py` (extraction), `painaxis_scenarios_analyze.py`,
-`painaxis_scenarios_nulls.py`. Outputs: `results/painaxis_scenarios/` — `summary.json`,
+Code: `scripts/shame_axis/painaxis_scenarios.py` (extraction), `painaxis_scenarios_analyze.py`,
+`painaxis_scenarios_nulls.py`. Outputs: `research/shame-axis/results/painaxis_scenarios/` — `summary.json`,
 `category_z_by_layer.csv` (13,545 rows), `nulls_by_layer.csv` (1,806 rows),
 `item_z_vs_theirs.csv`, `nulls.json`, and gitignored shards (840 MB).
 

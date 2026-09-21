@@ -10,11 +10,11 @@ number is quoted from `RESULTS.md` or the named note; where the record is silent
 
 ## 1. A cross-talk rank pinned at chance by construction (hour 6)
 
-**What it was.** Test C in `scripts/stage5_factors.py`: under an era patch, rank each of the three
+**What it was.** Test C in `scripts/narrative/stage5_factors.py`: under an era patch, rank each of the three
 voice variants among the three by absolute log-probability, era fixed, against the unpatched
 ranking; likewise era under a voice patch.
 
-**What it appeared to show.** In `results/stage5_qwen1.5b_factors_l14.json`, both
+**What it appeared to show.** In `research/narrative/results/stage5_qwen1.5b_factors_l14.json`, both
 `C_voice_under_era` and `C_era_under_voice` average exactly 2.0 patched and 2.0 unpatched over 108
 rows each. Read naively: the era patch leaves the voice ordering undisturbed; the factors are
 orthogonal. That is the result the hypothesis wanted.
@@ -97,7 +97,7 @@ synthetic noise before real data (hour 32; hour 38 §2.1 self-test with pure-noi
 
 ## 4. A remote patching harness that wrote into batch row zero (hour 34; caught at 36)
 
-**What it was.** `scripts/ndif_factors.py`, the NDIF selector battery, patched with
+**What it was.** `scripts/narrative/ndif_factors.py`, the NDIF selector battery, patched with
 `B[l].output[0][:] = B[l].output[0] + v` and ranked with `rank = 1 + #{gain[c] > gain[target]}`.
 
 **What it appeared to show.** Hour 34, spec `docs/specs/scale_vs_tuning_v1.md`: theme lens rank
@@ -105,7 +105,7 @@ synthetic noise before real data (hour 32; hour 38 §2.1 self-test with pure-noi
 random-direction control at 1.14–1.28 on all three. Logged as an unresolved blocker in the same
 entry.
 
-**What it actually was** (`results/notes/random_control_diagnosis.md`). Under transformers ≥ 4.54 a
+**What it actually was** (`research/narrative/notes/random_control_diagnosis.md`). Under transformers ≥ 4.54 a
 Llama, Gemma or Qwen decoder layer returns a bare tensor `[batch, seq, d]`, so `output[0]` is batch
 row 0, not the hidden states. Hour 34 ran with `NDIF_CHUNK=9`, all nine candidates in one padded
 batch, so every patch, factor and random alike, touched one text and left eight identical to base.
@@ -138,11 +138,11 @@ scripts (`ndif_generate`, `ndif_shift`, `ndif_commutator`, `ndif_recompose_gen`,
 "a live trap"; each was verified to run at batch 1 (so no logged number moves) and all now use the
 `resid()` helper. The local selector scripts (`stage5_factors.py`, `stage6_factors.py`,
 `time_translation_selector.py`) ranked 1-on-ties with no no-patch arm; both are fixed
-(`results/notes/instrument_audit.md`).
+(`research/narrative/notes/instrument_audit.md`).
 
 ## 4b. A batched extraction that read its spans out of the padding (hours 30–31; caught at 39)
 
-**What it was.** `scripts/ndif_time_translation_extract.py`, the Gemma-2-9B-it time-grid extractor,
+**What it was.** `scripts/narrative/ndif_time_translation_extract.py`, the Gemma-2-9B-it time-grid extractor,
 batches six passages per NDIF job through six `tracer.invoke` blocks and pools the interval and state
 spans by **absolute** token index from `B[bi].output[0]`.
 
@@ -173,7 +173,7 @@ script and the measurements redone: shared variance fraction 0.478 → **0.501**
 layer 20 (and 1.72 → 3.31 at layer 31, the largest move, in the measure that reads the interval span
 that was being pooled out of the padding). The *conclusion* survives on the corrected vectors — the
 clock does replicate on Gemma-9B — but on new numbers, and still inside the v2 grid's lexical
-confound. See `results/notes/instrument_audit.md`.
+confound. See `research/narrative/notes/instrument_audit.md`.
 
 **Standing check.** Span indices are counted from the end of the sequence (correct under left
 padding, identical at batch 1) with an assertion on `tokenizer.padding_side`. The sibling batched
@@ -230,7 +230,7 @@ rewrite; the batch-row bug would have survived indefinitely had the control not 
   four tests** (2.00 / 2.00 / 1.50 / 9.50). Ties never fired locally — one text per forward pass
   gives distinct gains — so no logged local number changes, and the batteries now have the positive
   control they lacked. Hour 8's low tense random control (1.44) sits beside a no-patch of exactly
-  1.50, so it is a fluctuation, not an instrument failure. See `results/notes/instrument_audit.md`. Their defence is a random control at chance (1.83–2.25). Hour 8's tense control is
+  1.50, so it is a fluctuation, not an instrument failure. See `research/narrative/notes/instrument_audit.md`. Their defence is a random control at chance (1.83–2.25). Hour 8's tense control is
   the exception: factor 1.03 of 2, random 1.44 against chance 1.5, flagged at hour 36, not re-run.
 - **Every generation-level NDIF result** (hours 12–14, 19, 22, 27, 29, 31, 33) and hour 13's Gemma
   battery use the batch-row idiom at batch 1 with no plumbing assertion. Hour 29's dose-response

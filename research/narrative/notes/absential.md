@@ -2,12 +2,12 @@
 
 Operationalizes the `absential` operator of VISION.md along the recipe the groovy-commutator ecology
 note supplies: *the absential field is the closed neighborhood of the live set* — off, but adjacent
-to on. Scripts: `scripts/absential_ring.py` (local), `scripts/ndif_absential_probe.py` (NDIF).
-Data: `results/absential_census.json`, `results/absential_probe_gemma9b.json`.
+to on. Scripts: `scripts/narrative/absential_ring.py` (local), `scripts/narrative/ndif_absential_probe.py` (NDIF).
+Data: `research/narrative/results/absential_census.json`, `research/narrative/results/absential_probe_gemma9b.json`.
 
 ## Definitions
 
-Model Gemma-2-9B-it, block-20 residuals per token (`results/tokens_gemma9b_l20.npz`, via NDIF).
+Model Gemma-2-9B-it, block-20 residuals per token (`research/narrative/results/tokens_gemma9b_l20.npz`, via NDIF).
 Dictionary: Gemma Scope JumpReLU, layer 20, **width 16k, average_l0_47**.
 Encoding `pre = x @ W_enc + b_enc; act = pre * (pre > threshold)`; BOS dropped.
 
@@ -29,7 +29,7 @@ a discovered boundary. **τ = 0.40**, the 97.5th percentile: it keeps 2.56% of i
 giving a ring roughly a quarter the size of the active set. This is the first honest caveat: the
 ring is a threshold on a continuum, not a natural kind.
 
-## 1. Census (72 passages, `results/absential_census.json`)
+## 1. Census (72 passages, `research/narrative/results/absential_census.json`)
 
 | grid | \|A\| | of which formatting | \|A_content\| | \|R\| | \|R\| under null* |
 |---|---|---|---|---|---|
@@ -100,7 +100,7 @@ This is the second honest caveat and it matters for reading the probe below.
 
 ## 2. Causal probe (12 passages, Gemma-2-9B-it via NDIF, 72 jobs)
 
-`scripts/ndif_absential_probe.py`. 12 theme passages, balanced over the 4 scenes, 3 themes and 3
+`scripts/narrative/ndif_absential_probe.py`. 12 theme passages, balanced over the 4 scenes, 3 themes and 3
 eras. For each passage, three patch vectors, each the **sum of 8 decoder directions, renormalized
 to 0.15 × the passage's mean block-20 residual norm** and added at block 20 on every position:
 

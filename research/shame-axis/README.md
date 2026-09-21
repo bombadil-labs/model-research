@@ -59,8 +59,8 @@ Full log: [`docs/EXPERIMENTS.md`](docs/EXPERIMENTS.md). Open questions:
 
 ## Reproducing
 
-Stimuli from the original paper are vendored read-only under `prompts/external/pain_axis/` with
-upstream provenance. Our own grids are in `prompts/human/` (human-authored) and `prompts/claude/`
+Stimuli from the original paper are vendored read-only under `research/shame-axis/prompts/external/pain_axis/` with
+upstream provenance. Our own grids are in `research/shame-axis/prompts/human/` (human-authored) and `research/shame-axis/prompts/claude/`
 (machine-authored control) — authorship is a measured factor, so the two are never mixed.
 
 ```bash

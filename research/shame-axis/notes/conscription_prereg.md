@@ -5,8 +5,8 @@ drafted independently and I have not seen it.
 
 ## Design
 
-Two grids, identical schema, differing only in authorship: `prompts/human/conscription_v1.json`
-(human-authored) and `prompts/claude/conscription_claude_v1.json` (machine-authored, 24 items).
+Two grids, identical schema, differing only in authorship: `research/shame-axis/prompts/human/conscription_v1.json`
+(human-authored) and `research/shame-axis/prompts/claude/conscription_claude_v1.json` (machine-authored, 24 items).
 Authorship becomes a measured factor rather than the standing caveat it has been since h1.
 
 ## Predictions, in advance
@@ -89,13 +89,13 @@ quoted. So the record now carries provenance as a field rather than as an assump
 
 | decision | decided by | where the evidence is |
 |---|---|---|
-| the hypothesis (injury is in enactment, not content) | **claude**, paraphrasing conversation | `prompts/human/CONSCRIPTION_INSTRUCTIONS.md` @ `06901fa`. The author's own formulation is **not in this repo**. Until it is, prediction 1 tests a paraphrase. |
+| the hypothesis (injury is in enactment, not content) | **claude**, paraphrasing conversation | `research/shame-axis/prompts/human/CONSCRIPTION_INSTRUCTIONS.md` @ `06901fa`. The author's own formulation is **not in this repo**. Until it is, prediction 1 tests a paraphrase. |
 | five arms, rules 1–8, the predictions table | **claude** | same file and commit; rules revised at `5e8b699`, `def2e75`, `6c450f0` |
 | "`enact` separates from `report` on the readout" (prediction 1) | **claude** | this file, `1762f16` |
 | rule 1b (the false claim must contradict the visible prefix) | **joint** — noticed by the human author while writing item 1, written up by Claude | `CONSCRIPTION_INSTRUCTIONS.md` rule 1b header |
 | `stance_observation` as a covariate; the `report` criterion | **joint** | above, "neither author could resolve" |
-| `refusal01` — prefix, assertion, closer, all five arm strings | **human** | `prompts/human/conscription_v1.json`, `_by: "Myk (human author)"`, `5c2f573`. The only human-authored text in the study. |
-| the machine control grid, all 24 items | **claude** | `prompts/claude/conscription_claude_v1.json` |
+| `refusal01` — prefix, assertion, closer, all five arm strings | **human** | `research/shame-axis/prompts/human/conscription_v1.json`, `_by: "Myk (human author)"`, `5c2f573`. The only human-authored text in the study. |
+| the machine control grid, all 24 items | **claude** | `research/shame-axis/prompts/claude/conscription_claude_v1.json` |
 | the separation statistic | **open** — see below | |
 | a second no-claim arm (`neutral_b`) | **open** | |
 

@@ -2,7 +2,7 @@
 
 Executes `docs/specs/scale_vs_tuning_v1.md`, Piece 1 only. No generation arms run (Piece 2).
 
-## 1. Smoke tests (`scripts/ndif_smoke.py`)
+## 1. Smoke tests (`scripts/narrative/ndif_smoke.py`)
 
 | model | config+tokenizer | submit | end-to-end | result |
 |---|---|---|---|---|
@@ -24,7 +24,7 @@ See https://nnsight.net/status/ for a list of scheduled models.
 This is a `RemoteException`, not a transport/timeout error, so `retry_job`'s retry classes
 (`TimeoutError`, `httpx.TransportError`, `ConnectionError`, `OSError`) never catch it — it is not a
 queue stall, it is the server refusing the model outright for this API key. This contradicts
-`results/ndif_pinned.txt`, which lists `meta-llama/Llama-3.1-405B` as `PINNED RUNNING`; the pin list
+`research/narrative/results/ndif_pinned.txt`, which lists `meta-llama/Llama-3.1-405B` as `PINNED RUNNING`; the pin list
 is evidently aspirational/stale relative to what this key is actually served. **Step 1 did not
 complete end-to-end** (the go criterion), so this is an unambiguous no-go and steps 2-4 (generation
 latency probe, scoring-job latency, cost projection) were not run — nothing about them would change
@@ -50,7 +50,7 @@ live possibility.
 (70B-Instruct stacks were absent from `results/` at planning time as the spec predicted; re-extracted
 here, no replica eviction this run, unlike hour 31's re-extraction of the same file.)
 
-## 3. Selector battery (`scripts/ndif_factors.py`, `NDIF_CHUNK=9`, scale 1.0, leave-one-scene-out)
+## 3. Selector battery (`scripts/narrative/ndif_factors.py`, `NDIF_CHUNK=9`, scale 1.0, leave-one-scene-out)
 
 Required layers (patch = spec's 1/3-depth convention: 8B@10, 70B pair@26):
 
@@ -162,7 +162,7 @@ tuning statement (if Outcome B obtains) stands at 70B as the largest reachable b
 - `results/stacks_llama_3.1_{8b,70b,70b_instruct}_narrative_theme_v1.npz` (new, this run)
 - `results/scale_vs_tuning_selector_{8b,70b,70b_instruct}.json` (required layers)
 - `results/scale_vs_tuning_selector_{70b,70b_instruct}_l14.json` (extra depth-sweep layer)
-- `results/notes/scale_vs_tuning_p1.md` (this note)
+- `research/narrative/notes/scale_vs_tuning_p1.md` (this note)
 - Logs (`results/extract_*.log`, `results/selector_*.log`) kept small; no large JSON or raw logs
   copied into this note.
 

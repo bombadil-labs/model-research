@@ -2,12 +2,12 @@
 
 Spec: `docs/specs/time_translation_v1.md` (written before the run; predictions not adjusted).
 Model: Qwen2.5-1.5B, CPU, layers 0, 8, 14, 20, 27 (hidden-state indices).
-Grid: `prompts/time_translation_v1.json` — 8 subjects × 10 timepoints × 3 paraphrases = 240
+Grid: `research/narrative/prompts/time_translation_v1.json` — 8 subjects × 10 timepoints × 3 paraphrases = 240
 experimental passages, plus 240 phrase-only controls (each interval phrase reattached to the same
 subject's and paraphrase's t0 state description). Passages are
 `[[interval: <phrase>]] [[state: <description>]]`; the **state** span is mean-pooled.
-Scripts: `scripts/time_translation.py` (m1–m7), `scripts/time_translation_selector.py` (m8).
-Raw numbers: `results/time_translation_measures.json`, `results/time_translation_selector.json`.
+Scripts: `scripts/narrative/time_translation.py` (m1–m7), `scripts/narrative/time_translation_selector.py` (m8).
+Raw numbers: `research/narrative/results/time_translation_measures.json`, `research/narrative/results/time_translation_selector.json`.
 Figures: `results/figures/time_translation_*.png`.
 
 **Grid note.** The spec listed ten Δt values but stated "nine Δt plus t0" and a 240-passage total.
@@ -69,7 +69,7 @@ real_pop 100 y, orchard 1 ky, mayfly 10 ky, mountain 10 ky, asteroid 1 My. The m
 residual should saturate first, saturates nearly last; the ordering that survives is roughly
 "how geological is the subject", i.e. the same ordering the shared clock has, not an inverse one.
 
-Curves: `results/figures/time_translation_resid_curves.png`.
+Curves: `research/narrative/results/figures/time_translation_resid_curves.png`.
 
 ## 5. Cyclic return (layer 14)
 

@@ -10,9 +10,9 @@ paraphrases its own interval, while keeping v2's far-Δt vocabulary-matching pro
 
 ## 1. Grid and leak checker
 
-`prompts/time_translation_v3.json` — same 8 subjects, 9 Δt + t0, 3 paraphrases,
+`research/narrative/prompts/time_translation_v3.json` — same 8 subjects, 9 Δt + t0, 3 paraphrases,
 `[[interval: ...]] [[state: ...]]` structure, phrase-only controls; built by
-`scripts/_build_v3_states.py` from v2. `scripts/time_translation_leak_check.py` flags a state
+`scripts/narrative/_build_v3_states.py` from v2. `scripts/narrative/time_translation_leak_check.py` flags a state
 span if it contains a duration word (day/week/.../millennium, "later", "since", "ago", ...), an
 explicit "N <duration unit>" construction, or any non-stopword token shared with that row's own
 interval phrase (t0's own restatement of "At first," is checked too).
@@ -25,7 +25,7 @@ interval phrase (t0's own restatement of "At first," is checked too).
 | v3 | 0 |
 
 v2 flags nearly every non-t0 state (the restatement is near-universal by construction); v3 flags
-none. `scripts/time_translation_vocab_check.py` confirms the far-Δt (≥100y) vocabulary-matching
+none. `scripts/narrative/time_translation_vocab_check.py` confirms the far-Δt (≥100y) vocabulary-matching
 property survives the rewrite: max 2 subjects share any content word at every far Δt (same bound
 v2 established), after rewriting the far-Δt texts with the same domain-specific vocabulary v2
 used (cadastres/permits for the street, trig-points/denudation for the mountain, cultivars/
@@ -43,8 +43,8 @@ duration words removed, technical vocabulary kept.
 ## 3. Results
 
 Qwen2.5-1.5B, layers 0/8/14/20/27, 480 passages (240 v2 + 240 v3) extracted fresh (905s + 872s,
-~30 min total incl. two model loads). `scripts/time_translation.py` run unchanged on
-`prompts/time_translation_v2.json` and `prompts/time_translation_v3.json`
+~30 min total incl. two model loads). `scripts/narrative/time_translation.py` run unchanged on
+`research/narrative/prompts/time_translation_v2.json` and `research/narrative/prompts/time_translation_v3.json`
 (`--suffix v2_fresh` / `v3_fresh`, so the numbers below are a same-session, same-code
 re-extraction of v2, not the historical hour-29 numbers — they reproduce the historical v2 note
 to within rounding: frac_shared_all layer 14 was 0.545 then and is 0.545 now).
@@ -71,11 +71,11 @@ readout on a differently-built grid, so the v2 column above is this same script 
 stacks — a controlled same-method comparison, not a re-citation of hour 32's numbers, which is
 why v2's layer-0 value is 1.00 here too, matching hour 32's finding on a different grid.)
 
-Full per-Δt tables are in `results/time_translation_v2_fresh_measures.json`,
-`results/time_translation_v3_fresh_measures.json`, and the consolidated
-`results/time_translation_v3_measures.json` (adds `discrimination_sec3_5` and `cos_shared_v2_v3`).
+Full per-Δt tables are in `research/narrative/results/time_translation_v2_fresh_measures.json`,
+`research/narrative/results/time_translation_v3_fresh_measures.json`, and the consolidated
+`research/narrative/results/time_translation_v3_measures.json` (adds `discrimination_sec3_5` and `cos_shared_v2_v3`).
 Figures: `results/figures/time_translation_v3_fresh_{resid_curves,shared_norm,clock_cos,
-real_vs_fictional,phrase_control}.png` and `results/figures/time_translation_v3_discrimination.png`.
+real_vs_fictional,phrase_control}.png` and `research/narrative/results/figures/time_translation_v3_discrimination.png`.
 
 ## 4. Predictions graded
 
@@ -128,7 +128,7 @@ real_vs_fictional,phrase_control}.png` and `results/figures/time_translation_v3_
    by construction, which is a fact about the world these subjects describe, not a bug — flagged
    here only because it is a channel the leak checker cannot see (it only scans for duration
    words/constructions, not numeric world-facts that happen to correlate with Δt).
-4. **The mean-pooled `state` readout, not `C1-last`.** `scripts/time_translation.py` only ever
+4. **The mean-pooled `state` readout, not `C1-last`.** `scripts/narrative/time_translation.py` only ever
    extracted the mean-pooled span (no per-token or last-token variant), so the discrimination test
    above uses mean pooling throughout, not the last-token readout `subject_clocks.py` uses for its
    own grid. The two are not numerically comparable across notes; within this note, v2 vs v3 is an

@@ -52,15 +52,15 @@ added; nothing else changed).
 
 Driver script (not part of the deliverable, run from a scratch directory to avoid a `.py` name
 collision — see §4): loads `Qwen/Qwen2.5-1.5B` once, calls `h8_replication_rows_live` for each grid,
-appends every "built" claim to `Ledger()`, and writes `results/phase2_qwen_live_replications.json`
-(the full rows, including depth curves) and `results/phase2_qwen_ledger_landing.json` (the cosine
+appends every "built" claim to `Ledger()`, and writes `research/narrative/results/phase2_qwen_live_replications.json`
+(the full rows, including depth curves) and `research/narrative/results/phase2_qwen_ledger_landing.json` (the cosine
 comparisons and the per-row ledger outcome).
 
 ---
 
 ## 1. Rows reached vs refused
 
-**15 of 15 candidate rows reached `results/ledger.jsonl`; 0 refused.**
+**15 of 15 candidate rows reached `research/narrative/results/ledger.jsonl`; 0 refused.**
 
 | grid | rows (composed + per-factor lenses) | ledger outcome |
 |---|---|---|
@@ -70,7 +70,7 @@ comparisons and the per-row ledger outcome).
 | `narrative_theme_v1` | composed, era, theme | 3/3 landed |
 | `narrative_mood_v1` | composed, era, mood | 3/3 landed |
 
-`results/ledger.jsonl` grew from 21 lines to 36 (15 new rows, all unique `Claim.id`s — checked, not
+`research/narrative/results/ledger.jsonl` grew from 21 lines to 36 (15 new rows, all unique `Claim.id`s — checked, not
 assumed: `factor` sits in each claim's provenance precisely so era and voice do not collide on the
 same stack+layer, per constraint 2). No `ArmOffNull`, `LedgerConflict`, `ProvenanceIncomplete`, or
 `ProvenanceNotFromStack` fired on the real run. `narrative_factors_v2` (the reference grid) is not
@@ -98,7 +98,7 @@ Computed item-by-item, layer-by-layer (29 layers × 36 items = 1044 pairs per gr
 
 Every grid clears h47's precedent (≥ 0.99996) by four to five orders of magnitude — this is
 float32-arithmetic-order noise, not a disagreement. **No material disagreement to report; nothing
-here is a finding about either stack.** (Full report: `results/phase2_qwen_ledger_landing.json`.)
+here is a finding about either stack.** (Full report: `research/narrative/results/phase2_qwen_ledger_landing.json`.)
 
 ## 3. Table: treatment / floor / gain / clears
 
@@ -126,7 +126,7 @@ layer). Gains are ranks: **negative is better** (below the floor), per the recor
 
 12 of 15 clear their measured lexical floor. The two that do not are exactly the two hour 48 found
 on the cached path with the identical grid: `voice` on `narrative_factors_v1` (−0.0278, unchanged
-to the fourth decimal from the cached-path number in `results/notes/phase2_derivable.md`) and
+to the fourth decimal from the cached-path number in `research/narrative/notes/phase2_derivable.md`) and
 `theme` on `narrative_theme_gpt_v1` (−0.0556, also unchanged to the fourth decimal). **Nothing was
 tuned to reproduce that agreement** — the numbers land where they land because the vectors behind
 them are the same vectors (§2's cosine), fitted by the same code.
@@ -198,10 +198,10 @@ untouched from the cached path's arm-construction code.
 * `src/lsx/core/phase2.py` — `stack_matrix_from_build_stack`, `h8_replication_rows_live`,
   `_replication_rows_core` (refactored out of `h8_replication_rows`, behavior-preserving).
 * `tests/test_core_phase2.py` — two new tests (§0).
-* `results/ledger.jsonl` — 15 new standing rows.
-* `results/phase2_qwen_live_replications.json` — full rows (treatment, both floors, all arms, the
+* `research/narrative/results/ledger.jsonl` — 15 new standing rows.
+* `research/narrative/results/phase2_qwen_live_replications.json` — full rows (treatment, both floors, all arms, the
   depth curve) for all 15, plus any grid-level extraction failure.
-* `results/phase2_qwen_ledger_landing.json` — the cosine comparison and the per-row ledger outcome.
-* `results/notes/phase2_qwen_ledger.md` — this note.
+* `research/narrative/results/phase2_qwen_ledger_landing.json` — the cosine comparison and the per-row ledger outcome.
+* `research/narrative/notes/phase2_qwen_ledger.md` — this note.
 
 **`pytest -q tests/`: 181 passed.**

@@ -5,8 +5,8 @@ and by sentence, project each slice onto the factor directions, and read the seq
 the beat-to-beat difference is the derivative, the running mean is the integral so far.
 
 **Setup.** Qwen2.5-1.5B (28 layers, d=1536), CPU, one forward pass per passage (72 passages total).
-Grids: `prompts/narrative_theme_v1.json` (4 situations × 3 eras × 3 themes, three-sentence
-passages) read at **layer 20**, and `prompts/narrative_mood_v1.json` (4 scenes × 3 eras × 3 moods,
+Grids: `research/narrative/prompts/narrative_theme_v1.json` (4 situations × 3 eras × 3 themes, three-sentence
+passages) read at **layer 20**, and `research/narrative/prompts/narrative_mood_v1.json` (4 scenes × 3 eras × 3 moods,
 one sentence) read at **layers 16/18/20**. Directions are the usual leave-one-situation-out factor
 means (`dir_level` = mean of the mean-pooled span vectors with that level over the three training
 situations, minus the grand mean). Every token vector of the held-out passage is centred by the
@@ -20,8 +20,8 @@ Baseline: eight random direction triples of matched norm, run through the identi
 (`margin` ≈ 0.000 ± 0.002, `hit` ≈ 0.33 at every position — the curves below are not an artefact of
 the centring or the cosine).
 
-Scripts: `scripts/derivative_curves.py` (extraction + aggregation → `results/derivative_curves.json`),
-`scripts/derivative_figures.py` (figures). Reproduce with
+Scripts: `scripts/narrative/derivative_curves.py` (extraction + aggregation → `research/narrative/results/derivative_curves.json`),
+`scripts/narrative/derivative_figures.py` (figures). Reproduce with
 
 ```
 python scripts/derivative_curves.py --out results/derivative_curves.json

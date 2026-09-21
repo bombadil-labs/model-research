@@ -1,7 +1,7 @@
 # Hour 31: does Llama-3.1-70B-Instruct cross the recomposition boundary at scale?
 
-Script: `scripts/ndif_recompose_sweep.py` (prediction recorded in the docstring before running).
-Data: `results/recompose_sweep_70b_2.0.json`, `results/recompose_sweep_70b_3.0.json`.
+Script: `scripts/narrative/ndif_recompose_sweep.py` (prediction recorded in the docstring before running).
+Data: `research/narrative/results/recompose_sweep_70b_2.0.json`, `research/narrative/results/recompose_sweep_70b_3.0.json`.
 Stacks: `results/stacks_llama_3.1_70b_instruct_narrative_theme_v1.npz` (re-extracted this run — no
 prior copy existed in any accessible worktree; 36 spans, one NDIF replica eviction at span 21/36,
 recovered by re-running the checkpointed script, which resumed from span 21).

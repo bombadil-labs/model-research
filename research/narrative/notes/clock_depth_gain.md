@@ -18,11 +18,11 @@ the spec's own gate, no Go.** Piece 2 does not run.
 
 | step | artefact | wall |
 |---|---|---|
-| build 4 arms from the v3 grid, no new text | `prompts/clock_gain_v1.json` (960 prompts) | <1 s |
+| build 4 arms from the v3 grid, no new text | `research/narrative/prompts/clock_gain_v1.json` (960 prompts) | <1 s |
 | 29-layer extraction, one prompt per forward pass | `results/clock_gain_v1_stacks_{A,B,C,D}.npz` (gitignored, 240 MB) | 29.3 min (A 916 s, B 453 s, C 208 s, D 179 s; A/B ran against two other jobs on the box) |
 | context-free lexical features (tokenizer + embedding table only) | `results/clock_gain_v1_lex.npz` (2 281-id vocabulary) | 40 s |
 | hour-35 continuity, script unchanged | `results/clock_gain_v1_discrim_{A,D}.json` | 5.3 + 5.4 min |
-| floors, LOSO ridge, gains, nulls, S1–S4 | `results/clock_gain_v1_measures.json`, 2 figures | 2.6 min |
+| floors, LOSO ridge, gains, nulls, S1–S4 | `research/narrative/results/clock_gain_v1_measures.json`, 2 figures | 2.6 min |
 
 Estimator exactly as specified: dual-form ridge, kernel-centred, leave-one-subject-out over the 216
 Δt ≥ 1 d cells, λ chosen per layer per outer fold by inner LOSO over the 7 training subjects on
@@ -284,11 +284,11 @@ question is the live one, and this design measured it at z = 1.2 with a swap-nul
 
 ## Files
 
-- `scripts/clock_gain_build.py`, `scripts/clock_gain_extract.py`, `scripts/clock_gain_lex.py`,
-  `scripts/clock_gain.py`, `scripts/clock_gain_run.sh`
-- `prompts/clock_gain_v1.json` (960 prompts, four arms, derived mechanically from v3)
-- `results/clock_gain_v1_measures.json` (every number in this note), `results/clock_gain_v1_discrim_{A,D}.json`
-- `results/figures/clock_gain_depth.png`, `results/figures/clock_gain_s3_s4.png`
+- `scripts/narrative/clock_gain_build.py`, `scripts/narrative/clock_gain_extract.py`, `scripts/narrative/clock_gain_lex.py`,
+  `scripts/narrative/clock_gain.py`, `scripts/clock_gain_run.sh`
+- `research/narrative/prompts/clock_gain_v1.json` (960 prompts, four arms, derived mechanically from v3)
+- `research/narrative/results/clock_gain_v1_measures.json` (every number in this note), `results/clock_gain_v1_discrim_{A,D}.json`
+- `research/narrative/results/figures/clock_gain_depth.png`, `research/narrative/results/figures/clock_gain_s3_s4.png`
 - `results/clock_gain_{extract,lex,discrim_D,measure}.log`
 - stacks (`results/clock_gain_v1_stacks_{A,B,C,D}.npz`, `results/clock_gain_v1_lex.npz`) are
   gitignored; `scripts/clock_gain_run.sh` regenerates everything downstream of extraction.

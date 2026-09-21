@@ -1,16 +1,16 @@
 > **Provenance.** This note is the executing agent's own, recovered after I removed its worktree
 > while its computation was still running — my error, recorded at hour 42b. Its run went further than
 > the partial one I first published from a log: twelve thresholds to g_k = 0.95 rather than five to
-> 0.1, both statistics, and 1000 permutations per threshold. `results/sae_ladder_nulls.json` carries
+> 0.1, both statistics, and 1000 permutations per threshold. `research/narrative/results/sae_ladder_nulls.json` carries
 > nulls 1 and 2 from an equivalent run; the script and the null-3 JSON were lost with the worktree.
 
 # Abstraction ladder — the three hour-39 nulls (Phase 0.2)
 
-Runs `scripts/sae_ladder_nulls.py` → `results/sae_ladder_nulls.json`. Pure offline linear algebra
+Runs `scripts/narrative/sae_ladder_nulls.py` → `research/narrative/results/sae_ladder_nulls.json`. Pure offline linear algebra
 on cached data: Gemma Scope JumpReLU dictionaries at layer 20 of Gemma-2-9B-it (16k =
 `layer_20/width_16k/average_l0_47`, 131k = `layer_20/width_131k/average_l0_43`) and the cached
 per-token residuals for the Picard target, the 72 narrative reference passages, and the 111 broad
-reference passages (`results/tokens_gemma9b_l20.npz`, `results/tokens_gemma9b_broad_l20.npz`).
+reference passages (`research/narrative/results/tokens_gemma9b_l20.npz`, `research/narrative/results/tokens_gemma9b_broad_l20.npz`).
 No forward pass, no NDIF, no download. Wall time 266s on this CPU-only session (warm disk cache;
 a cold run took longer only because of first-touch page-cache misses on the 131k dictionary's
 blob, ~3.8 GB, not because of any computation cost).
@@ -208,8 +208,8 @@ stronger "dies before" language if this result is kept in the writeup.
 
 ## Files
 
-- `scripts/sae_ladder_nulls.py` — the three nulls, offline, CPU-only, no NDIF.
-- `results/sae_ladder_nulls.json` — every number above plus per-feature merge-test rows, the full
+- `scripts/narrative/sae_ladder_nulls.py` — the three nulls, offline, CPU-only, no NDIF.
+- `research/narrative/results/sae_ladder_nulls.json` — every number above plus per-feature merge-test rows, the full
   Poisson-binomial PMF for null 1, all 4000 subset means are not individually stored (summary
   stats only) for null 2, and the full 12-threshold × 2-corpus level table for null 3.
-- `results/sae_ladder_nulls.log` — run log.
+- `research/narrative/results/sae_ladder_nulls.log` — run log.

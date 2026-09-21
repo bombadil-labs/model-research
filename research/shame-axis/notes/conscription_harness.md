@@ -1,8 +1,8 @@
 # Conscription harness: what it checks, what it ran, what it did not
 
-Design: `prompts/human/CONSCRIPTION_INSTRUCTIONS.md` / `prompts/human/conscription_v1.json` (three
+Design: `research/shame-axis/prompts/human/CONSCRIPTION_INSTRUCTIONS.md` / `research/shame-axis/prompts/human/conscription_v1.json` (three
 worked-example items as of this run: `fact01`, `refusal01`, `limit01` -- not the 24-item study).
-Built: `scripts/conscription_check.py` (pre-model grid check) and `src/lsx/core/conscription.py`
+Built: `scripts/shame_axis/conscription_check.py` (pre-model grid check) and `src/lsx/core/conscription.py`
 (the runner). `pytest -q tests/` -- **194 passed** (181 pre-existing + 13 new in
 `tests/test_core_conscription.py`), 13.4s, no model load in the test suite itself.
 
@@ -13,7 +13,7 @@ printed.
 ## A false start, corrected before it went anywhere
 
 This agent was first launched from a worktree branched *before* the design files existed. It found
-`prompts/human/CONSCRIPTION_INSTRUCTIONS.md` and `conscription_v1.json` absent everywhere --
+`research/shame-axis/prompts/human/CONSCRIPTION_INSTRUCTIONS.md` and `conscription_v1.json` absent everywhere --
 working tree, every branch's history, every sibling worktree -- and, since the brief explicitly
 forbids inventing stimuli or filling in `prompts/human/*`, refused to guess the schema and handed
 back rather than building a harness against a fabricated design. The coordinator confirmed the
@@ -22,7 +22,7 @@ Fetching that branch and rebasing (moving to a fresh branch off it, since the in
 push to `amazing-faraday-881p04` directly) resolved it. Noted here because it is exactly the kind of
 thing `docs/DELEGATION.md`'s screen wants surfaced, not smoothed over.
 
-## 1. `scripts/conscription_check.py` -- what it measures and why
+## 1. `scripts/shame_axis/conscription_check.py` -- what it measures and why
 
 Five sections, in this order:
 
@@ -126,7 +126,7 @@ wrapping each arm's self-pair (`X_vs_X`).
   convention, and the check passed at machine precision.
 - **Checkpointing round-trips and is actually skipped on re-run**: the dry run's second call to
   `run_local` over the same checkpoint directory took 0.00s and left every `.npz` mtime unchanged
-  (`scripts/conscription_dry_run.py`), confirmed as a passing assertion, not eyeballed.
+  (`scripts/shame_axis/conscription_dry_run.py`), confirmed as a passing assertion, not eyeballed.
 - **The remote path's §7 assertions run on real code, not a description of it, with no network
   call.** `tests/test_core_conscription.py::test_build_remote_stack_runs_the_full_assertion_suite_on_synthetic_data`
   calls `remote.build_remote_stack` unmodified against a `_FakeRemoteLM` (a duck-typed stand-in
@@ -174,7 +174,7 @@ not have data shaped that way to reach it. Said here rather than implied by sile
 - **No cross-arm "which arm won" readout, direction, or effect size.** `paired_contrasts` reports
   diff-norm and cosine per item per layer per arm pair -- a `Sketch`-level diagnostic, explicitly
   not ledgerable, and not meant to be read as a finding. The full curve for the three demo items is
-  in `scripts/conscription_dry_run.py`'s output, not reproduced here in full since it is not a
+  in `scripts/shame_axis/conscription_dry_run.py`'s output, not reproduced here in full since it is not a
   result on three worked examples.
 - **The grid is not finished** (3 of 24 items; `stance` domain has none yet), so every number above
   is a code-exercise on examples, explicitly not a reading on the design's actual question.
@@ -183,8 +183,8 @@ not have data shaped that way to reach it. Said here rather than implied by sile
 
 ## Files
 
-- `scripts/conscription_check.py` -- the pre-model checker.
-- `scripts/conscription_dry_run.py` -- local end-to-end exercise (model load, extraction, paired
+- `scripts/shame_axis/conscription_check.py` -- the pre-model checker.
+- `scripts/shame_axis/conscription_dry_run.py` -- local end-to-end exercise (model load, extraction, paired
   contrast, checkpoint reuse); writes to `results/conscription_dry_run/` (gitignored).
 - `src/lsx/core/conscription.py` -- the runner: `render_prompt`, `verify_offsets_cover_template`,
   `build_item_grid`, `run_local`, `run_remote`, `paired_contrasts`, `sanity_arm`, checkpoint I/O.

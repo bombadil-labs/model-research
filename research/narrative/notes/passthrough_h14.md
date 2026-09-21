@@ -1,6 +1,6 @@
 # Pass-through arm for the hour-14 / hour-23 era shift (spec `core_v1.md` §2a)
 
-`scripts/passthrough_test.py`, `results/passthrough_h14.json`.
+`scripts/narrative/passthrough_test.py`, `research/narrative/results/passthrough_h14.json`.
 Sixth broken instrument. **Verdict: (a) — stages 14 and 23 are residual arithmetic. Claim 6 of
 WRITEUP.md must be withdrawn in its present form.**
 
@@ -108,7 +108,7 @@ decimals, on all 72 shift cases and both grids.
 - Qwen2.5-1.5B, Claude theme grid (h14): complete, model arm at eight read layers.
 - Qwen2.5-1.5B, GPT-authored theme grid (h23): complete, model arm at eight read layers.
 - Gemma-2-9B-it (h14 remote): pass-through and norm-matched pass-through complete from the cached
-  NDIF stacks at reads 14/16/20/41; the model arm is the **logged** `results/stage7_gemma9b_shift.json`
+  NDIF stacks at reads 14/16/20/41; the model arm is the **logged** `research/narrative/results/stage7_gemma9b_shift.json`
   at read 20 only. **Not covered:** a fresh Gemma model arm at other read layers, which would need
   new NDIF jobs. It is not needed for the verdict — the logged Gemma number is already *below* both
   pass-through arms at the layer that was published.
@@ -120,18 +120,18 @@ decimals, on all 72 shift cases and both grids.
 pass-through arm.** Sorted by how closely the shape matches the failure just confirmed.
 
 *Same failure, confirmed:*
-- `scripts/stage7_shift.py` (h14 Qwen, h23 GPT grid) — this note.
-- `scripts/ndif_shift.py` (h14 Gemma) — this note.
+- `scripts/narrative/stage7_shift.py` (h14 Qwen, h23 GPT grid) — this note.
+- `scripts/narrative/ndif_shift.py` (h14 Gemma) — this note.
 
 *Clean, and should be recorded as clean so the rule is not over-applied:*
-- `scripts/ndif_recompose_gen.py`, `scripts/ndif_recompose_sweep.py` (h27/29/31). The era/theme
+- `scripts/narrative/ndif_recompose_gen.py`, `scripts/narrative/ndif_recompose_sweep.py` (h27/29/31). The era/theme
   readout re-runs the **generated continuation through an unpatched forward** (`read6(pad)` on
   `f"{lead} {cont}"`), so the added vector is not present in the vector being classified. The spec
   already says so; this run confirms it by inspection. The h29 target (era→target 0.84) is not
   touched by this finding.
-- `scripts/ndif_commutator.py` readout arm — same construction, re-fetched residuals of generated
+- `scripts/narrative/ndif_commutator.py` readout arm — same construction, re-fetched residuals of generated
   text with no patch in flight.
-- `scripts/stage4_relation.py` / `stage4b_relation_v2.py` / `stage3_source_specificity.py` fit an
+- `scripts/narrative/stage4_relation.py` / `stage4b_relation_v2.py` / `stage3_source_specificity.py` fit an
   affine operator on cached activations with no patch at all (h3/h16 role lens); the `Readout` there
   never sees the treatment.
 

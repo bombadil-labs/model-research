@@ -20,7 +20,7 @@ Files added: `src/lsx/core/{piece5,rerun_h29,rerun_h39}.py`, `tests/test_core_pi
 `results/{h29_arms_reimpose3.0.json,h29_arms_reimpose3.0_controls.json,h39_gemma_clock_arms.json,
 repro_summary_p5.json}` and their `.npz` checkpoints. Modified: `remote.py` (the asserted
 generation path), `reproduce.py` (the permutation arm, the lexical floor, the permutation-null
-diagnostic), `results/ledger.jsonl`. `scripts/` untouched; `RESULTS.md`, `WRITEUP.md`, `VISION.md`,
+diagnostic), `research/narrative/results/ledger.jsonl`. `scripts/` untouched; `RESULTS.md`, `WRITEUP.md`, `VISION.md`,
 `README.md`, `docs/ALGEBRA.md` and `docs/specs/core_v1.md` untouched.
 
 ---
@@ -107,10 +107,10 @@ re-run, at exactly its own resolution of one item in 55.
 §1A does not ask for 0.767 back. It says the logged 0.501 / 0.767 / 2.50 are **raw scores on a grid
 whose leak check flags 221 of 240 state spans**, and that the core must report gain over the
 measured stimulus floor. `discrimination` has required exactly that since piece 4; what was missing
-was the data. `lsx.core.rerun_h39` extracts all three arms of `prompts/time_translation_v2.json` on
+was the data. `lsx.core.rerun_h39` extracts all three arms of `research/narrative/prompts/time_translation_v2.json` on
 Gemma-2-9B-it at layer 20 through `build_remote_stack` (720 texts, batched-vs-single equivalence
 ≥ 0.999995 on the shortest item of every batch), and computes
-`scripts/time_translation_discrimination.py`'s **shared** predictor per subject — the per-item form
+`scripts/narrative/time_translation_discrimination.py`'s **shared** predictor per subject — the per-item form
 the instrument was calibrated for, which the logged JSON does not contain.
 
 | arm | what its text is | shared Spearman, 8 subjects |
@@ -135,7 +135,7 @@ The curve recomputes to the same fifteen values piece 4 got (layer 16 → 1.7321
 and the claim publishes again. The recorded discrepancy is resolved by **naming one**:
 
 - **canonical: 2.1692**, the mean of the full step-2 fifteen-layer curve, which is what
-  `results/stage3_qwen1.5b_v2_rolecentered.json` contains and what §1A's restatement ("report the
+  `research/narrative/results/stage3_qwen1.5b_v2_rolecentered.json` contains and what §1A's restatement ("report the
   curve") asks for;
 - **2.21 as published in `RESULTS.md`, `WRITEUP.md` and `docs/INSTRUMENTS.md` §2, is the same curve
   averaged over the eight step-4 layers**, which recomputes to 2.2065.
@@ -280,7 +280,7 @@ good arms. This is the second target it has bitten. It should be fixed in `regis
 
 ## 5. The ledger: four withdrawals, and an id collision
 
-`results/ledger.jsonl` now holds 17 claim rows -- **13 standing and 4 withdrawn**, the first withdrawals it has
+`research/narrative/results/ledger.jsonl` now holds 17 claim rows -- **13 standing and 4 withdrawn**, the first withdrawals it has
 ever carried. Piece 3 wrote that "writing a retraction into the ledger to demonstrate the feature
 would have been a fabricated row, so there is not one". These are not fabricated.
 

@@ -11,7 +11,7 @@ here, that corrupts 363 of its 480 extracted vectors. Hour 31 falls.**
 
 ## (a) Hour 31's Gemma extraction: the right passage, the wrong positions
 
-**The question.** `scripts/ndif_time_translation_extract.py` batches six passages per NDIF job via
+**The question.** `scripts/narrative/ndif_time_translation_extract.py` batches six passages per NDIF job via
 six `tracer.invoke` blocks and reads `B[bi].output[0]`. If `output[0]` meant "batch row 0" there, as
 it did in `ndif_factors.py` at hour 34, five of every six extracted vectors would be passage 0's and
 hour 31 would be void.
@@ -34,7 +34,7 @@ indices on the *unpadded* text and indexes them **absolutely**. Every passage th
 of its six therefore had its spans read `n_pad` positions too early — out of the padding block, or
 out of earlier tokens of the right passage.
 
-**Decisive test on NDIF** (`scripts/audit_h31_batch_check.py`,
+**Decisive test on NDIF** (`scripts/narrative/audit_h31_batch_check.py`,
 `results/audit_h31_batch_check.log`, google/gemma-2-9b-it, layer 20, 18 s): three real v2-grid
 passages of lengths 44 / 54 / 74, extracted (A) together in one batched job by the hour-31 code path
 and (B) one per job. Cosine A vs B for the same passage:
@@ -71,7 +71,7 @@ left-padding (verified offline: under a simulated 7-token left pad the negative 
 exactly the unpadded span's token ids, while the absolute indices return pad tokens). The whole grid
 was then re-extracted on NDIF with the fixed script (480 passages, 80 jobs, 854 s,
 `results/stacks_gemma_2_9b_it_time_translation_v2_auditfix.npz`) and measurements 1–7 recomputed
-(`results/time_translation_gemma_auditfix_measures.json`, `results/h31_measure_fixed.log`):
+(`research/narrative/results/time_translation_gemma_auditfix_measures.json`, `results/h31_measure_fixed.log`):
 
 | quantity (Gemma-2-9B-it) | hour 31 as logged | corrected | Qwen-1.5B L14 for reference |
 |---|---|---|---|
@@ -110,11 +110,11 @@ re-creates hour 34 silently. No logged number changes.
 | script | patch sites | why it was safe | logged results it produced |
 |---|---|---|---|
 | `ndif_generate.py` | 1 (`tracer.all()` generate) | one prompt per `model.generate` job | hour 13 Gemma-2-9B-it steered generations |
-| `ndif_shift.py` | 1 (trace) | one text per trace; read span also batch-1 | hour 14 era-shift readout, `results/stage7_gemma9b_shift.json` |
+| `ndif_shift.py` | 1 (trace) | one text per trace; read span also batch-1 | hour 14 era-shift readout, `research/narrative/results/stage7_gemma9b_shift.json` |
 | `ndif_commutator.py` | 1 (inside the patch loop) | one prompt per generate; `read_tokens` one text | hours 19 and 22, `results/commutator_gemma9b{,_v2}.json` |
-| `ndif_recompose_gen.py` | 1 | generate is one prompt; the 6-invoke re-read is invoke-scoped **and** pools `[..., -k:, :]`, which is right-aligned and therefore immune to the left-padding shift of (a) | hour 27, `results/recompose_gen_gemma9b.json` |
+| `ndif_recompose_gen.py` | 1 | generate is one prompt; the 6-invoke re-read is invoke-scoped **and** pools `[..., -k:, :]`, which is right-aligned and therefore immune to the left-padding shift of (a) | hour 27, `research/narrative/results/recompose_gen_gemma9b.json` |
 | `ndif_recompose_sweep.py` | 2 | same as above | hour 29 dose-response, `results/recompose_sweep_*.json` |
-| `ndif_absential_probe.py` | 2 (score + generate) | one text per job | hour 18, `results/absential_probe_gemma9b.json` |
+| `ndif_absential_probe.py` | 2 (score + generate) | one text per job | hour 18, `research/narrative/results/absential_probe_gemma9b.json` |
 
 Two notes for the record. First, `recompose_gen`/`recompose_sweep` use the same six-invoke batching
 as hour 31 and are safe from (a) **only** because they pool the last *k* tokens rather than absolute
@@ -135,9 +135,9 @@ had a no-patch *raw* arm; it now also has the no-patch *gain* arm, which is the 
 made degenerate (all gains identically zero → rank 1.00 under the old rule, 5.00 under mid-rank).
 
 **Re-run.** The cheapest local battery behind a headline claim is hour 8's three-factor
-composition (`prompts/narrative_factors_v2.json`, Qwen2.5-1.5B, layer 14, scale 1, leave-one-scene-
+composition (`research/narrative/prompts/narrative_factors_v2.json`, Qwen2.5-1.5B, layer 14, scale 1, leave-one-scene-
 out, 4 scenes × 18 spans). Re-run with the fixed script — mid-rank ties *and* the new no-patch arm —
-in 46 min on CPU (`results/stage6_qwen1.5b_three_l14_auditfix.json`,
+in 46 min on CPU (`research/narrative/results/stage6_qwen1.5b_three_l14_auditfix.json`,
 `results/stage6_three_auditfix.log`):
 
 | hour 8 test | as logged (strict ties, no no-patch arm) | fixed (mid-rank + no-patch) | chance |
@@ -179,13 +179,13 @@ No new experiment was run. For the record, precisely what is missing:
    quote is P(≥12 of 15 | random 16k partner), estimated by 10⁴ resamples, ideally in a
    decoder-cosine-matched form (draw the random partner from 16k features at a similar cosine to
    control for "nearest-by-cosine" also meaning "more typical"). **Cost: zero model runs, pure numpy
-   over `results/sae_ladder_picard.json` and `results/sae_ladder_v2.json`; minutes.**
+   over `research/narrative/results/sae_ladder_picard.json` and `research/narrative/results/sae_ladder_v2.json`; minutes.**
 2. **The width effect has no random-feature control.** "Narrow keeps more general features" (0.19 vs
    0.10) compares *features selected by firing on the description*. The control is the same
    generality statistic over a size-matched **random** sample of features from each dictionary: if
    the gap survives selection-free sampling, the finding is a property of the dictionaries, not of
    abstraction. **Cost: no NDIF — the layer-20 token residuals for the 111-passage broad corpus are
-   cached (`results/tokens_gemma9b_broad_l20.npz`, 36 MB) and both Gemma Scope dictionaries are in
+   cached (`research/narrative/results/tokens_gemma9b_broad_l20.npz`, 36 MB) and both Gemma Scope dictionaries are in
    `cache/hf`; it is one CPU encode pass, tens of minutes at 131k width.**
 3. **The flow has no matched-count control and no permutation null.** Theme purity falling 0.63 →
    0.30 as g_k rises, and "era's structure dies before theme's", are both read off a curve with no
@@ -200,7 +200,7 @@ as descriptive — the effects are large and monotone, but none of the three hea
 distribution to be surprised against, and this is the same missing arm as every other failure in
 `docs/INSTRUMENTS.md`.
 
-## (e) `results/ndif_pinned.txt` corrected
+## (e) `research/narrative/results/ndif_pinned.txt` corrected
 
 The file listed Llama-3.1-405B as `PINNED RUNNING`. It is not. Re-fetched
 `https://api.ndif.us/status` today: the 405B **base** model has no running deployment at all
@@ -220,20 +220,20 @@ needed is absent).
 |---|---|
 | **Hour 31**: "the shared clock replicates on Gemma-9B" — shared variance 0.478, Spearman 0.683, adjacent/distant cos 0.87/0.61, phrase-only ratio 1.67 | **WITHDRAWN** — 363 of 480 extracted vectors had their pooled spans read from padding or from shifted positions (§a). Superseded by the corrected re-run below. |
 | **Hour 31**: "subject clocks absent at 9B (0 of 8, all layers)" | already withdrawn at hour 32 (noise floor); now also rests on corrupted vectors |
-| `WRITEUP.md`'s "the clock is model-invariant" (Qwen + Gemma) | **stands, on replaced numbers**: its Gemma leg must be re-quoted from `results/time_translation_gemma_auditfix_measures.json` (0.501 / 0.767 / 0.89–0.57 / 2.50), not from hour 31 |
+| `WRITEUP.md`'s "the clock is model-invariant" (Qwen + Gemma) | **stands, on replaced numbers**: its Gemma leg must be re-quoted from `research/narrative/results/time_translation_gemma_auditfix_measures.json` (0.501 / 0.767 / 0.89–0.57 / 2.50), not from hour 31 |
 | Hours 13, 14, 18, 19, 22, 27, 29 (the six `output[0][:]` scripts) | **stand** — batch 1 throughout (§b); scripts hardened, no numbers change |
 | All local selector batteries (hours 4–11, 23, 28–32) | **stand** — the representative re-run reproduces every logged number to two decimals and the new no-patch arm reads exactly chance (§c) |
 | Hour 8's tense control caveat (random 1.44) | **qualified, not withdrawn** — no-patch is exactly 1.50, so the low random arm is not an instrument failure (§c) |
 
 ## Files
 
-- `scripts/audit_h31_batch_check.py`, `results/audit_h31_batch_check.log`, `results/audit_h31_batch_check.npz` — the decisive (a) test
-- `scripts/ndif_time_translation_extract.py` — negative (right-aligned) span indices + padding-side assertion
+- `scripts/narrative/audit_h31_batch_check.py`, `results/audit_h31_batch_check.log`, `results/audit_h31_batch_check.npz` — the decisive (a) test
+- `scripts/narrative/ndif_time_translation_extract.py` — negative (right-aligned) span indices + padding-side assertion
 - `scripts/ndif_{generate,shift,commutator,recompose_gen,recompose_sweep,absential_probe}.py` — `resid()` helper at every patch site
 - `scripts/{stage5_factors,stage6_factors,time_translation_selector}.py` — mid-rank ties + no-patch arm
-- `results/ndif_pinned.txt` — corrected
-- `results/stacks_gemma_2_9b_it_time_translation_v2_auditfix.npz`, `results/time_translation_gemma_auditfix_measures.json`, `results/h31_{reextract,measure}_fixed.log`, `results/figures/time_translation_gemma_auditfix_*.png` — the corrected hour-31 grid and measurements
-- `results/stage6_qwen1.5b_three_l14_auditfix.json`, `results/stage6_three_auditfix.log` — the (c) re-run
+- `research/narrative/results/ndif_pinned.txt` — corrected
+- `results/stacks_gemma_2_9b_it_time_translation_v2_auditfix.npz`, `research/narrative/results/time_translation_gemma_auditfix_measures.json`, `results/h31_{reextract,measure}_fixed.log`, `results/figures/time_translation_gemma_auditfix_*.png` — the corrected hour-31 grid and measurements
+- `research/narrative/results/stage6_qwen1.5b_three_l14_auditfix.json`, `results/stage6_three_auditfix.log` — the (c) re-run
 - `docs/INSTRUMENTS.md` — new §4b (the padding bug) and the audit list updated
 
 **Wall time:** ~70 min (18 s for the decisive (a) test, 854 s re-extraction + ~1 min re-measure,

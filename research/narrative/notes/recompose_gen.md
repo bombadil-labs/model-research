@@ -1,7 +1,7 @@
 # Recomposition at the generation level: the era shift does not survive the Engine
 
-Script: `scripts/ndif_recompose_gen.py` (the pre-registered design is its docstring).
-Data: `results/recompose_gen_llama70b.json`, `results/recompose_gen_gemma9b.json`,
+Script: `scripts/narrative/ndif_recompose_gen.py` (the pre-registered design is its docstring).
+Data: `research/narrative/results/recompose_gen_llama70b.json`, `research/narrative/results/recompose_gen_gemma9b.json`,
 `results/stacks_llama_3.1_70b_instruct_narrative_theme_v1.npz`.
 
 ## Question
@@ -17,10 +17,10 @@ the era shift, let the model **continue** the passage, and score the continuatio
 - Models: **meta-llama/Llama-3.1-70B-Instruct** (smoke-tested through NDIF: 80 blocks, d = 8192;
   patch layer 26 ≈ 1/3 depth, readout layer 40 ≈ 1/2 depth) and **google/gemma-2-9b-it** (42 blocks,
   d = 3584; patch 14, readout 20 — the hour-14 pair, kept for comparability).
-- Grid `prompts/narrative_theme_v1.json`, 4 scenes × 3 eras × 3 themes. Theme stacks for Llama-70B
-  extracted fresh (36 NDIF jobs, `scripts/ndif_extract.py`); Gemma's already existed. The GPT-authored
+- Grid `research/narrative/prompts/narrative_theme_v1.json`, 4 scenes × 3 eras × 3 themes. Theme stacks for Llama-70B
+  extracted fresh (36 NDIF jobs, `scripts/narrative/ndif_extract.py`); Gemma's already existed. The GPT-authored
   grid was not extracted — the NDIF budget went to the two generation runs instead.
-- Leave-one-scene-out era and theme directions, exactly as `scripts/ndif_shift.py` builds them.
+- Leave-one-scene-out era and theme directions, exactly as `scripts/narrative/ndif_shift.py` builds them.
 - Per passage: greedy 48-token continuation under (a) no patch, (b) the era shift for each of the two
   other eras, (c) a random direction of the same norm; the patch is added at every position including
   generated ones (`with tracer.all():`). Scale 1.0. 36 × 4 = 144 generations per model. Scale 1.5 was
@@ -41,7 +41,7 @@ Two deviations from the plan, both recorded before the measured run or as they h
 2. **Lost jobs.** NDIF intermittently returns a COMPLETED job with an empty payload, deterministically
    for particular (passage, patch) pairs. Nine of Gemma's 144 generations were lost this way (all in
    patched conditions); none of Llama's. They are recorded with `failed` in the JSON and excluded from
-   the tables. `scripts/ndif_extract.py` also gained a per-span checkpoint and a `retry_job` wrapper
+   the tables. `scripts/narrative/ndif_extract.py` also gained a per-span checkpoint and a `retry_job` wrapper
    after a 70B queue stall killed a 21-span extraction, and a `.cpu()` in its layer stack because the
    70B is model-parallel and `torch.stack` across devices fails.
 

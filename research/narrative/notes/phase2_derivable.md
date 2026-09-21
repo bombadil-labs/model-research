@@ -22,7 +22,7 @@ arm_tolerance`, `checks.cluster_evidence`/`ArmUnitNotInDesign`, rediscovery case
 `rediscovery.py`, `PassthroughArm.from_recorded_offline` in `instruments.py`, and two additive
 generalisations in `reproduce.py` (`h8_lexical_floor(gridspec=...)` and its per-item `scene`
 labels). `tests/test_core_phase2.py` is 23 tests. Results:
-`results/phase2_stage41_rows.json`, `results/phase2_h8_replications.json`.
+`research/narrative/results/phase2_stage41_rows.json`, `research/narrative/results/phase2_h8_replications.json`.
 
 `pytest -q tests/` — **175 passed** (152 before this piece, 23 added).
 
@@ -245,8 +245,8 @@ used.
 
 ## 6. What I did NOT do
 
-* **Nothing reached `results/ledger.jsonl`.** All 27 claims are provenanced to a frozen script — a
-  cached `.npz` written by `scripts/extract_factors.py`, or `results/selector_direct_path_*.json` —
+* **Nothing reached `research/narrative/results/ledger.jsonl`.** All 27 claims are provenanced to a frozen script — a
+  cached `.npz` written by `scripts/narrative/extract_factors.py`, or `results/selector_direct_path_*.json` —
   and not to `extract.build_stack`, so the ledger refuses them with `ProvenanceNotFromStack`, which
   is the refusal h29 hit in piece 4 and that piece 5 cleared by re-extracting. Re-extraction is not
   available here: Qwen2.5-0.5B, Pythia-1.4B and GPT-J's factor grid are not in the local HF cache,
@@ -255,7 +255,7 @@ used.
   and written to `results/`. They are candidates for the ledger, and closing that gap costs one
   local re-extraction per model plus, for h41, roughly 2.7 h of CPU to regenerate the residuals.
 * **I did not recompute h41's pass-through arm.** It is §2a's arithmetic and it ran inside
-  `scripts/selector_direct_path.py`; the pre-norm residuals it needs were never cached.
+  `scripts/narrative/selector_direct_path.py`; the pre-norm residuals it needs were never cached.
   `PassthroughArm.from_recorded_offline` admits it only against that run's own offline identity gate
   — the same offline path fed the *full* observed displacement reproduces the treatment's real
   forward to 3.4 × 10⁻⁵ nats (role) and 3.1 × 10⁻⁵ (composed), against the 10⁻⁴ the run registered —

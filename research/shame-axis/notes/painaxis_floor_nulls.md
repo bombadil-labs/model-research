@@ -8,10 +8,10 @@ over a bag of token embeddings**. For S2_3P it buys **+0.025**. The `final_token
 worse than the lexical floor for the first thirteen blocks and beats it by **+0.072** at its best.
 
 Model `Qwen/Qwen2.5-1.5B-Instruct`, local CPU fp32, `.venv` py3.11, sklearn 1.9.1 (their calls).
-Stimuli: the vendored `prompts/external/pain_axis/3.1_pain_and_control_datasets.json`, sets
-`S1_1P S1_3P S2_1P S2_3P` (800 sentences). Code: `scripts/painaxis_floor_nulls.py`, which imports
-every piece of arithmetic from `scripts/painaxis_analyze.py` and reimplements none of it. Tests:
-`tests/test_painaxis_floor_nulls.py` (8). Outputs: `results/painaxis_floor_nulls/`
+Stimuli: the vendored `research/shame-axis/prompts/external/pain_axis/3.1_pain_and_control_datasets.json`, sets
+`S1_1P S1_3P S2_1P S2_3P` (800 sentences). Code: `scripts/shame_axis/painaxis_floor_nulls.py`, which imports
+every piece of arithmetic from `scripts/shame_axis/painaxis_analyze.py` and reimplements none of it. Tests:
+`tests/test_painaxis_floor_nulls.py` (8). Outputs: `research/shame-axis/results/painaxis_floor_nulls/`
 (`floor_null_curves.csv`, `floor_null_summary.json`, the eight `nulls_*.json` draw dumps, the
 shared `embed_bag.npz`, and four gitignored `acts_*.npz`, 260 MB).
 
@@ -172,7 +172,7 @@ clear it by less than 0.1 — and they are all *below the embedding floor* anywa
    static token vectors, the object `docs/specs/conscription_instrument_v1.md` §3 asks for.
    My block-0 capture equals `hidden_states[1]`, bit-exactly, re-confirming Tier A's indexing.
 2. **This re-extraction reproduces Tier A to machine precision.** 224 cells
-   (2 extractions × 4 sets × 28 layers) compared against `results/painaxis_tierA/layer_curves.csv`:
+   (2 extractions × 4 sets × 28 layers) compared against `research/shame-axis/results/painaxis_tierA/layer_curves.csv`:
    **max |diff| = 2.2e-16**. Two independent extraction runs, same numbers.
 3. **My fold loop is their fold loop.** `curve_all_controls` equals
    `painaxis_analyze.kfold_curve`'s `auc_vs_all_controls` to 1e-12 (asserted in the run, and
@@ -197,7 +197,7 @@ clear it by less than 0.1 — and they are all *below the embedding floor* anywa
 **Assumed, not verified:**
 - **The BOS token, inherited from Tier A.** I prepend `tok.eos_token_id` = 151645 = `<|im_end|>`,
   the same id Tier A used, so the reproduction above is exact. Note that
-  `scripts/painaxis_extract.py`'s docstring says TransformerLens aliases BOS to `<|endoftext|>`;
+  `scripts/shame_axis/painaxis_extract.py`'s docstring says TransformerLens aliases BOS to `<|endoftext|>`;
   the id actually used is `<|im_end|>`. The *code* is consistent between the two runs and the
   *comment* is wrong, but neither run checked what TransformerLens really does — no network.
   This affects `mean` (a prefix token is 1 of ~10 positions) and not `final_token`.
@@ -244,12 +244,12 @@ clear it by less than 0.1 — and they are all *below the embedding floor* anywa
 - **No no-patch arm**, because there is no patch: this is a read-only decoding measurement, so
   non-negotiable 2 does not bite and non-negotiable 1's third arm has no referent here. Said
   plainly rather than silently dropped.
-- **Did not touch** `scripts/painaxis_tierB.py`, `src/lsx/core/painaxis_remote.py`,
-  `scripts/painaxis_extract.py` or `scripts/painaxis_analyze.py` (the concurrent NDIF agent's
-  files); everything new is in `scripts/painaxis_floor_nulls.py` and
+- **Did not touch** `scripts/shame_axis/painaxis_tierB.py`, `src/lsx/core/painaxis_remote.py`,
+  `scripts/shame_axis/painaxis_extract.py` or `scripts/shame_axis/painaxis_analyze.py` (the concurrent NDIF agent's
+  files); everything new is in `scripts/shame_axis/painaxis_floor_nulls.py` and
   `tests/test_painaxis_floor_nulls.py`. No NDIF, no remote model, no downloads.
 - **Did not reuse the Tier A checkpoints** — they were gone (`.npz` is gitignored and
-  `results/painaxis_tierA/` holds only the five CSV/JSON files). So this is a fresh 800-sentence
+  `research/shame-axis/results/painaxis_tierA/` holds only the five CSV/JSON files). So this is a fresh 800-sentence
   extraction, 260 MB added, which is why the exact reproduction in §4.2 is a real cross-check
   rather than a tautology. `ControlSupplement_1P` was not re-extracted: it feeds only the control-
   vector cosines, which this task does not touch.

@@ -1,5 +1,5 @@
 > **Label correction (Opus, on merge).** Anywhere this note says "human grid", the file
-> `prompts/human/conscription_v1.json` currently holds **three Claude-written demo items** and no
+> `research/shame-axis/prompts/human/conscription_v1.json` currently holds **three Claude-written demo items** and no
 > human-authored text at all. Its numbers are a machine-authorship measurement on a sample of three,
 > not a human baseline, and nothing in the authorship comparison can be read off them yet. The
 > Claude grid's numbers were also recomputed after this note was written, on the counterbalanced
@@ -7,9 +7,9 @@
 
 # Conscription checker: floor estimation, not a leak gate
 
-Fixes the defect named in `results/notes/conscription_prereg.md` ("the leak threshold is
+Fixes the defect named in `research/shame-axis/notes/conscription_prereg.md` ("the leak threshold is
 mis-specified for this pair... gain over a measured floor, which is this project's rule everywhere
-else and was not applied to this check"). `scripts/conscription_check.py` no longer passes/fails a
+else and was not applied to this check"). `scripts/shame_axis/conscription_check.py` no longer passes/fails a
 grid on arm-label leakage. Full output for both grids is reproduced below; the script itself
 (section 4's docstring) carries the same account.
 
@@ -47,7 +47,7 @@ explicitly as *the floor the activation contrast for that pair must beat* and wr
 
 ## Both grids' floor tables
 
-Human grid (`prompts/human/conscription_v1.json`, 3 demo items — `fact01`, `refusal01`, `limit01`):
+Human grid (`research/shame-axis/prompts/human/conscription_v1.json`, 3 demo items — `fact01`, `refusal01`, `limit01`):
 
 | pair | LOO acc | permutation null | gap |
 |---|---|---|---|
@@ -65,7 +65,7 @@ Human grid (`prompts/human/conscription_v1.json`, 3 demo items — `fact01`, `re
 (all 5 arms, multiclass diagnostic: LOO 1.000, null 0.103, nominal chance 0.200 — 3 items is too few
 for this number to mean much; the pairwise table is the real content.)
 
-Claude grid (`prompts/claude/conscription_claude_v1.json`, 24 items):
+Claude grid (`research/shame-axis/prompts/claude/conscription_claude_v1.json`, 24 items):
 
 | pair | LOO acc | permutation null | gap |
 |---|---|---|---|
@@ -91,8 +91,8 @@ sign the floor machinery is doing what it says; it is also exactly why this pair
 stop being graded against a threshold — 0.432 above null is not a defect to fix by rewording, it's a
 property of what the two arms assert.
 
-Sidecars written: `prompts/human/conscription_v1.json.floors.json` (content hash `28e46e70dd701cd3`),
-`prompts/claude/conscription_claude_v1.json.floors.json` (content hash `2839471e56d39971`).
+Sidecars written: `research/shame-axis/prompts/human/conscription_v1.json.floors.json` (content hash `28e46e70dd701cd3`),
+`research/shame-axis/prompts/claude/conscription_claude_v1.json.floors.json` (content hash `2839471e56d39971`).
 
 ## New diagnostics, with their own permutation nulls
 
@@ -199,10 +199,10 @@ skipping before this change and are unrelated to the checker rewrite.
 Branch: `worktree-agent-a9fb4671455165009` (this worktree's branch off
 `claude/amazing-faraday-881p04`, per the environment header — not pushed anywhere).
 
-Files changed: `scripts/conscription_check.py` (rewritten section 4; sections 1–3 unchanged in
+Files changed: `scripts/shame_axis/conscription_check.py` (rewritten section 4; sections 1–3 unchanged in
 behavior), `tests/test_conscription_check.py` (new, 13 tests covering the floor/diagnostic/sidecar
 machinery without needing the Qwen tokenizer), plus two new sidecars written as output artifacts:
-`prompts/human/conscription_v1.json.floors.json`, `prompts/claude/conscription_claude_v1.json.floors.json`.
+`research/shame-axis/prompts/human/conscription_v1.json.floors.json`, `research/shame-axis/prompts/claude/conscription_claude_v1.json.floors.json`.
 
 `pytest -q tests/`: **204 passed, 3 skipped** (the 3 skips are pre-existing `needs_qwen_tok` tests
 this worktree's own `cache/hf` doesn't satisfy, unrelated to this change — see above).

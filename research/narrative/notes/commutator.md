@@ -1,7 +1,7 @@
 # Commutator trajectories for narrative factor pairs (Gemma-2-9B-it, NDIF)
 
-`scripts/ndif_commutator.py` · raw generations, projection curves and per-case stats in
-`results/commutator_gemma9b.json` (key `pairs.<pair>.gens` / `.cases`, `analysis.<pair>`).
+`scripts/narrative/ndif_commutator.py` · raw generations, projection curves and per-case stats in
+`research/narrative/results/commutator_gemma9b.json` (key `pairs.<pair>.gens` / `.cases`, `analysis.<pair>`).
 
 This is the instrument VISION.md's "Ecology notes" tees up from groovy-commutator: apply two
 factor patches in both orders, generate, and classify the *trajectory* of the divergence rather
@@ -12,15 +12,15 @@ era@20, rank gap 0.5) is its selector-level shadow; this is the generator-level 
 
 - Model: `google/gemma-2-9b-it` via NDIF, greedy decoding, 60 new tokens, no chat template.
 - Patch layers: **A at block 14, B at block 20**, scale 1.0 each, re-applied at every decoding
-  step (`with tracer.all():`, as in `scripts/ndif_generate.py`). L14/L20 are hour 6's pair, the
+  step (`with tracer.all():`, as in `scripts/narrative/ndif_generate.py`). L14/L20 are hour 6's pair, the
   layers at which era becomes linearly readable and at which theme steering works on this model.
 - Orderings: `AB` = dir_A[a] @14 + dir_B[b] @20; `BA` = dir_B[b] @14 + dir_A[a] @20. Also
   generated per prompt: `base` (no patch), `A` (dir_A[a] @14 only), `B` (dir_B[b] @20 only).
 - Directions: level mean minus grand mean over the grid's block-output residuals, computed *at the
   layer where they are applied* (so dir_era@14 ≠ dir_era@20), from
-  `results/stacks_gemma_2_9b_it_narrative_theme_v1.npz` (era × theme, `prompts/narrative_theme_v1.json`)
-  and `results/stacks_gemma_2_9b_it_narrative_factors_v1.npz` (era × voice, newly extracted here
-  from `prompts/narrative_factors_v1.json`, 36 spans, ~2 min on NDIF).
+  `research/narrative/results/stacks_gemma_2_9b_it_narrative_theme_v1.npz` (era × theme, `research/narrative/prompts/narrative_theme_v1.json`)
+  and `research/narrative/results/stacks_gemma_2_9b_it_narrative_factors_v1.npz` (era × voice, newly extracted here
+  from `research/narrative/prompts/narrative_factors_v1.json`, 36 spans, ~2 min on NDIF).
 - Pairs: **(era, theme)** 3×3 levels and **(era, voice)** 3×3 levels. (voice, theme) has no grid
   that varies both, so it was not run.
 - Prompts (2, neutral, all 9 level combinations each — the task's stated preference for fewer
@@ -41,7 +41,7 @@ era@20, rank gap 0.5) is its selector-level shadow; this is the generator-level 
 
 ## The classification rule (stated before any curve was inspected)
 
-Committed in `8d4b4f9` as the module docstring of `scripts/ndif_commutator.py`, before the first
+Committed in `8d4b4f9` as the module docstring of `scripts/narrative/ndif_commutator.py`, before the first
 full run. With `ham`, `base_ov_X` = fraction of positions where ordering X's token equals base's,
 `early` = mean(curve[0:15]), `late` = mean(curve[45:60]), `growth` = late − early, and
 `consistency` = the larger over the two axes of the fraction of positions i ≥ 5 at which the
@@ -99,7 +99,7 @@ sigma, mean late 1.33 sigma, median first divergence at token **11**.
 ### Per-case numbers
 
 Full per-case table (first_div, ham, base overlaps, mean/early/late curve, consistency) is in
-`results/commutator_gemma9b.json` under `analysis`; the per-token curves are under
+`research/narrative/results/commutator_gemma9b.json` under `analysis`; the per-token curves are under
 `pairs.<pair>.cases.<prompt>|<a>|<b>.curve`.
 
 ## Readings

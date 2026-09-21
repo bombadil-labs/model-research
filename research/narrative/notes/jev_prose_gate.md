@@ -2,7 +2,7 @@
 
 *TypeSafe's Jev (`jev-latest`, served `jev-1.13.0`), a "System One" decision model that returns typed
 decisions with calibrated confidence and no text. Evaluated here as a candidate instrument, not
-adopted. Script: `scripts/jev_judge.py`. Raw scores: `results/jev/*.json`.*
+adopted. Script: `scripts/narrative/jev_judge.py`. Raw scores: `results/jev/*.json`.*
 
 ## Why
 

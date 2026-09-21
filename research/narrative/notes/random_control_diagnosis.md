@@ -1,7 +1,7 @@
 # Why the random-direction control collapsed on every Llama (hour 34)
 
 **Cause, in one line: the patch never reached 8 of the 9 texts in the batch.** In
-`scripts/ndif_factors.py` the patch was written `B[l].output[0][:] = B[l].output[0] + v`. Under
+`scripts/narrative/ndif_factors.py` the patch was written `B[l].output[0][:] = B[l].output[0] + v`. Under
 transformers >= 4.54 a Llama (also Gemma-2, Qwen) decoder layer returns a **bare Tensor
 `[batch, seq, d]`**, not a `(hidden_states, ...)` tuple, so `output[0]` means *batch row 0*, not
 *hidden states*. Hour 34 ran with `NDIF_CHUNK=9`, i.e. all nine variants of a scene in one padded
@@ -96,7 +96,7 @@ longest, and by a different amount per row. Fixed by forcing `padding_side = "ri
 
 Re-extracted stacks (36/36 spans, decodability replicates hour 34 exactly: era 1.00, theme 0.89 at
 layer 16) and re-ran the fixed script, `NDIF_CHUNK=9`, layer 10, scale 1.0, 279 s.
-`results/selector_8b_fixed.json`, `results/selector_8b_fixed.log`.
+`research/narrative/results/selector_8b_fixed.json`, `results/selector_8b_fixed.log`.
 
 | Llama-3.1-8B @10 | factor dir | random | no patch | chance |
 |---|---|---|---|---|
@@ -142,7 +142,7 @@ Two caveats, conservatively:
   control does not clear chance, and the hour-8 tense claim should carry that caveat until re-run
   with the no-patch arm.
 
-## 7. The fix (applied, `scripts/ndif_factors.py`)
+## 7. The fix (applied, `scripts/narrative/ndif_factors.py`)
 
 1. `resid(block)` helper resolves tuple-vs-Tensor block output; the patch is applied to the whole
    hidden-state tensor (`h[:] = h + v`). Verified against both shapes on NDIF (Llama: Tensor,
@@ -173,10 +173,10 @@ this bug. If one of them is ever batched, port `resid()` first.
 
 ## Files
 
-- `scripts/ndif_factors.py` (fixed: patch application, tie handling, no-patch arm, padding side)
-- `results/selector_8b_fixed.json`, `results/selector_8b_fixed.log` (corrected Llama-3.1-8B battery)
+- `scripts/narrative/ndif_factors.py` (fixed: patch application, tie handling, no-patch arm, padding side)
+- `research/narrative/results/selector_8b_fixed.json`, `results/selector_8b_fixed.log` (corrected Llama-3.1-8B battery)
 - `results/stacks_llama_3.1_8b_narrative_theme_v1.npz`, `results/extract_8b_redo.log` (re-extracted;
   the hour-34 stacks were not kept)
 - Affected, to be regarded as void: `results/scale_vs_tuning_selector_{8b,70b,70b_instruct}.json`,
   `results/scale_vs_tuning_selector_{70b,70b_instruct}_l14.json`, and §3 and the "P1 graded" /
-  "layer sweep" sections of `results/notes/scale_vs_tuning_p1.md`.
+  "layer sweep" sections of `research/narrative/notes/scale_vs_tuning_p1.md`.
