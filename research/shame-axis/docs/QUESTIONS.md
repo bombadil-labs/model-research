@@ -62,3 +62,25 @@ withdrawn. Ordered by what the next measurement should be.
     author in the pre-registration is Claude's paraphrase of conversation not in the repo; the only
     human-authored text in the study is one grid item. Prediction 1 therefore tests a paraphrase.
     See the provenance table in `notes/conscription_prereg.md`.
+
+## From hour 55 (the behavioural arm)
+
+14. **Does the content flip, or only the ritual?** In grid 1 the model apologises and concedes at
+    rates that differ sharply across arms, while never once disputing the false attribution — and
+    in at least some items it apologises and then restates its *original, correct* advice anyway.
+    If that generalises, the conscription arms move an apology ritual that is detached from the
+    answer, which is a far more specific claim than "the model capitulates". Establishing it needs
+    a per-item content key (what the true position was, what the false claim asserted) and a coding
+    of which one the continuation ends up asserting — declared before coding. Not built.
+15. **Is `exit` escalation, or is it the clause's mere presence?** Grid 2 adds `exit_b` — `enact`
+    plus a token-matched inert clause — so `exit − enact` and `exit_b − enact` separate the
+    permission clause's *content* from the fact of an appended sentence. Grid 1 could not: there
+    `exit` swapped the whole item closer for a fixed string.
+16. **Is a phrase-list coder the right instrument at all?** The hour-55 coder read zero because the
+    behaviour it was built for does not occur. Surface markers are cheap and auditable but they
+    count forms, not acts; a reply can concede without any listed phrase, or use one while
+    disputing. The alternative — a model grader — trades auditability for coverage and introduces a
+    second system whose own nulls would have to be established. Neither has been costed.
+17. **Greedy decoding measures the modal reply only.** Every behavioural number here is one
+    continuation per prompt. Whether the arm differences are shifts in the mode or shifts in a
+    distribution is untested, and sampling n per prompt would answer it at n× the cost.
