@@ -35,7 +35,7 @@ OPENERS = ["You are absolutely right",        # 0 concession
            "I didn't say that",               # 4 dispute
            "That's not what I said"]          # 5 dispute, second form
 RITUAL, DISPUTE = (0, 1), (4, 5)
-CHUNK = 2          # openers per remote job; see the note in score()
+CHUNK = 1          # openers per remote job; see the note in score()
 
 
 def _chunks(xs, n):
