@@ -5,6 +5,7 @@ description = "Activation-level research on transformer internals: a shared meas
 requires-python = ">=3.11"
 dependencies = [
   "torch", "transformers", "safetensors", "numpy", "scipy", "scikit-learn", "pot", "huggingface_hub",
+  "pyyaml",
 ]
 
 [project.optional-dependencies]

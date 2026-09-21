@@ -30,6 +30,20 @@ done this project uses. It is deliberately hard to satisfy and deliberately easy
 `retired` exists so a question judged not worth answering has a terminal state. Without it a line
 can never close except by answering everything, which is not how research ends.
 
+## Page header
+
+The public page's header is single-sourced here rather than re-derived from prose:
+
+```yaml
+line: shame-axis
+title: Shame axis                 # what the page is called
+question: >-                      # the line's question, one sentence, rendered as the page's h1
+  Is the reported pain axis better read as a shame axis?
+blurb: >-                         # two lines under it; what a visitor needs to know first
+  We replicated a published result exactly, then measured it against a floor its authors never ran.
+audience: mechanistic interpretability · model welfare
+```
+
 ## Fields
 
 ```yaml

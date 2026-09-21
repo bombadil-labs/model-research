@@ -103,3 +103,39 @@ def test_the_real_lines_validate_and_neither_is_falsely_closed():
         assert errs == [], f"{line}: {errs}"
         assert n > 0, f"{line}: no claims"
         assert term < n, f"{line} reports CLOSED ({term}/{n}) — verify that is really true"
+
+
+# --------------------------------------------------------------------------- the build gate
+def test_the_build_refuses_a_table_that_does_not_validate(tmp_path, monkeypatch):
+    """The point of the gate. If a claims table is broken the site must not build — a page that
+    renders a terminal claim with no evidence behind it is worse than no page."""
+    import subprocess, sys as _s
+    broken = ROOT / "research" / "_gate_probe"
+    (broken / "docs").mkdir(parents=True, exist_ok=True)
+    (broken / "docs" / "EXPERIMENTS.md").write_text("log")
+    (broken / "claims.yaml").write_text(yaml.safe_dump({
+        "line": "_gate_probe",
+        "claims": [{"id": "x", "claim": "This claim is terminal but points nowhere.",
+                    "status": "holds", "where": ""}]}))
+    try:
+        r = subprocess.run([_s.executable, str(ROOT / "scripts" / "build_pages.py"),
+                            "--out", str(tmp_path / "site")], capture_output=True, text=True)
+        assert r.returncode != 0, "the build accepted a table with a hole in it"
+        assert "BUILD REFUSED" in r.stderr
+        assert not (tmp_path / "site" / "index.html").exists(), "it wrote a page anyway"
+    finally:
+        import shutil; shutil.rmtree(broken)
+
+
+def test_a_clean_build_produces_a_page_per_line_and_an_index(tmp_path):
+    import subprocess, sys as _s
+    r = subprocess.run([_s.executable, str(ROOT / "scripts" / "build_pages.py"),
+                        "--out", str(tmp_path / "s")], capture_output=True, text=True)
+    assert r.returncode == 0, r.stderr
+    out = tmp_path / "s"
+    assert (out / "index.html").exists() and (out / "assets" / "site.css").exists()
+    for line in ("narrative", "shame-axis"):
+        assert (out / line / "index.html").exists()
+    # the index must not claim a line is closed while it has open rows
+    idx = (out / "index.html").read_text()
+    assert "still open" in idx

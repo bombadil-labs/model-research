@@ -1,6 +1,14 @@
 # See docs/specs/claims_v1.md. Triaged from Checkpoint 2 of docs/EXPERIMENTS.md, which had been
 # carrying this table in prose. The line closes when no claim is left non-terminal.
 line: narrative
+title: Computational narratology
+question: >-
+  Can the relational structure of a narrative be measured in activation space, fit as an
+  operator, and pointed at a domain where the corresponding parts are unknown?
+blurb: >-
+  Most of what looked like shared narrative structure turned out to be slot position. What
+  survived the controls is narrower, and more interesting, than what we set out to find.
+audience: mechanistic interpretability · narratology · computational literary study
 claims:
   - id: cross-domain-shape
     claim: The same relational shape appears across domains above chance.

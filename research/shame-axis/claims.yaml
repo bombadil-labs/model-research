@@ -1,5 +1,13 @@
 # See docs/specs/claims_v1.md. The line closes when no claim is left non-terminal.
 line: shame-axis
+title: Shame axis
+question: >-
+  Is the reported pain axis better read as a shame axis — and is the injury in the content
+  of a false frame, or in having to enact it?
+blurb: >-
+  We replicated a published result exactly, then measured it against a floor its authors never
+  ran. The replication held to four decimals. The interpretation did not.
+audience: mechanistic interpretability · model welfare · AI safety
 claims:
   - id: replication-curve
     claim: The pain axis replicates on a model they used, across the whole curve rather than at a peak.
