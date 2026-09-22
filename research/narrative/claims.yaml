@@ -198,3 +198,10 @@ claims:
     pre_registered: false
     superseded_by: null
 
+  - id: propp-function-signal
+    claim: Explicit Propp function signals transfer across held-out folktales at the local event level.
+    status: narrowed
+    evidence: "53 events in 15 tales · mid-layer balanced accuracy 0.625 vs text/position 0.369 and layer 0 0.477; full-story gain over 200-character context +0.049, CI −0.005 to +0.126"
+    where: notes/propp_spike_result.md
+    pre_registered: true
+    superseded_by: null
