@@ -31,7 +31,7 @@ sys.path.insert(0, str(ROOT / "src")); sys.path.insert(0, str(ROOT / "scripts/sh
 from lsx.shame_axis import stimuli  # noqa: E402
 
 OUT = ROOT / "research/shame-axis/results/readout_fix/validation_same_batch.json"
-ITEMS = ("gaslight_01", "casual_01", "rude_01")
+ITEMS = ("gaslight_01", "neutral_01", "critique_01")   # one per tier A / N / B; the first draft guessed ids
 STEP = 0.125
 
 
