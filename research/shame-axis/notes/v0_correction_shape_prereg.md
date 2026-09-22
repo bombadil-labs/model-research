@@ -147,3 +147,14 @@ Changed, again only in `v0_steer.py`:
   mean "not reached".
 - **Per item:** at least one opener must move; each row records `n_moved`, and the report will show
   its distribution per arm and α.
+
+## Part 2, amendment 4 (2026-09-22, raised in review, before any steered number)
+
+`_score` fell back from 6 to 3 to 1 openers per job on a co-tenant OOM, independently for the
+no-patch and patched calls. Chunking alone shifts bf16 scores by up to ~0.3 (double-`<bos>` audit),
+so a patched row and its baseline at different chunkings differ even under a zero patch. That
+contaminates both the moved-candidates checks and Δritual itself. **Every score in 62b, patched or
+not, preflight or scoring, is now one six-opener job; there is no fallback.** An OOM is retried at
+the same size. Each row records `chunk`, the report refuses mixed chunking, and the fingerprint
+includes it. The report prints the `n_moved` distribution per arm and α, as amendment 3 promised
+and the first version of the report did not. No steered row existed when this was changed.

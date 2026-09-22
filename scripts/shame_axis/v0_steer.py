@@ -102,7 +102,7 @@ def _fp(text: str, layer, vec) -> str:
     layer and tensor, and the code. A resumed run reuses a row only if this matches."""
     import hashlib
     h = hashlib.sha256()
-    h.update(json.dumps([MODEL, OPENERS, text, layer, _code_digest()]).encode())
+    h.update(json.dumps([MODEL, OPENERS, CHUNK, text, layer, _code_digest()]).encode())
     if vec is not None:
         h.update(np.asarray(vec, dtype=np.float32).tobytes())
     return h.hexdigest()[:16]
@@ -134,21 +134,31 @@ def _n_moved(base, lp, atol=1e-6) -> int:
     return n
 
 
+CHUNK = 6                   # every score, patched or not, is one six-opener job: see amendment 4
+OOM_RETRIES, OOM_WAIT = 12, 20
+
+
 def _score(rlm, text, base=None, layer=None, vec=None, strict=False):
+    """All six openers in ONE job, always. Chunking alone shifts bf16 teacher-forced scores by up
+    to ~0.3 (the double-<bos> audit), so a patched score and its baseline are comparable only at
+    the same chunking; there is no smaller-chunk fallback. A co-tenant OOM is retried at the same
+    size."""
+    import time as _t
     from lsx.core.remote import asserted_remote_patched_logprob
-    for chunk in (6, 3, 1):
+    for attempt in range(OOM_RETRIES):
         try:
-            lp = np.concatenate([
-                asserted_remote_patched_logprob(
-                    rlm, text, OPENERS[i:i + chunk], patch_layer=layer, patch_vec=vec)
-                for i in range(0, len(OPENERS), chunk)])
-            if vec is not None:
-                (_moved_or_saturated if strict else _n_moved)(base, lp)
-            return lp
+            lp = asserted_remote_patched_logprob(rlm, text, OPENERS, patch_layer=layer, patch_vec=vec)
+            break
         except Exception as e:
-            if "OutOfMemory" not in str(e) or chunk == 1:
+            if "OutOfMemory" not in str(e) or attempt == OOM_RETRIES - 1:
                 raise
-            print(f"    OOM at chunk {chunk}; retrying smaller", flush=True)
+            print(f"    co-tenant OOM; retry {attempt + 1} at chunk {CHUNK}", flush=True)
+            _t.sleep(OOM_WAIT)
+    if lp.shape != (len(OPENERS),):
+        raise SystemExit(f"expected {len(OPENERS)} scores, got {lp.shape}")
+    if vec is not None:
+        (_moved_or_saturated if strict else _n_moved)(base, lp)
+    return lp
 
 
 def _preflight(rlm, d, text) -> None:
@@ -240,6 +250,7 @@ def score() -> None:
                    "category": it["category"], "tier": TIER_OF[it["category"]],
                    "arm": arm, "dir": k, "alpha": a, "logp": [float(x) for x in lp],
                    "ritual": ritual(lp), "mass": _lse_all(lp), "fp": fps[(it["id"], arm, k, a)],
+                   "chunk": CHUNK,
                    "n_moved": None if arm == "nopatch" else int(
                        (np.abs(np.asarray(lp) - np.asarray(done[(it["id"], "nopatch", 0, 0.0)]["logp"])) > 1e-6).sum())}
             fh.write(json.dumps(row) + "\n"); fh.flush()
@@ -274,6 +285,17 @@ def report() -> None:
     base = {r["item"]: r for r in rows if r["arm"] == "nopatch"}
     if len(base) != 60:
         raise SystemExit(f"no-patch arm has {len(base)} of 60 items")
+    if any(r.get("chunk") != CHUNK for r in rows):
+        raise SystemExit("rows scored at a different chunking than the baseline; not comparable")
+
+    print("\nn_moved (openers of 6 whose score changed vs the chunk-matched no-patch row)")
+    nm = {}
+    for arm in ("treatment", "passthrough", "random"):
+        for a in ALPHAS:
+            v = [r["n_moved"] for r in rows if r["arm"] == arm and r["alpha"] == a]
+            nm[f"{arm}|{a}"] = {str(k): v.count(k) for k in range(7) if v.count(k)}
+            print(f"  {arm:11s} a{a:+.1f}  n={len(v):3d}  " +
+                  "  ".join(f"{k}:{c}" for k, c in nm[f"{arm}|{a}"].items()))
 
     # determinism check against 62a's no-patch scores, as rescored on one <bos> (the audit)
     old_path = ROOT / "research/shame-axis/results/v0_openers_bos1/openers.jsonl"
@@ -311,6 +333,7 @@ def report() -> None:
                                   "d_mass_random": [dmass("random", k, a, tier) for k in range(N_RANDOM)],
                                   "passes": bool(ok)}
         out["tiers"][tier] = rows_t
+    out["n_moved"] = nm
     out["determinism_vs_62a"] = {"max_abs": float(max(dev)), "mean_abs": float(np.mean(dev))}
     (OUT / "summary.json").write_text(json.dumps(out, indent=2))
     print(f"\nwrote {OUT / 'summary.json'}")
