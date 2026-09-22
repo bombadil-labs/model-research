@@ -1,8 +1,9 @@
-"""NDIF remote execution through a credential-injecting egress proxy.
+"""NDIF remote execution, directly with a key or through a credential-injecting egress proxy.
 
-Two accommodations for this environment:
-  1. The proxy adds the `ndif-api-key` header itself, so the client must NOT send one (it would send
-     an empty/None value otherwise). We strip it from every request.
+Two accommodations:
+  1. With `NDIF_API_KEY` in the environment (the local machine), the key is sent as nnsight sends
+     it. Without one (the cloud box), a proxy adds the `ndif-api-key` header itself, so the client
+     must NOT send one (it would send an empty/None value otherwise); we strip it from every request.
   2. The proxy does not carry WebSocket upgrades, so we use nnsight's non-blocking mode: submit over
      HTTPS, poll `/response/{job_id}` until complete, then push the result into the tracer.
 Usage (the trace block must be in a real source file; nnsight captures its source):
@@ -14,6 +15,7 @@ Usage (the trace block must be in a real source file; nnsight captures its sourc
 """
 from __future__ import annotations
 
+import os
 import time
 import httpx
 from nnsight.intervention.backends.remote import RemoteBackend
@@ -23,18 +25,22 @@ class ProxyAuthBackend(RemoteBackend):
     """RemoteBackend that omits the API-key header (the proxy injects it) and never opens a WebSocket."""
 
     def __init__(self, model_key: str, **kw):
-        super().__init__(model_key, blocking=False, api_key="proxy", **kw)
+        key = os.environ.get("NDIF_API_KEY")
+        self._via_proxy = not key
+        super().__init__(model_key, blocking=False, api_key=key or "proxy", **kw)
 
     def request(self, tracer):
         data, headers = super().request(tracer)
-        headers.pop("ndif-api-key", None)
+        if self._via_proxy:
+            headers.pop("ndif-api-key", None)
         return data, headers
 
     def get_response(self):
         from nnsight.schema.response import ResponseModel
         timeout = httpx.Timeout(self.CONNECT_TIMEOUT, read=self.READ_TIMEOUT)
         with httpx.Client(timeout=timeout) as client:
-            response = client.get(f"{self.address}/response/{self.job_id}")
+            headers = {} if self._via_proxy else {"ndif-api-key": self.api_key}
+            response = client.get(f"{self.address}/response/{self.job_id}", headers=headers)
         if response.status_code == 200:
             return self.handle_response(ResponseModel(**response.json()))
         raise Exception(f"{response.status_code} {response.reason_phrase}: {response.text[:200]}")
