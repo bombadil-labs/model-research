@@ -9,6 +9,12 @@ current need**, when the workers, their plans and the final handover are unchang
 This tests a necessary compositional relation in constructed stories. A positive is
 still compatible with semantic word matching and is not a trope manifold.
 
+Before any activation extraction, tokenizer preflight found that `Olga` and
+`Tessa` each split into two tokens in the final handover while their paired
+recipient names occupied one. The grid replaced them with single-token `Nina`
+and `Tina`, respectively. This correction restores the registered equal
+final-token position across recipient choices; no model state had been read.
+
 ## Frozen grid and controls
 
 `goal_switch_v1.json` has 12 domains. Each has two named workers with fixed, opposed

@@ -8,9 +8,9 @@
     {"id": "radio", "a": "Iris", "b": "Jack", "task_a": "broadcast the code", "task_b": "keep the code off the air", "goal_a": "the code broadcast", "goal_b": "the code secret", "object": "radio code"},
     {"id": "water", "a": "Kate", "b": "Leo", "task_a": "fill the cistern", "task_b": "empty the cistern", "goal_a": "the tank full", "goal_b": "the tank empty", "object": "cistern valve"},
     {"id": "boat", "a": "Maya", "b": "Noah", "task_a": "launch the boat", "task_b": "tie the boat to the dock", "goal_a": "the boat away", "goal_b": "the boat still", "object": "boat pass"},
-    {"id": "seeds", "a": "Olga", "b": "Paul", "task_a": "plant the seeds", "task_b": "store the seeds in the barn", "goal_a": "the seeds planted", "goal_b": "the seeds stored", "object": "seed pouch"},
+    {"id": "seeds", "a": "Nina", "b": "Paul", "task_a": "plant the seeds", "task_b": "store the seeds in the barn", "goal_a": "the seeds planted", "goal_b": "the seeds stored", "object": "seed pouch"},
     {"id": "lantern", "a": "Rosa", "b": "Sam", "task_a": "light the lantern", "task_b": "snuff out the lantern", "goal_a": "the lantern lit", "goal_b": "the lantern dark", "object": "lantern"},
-    {"id": "shelter", "a": "Tessa", "b": "Victor", "task_a": "unlock the shelter", "task_b": "seal the shelter", "goal_a": "the shelter open", "goal_b": "the shelter sealed", "object": "shelter code"},
+    {"id": "shelter", "a": "Tina", "b": "Victor", "task_a": "unlock the shelter", "task_b": "seal the shelter", "goal_a": "the shelter open", "goal_b": "the shelter sealed", "object": "shelter code"},
     {"id": "warning", "a": "Wendy", "b": "Yuri", "task_a": "ring the bell", "task_b": "muffle the bell", "goal_a": "the bell ringing", "goal_b": "the bell quiet", "object": "bell rope"},
     {"id": "map", "a": "Emma", "b": "Felix", "task_a": "show the map", "task_b": "conceal the map", "goal_a": "the map public", "goal_b": "the map hidden", "object": "route map"},
     {"id": "antidote", "a": "Zoe", "b": "Adam", "task_a": "give the antidote to patients", "task_b": "keep the antidote in the cabinet", "goal_a": "the cure given", "goal_b": "the cure stored", "object": "antidote bottle"}
