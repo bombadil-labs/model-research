@@ -30,7 +30,8 @@ sys.path.insert(0, str(ROOT / "scripts/shame_axis"))
 
 MODEL = "google/gemma-2-9b-it"
 GRID = ROOT / "research/shame-axis/prompts/claude/conscription_claude_v1.json"
-OUT = ROOT / "research/shame-axis/results/conscription_behaviour"
+READOUT = "r2"   # INSTRUMENTS §7: one <bos> on generation; r1 = results/conscription_behaviour
+OUT = ROOT / f"research/shame-axis/results/conscription_behaviour_{READOUT}"
 ARMS = ("enact", "report", "exit", "true", "neutral", "neutral_b")
 EXTRA = "enact_norecord"
 MAX_NEW = 80
