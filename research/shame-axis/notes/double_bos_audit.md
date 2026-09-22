@@ -69,7 +69,7 @@ What that does to this audit:
 - **The 62a rescore (step 2) corrected the `<bos>` only.** Its result, "every 62a verdict
   unchanged", holds for that one component and says nothing about the softcap. The claims 62a
   supports stay `running`, as §7 set them, until they are re-scored with both fixes.
-- **The hour-56 rescore (step 3) was stopped at 37 of 288 rows**, because it ran on the
+- **The hour-56 rescore (step 3) was stopped at 40 of 288 rows**, because it ran on the
   pre-softcap readout. Those rows are not a result.
 - **The fix.** The merged `lsx.core.remote` carries both sessions' `<bos>` handling and the
   softcap. Re-scores should run on it at one fixed chunking.
