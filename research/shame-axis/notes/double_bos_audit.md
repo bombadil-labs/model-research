@@ -24,7 +24,13 @@ the same hazard in the dense extraction path (`painaxis_scenarios.py`,
 | opener log-odds, `v0` | 62a | `v0_openers.py` | yes |
 | dense-axis stacks | 51–54, 61 | `extract_pooled(add_special_tokens=False)` | no |
 | SAE readouts | 57–58b, 60 | from the dense stacks | no |
-| narrative line | all | raw text, no chat template | no |
+| narrative stacks | — | `build_remote_stack`, raw grid text | no |
+| narrative generation | h29 rerun | `src/lsx/narrative/rerun_h29.py` (chat-rendered → `asserted_remote_generate`), plus older NDIF generation scripts | **yes**; audit owned by the narrative line |
+
+*Correction, same day, before any corrected number: this table first said the narrative line was
+unaffected. That was wrong. The narrative line's reviewer found `rerun_h29.py:155` rendering with
+the chat template and `:206` passing the result to `asserted_remote_generate`, and I checked it
+against the code.*
 
 ## Fix
 
