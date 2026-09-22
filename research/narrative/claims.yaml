@@ -229,3 +229,19 @@ claims:
     where: notes/role_swap_result.md
     pre_registered: false
     superseded_by: null
+
+  - id: controlled-action-interaction
+    claim: In controlled miniatures, reversing a handover changes the prior-goal displacement beyond transfer to the neutral-predicate control.
+    status: holds
+    evidence: "12 held-out domains · goal interaction 0.792, neutral transfer 0.602, paired gap 0.190 (domain bootstrap CI 0.088–0.282), permutation p 0.002; neutral self-score 1.000 limits interpretation"
+    where: notes/action_interaction_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: fixed-predicate-goal-switch
+    claim: The action interaction follows a change in inferred protective or harmful meaning when predicates and actor bindings are held fixed.
+    status: open
+    evidence: "Needed after the action-interaction spike: the current goal/neutral grids change predicates as well as plot meaning, so the 0.190 gap cannot isolate meaning"
+    where: notes/action_interaction_result.md
+    pre_registered: false
+    superseded_by: null
