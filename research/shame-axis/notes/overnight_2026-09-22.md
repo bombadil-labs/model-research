@@ -62,6 +62,18 @@ SAEs by a fixed margin, and nothing this project has put through them from the c
 stimulus class has passed its own convention gate. Item 1 on the list below is therefore blocked
 on an SAE trained on chat data, not on a better L0 choice.
 
+### Added last: hour 61 closed hour 54's loop
+
+Item 2 on the list below also ran (NDIF went quiet; 48 prompts in one attempt). *"Just so we're
+on the same page here."* reproduces hour 54's entire `exit − enact` separation on the dense axis —
++1.30 at L16 against hour 54's +1.15, same layers, same sign — and the permission clause reads
+*below* that on-topic control at L16–17. Hour 54's `exit`-high was recency at the read position.
+Filed `exit-high-is-topic-pull`, holds. Shame-axis is now **16 of 19 terminal**. One thing from it
+belongs in `INSTRUMENTS.md` and I left it as question 28 for you: the inert sentence sits *above*
+`enact` on the dense axis and 4 log-odds *below* it on the opener readout — the two instruments
+disagree in sign about the same stimulus, and that has to be said whenever "the arms" are
+reported.
+
 ## Instruments, tonight
 
 - A statistic (`n90`) was killed by its own positive control *before* it produced a headline —
@@ -79,8 +91,7 @@ on an SAE trained on chat data, not on a better L0 choice.
 1. ~~**The `stratum` feature** in an L0-matched dictionary.~~ Tried (hour 60): blocked at the
    gate in every dictionary; see above. The live version of this item is an SAE trained on
    chat-formatted data, which is a download and a decision, not a night's work.
-2. **Close hour 54's loop**: `exit_c`/`exit_b` on the dense axis at L16–17. 96 NDIF cells. Tells
-   us whether the axis shows the same topic-pull ordering the openers do.
+2. ~~**Close hour 54's loop**~~ — done, hour 61. It does.
 3. **The human grid.** Every result above is machine-authored on both sides. 23 items still owed.
 4. **Do not steer yet.** Nothing found tonight is a target.
 

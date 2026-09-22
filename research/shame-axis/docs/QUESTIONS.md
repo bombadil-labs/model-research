@@ -150,3 +150,8 @@ aversion.
     principled L0 tolerance needs the SAE's own L0 distribution on its training data, and a
     conversational readout in this basis needs an SAE trained on chat data. Until then, every SAE
     result here is about bare scenarios only.
+28. **The dense axis and the opener readout disagree in sign about the same stimulus.** `exit_b`
+    (enact + an inert sentence) sits +0.25 to +0.31 z *above* `enact` on the pain axis at L10–15
+    and 4 log-odds *below* it on the opener log-odds (hours 56, 61). A mid-stream lexical direction
+    and a next-token distribution at the generation position are different instruments; every
+    result reported on "the arms" must name which, and a claim that holds on one does not transfer.

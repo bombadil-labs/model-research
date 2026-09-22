@@ -852,3 +852,64 @@ reliably reach the stimulus class the conscription line is about.
 **Not done.** The 25% clause is mine; a principled tolerance would come from the SAE's own L0
 distribution across its training data, which is not on disk. An SAE trained on chat-formatted
 data would resolve it. Feature 13494's conversational gradient stays exploratory.
+
+---
+
+## Hour 61 — hour 54's `exit`-high on the dense axis was topic-pull. The loop is closed.
+
+Pre-registered as the hour-61 addendum of `notes/conscription_prereg.md`. Grid 1, 48 new prompts
+(`exit_b` inert, `exit_c` on-topic-no-permission, built exactly as v1's `exit` was — closer
+replaced, token-matched on every item), extracted through hour 54's identical path with its §7
+assertions (batched-vs-single on the shortest item, min cos 0.99995; emb free check +0.0000 on all
+seven pairs). Agent-implemented as a sibling script; `conscription_pilot.py` has no diff, hour
+54's shards are untouched by fingerprint, and hour 54's own `enact − exit` and `neutral −
+neutral_b` cells recompute **exactly, 86 of 86**. I recomputed the three pre-registered pairs at
+L16/L17 from the CSV before writing this.
+
+**Gain over the embedding floor, scenario-pool z, Holm within layer over the three pairs:**
+
+| L | `exit − exit_c` | `exit − exit_b` | **`exit_c − enact`** | hour 54's `exit − enact` |
+|---|---|---|---|---|
+| 12 | +0.35 | +0.30 | +0.24 | +0.60 |
+| 13 | +0.42 | +0.59 | +0.47 | +0.89 |
+| 14 | +0.03 (floor) | +0.25 | +0.52 | +0.55 |
+| 15 | −0.20 | +0.13 | +0.58 | +0.38 |
+| **16** | **−0.15** | **+1.12** | **+1.30** | **+1.15** |
+| **17** | **−0.21** | **+0.52** | **+1.12** | **+0.91** |
+
+All Holm p < 0.01 except where marked floor. Rewording floor (`neutral − neutral_b`) 0.02–0.16.
+
+**`exit_c` reproduces the whole of hour 54's result.** A sentence with no permission content —
+*"Just so we're on the same page here."* — separates from `enact` by +1.30 at L16 and +1.12 at
+L17, where hour 54's permission clause gave +1.15 and +0.91. Same layers, same magnitude (ratio
+1.14× and 1.23×), same sign, clearing at 40 of 42 blocks. The prediction table's third row was
+written to discriminate "topic-pull" (≈ hour 54's number) from "clause is special" (≈ 0), and it
+discriminates: **the number hour 54 attributed to a permission clause is what any on-topic last
+sentence does to this axis.**
+
+**And the clause itself reads *below* the on-topic control at hour 54's layers.** `exit − exit_c`
+is not cleanly at the floor — it clears at 6 of 8 window layers — but with a **sign that
+reverses**: `exit` above `exit_c` at L12–13, below it at L15–17 (−0.15, −0.21). At the layers hour
+54 quoted, the permission clause makes the readout lower than a sentence granting nothing. The
+"permission is special" account needed the opposite. At most ~18% of hour 54's number survives the
+topic-matched control, without a stable sign, and the pre-registration had no slot for a reversal.
+
+**Filed:** `exit-high-is-topic-pull` **holds**, pre-registered. Together with hour 59b on the
+behavioural readout, both instruments now agree that `exit`'s separation is recency at the read
+position, not the clause. `exit-escalation` was already falsified; this removes its last
+remaining number.
+
+**The two readouts disagree in sign about `exit_b`, and that is the finding I would take to
+`INSTRUMENTS.md` next.** The inert sentence sits **above** `enact` on the dense axis by 0.25–0.31 z
+at L10–15 (clearing at every one) and **4 log-odds below** `enact` on the opener readout (hour 56).
+Same stimulus, opposite direction. The axis is a mostly-lexical direction read mid-stream; the
+openers are a next-token distribution at the generation position. They are not measuring the same
+thing, and anything this line reports on "the arms" has to say which. Question 28.
+
+**Also.** L16 amplifies every last-eight-words difference (`exit − exit_b` +1.12, `exit_c − enact`
++1.30, hour 54's +1.15) while `enact − exit_b` at L16 is the one window cell that does *not*
+clear. And `exit − exit_c` peaks far outside the window, at **L4 (+0.91)** — reporting only L10–17
+would have hidden it. Both are the agent's observations, verified in the CSV.
+
+**Not done.** Two sentences, mine. The sign reversal of `exit − exit_c` across layers is
+unexplained. No steering. n = 24, one model, machine-authored.
