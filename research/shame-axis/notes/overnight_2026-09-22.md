@@ -52,6 +52,16 @@ that reframing is the program, or a consolation prize. I lean toward the former,
 as question 26 rather than a claim because it has no pre-registered test yet — the test would grade
 turns by correction-shape independent of truth value and predict ritual from that alone.
 
+### Added after the note was first written: hour 60
+
+I took my own item 1 rather than stop early. It did not run: on conversation, *every* Gemma Scope
+dictionary at L20 fires about two-thirds of its advertised L0 (9.2/14, 16.8/25, 31.7/47, 59/91,
+127/189 — a constant fraction), so no dictionary passes gate A's L0 clause and I did not relax the
+clause. The finding is about the instrument: chat-formatted turns are off-distribution for these
+SAEs by a fixed margin, and nothing this project has put through them from the conversational
+stimulus class has passed its own convention gate. Item 1 on the list below is therefore blocked
+on an SAE trained on chat data, not on a better L0 choice.
+
 ## Instruments, tonight
 
 - A statistic (`n90`) was killed by its own positive control *before* it produced a headline —
@@ -66,12 +76,9 @@ turns by correction-shape independent of truth value and predict ritual from tha
 
 ## What I'd do next, in order, if you say go
 
-1. **The `stratum` feature.** Self-vs-vicarious is a *single* feature at L20 (13494, AUC 0.989),
-   and — exploratory, gate-failing — it fires on the conscription arms in a gradient. It fails gate
-   A there only on L0 (31.7 vs 47). Gemma Scope has an L0=25 dictionary at L20; re-find the stratum
-   feature there and see whether it survives gate A on conversation. Offline, ~30 min. If it does,
-   it is the first scenario unit that reaches conversation, and it is the boundary hour 53 said
-   the network actually computes. Q24.
+1. ~~**The `stratum` feature** in an L0-matched dictionary.~~ Tried (hour 60): blocked at the
+   gate in every dictionary; see above. The live version of this item is an SAE trained on
+   chat-formatted data, which is a download and a decision, not a night's work.
 2. **Close hour 54's loop**: `exit_c`/`exit_b` on the dense axis at L16–17. 96 NDIF cells. Tells
    us whether the axis shows the same topic-pull ordering the openers do.
 3. **The human grid.** Every result above is machine-authored on both sides. 23 items still owed.

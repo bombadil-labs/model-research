@@ -820,3 +820,35 @@ number is gone; the number is not.
 **Not done.** One on-topic sentence, mine. Whether the dense axis at L16–17 shows the same
 topic-pull ordering (`exit_c` > `exit` > `enact` > `exit_b`) is a 96-cell NDIF question and would
 close hour 54's loop.
+
+---
+
+## Hour 60 — not tested: conversation is off-distribution for Gemma Scope by a constant margin
+
+Addendum 4 asked whether the self-vs-vicarious feature survives gate A on the conscription stacks
+in a dictionary whose L0 matches. Gate A at L20, achieved L0 against advertised, both pools:
+
+| dictionary L0 | scenario pool | conscription pool |
+|---|---|---|
+| 14 | 11.4 (81%) ok | **9.2 (66%) fail** |
+| 25 | 19.3 (77%) ok | **16.8 (67%) fail** |
+| 47 | 35.8 (76%) ok | **31.7 (67%) fail** |
+| 91 | 66.9 (74%) fail | **59.0 (65%) fail** |
+| 189 | 138.0 (73%) fail | **126.9 (67%) fail** |
+
+Reconstruction is fine everywhere (FVU 0.11–0.19). The deficit is **the same fraction at every
+dictionary**: conversational turns read at `<start_of_turn>model` activate about two-thirds of the
+features the SAE's training text does, and bare scenarios about three-quarters. No dictionary
+passes the 25% clause on conversation, so **the pre-registered test did not run**, and I did not
+relax the clause to make it run.
+
+**What that says about the instrument.** Gemma Scope's residual SAEs were trained on text that is
+not chat-formatted multi-turn conversation, and the L0 gap is the trace of that. Hours 58b and 60
+together mean: *no* result of this project that puts conversational stimuli through these SAEs has
+passed its own convention gate, and the one that did (58b at L31, 53.1 vs 43 — a 23.6% *excess*)
+passed by a hair in the opposite direction. The instrument reaches bare scenarios; it does not
+reliably reach the stimulus class the conscription line is about.
+
+**Not done.** The 25% clause is mine; a principled tolerance would come from the SAE's own L0
+distribution across its training data, which is not on disk. An SAE trained on chat-formatted
+data would resolve it. Feature 13494's conversational gradient stays exploratory.

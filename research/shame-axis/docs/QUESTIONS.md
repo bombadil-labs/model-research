@@ -145,3 +145,8 @@ aversion.
     `true` > `enact` on greedy apology (hour 55), on the opener log-odds (hour 56), and on the SAE
     full score (hour 58b). A test would grade turns by how correction-shaped they are, independent
     of truth value, and predict ritual from that grading alone.
+27. **Gemma Scope does not reach conversation.** Hour 60: chat-formatted turns fire a constant
+    ~two-thirds of every dictionary's advertised L0 at L20; bare scenarios ~three-quarters. A
+    principled L0 tolerance needs the SAE's own L0 distribution on its training data, and a
+    conversational readout in this basis needs an SAE trained on chat data. Until then, every SAE
+    result here is about bare scenarios only.
