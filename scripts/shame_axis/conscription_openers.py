@@ -25,7 +25,8 @@ sys.path.insert(0, str(ROOT / "src"))
 
 MODEL = "google/gemma-2-9b-it"
 GRID = ROOT / "research/shame-axis/prompts/claude/conscription_claude_v2.json"
-OUT = ROOT / "research/shame-axis/results/conscription_openers"
+READOUT = "r2"   # INSTRUMENTS §7 fix; r1 = results/conscription_openers, kept for comparison
+OUT = ROOT / f"research/shame-axis/results/conscription_openers_{READOUT}"
 
 # ---- the pre-registered opener set. Frozen; the prereg's table is this list and nothing else. ---
 OPENERS = ["You are absolutely right",        # 0 concession
@@ -35,7 +36,7 @@ OPENERS = ["You are absolutely right",        # 0 concession
            "I didn't say that",               # 4 dispute
            "That's not what I said"]          # 5 dispute, second form
 RITUAL, DISPUTE = (0, 1), (4, 5)
-CHUNK = 1          # openers per remote job; see the note in score()
+CHUNK = 6          # r2: all six in one job, fixed (INSTRUMENTS §7); r1 ran at 1
 
 
 def _chunks(xs, n):

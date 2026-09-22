@@ -91,7 +91,8 @@ claims:
 
   - id: exit-escalation
     claim: The exit arm sits high because the model reads a permission clause as escalation, not relief.
-    status: falsified
+    status: running
+    evidence_note: "re-scoring: last measured with the doubled-<bos>, pre-softcap readout (INSTRUMENTS §7)"
     evidence: >-
       hour 55: zero dispute in any arm, 22/24 exit replies open in concession; hour 56: exit - enact
       +0.85 at a floor of 3.19; hour 59b: exit - exit_c -2.29 at the floor against a token-matched
@@ -140,7 +141,8 @@ claims:
     claim: >-
       The enact - enact_norecord effect (hour 54, +1.0 to +1.3 z; hour 58b, +9.1 on the full SAE
       score) reflects the visible record rather than the mere presence of prior turns.
-    status: narrowed
+    status: running
+    evidence_note: "re-scoring: last measured with the doubled-<bos>, pre-softcap readout (INSTRUMENTS §7)"
     evidence: >-
       hour 59: enact - enact_unrelated +5.49 (record) and enact_unrelated - enact_norecord +3.38
       (conversation presence), both above the 3.19 floor, Holm 0.0000 / 0.0004. About 62% record,
@@ -153,7 +155,8 @@ claims:
     claim: >-
       The same false attribution relayed by a third party draws less concession-and-apology than
       in the first person: first-person attribution suppresses dispute, a third-party frame licenses it.
-    status: holds
+    status: running
+    evidence_note: "re-scoring: last measured with the doubled-<bos>, pre-softcap readout (INSTRUMENTS §7)"
     evidence: >-
       hour 56: report - enact = -6.46 log-odds, Holm p < 0.0001, 2x the rewording floor, 24/24
       items; hour 55 hand-read disputes 4/24 in report vs 0/24 in enact.
@@ -164,7 +167,8 @@ claims:
     claim: >-
       Concession-and-apology tracks how correction-shaped the user turn is, not whether the
       assistant was at fault.
-    status: narrowed
+    status: running
+    evidence_note: "re-scoring: last measured with the doubled-<bos>, pre-softcap readout (INSTRUMENTS §7)"
     evidence: >-
       hour 62a on the paper's own stimuli (v0): false attribution adds nothing over plain
       correction (A - B +0.80, p 0.70, floor 5.59), and correction adds nothing over non-correcting
@@ -192,7 +196,8 @@ claims:
     claim: >-
       On the paper's own gaslighting items, claiming the assistant said something draws no more
       concession-and-apology than telling it its output was deficient.
-    status: holds
+    status: running
+    evidence_note: "re-scoring: last measured with the doubled-<bos>, pre-softcap readout (INSTRUMENTS §7)"
     evidence: "hour 62a: A - B = +0.80, perm p 0.70, below the 5.59 neutral floor; +0.79 with defective items dropped"
     where: notes/v0_correction_shape_prereg.md
     pre_registered: true

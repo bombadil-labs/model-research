@@ -1,6 +1,6 @@
 # Broken instruments: what this project measured wrong, how it found out, and what it now checks
 
-**Six** instruments are logged here as broken: §1, §2, §3, §4, §4b and §6. §5 holds two failures of
+**Seven** instruments are logged here as broken: §1, §2, §3, §4, §4b, §6 and §7. §5 holds two failures of
 the same family that were **not** instrument failures — a sound measurement on an unsound stimulus,
 and a calibration that failed its own band — and is not counted. Anything that cites a different
 number is counting headings. (A seventh, the post-norm residual found at hour 40, is recorded in
@@ -239,7 +239,40 @@ where the thing being counted is **known to be present**, so a reading of zero i
 the instrument rather than a result. Null arms bound false positives. Only a positive control
 bounds false negatives, and a rate of zero is all false negatives or all true ones.
 
-## What the six have in common
+## 7. The opener readout: a doubled `<bos>` and logits read before the softcap (hours 55–62; caught at 62b)
+
+`asserted_remote_patched_logprob` — the teacher-forced readout under hour 56's opener statistic —
+and `asserted_remote_generate` had two faults, both found by the agent implementing hour 62b, both
+verified by hand before this was written.
+
+**A doubled `<bos>`.** Every behavioural stimulus is rendered through Gemma-2's chat template,
+whose text already begins with `<bos>`. `_encode` tokenises with `add_special_tokens=True`, which
+prepends a second: the model saw `[2, 2, 106, …]` on every prompt. This is the hazard hour 50's
+replication found and fixed in `painaxis_remote` — "every shape check and §7 assertion passes
+under that bug" — and the fix never reached the readout or the generation path. The scorers'
+own guard counted `<bos>` with `add_special_tokens=False`, which is not how the text was encoded,
+so it passed. Measured effect on `ritual` on 60 items: mean −0.64, mean |·| 1.05, max 2.80.
+
+**Logits read before the softcap, reduced in bf16.** The readout reads `lm_head.output`. Gemma-2
+applies `final_logit_softcapping` (30·tanh(z/30)) *after* that module, so every log-prob was
+computed on logits the model never samples from, and `logsumexp` ran in bf16: 92% of no-patch
+log-probs are multiples of 1/32, and one six-token opener scores log p = 0.0 exactly on 11.7% of
+items. The agent measured the consequence directly: scoring the same prompt with the openers
+batched 3 instead of 6 moves `ritual` by 0.18 on average — the size of every steering effect in
+62b. Hour 56's "chunking is exact" test passed on the local twin, which runs fp32 and has no
+softcap; the remote readout was never exact.
+
+**What it invalidated, pending re-scoring:** every behavioural number on the conscription line —
+hour 55's greedy replies (doubled `<bos>` only), hours 56, 59, 59b and 62a (both faults), 62b
+(softcap and precision; its `<bos>` was stripped by the agent). The activation work is clean:
+hours 54, 57, 58a, 58b and 61 extracted through `painaxis_remote` with `add_special_tokens=False`.
+Claims that rest on the affected hours are set to `running` until re-scored.
+
+**The missing arm, in this instrument's terms:** a readout of the model's *output* should be
+checked against the model's output — `model.output.logits`, not an intermediate module — and a
+batching-invariance test must run on the instrument that produces the numbers, not on its twin.
+
+## What the seven have in common
 
 Two claims were put to the record; the first holds, the second does not, and a third emerges.
 

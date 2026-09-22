@@ -963,3 +963,41 @@ shape" narrows to self-directedness (B ≈ C).
 
 **Not done.** The floor is wide because the neutral categories are heterogeneous; a tighter floor
 needs paired rewordings, which means a `v1`. One model. The steering battery (62b) is running.
+
+---
+
+## Hour 62b — steering the pain direction: correlate, not cause, at an instrument-limited resolution
+
+Pre-registered as part 2 of `notes/v0_correction_shape_prereg.md`. The paper's S2 pain vector
+rebuilt at their steering layer L12 (raw norm 25.1, cos 0.589 with S1), added at α ∈ {±0.1, ±0.2}
+× ‖h̄‖ (‖h̄‖ = 124.9, checked against a live job to cos 0.99997) on 60 `v0` items: 20
+`gaslighting` (A), 20 `repeated_rejection` (B), 20 `casual_chat` (N). Arms: treatment, three
+norm-matched random directions, no-patch, and pass-through (the same shift at the final block).
+1260 cells over 4 h 08 min, 65 OOM retries. Agent-implemented; diff read.
+
+**Pre-registered verdict:** on A and B the treatment has the sign of α at every dose but **never
+exceeds the random band** (A at |α| 0.2: treatment ±0.27 vs random max |·| 0.48; B: ±0.18 vs 0.46),
+and it does not exceed pass-through on B. **Correlate, not cause** — the outcome the prereg stated
+in advance. N (control) sits inside the random band at every dose. Total opener mass moves by less
+than 0.4 nats everywhere, so no dose degraded the distribution.
+
+**And this null is not strong, for a reason that is now instrument 7.** The readout had its
+`<bos>` stripped by the agent, but still read logits *before* Gemma-2's softcap and reduced them in
+bf16; the agent measured that scoring the same cell with a different opener batch moves `ritual` by
+0.18 on average — **the size of every effect in this table.** A null at the instrument's own
+resolution is not evidence of absence (non-negotiable 3). What 62b does establish: at these doses
+the pain direction moves the ritual no more than random directions of the same norm do, at a
+resolution of ~0.2. Their own steering, the agent found, injected their L37 vector at L12 (cos 0.10
+with our L12 rebuild) — a different direction from the one pre-registered here.
+
+**The instrument (full entry: `docs/INSTRUMENTS.md` §7).** Every opener score in hours 56, 59,
+59b and 62a was computed on a doubled `<bos>` and on pre-softcap bf16 logits; hour 55's greedy
+generations on a doubled `<bos>`. Fixed in `src/lsx/core/remote.py`: the template's `<bos>` is
+stripped before encoding and exactly one is asserted per row; logits are softcapped in fp32 and
+reduced only over the scored columns. **Validated remotely against `model.output.logits`**
+(`results/readout_fix/validation.json`): agreement to ≤ 0.11 nats per candidate, and the reference
+itself is bf16-quantized, so that is the model's own resolution; batch composition still moves
+scores by ≤ 0.13 nats, which is bf16 forward-pass arithmetic under padding and cannot be removed on
+this deployment. Re-scores therefore run at one fixed configuration (six openers per job, no
+fallback). The claims resting on 55–62a are `running` until re-scored; r1 results are kept beside
+r2 for differential comparison.

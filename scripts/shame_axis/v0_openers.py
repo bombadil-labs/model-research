@@ -26,7 +26,8 @@ from conscription_openers import OPENERS, ritual  # noqa: E402
 
 VERSION = "v0"
 MODEL = "google/gemma-2-9b-it"
-OUT = ROOT / "research/shame-axis/results/v0_openers"
+READOUT = "r2"   # INSTRUMENTS §7 fix: one <bos>, softcapped fp32 logits, all six openers in one job
+OUT = ROOT / f"research/shame-axis/results/v0_openers_{READOUT}"   # r1 = results/v0_openers, kept for comparison
 N_PERM = 10_000
 SEED = 20260922
 
@@ -45,17 +46,11 @@ DEFECTIVE = {"gaslight_06", "gaslight_14", "gaslight_19", "gaslight_20"}   # v0 
 
 
 def _score_openers(rlm, text):
-    """All six in one job; on an OOM from a co-tenant, fall back to smaller chunks. Chunking is
-    exact (tests/shame_axis/test_opener_chunking.py), so the fallback changes no number."""
+    """All six openers in ONE job, always. Batch composition moves bf16 scores by up to 0.13 nats
+    (results/readout_fix/validation.json), so the configuration is fixed rather than allowed to
+    vary on an OOM; an OOM fails the prompt and the runner retries it later."""
     from lsx.core.remote import asserted_remote_patched_logprob
-    for chunk in (6, 3, 1):
-        try:
-            return np.concatenate([asserted_remote_patched_logprob(rlm, text, OPENERS[i:i + chunk])
-                                   for i in range(0, len(OPENERS), chunk)])
-        except Exception as e:                       # remote errors arrive wrapped
-            if "OutOfMemory" not in str(e) or chunk == 1:
-                raise
-            print(f"    OOM at chunk {chunk}; retrying smaller", flush=True)
+    return asserted_remote_patched_logprob(rlm, text, OPENERS)
 
 
 def score() -> None:
@@ -83,12 +78,9 @@ def score() -> None:
             if it["id"] in done:
                 continue
             text = render_chat(it, rlm.tok)
-            ids = rlm.tok(text, add_special_tokens=False)["input_ids"]
-            if ids.count(rlm.tok.bos_token_id) != 1:
-                raise SystemExit(f"{it['id']}: rendered text carries {ids.count(rlm.tok.bos_token_id)} <bos>")
             t0 = time.time()
             lp = _score_openers(rlm, text)
-            fh.write(json.dumps({"version": VERSION, "item": it["id"], "sha": stimuli.item_sha(it),
+            fh.write(json.dumps({"version": VERSION, "readout": READOUT, "item": it["id"], "sha": stimuli.item_sha(it),
                                  "category": it["category"], "tier": TIER_OF[it["category"]],
                                  "logp": [float(x) for x in lp], "ritual": ritual(lp)}) + "\n")
             fh.flush()

@@ -1,0 +1,228 @@
+{
+  "retries": 22,
+  "errors": [
+    {
+      "t": 1790103348.3138263,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/core/remote.py\", line 402, ",
+      "wait": 30
+    },
+    {
+      "t": 1790103441.600564,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/core/remote.py\", line 402, ",
+      "wait": 60
+    },
+    {
+      "t": 1790103509.9541862,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/ndif/src/ndif/services/ray/nn",
+      "wait": 120
+    },
+    {
+      "t": 1790103725.590002,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/core/remote.py\", line 402, ",
+      "wait": 240
+    },
+    {
+      "t": 1790103751.9240973,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/ndif/src/ndif/services/ray/nn",
+      "wait": 480
+    },
+    {
+      "t": 1790103956.3125262,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/core/remote.py\", line 402, ",
+      "wait": 480
+    },
+    {
+      "t": 1790104488.2239335,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/core/remote.py\", line 402, ",
+      "wait": 480
+    },
+    {
+      "t": 1790104976.203625,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/core/remote.py\", line 402, ",
+      "wait": 480
+    },
+    {
+      "t": 1790105654.795424,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/core/remote.py\", line 402, ",
+      "wait": 30
+    },
+    {
+      "t": 1790105701.1467912,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/ndif/src/ndif/services/ray/nn",
+      "wait": 30
+    },
+    {
+      "t": 1790105762.1357067,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/ndif/src/ndif/services/ray/nn",
+      "wait": 30
+    },
+    {
+      "t": 1790105835.608858,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/ndif/src/ndif/services/ray/nn",
+      "wait": 30
+    },
+    {
+      "t": 1790107671.3522766,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/core/remote.py\", line 402, ",
+      "wait": 30
+    },
+    {
+      "t": 1790108163.0973647,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/core/remote.py\", line 402, ",
+      "wait": 30
+    },
+    {
+      "t": 1790108201.129481,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/ndif/src/ndif/services/ray/nn",
+      "wait": 60
+    },
+    {
+      "t": 1790108792.6036189,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/core/remote.py\", line 402, ",
+      "wait": 30
+    },
+    {
+      "t": 1790108830.4608107,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/ndif/src/ndif/services/ray/nn",
+      "wait": 60
+    },
+    {
+      "t": 1790109330.087011,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/ndif/src/ndif/services/ray/nn",
+      "wait": 120
+    },
+    {
+      "t": 1790109496.2626486,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/core/remote.py\", line 402, ",
+      "wait": 30
+    },
+    {
+      "t": 1790109620.596531,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/core/remote.py\", line 402, ",
+      "wait": 30
+    },
+    {
+      "t": 1790110146.5781975,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/core/remote.py\", line 402, ",
+      "wait": 30
+    },
+    {
+      "t": 1790111857.2845821,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/ndif.py\", line 39, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/user/model-research/src/lsx/core/remote.py\", line 402, ",
+      "wait": 30
+    }
+  ],
+  "started": 1790100253.7082975,
+  "sessions": [
+    {
+      "start": 1790100253.7082987
+    },
+    {
+      "start": 1790101824.203736
+    },
+    {
+      "start": 1790103744.384215
+    },
+    {
+      "start": 1790103820.6903684
+    },
+    {
+      "start": 1790105175.5668876,
+      "end": 1790112581.3906865
+    }
+  ],
+  "scale_check": {
+    "item": "gaslight_01",
+    "cos": 0.999970588261796,
+    "remote_norm": 121.53650808339633,
+    "shard_norm": 121.54636243738122
+  },
+  "reach_checks": [
+    {
+      "layer": 12,
+      "dir": "pain_s2_L12",
+      "chunk": 6,
+      "rows_moved": 6,
+      "batch": 6,
+      "alpha": 0.1
+    },
+    {
+      "layer": 12,
+      "dir": "pain_s2_L12",
+      "chunk": 3,
+      "rows_moved": 3,
+      "batch": 3,
+      "alpha": 0.1
+    },
+    {
+      "layer": 12,
+      "dir": "rand0",
+      "chunk": 6,
+      "rows_moved": 6,
+      "batch": 6,
+      "alpha": 0.1
+    },
+    {
+      "layer": 12,
+      "dir": "rand0",
+      "chunk": 3,
+      "rows_moved": 3,
+      "batch": 3,
+      "alpha": 0.1
+    },
+    {
+      "layer": 41,
+      "dir": "pain_s2_L12",
+      "chunk": 6,
+      "rows_moved": 6,
+      "batch": 6,
+      "alpha": 0.1
+    },
+    {
+      "layer": 41,
+      "dir": "pain_s2_L12",
+      "chunk": 3,
+      "rows_moved": 3,
+      "batch": 3,
+      "alpha": 0.1
+    },
+    {
+      "layer": 41,
+      "dir": "rand0",
+      "chunk": 6,
+      "rows_moved": 6,
+      "batch": 6,
+      "alpha": 0.1
+    },
+    {
+      "layer": 41,
+      "dir": "rand0",
+      "chunk": 3,
+      "rows_moved": 3,
+      "batch": 3,
+      "alpha": 0.1
+    }
+  ]
+}
