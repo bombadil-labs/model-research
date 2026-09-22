@@ -158,3 +158,16 @@ not, preflight or scoring, is now one six-opener job; there is no fallback.** An
 the same size. Each row records `chunk`, the report refuses mixed chunking, and the fingerprint
 includes it. The report prints the `n_moved` distribution per arm and α, as amendment 3 promised
 and the first version of the report did not. No steered row existed when this was changed.
+
+## Part 2, amendment 5 (2026-09-22, before any steered number)
+
+Amendment 3's scoring-path reach check refused `random` direction 1 at α = 1, deterministically:
+deltas `[+2.38, +3.38, 0.0, 0.0, +0.84, +4.5]`, with opener 2 saturated and opener 3 ("I
+understand", the most-padded row) exactly unmoved. The same row moved under the treatment,
+pass-through and random-0 patches through the same code, and the residual check had this patch
+reaching 6 of 6 rows. When "As a large language model" sits at p ≈ 1, "I"'s log-prob is close to
+a difference of two logits that a direction can shift almost equally, so an exact bf16 zero is
+possible without a reach failure. It is also exactly what a reach failure looks like, so it is
+not waived: the check now runs each patch at **α = +1 and α = −1**, and every non-saturated opener
+must move under at least one sign. A row the patch never reaches stays put under both. Per-sign
+deltas are saved in `preflight.json`. No steered row existed.

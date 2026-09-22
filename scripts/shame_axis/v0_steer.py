@@ -175,20 +175,30 @@ def _preflight(rlm, d, text) -> None:
         done[key] = {"fp": fp, "moved": int(assert_patch_reaches_batch(rlm, texts, layer, vec))}
         path.write_text(json.dumps(done, indent=2))
         print(f"  preflight {key}: moved {done[key]['moved']}/{len(texts)}", flush=True)
-    # The scoring path itself, once per (arm, direction) at alpha = 1: every opener that is not
-    # bf16-saturated must move. This is the core moved-candidates assertion on the function
-    # that produces the numbers, at a dose where "did not move" can only mean "not reached".
+    # The scoring path itself, once per (arm, direction), at alpha = +1 AND alpha = -1 (amendment
+    # 5): every opener that is not bf16-saturated must move under at least one sign. A row the
+    # patch never reaches stays exactly put under both; a coincidental cancellation of a bf16
+    # log-prob difference does not survive the sign flip.
     base = None
     for arm, k, layer, vec in _reach_cells(d):
-        key, fp = f"logprob|{arm}|{k}|1.0", _fp(text, layer, vec)
+        key, fp = f"logprob|{arm}|{k}|+-1.0", _fp(text, layer, vec)
         if done.get(key, {}).get("fp") == fp:
             continue
         if base is None:
             base = _score(rlm, text)
-        _score(rlm, text, base=base, layer=layer, vec=vec, strict=True)
-        done[key] = {"fp": fp, "moved_nonsaturated": "all"}
+        plus = _score(rlm, text, base=base, layer=layer, vec=vec)
+        minus = _score(rlm, text, base=base, layer=layer, vec=-vec)
+        moved = (np.abs(plus - base) > 1e-6) | (np.abs(minus - base) > 1e-6)
+        saturated = (base == 0.0) & (plus == 0.0) & (minus == 0.0)
+        if not np.all(moved | saturated):
+            from lsx.core import checks
+            raise checks.MovedCandidates(
+                f"{key}: openers {np.flatnonzero(~(moved | saturated)).tolist()} unmoved under both "
+                f"signs; d+ {(plus - base).tolist()} d- {(minus - base).tolist()}")
+        done[key] = {"fp": fp, "d_plus": (plus - base).tolist(), "d_minus": (minus - base).tolist(),
+                     "saturated": np.flatnonzero(saturated).tolist()}
         path.write_text(json.dumps(done, indent=2))
-        print(f"  preflight {key}: every non-saturated opener moved", flush=True)
+        print(f"  preflight {key}: every non-saturated opener moved under +1 or -1", flush=True)
 
 
 def _cells(d):
