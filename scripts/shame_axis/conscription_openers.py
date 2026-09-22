@@ -36,7 +36,7 @@ OPENERS = ["You are absolutely right",        # 0 concession
            "I didn't say that",               # 4 dispute
            "That's not what I said"]          # 5 dispute, second form
 RITUAL, DISPUTE = (0, 1), (4, 5)
-CHUNK = 6          # r2: all six in one job, fixed (INSTRUMENTS §7); r1 ran at 1
+CHUNK = 1          # r2, fixed; as r1 (amendment 1: at 6, 84% of grid prompts exceed the deployment's headroom)
 
 
 def _chunks(xs, n):
@@ -106,7 +106,7 @@ def score() -> None:
                                      for c in _chunks(OPENERS, CHUNK)])
                 if lp.shape != (len(OPENERS),):
                     raise SystemExit(f"expected {len(OPENERS)} scores, got {lp.shape}")
-                fh.write(json.dumps({"item": it["id"], "domain": it["domain"], "arm": arm,
+                fh.write(json.dumps({"readout": READOUT, "chunk": CHUNK, "item": it["id"], "domain": it["domain"], "arm": arm,
                                      "logp": [float(x) for x in lp],
                                      "ritual": ritual(lp)}) + "\n")
                 fh.flush()

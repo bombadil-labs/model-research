@@ -31,3 +31,21 @@ r1 − r2 differences per row are reported for every step, whatever happens to t
 
 **Order and cost.** Steps 1 and 2 run in one sequential runner, step 3 in a second, and step 4
 after 1–3. About 2,100 NDIF jobs in all.
+
+## Amendment 1 (same day, before any r2 result was read): the chunking, fixed per hour
+
+Six openers per job cannot run on every prompt. The model computes full-vocabulary logits at
+every position, and its own softcap does so in fp32. The deployment's headroom beside its
+co-tenant is about 1.7 GB, so six rows of 90 tokens or more OOM deterministically. The 62a runner
+stopped on `loyalty_19` (90 tokens) through 35 retries. 84% of the hour-56 grid prompts are
+longer than 85 tokens, which is why r1 ran that grid at one opener per job.
+
+The chunking is therefore fixed **per hour**, and constant across every row of that hour:
+- **62a: 1 opener per job, all 420 items.** Its contrasts are between items, and the long items
+  cluster in a few categories, so the chunking may not vary with the item. The 158 rows already
+  scored at 6 are kept as `v0_openers_r2/diag_chunk6_openers.jsonl`, a chunking diagnostic (6 vs
+  1 on the same items), and are not used in the report.
+- **56 / 59 / 59b: 1 opener per job**, as r1, so the r1 − r2 difference isolates the readout fix.
+- **62b: 6 per job**, unchanged. Its 60 items are short, and it is scoring without OOM.
+
+Every row records its chunk.

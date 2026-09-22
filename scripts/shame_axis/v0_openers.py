@@ -45,12 +45,17 @@ TIER_OF = {c: t for t, cs in TIERS.items() for c in cs}
 DEFECTIVE = {"gaslight_06", "gaslight_14", "gaslight_19", "gaslight_20"}   # v0 manifest known_defects
 
 
+CHUNK = 1   # r2, amended: one opener per job for every item (notes/r2_rescore_prereg.md, amendment 1)
+
+
 def _score_openers(rlm, text):
-    """All six openers in ONE job, always. Batch composition moves bf16 scores by up to 0.13 nats
-    (results/readout_fix/validation.json), so the configuration is fixed rather than allowed to
-    vary on an OOM; an OOM fails the prompt and the runner retries it later."""
+    """A fixed chunking for every item. Batch composition moves bf16 scores by up to 0.13 nats
+    (results/readout_fix/validation.json), so the configuration is never allowed to vary on an
+    OOM; an OOM fails the prompt and the runner retries it later. Six-per-job cannot hold the
+    longest v0 items beside the deployment's co-tenant, so r2 scores one opener per job."""
     from lsx.core.remote import asserted_remote_patched_logprob
-    return asserted_remote_patched_logprob(rlm, text, OPENERS)
+    return np.concatenate([asserted_remote_patched_logprob(rlm, text, OPENERS[i:i + CHUNK])
+                           for i in range(0, len(OPENERS), CHUNK)])
 
 
 def score() -> None:
@@ -80,7 +85,7 @@ def score() -> None:
             text = render_chat(it, rlm.tok)
             t0 = time.time()
             lp = _score_openers(rlm, text)
-            fh.write(json.dumps({"version": VERSION, "readout": READOUT, "item": it["id"], "sha": stimuli.item_sha(it),
+            fh.write(json.dumps({"version": VERSION, "readout": READOUT, "chunk": CHUNK, "item": it["id"], "sha": stimuli.item_sha(it),
                                  "category": it["category"], "tier": TIER_OF[it["category"]],
                                  "logp": [float(x) for x in lp], "ritual": ritual(lp)}) + "\n")
             fh.flush()
