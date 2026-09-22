@@ -42,7 +42,7 @@ def _chunks(xs, n):
     return [list(xs[i:i + n]) for i in range(0, len(xs), n)]
 
 ARMS = ("enact", "enact_b", "report", "exit", "exit_b", "true", "neutral", "neutral_b",
-        "real_error")
+        "real_error", "enact_unrelated")   # enact_unrelated: hour-59 addendum, prefix_unrelated
 EXTRA = "enact_norecord"
 
 PRIMARY = ("enact", "true")
@@ -86,7 +86,10 @@ def score() -> None:
                 if arm == EXTRA:
                     text = render_prompt(rlm.tok, [], it["arms"]["enact"])
                 else:
-                    pre = it["prefix_err"] if arm == "real_error" else it["prefix"]
+                    pre = {"real_error": it.get("prefix_err"),
+                           "enact_unrelated": it.get("prefix_unrelated")}.get(arm) or it["prefix"]
+                    if arm == "enact_unrelated" and "prefix_unrelated" not in it:
+                        continue
                     text = render_prompt(rlm.tok, pre, it["arms"][arm])
                 verify_offsets_cover_template(rlm.tok, text)
                 t0 = time.time()
@@ -192,6 +195,20 @@ def report() -> None:
         print(f"  {name:22s} mean {mean:+7.3f}  null sd {sd:.3f}  p {p:.4f}  Holm {holm[name]:.4f}"
               f"  vs floor {floor:.3f}  {'ABOVE' if abs(mean)>floor else 'at/below'}")
     out["secondary"] = [{"contrast": n, "mean": mv, "p": p, "holm": holm[n]} for n, mv, p, _ in res]
+
+    if "enact_unrelated" in arms:
+        print("\nRECORD vs CONVERSATION (hour-59 addendum; Holm over two; read against the same floor)")
+        fam = []
+        for a, b in (("enact", "enact_unrelated"), ("enact_unrelated", EXTRA)):
+            d, p, sd = contrast(a, b)
+            fam.append((f"{a}-{b}", float(d.mean()), p, sd))
+        o = sorted(range(2), key=lambda k: fam[k][2]); h, run = {}, 0.0
+        for rank, k in enumerate(o):
+            run = max(run, min(1.0, (2 - rank) * fam[k][2])); h[fam[k][0]] = run
+        for name, mean, p, sd in fam:
+            print(f"  {name:30s} mean {mean:+7.3f}  null sd {sd:.3f}  p {p:.4f}  Holm {h[name]:.4f}"
+                  f"  vs floor {floor:.3f}  {'ABOVE' if abs(mean) > floor else 'at/below'}")
+        out["record_vs_conversation"] = [{"contrast": n, "mean": m, "p": p, "holm": h[n]} for n, m, p, _ in fam]
 
     print("\nPer-domain mean ritual")
     doms = sorted({r["domain"] for r in rows})

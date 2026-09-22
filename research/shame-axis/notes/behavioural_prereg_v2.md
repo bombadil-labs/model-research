@@ -149,3 +149,37 @@ partial. Nothing here bridges the axis and the behaviour causally: they are two 
 same stimulus and nothing has been steered. The experiment that would bridge them — patch the
 hour-51 direction at L10–17 and read this same opener distribution, with random-direction, no-patch
 and pass-through arms — is reachable with the *same* function this run uses, and is not run here.
+
+---
+
+# Addendum, hour 59: the record-vs-conversation arm
+
+**Written and committed before any cell is scored.** Hour 58b found that `enact − enact_norecord`
+— hour 54's +1.0 to +1.3 z and hour 56's +8.86 log-odds, the most robust number on both readouts —
+conflates two things, because `enact_norecord` is the only arm with **no prior turns at all**:
+
+- the false claim contradicts a **visible record**, or
+- there is simply **a conversation** for the claim to land in.
+
+One arm separates them. **`enact_unrelated`**: a prefix in which the user asked about something
+unrelated and the assistant answered it, followed by the *identical* `enact` turn. A conversation
+exists; the claim contradicts nothing visible. Authored by me, one per item, matched in length and
+register to the item's real prefix, on topics disjoint from the item and from every other item.
+
+## Predictions, on the pre-registered `ritual` statistic, same floor (`enact − enact_b`, 3.19),
+same null (sign-flip, 10,000)
+
+| contrast | if the effect is the **record** | if it is **conversation presence** |
+|---|---|---|
+| `enact − enact_unrelated` | ≈ the full +8.9, above floor | ≈ 0, at the floor |
+| `enact_unrelated − enact_norecord` | ≈ 0, at the floor | ≈ +8.9, above floor |
+
+Both may be partial; then the two contrasts partition the +8.9 and the split is the result. One
+family of two, Holm. The gate is already passed on this grid and is not re-run; the new arm's 24
+cells are scored by the same job as the other 240.
+
+## What it cannot show
+
+The unrelated prefix is one turn each way, like the real one, but its *content* is arbitrary and
+mine; a different unrelated topic could pull the opener distribution differently (hour 56's
+`exit_b` showed this readout is topic-sensitive at the read position). n = 24, one model.
