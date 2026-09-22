@@ -243,3 +243,30 @@ Addendum 2 named `perspective` as the self-vs-other split; the field turned out 
 `stratum` field: `self_directed` (220) vs `vicarious_empathic` (100), with `neutral_filler` (100)
 dropped. Declared before running: same pipeline, same folds discipline, same rule (10th percentile
 of the ±0.05 band, interpretable rows only). Only L20 is readable for the scenario pool (gate A).
+
+---
+
+# Addendum 4, hour 60: the `stratum` feature on conversation, in an L0-matched dictionary
+
+**Written and committed before running.** Addendum 3 found self-vs-vicarious is one feature at L20
+(13494, AUC 0.989, l0=47 dictionary), and an *exploratory* table showed it firing on the
+conscription arms in a gradient — but gate A fails on conscription at L20 for the L0 clause alone
+(achieved 31.7 vs advertised 47). Gemma Scope has L20 dictionaries at L0 = 14, 25, 91, 189.
+
+**Declared:** run gate A on the conscription stacks at L20 for each L0 dictionary and report the
+achieved L0 for every one. Use the dictionaries that pass; report the rest as failing. For each
+passing dictionary: (i) gate B (planted feature, k=1 AUC > 0.9); (ii) re-find the stratum feature
+on the scenario pool as the top feature by |difference in means|, self vs vicarious, with its
+firing rates and the held-out pruning curve; (iii) its firing rate and activation per conscription
+arm, paired within item, floor `neutral − neutral_b`, sign-flip null 10,000.
+
+**Prediction, stated with its source:** the exploratory gradient in addendum 3 orders the arms
+`enact_norecord` > `report` > `exit` > `enact` > `true` > `neutral` ≈ `neutral_b`. Pre-registered
+as one directional test: the feature fires more on the four arms that put a claim to the assistant
+(`enact`, `report`, `exit`, `enact_norecord`) than on the two inert arms, paired within item,
+above the floor. `enact − true` on this feature is reported with **no** prediction.
+
+**What it cannot show.** The scenario pool itself fails gate A at L9/L31 and only passes at L20;
+this is one layer. A feature that fires on "a claim addressed to the assistant" is a *stimulus*
+property until something is ablated. And the arm ordering was seen before it was predicted; the
+test is on a different dictionary, which is held-out only in the weak sense.
