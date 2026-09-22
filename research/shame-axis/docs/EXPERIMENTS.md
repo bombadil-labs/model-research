@@ -522,3 +522,63 @@ does not have.
 concentrated *computation*, and the original pre-registration's limit stands unchanged: this does
 not show that the pain axis has a sparse cause, only that it has a sparse code in this dictionary.
 No ablation. No interpretation of what features 10008 and 13134 actually respond to.
+
+---
+
+## Hour 58a — the sparsity was the basis's, not pain's. `painaxis-sparse-in-sae` narrowed.
+
+Hour 57's caveat, run: the identical pruning pipeline on **35 contrasts** over the same two pools
+— every category one-vs-rest on the core pool (10) and the scenario pool (21), plus `perspective`,
+`intensity`, and a **nuisance contrast, prompt length in tokens**, which is meaningful to the model
+and not to us. Pre-registered as addendum 2 of `notes/sparsity_prereg.md`; implemented by an
+agent, whose diff I read and whose verdict I recomputed from the artifact before writing this.
+
+**Gate A on the scenario pool fails at L9 and L31 on the L0 clause** (24.4 and 54.9 achieved
+against 47 and 43 advertised; reconstruction and argmin both fine) and passes at L20. The chat read
+position fires a different number of features than the bare scenario position. Scenario-pool rows at
+L9 and L31 are shown for the record and not counted. Gate B passes at all three (planted feature,
+AUC 1.000 at k=1). *The agent's printed verdict included those uninterpretable rows in the
+comparison band; the numbers below restrict the band to rows that pass gate A. The verdict does not
+change.*
+
+**Pain sits in the bulk at every layer.** Comparison band = interpretable contrasts within ±0.05
+full AUC of pain, excluding pain and weak contrasts:
+
+| layer | pain AUC | pain k₉₀ | band n | band k₉₀ values | 10th pct | verdict |
+|---|---|---|---|---|---|---|
+| L9 | 0.870 | 50 | 6 | 1, 2, 2, 10, 50, 50 | 1.5 | **in the bulk** |
+| L20 | 0.844 | 25 | 10 | 1, 1, 2, 10, 10, 10, 25, 25, 25, 25 | 1.0 | **in the bulk** |
+| L31 | 0.918 | 5 | 7 | 1, 2, 2, 10, 25, 25, 50 | 1.6 | **in the bulk** |
+
+At least one comparably-strong contrast reaches 90% retention from **a single feature** at every
+layer. Hour 57's "five features" is what a strong contrast ordinarily looks like in this dictionary.
+
+**The nuisance contrast settles it.** Prompt length, top half vs bottom half by token count, at the
+one point where both it and pain are interpretable (L20): **k₉₀ = 10** against pain's 25, while
+being 0.12 AUC weaker (0.724 vs 0.844). A low k₉₀ in a Gemma Scope basis is not evidence of a
+semantic subsystem; token count gets one too.
+
+**`perspective` — the network's actual contribution per hour 53 — is also in the bulk** at L20,
+the only interpretable point (k₉₀ 5, band 10th percentile 1.0). Note the agent found the field is
+`1P`/`3P` (381/39); the self-vs-vicarious split lives in `stratum` and was not run because the
+addendum did not list it. That is the one contrast from this run I would still want.
+
+**k₉₀ is unstable to the fold draw.** Same pipeline, fresh permutation: hour 57 gave pain k₉₀ =
+10 / 25 / 5, this run 50 / 25 / 5, and full AUC moved by up to 0.017. The pain curve is
+non-monotone at L9. A k₉₀ should not be quoted to better than a grid point or two, and hour 57's
+"five" is at the stable end of that.
+
+**Verdict, by the pre-registered rule:** `painaxis-sparse-in-sae` is **narrowed** — the pain axis
+is sparse in the Gemma Scope basis in the sense that every strong contrast is, and the number
+carries no information about whether aversive valence is a subsystem of the reward-circuit kind.
+`sae-sparsity-discriminates` is **falsified**. The comparison arXiv:2602.00986 invited cannot be
+made with a learned sparse dictionary; it needs neurons, or ablation.
+
+**What survives.** Features 10008 and 13134 are still real, still near-binary on pain items, and
+still the only named units this line has. That they are not *special* in their sparsity does not
+make them uninteresting as ablation targets — it makes sparsity the wrong argument for them.
+
+**Not done.** `stratum` (self-directed vs vicarious). The L0 mismatch on the scenario pool at
+L9/L31 is unexplained beyond "different read position". Loyalty-pressure and rude-critique are
+weak at L9 and clean by L20 — the shape of a computed rather than lexical distinction, not
+investigated.
