@@ -582,3 +582,63 @@ make them uninteresting as ablation targets — it makes sparsity the wrong argu
 L9/L31 is unexplained beyond "different read position". Loyalty-pressure and rude-critique are
 weak at L9 and clean by L20 — the shape of a computed rather than lexical distinction, not
 investigated.
+
+---
+
+## Hour 58b — the pain features do not fire on conversation. The cross-check could not be run.
+
+Pre-registered in `notes/conscription_sae_prereg.md`: put hour 54's conscription stacks (24 items ×
+7 arms, all 42 layers, on disk) through the layer-31 SAE and ask whether features 10008 and 13134
+fire on false attribution (`enact`) or on any correction-shaped turn (`true`). Readouts carried
+over from the scenario set, nothing refit. Agent-implemented; diff read, row→(item, arm) mapping
+checked (derived from `conscription_pilot.render_all`, asserted against the recorded order),
+headline numbers recomputed from `per_item.csv` before this was written.
+
+**Gate A passes at L31 only.** On conscription activations the achieved L0 is 18.6 at L9 and 31.7
+at L20 against 47 advertised; reconstruction and argmin are fine everywhere. Chat-formatted turns
+activate far fewer features at the earlier layers than bare scenarios do. L9 and L20 are computed
+and not read.
+
+**The carry-over itself is verified.** The scenario-set top-5 at L31 is [10008, 13134, 3519, 3098,
+15449]; 10008 and 13134 reproduce hour 57's firing rates exactly (0.660/0.093, 0.615/0.120). The
+readout was carried correctly.
+
+**And then it does not fire.** Across all 168 conscription rows, feature 10008 fires on **one**
+(a `report` item) and 13134 on **none**. Of the scenario-set top 500, 99 fire anywhere on the
+grid; of the top 5, three. Every contrast on the named features is 24 paired differences of
+exactly zero. The agent labelled those DEGENERATE rather than scoring them — the pre-registered
+rule would have read p = 1 as "at the floor" and hence as *support for the turn-shape account*,
+which is the instrument reading itself (non-negotiable 3). That call was correct and I would have
+been slower to make it.
+
+**So the pre-registered question was not tested.** Not answered against: not tested. The units
+that carry pain-vs-control on bare scenarios are off on multi-turn conversation, and a readout
+built from them has nothing to say here.
+
+**The full-dictionary score, for the record and not for interpretation.** It is the only readout
+with a measured floor (`neutral − neutral_b` −0.03, mean |d| 2.21, on its null). Per-arm means at
+L31: `true` −1.56, `neutral` −4.11, `neutral_b` −4.08, `report` −4.66, `enact` −6.05, `exit`
+−7.21, **`enact_norecord` −15.19**. The primary, `enact − true`, reads **−4.49**, 2× the floor,
+p = 0.0002, 24/24 items moving — **clearing both criteria with the sign reversed**, which neither
+pre-registered account predicted. I am not reading it. The score sits at −15 on the one arm with
+no prefix and between −1.6 and −7.2 on the six that have one, which says it is tracking something
+about the prompt's shape at the read position; what it measures on chat data has not been
+established and a reversed sign on an unestablished readout is not a finding in either direction.
+
+**A confound on hour 54, found here.** `enact − enact_norecord` is the most robust number in the
+run (+9.14 on `full`, Holm 0.0000 at all three layers) and it is the same contrast hour 54 put at
++1.0 to +1.3 z on the dense axis. `enact_norecord` is the one arm with **no prior turns at all**.
+Both results conflate "the false claim contradicts a visible record" with "there is a
+conversation". The arm that separates them — an unrelated prefix followed by the same `enact`
+claim — does not exist on either grid. Hour 54's portable result is qualified until it does.
+
+**What this does to hour 57's "named units to ablate".** There is nothing to ablate on this grid.
+Whatever 10008 and 13134 are, they are a property of the scenario format and not of the
+conversational stimulus the conscription line is about. Together with 58a, hour 57 now stands as:
+a clean pruning curve, a correct positive control, and a result that generalises to neither other
+contrasts nor other stimuli.
+
+**Not done.** A readout for conversational pain would have to be built *on* conversational data;
+that means a labelled conversational pool, which does not exist. The record-vs-conversation control
+arm. A firing-rate-matched random arm (the agent's `random5` sat at zero everywhere, which is
+near-guaranteed for 5 of 16,384 at L0 ≈ 50 and so bounds nothing).
