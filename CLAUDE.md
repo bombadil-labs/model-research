@@ -46,14 +46,24 @@ Line code depends on the core, never the other way round, and never on another l
 
 ## Environment
 
-- `.venv` — py3.11, CPU torch, local models. `.venv312` — py3.12, nnsight, NDIF.
+- `.venv` — py3.11, CUDA torch, local models. `.venv312` — py3.12, nnsight, NDIF. Venvs are per
+  worktree (`pip install -e` pins one `src`).
+- **Hardware changed on 2026-09-22.** Everything local before that date ran on a cloud box, CPU
+  float32. From then on, local runs are on a WSL2 machine with an RTX 3060 Ti (8 GB VRAM) and about
+  7 GB RAM. `LM` still defaults to `device="cpu"`, so GPU use is opt-in. Any local result run on
+  `cuda` records the device in its artifact. A GPU rerun of a CPU-era number is a replication on
+  new hardware, not the same measurement, so check it against the old value before relying on it.
+- Two agents share the machine. Wrap local model loads in `flock /tmp/model-research-local.lock`.
+- Keys load from `~/.bashrc` (interactive shell only): `NDIF_API_KEY`, `HUGGINGFACE_API_KEY`.
+  Export `HF_TOKEN` from the latter.
 - `HF_HOME=$PWD/cache/hf`, `HF_HUB_DISABLE_XET=1`, `HF_HUB_OFFLINE=1` for local runs.
 - Llama-3.1-405B is **not** reachable with this key (h34). NDIF and TypeSafe credentials come from
   the environment/proxy; never print them.
 - The NDIF GPU is shared and a co-tenant can exhaust the deployment's memory cap; extraction OOMs
   then are not your batch size. Every extraction script is shard-checkpointed for that reason —
   retry, do not redesign.
-- Disk is limited. Download nothing large. `.npz` stacks are gitignored and will not survive.
+- Disk is plentiful locally (~900 GB) but RAM is not; models that don't fit in 8 GB VRAM or 7 GB
+  RAM go to NDIF. `.npz` stacks are gitignored; they persist on this machine but not in the repo.
 
 ## Claims and closure
 
