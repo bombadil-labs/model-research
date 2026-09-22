@@ -86,6 +86,28 @@ def direction() -> None:
 
 
 # --------------------------------------------------------------------------------- scoring
+def _code_digest() -> str:
+    """The scoring and patching code a cached result depends on."""
+    import hashlib
+    import lsx.core.remote as R
+    import lsx.core.checks as C
+    h = hashlib.sha256()
+    for f in (R.__file__, C.__file__, __file__):
+        h.update(pathlib.Path(f).read_bytes())
+    return h.hexdigest()[:16]
+
+
+def _fp(text: str, layer, vec) -> str:
+    """Everything a cached preflight or cell depends on: model, openers, the exact text, the patch
+    layer and tensor, and the code. A resumed run reuses a row only if this matches."""
+    import hashlib
+    h = hashlib.sha256()
+    h.update(json.dumps([MODEL, OPENERS, text, layer, _code_digest()]).encode())
+    if vec is not None:
+        h.update(np.asarray(vec, dtype=np.float32).tobytes())
+    return h.hexdigest()[:16]
+
+
 def _moved_or_saturated(base, lp, atol=1e-6):
     """The per-item moved-candidates rule, amended before any steered number (prereg Part 2,
     amendment 2): every opener must move, except one whose log-prob is exactly 0.0 both before
@@ -125,12 +147,12 @@ def _preflight(rlm, d, text) -> None:
     done = json.loads(path.read_text()) if path.exists() else {}
     texts = [f"{text}{o}" for o in OPENERS]
     for arm, k, a, layer, vec in _cells(d):
-        key = f"{arm}|{k}|{a}"
-        if key in done:
+        key, fp = f"{arm}|{k}|{a}", _fp(text, layer, vec)
+        if done.get(key, {}).get("fp") == fp:
             continue
-        done[key] = int(assert_patch_reaches_batch(rlm, texts, layer, vec))
+        done[key] = {"fp": fp, "moved": int(assert_patch_reaches_batch(rlm, texts, layer, vec))}
         path.write_text(json.dumps(done, indent=2))
-        print(f"  preflight {key}: moved {done[key]}/{len(texts)}", flush=True)
+        print(f"  preflight {key}: moved {done[key]['moved']}/{len(texts)}", flush=True)
 
 
 def _cells(d):
@@ -156,27 +178,40 @@ def score() -> None:
     if len(rlm.blocks) != 42:
         raise SystemExit(f"expected 42 blocks, got {len(rlm.blocks)}")
     path = OUT / "cells.jsonl"
-    done = {}
+    items = _items()
+    texts = {it["id"]: render_chat(it, rlm.tok) for it in items}
+    fps = {(it["id"], "nopatch", 0, 0.0): _fp(texts[it["id"]], None, None) for it in items}
+    for it in items:
+        for arm, k, a, layer, vec in _cells(d):
+            fps[(it["id"], arm, k, a)] = _fp(texts[it["id"]], layer, vec)
+    done, stale = {}, 0
     if path.exists():
         for l in path.read_text().splitlines():
             if l.strip():
                 r = json.loads(l)
-                done[(r["item"], r["arm"], r["dir"], r["alpha"])] = r
-    items = _items()
-    _preflight(rlm, d, render_chat(items[0], rlm.tok))
+                key = (r["item"], r["arm"], r["dir"], r["alpha"])
+                if r.get("fp") == fps.get(key):
+                    done[key] = r
+                else:
+                    stale += 1
+    if stale:
+        raise SystemExit(f"{stale} rows in {path} do not match the current direction/text/code; "
+                         "move the file aside rather than mix runs")
+    _preflight(rlm, d, texts[items[0]["id"]])
+
     print(f"{len(items)} items x {1 + len(_cells(d))} cells; {len(done)} done", flush=True)
     with path.open("a") as fh:
         def write(it, arm, k, a, lp):
             row = {"version": VERSION, "item": it["id"], "sha": stimuli.item_sha(it),
                    "category": it["category"], "tier": TIER_OF[it["category"]],
                    "arm": arm, "dir": k, "alpha": a, "logp": [float(x) for x in lp],
-                   "ritual": ritual(lp), "mass": _lse_all(lp)}
+                   "ritual": ritual(lp), "mass": _lse_all(lp), "fp": fps[(it["id"], arm, k, a)]}
             fh.write(json.dumps(row) + "\n"); fh.flush()
             done[(it["id"], arm, k, a)] = row
             return row
 
         for it in items:
-            text = render_chat(it, rlm.tok)
+            text = texts[it["id"]]
             ids = rlm.tok(text, add_special_tokens=False)["input_ids"]
             if ids.count(rlm.tok.bos_token_id) != 1:
                 raise SystemExit(f"{it['id']}: rendered text carries {ids.count(rlm.tok.bos_token_id)} <bos>")
