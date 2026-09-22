@@ -1,0 +1,126 @@
+{
+  "lead": "Two workers prepared for the town's request. ",
+  "bridge": "The afternoon passed. Clouds moved above the roofs while people waited near the square. They heard carts on the road and distant voices, but nobody in the room spoke. A messenger crossed the square, stopped on the steps, and went away. By dusk the two workers met again. ",
+  "domains": [
+    {
+      "id": "gate",
+      "a": "Anna",
+      "b": "Ben",
+      "task_a": "unlatch the gate",
+      "task_b": "bolt the gate",
+      "object": "gate key",
+      "condition_a": "the gate stood open",
+      "condition_b": "the gate stayed shut"
+    },
+    {
+      "id": "medicine",
+      "a": "Clara",
+      "b": "David",
+      "task_a": "deliver the vial to the ward",
+      "task_b": "store the vial in the vault",
+      "object": "medicine vial",
+      "condition_a": "the vial reached the ward",
+      "condition_b": "the vial remained in the vault"
+    },
+    {
+      "id": "bridge",
+      "a": "Grace",
+      "b": "Henry",
+      "task_a": "lower the bridge",
+      "task_b": "raise the bridge",
+      "object": "bridge control",
+      "condition_a": "the bridge lay low",
+      "condition_b": "the bridge rose high"
+    },
+    {
+      "id": "radio",
+      "a": "Iris",
+      "b": "Jack",
+      "task_a": "broadcast the code",
+      "task_b": "keep the code off the air",
+      "object": "radio code",
+      "condition_a": "the code went on air",
+      "condition_b": "the code stayed off air"
+    },
+    {
+      "id": "water",
+      "a": "Kate",
+      "b": "Leo",
+      "task_a": "fill the cistern",
+      "task_b": "empty the cistern",
+      "object": "cistern valve",
+      "condition_a": "the cistern filled up",
+      "condition_b": "the cistern ran dry"
+    },
+    {
+      "id": "boat",
+      "a": "Maya",
+      "b": "Noah",
+      "task_a": "launch the boat",
+      "task_b": "tie the boat to the dock",
+      "object": "boat pass",
+      "condition_a": "the boat left the dock",
+      "condition_b": "the boat stayed moored"
+    },
+    {
+      "id": "seeds",
+      "a": "Nina",
+      "b": "Paul",
+      "task_a": "plant the seeds",
+      "task_b": "store the seeds in the barn",
+      "object": "seed pouch",
+      "condition_a": "the seeds went into soil",
+      "condition_b": "the seeds stayed in storage"
+    },
+    {
+      "id": "lantern",
+      "a": "Rosa",
+      "b": "Sam",
+      "task_a": "light the lantern",
+      "task_b": "snuff out the lantern",
+      "object": "lantern",
+      "condition_a": "the lantern gave light",
+      "condition_b": "the lantern went dark"
+    },
+    {
+      "id": "shelter",
+      "a": "Tina",
+      "b": "Victor",
+      "task_a": "unlock the shelter",
+      "task_b": "seal the shelter",
+      "object": "shelter code",
+      "condition_a": "the shelter door stood open",
+      "condition_b": "the shelter door stayed sealed"
+    },
+    {
+      "id": "warning",
+      "a": "Wendy",
+      "b": "Yuri",
+      "task_a": "ring the bell",
+      "task_b": "muffle the bell",
+      "object": "bell rope",
+      "condition_a": "the bell rang out",
+      "condition_b": "the bell stayed silent"
+    },
+    {
+      "id": "map",
+      "a": "Emma",
+      "b": "Felix",
+      "task_a": "show the map",
+      "task_b": "conceal the map",
+      "object": "route map",
+      "condition_a": "the map was shown",
+      "condition_b": "the map stayed hidden"
+    },
+    {
+      "id": "antidote",
+      "a": "Zoe",
+      "b": "Adam",
+      "task_a": "give the antidote to patients",
+      "task_b": "keep the antidote in the cabinet",
+      "object": "antidote bottle",
+      "condition_a": "patients received the cure",
+      "condition_b": "the cure stayed in storage"
+    }
+  ]
+}
