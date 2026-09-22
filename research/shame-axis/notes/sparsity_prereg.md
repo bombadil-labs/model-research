@@ -192,3 +192,44 @@ report that a real one needs thousands.
 
 The limit from the original pre-registration stands unchanged: a dense result is consistent with a
 sparse cause and must not be reported as refuting one.
+
+---
+
+# Addendum 2, hour 58: the reference distribution — is the sparsity *pain's*, or the basis's?
+
+Hour 57 found five features saturate the pain contrast. That number is uninterpretable alone: an
+SAE is trained to make things sparse, so a strong semantic contrast being recoverable from few
+features may be the ordinary case. The question is not "is pain sparse" but **"is pain sparser
+than other contrasts of comparable strength on the same pool, through the same pipeline."**
+
+## Contrasts
+
+Same pipeline as hour 57 (5-fold; rank features on train; score held-out; `final_token`; all
+three SAE layers), applied to every meaningful binary split available on disk:
+
+- **Core pool (500 items):** each of the ten categories A1–A5, B, C1, C2, D, E one-vs-rest, plus
+  the pain contrast itself (A\* vs B–E) as the point being located.
+- **Scenario pool (420 items, 21 categories × 20):** each category one-vs-rest; `perspective`
+  (self vs other), which hour 53 found to be the network's actual contribution; `intensity`
+  (top vs bottom half); and a **nuisance contrast, prompt length** (top vs bottom half by token
+  count), which is meaningful to the model but not to us.
+
+Gate A is re-checked per pool per SAE (the scenario pool has not been through it). Gate B is
+re-run once per script invocation.
+
+## Statistic
+
+Per contrast: **full-dictionary held-out AUC** and **k₉₀**, the smallest k whose retention ≥ 0.90.
+Reported as one scatter of (full AUC, k₉₀) per SAE layer, every contrast a point.
+
+## What is declared
+
+- Sparsity is **specific to pain** only if pain's k₉₀ is at or below the **10th percentile** of
+  k₉₀ among contrasts whose full AUC is within **±0.05** of pain's. Contrasts weaker than
+  AUC 0.65 are shown but not counted: a weak contrast has no well-defined k₉₀.
+- If pain sits in the bulk of comparably-strong contrasts, hour 57's finding is **a property of
+  the basis**, and the claim `painaxis-sparse-in-sae` is narrowed to say so.
+- The `perspective` contrast is the one to watch alongside pain: it is what the network adds over
+  vocabulary, and whether *it* is sparse matters more than whether the headline is.
+
+No contrast is selected on. The whole scatter is the result.
