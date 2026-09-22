@@ -96,3 +96,23 @@ claims:
     where: docs/QUESTIONS.md
     pre_registered: false
     superseded_by: null
+
+  - id: painaxis-sparse-in-sae
+    claim: >-
+      The pain axis is sparse in the Gemma Scope residual basis: at layer 31, five features of
+      16,384 reach the full-dictionary held-out AUC (0.903 vs 0.900), and 164 features retain
+      97-100% of it at every interpretable point, against 0.574 for 164 random features.
+    status: open
+    evidence: "hour 57 pruning curve, 9 interpretable points, 4 controls all on their declared nulls"
+    where: notes/sparsity_prereg.md
+    pre_registered: true
+    superseded_by: null
+  - id: sae-sparsity-discriminates
+    claim: >-
+      The sparsity is specific to the pain contrast rather than a property of the SAE basis, i.e.
+      a vocabulary-matched lexical contrast is NOT equally sparse under the same pruning curve.
+    status: open
+    evidence: "not run; the discriminating control for hour 57"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null

@@ -445,3 +445,80 @@ never checked.
 **Not done.** No confirmatory run of the ritual coder on unseen items. No human-grid comparison
 (one item exists). Greedy decoding gives the modal reply, not a distribution. n = 24 per arm, one
 model, one authorship.
+
+---
+
+## Hour 57 — the pain axis is sparse in the Gemma Scope basis. Five features of 16,384.
+
+Prompted by arXiv:2602.00986, which finds reward information in **under 1% of neurons**, causally
+load-bearing (**−54.9%** on MATH500 when zeroed against **−0.6%** for random neurons). The question:
+is aversive valence a subsystem of the same *kind*, or is the pain axis a dense lexical readout?
+Pre-registered in `notes/sparsity_prereg.md` with the threshold set in advance. Offline throughout —
+the Gemma Scope residual SAEs for `gemma-2-9b-it` and the 420-scenario activation stacks were both
+already on disk, so this touched neither NDIF nor the network.
+
+**The first statistic was killed by its own positive control, before it reached a write-up.**
+Concentration was to be "features to 90% of the mass". Planting a *single known feature* into half
+the controls and running the whole pipeline returned `n90 ≈ 400`; the no-signal split-half floor
+read `n90 ≈ 500`. A difference in means between two groups of ~250 in 16,384 dimensions is dense in
+its sampling noise alone. The observed 414 at L31 against a permutation null of 656 would have been
+written up as "more concentrated than chance but not sparse", **and that sentence would have been
+about the noise floor.** Full record in the prereg addendum. This is the first time in this project
+that the control fired before the number reached a claim rather than after.
+
+`n90` was replaced with the statistic the paper itself uses: rank features on a train fold, score
+held-out items with the top k, report the whole curve. No k is selected.
+
+**Both gates pass on 9 of 16 points.** The 7 failures are all `mean` extraction — a mean over token
+positions is not a residual any SAE was trained on, and it fails on *achieved L0* (117.7 against an
+advertised 43 at L31) while its FVU passes at 0.171. FVU alone would have waved all seven through;
+the L0 criterion is what caught them. `mean` at L9 passes, so the prediction that `mean` would fail
+everywhere was wrong.
+
+**Held-out AUC by number of features, `final_token`:**
+
+| point | k=1 | 2 | 5 | 10 | 50 | 164 | full |
+|---|---|---|---|---|---|---|---|
+| **L31 16k l0=43** | 0.795 | 0.856 | **0.903** | 0.899 | 0.885 | 0.899 | 0.900 |
+| L20 16k l0=47 | 0.664 | 0.804 | 0.716 | 0.799 | 0.846 | 0.844 | 0.846 |
+| L9 16k l0=47 | 0.617 | 0.669 | 0.778 | 0.821 | 0.838 | 0.850 | 0.853 |
+| L20 **131k** l0=43 | 0.558 | 0.619 | 0.715 | 0.757 | 0.801 | 0.819 | 0.823 |
+
+**At layer 31, five features of 16,384 reach the full-dictionary AUC** — 0.903 at k = 5 against
+0.900 at k = 16,384. That is **0.03%**, an order of magnitude past the pre-registered 1% threshold.
+Retention at 164 features is **0.97–1.00 on all nine interpretable points**, and holds across the
+whole L0 sweep (14 → 189) and both dictionary widths.
+
+**Every control sits where it was declared to sit:**
+
+| arm | reads | declared |
+|---|---|---|
+| planted single feature, k=1 | **1.000** | high — the positive control |
+| control-vs-control split half | 0.471 | 0.5 |
+| label permutation at k=164 | 0.500 (p95 0.554, max 0.586) | 0.5 |
+| **random** 164 features | 0.574 | ≈ 0.5, and far below the top 164 |
+
+The top-164 features give 0.900 where 164 *random* features give 0.574. The concentration is not an
+artefact of choosing 164 out of 16,384.
+
+**It is two named units, and they are discrete rather than graded.** At L31, feature **10008**
+fires on **66%** of pain items and **9%** of controls; feature **13134** on 61% and 12%. At L9 the
+top features fire on ~100% of both groups and differ only in magnitude, which is a weaker kind of
+signal and matches L9's shallower curve.
+
+**The caveat that decides what this is worth.** An SAE is *trained* to make things sparse, so the
+sparsity of this contrast does not by itself separate shame from vocabulary — and hour 53 measured
+63% of the pain axis's headline as lexical. **The discriminating experiment is to run this same
+pruning curve on the lexical contrast.** If the vocabulary-matched contrast is equally sparse, then
+sparsity does not discriminate and this result is about SAEs, not about pain. That is the next
+experiment and it is not run here.
+
+**What it buys if it survives that.** Named units to ablate. Their paper establishes its subsystem
+by zeroing and watching accuracy collapse; nothing in this project has ever been steered or
+ablated, and features 10008 and 13134 are a concrete target. That is the causal bridge the line
+does not have.
+
+**Not done.** The lexical control above. One model. A sparse readout in a learned dictionary is not
+concentrated *computation*, and the original pre-registration's limit stands unchanged: this does
+not show that the pain axis has a sparse cause, only that it has a sparse code in this dictionary.
+No ablation. No interpretation of what features 10008 and 13134 actually respond to.
