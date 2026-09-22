@@ -171,3 +171,19 @@ possible without a reach failure. It is also exactly what a reach failure looks 
 not waived: the check now runs each patch at **α = +1 and α = −1**, and every non-saturated opener
 must move under at least one sign. A row the patch never reaches stays put under both. Per-sign
 deltas are saved in `preflight.json`. No steered row existed.
+
+## Part 2: which run is the 62b of record (added at the merge with `1da2dd9`)
+
+Two sessions ran 62b in parallel, neither aware of the other. **The run of record is the cloud
+session's**: `scripts/shame_axis/v0_steering.py`, results in `notes/v0_steering_results.md`,
+commit `1da2dd9`. It followed Part 2 as written and recorded its own resolutions there
+(‖h̄‖ = 124.94 at the final token, the same value as resolution 1 above; random seed 62062).
+
+The "operational resolutions" and amendments 2–5 above belong to the local session's
+`scripts/shame_axis/v0_steer.py`. That script **never produced a steered number** and is
+abandoned. They are kept because they record real properties of the readout: bf16 saturation,
+bf16 quantisation at |log p| 16–32, and the chunking shift. They do not bind the run of record.
+
+Both 62b runs used the pre-softcap readout (INSTRUMENTS §7). The run of record's verdict ("correlate,
+not cause") stands as measured on that instrument, and needs a re-score with the softcap fix
+before it is final.

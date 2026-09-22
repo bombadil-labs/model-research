@@ -191,6 +191,28 @@ class RemoteLM:
 # --------------------------------------------------------------------------------------------
 # the asserted forward
 # --------------------------------------------------------------------------------------------
+def strip_template_bos(tok, text: str) -> str:
+    """Drop a leading `<bos>` that a chat template already rendered into `text`.
+
+    Every encode on the remote paths uses `add_special_tokens=True`, which prepends `<bos>`. Text
+    rendered through Gemma-2's chat template already starts with one, so without this the model
+    sees `[2, 2, ...]` -- INSTRUMENTS §7, the hazard hour 50 fixed in `painaxis_remote` and that
+    never reached the readout or generation paths. Idempotent on text without a leading `<bos>`."""
+    bos = getattr(tok, "bos_token", None)
+    return text[len(bos):] if bos and text.startswith(bos) else text
+
+
+def assert_single_bos(ids, mask, bos_id) -> None:
+    """Every row's first real token is `<bos>` and its second is not."""
+    if bos_id is None:
+        return
+    for r in range(ids.shape[0]):
+        real = ids[r][mask[r].bool()].tolist()
+        if len(real) < 2 or real[0] != bos_id or real[1] == bos_id:
+            raise checks.EmptySpan(f"row {r}: expected exactly one leading <bos>, got {real[:3]} "
+                                   "(INSTRUMENTS §7)")
+
+
 def _add_special(rlm: RemoteLM, texts: Sequence[str], double_bos_bug: bool = False) -> bool:
     """Whether the tokenizer should add its own special tokens to `texts`.
 
@@ -393,9 +415,19 @@ def asserted_remote_patched_logprob(rlm: RemoteLM, lead: str, candidates: Sequen
     """
     import torch
 
+    if not double_bos_bug:
+        lead = strip_template_bos(rlm.tok, lead)
     texts = [f"{lead}{c}" for c in candidates]
     ids, mask = _encode(rlm, texts, double_bos_bug)
+    if not double_bos_bug:
+        assert_single_bos(ids, mask, getattr(rlm.tok, "bos_token_id", None))
     n_lead = len(rlm.tok(lead, add_special_tokens=_add_special(rlm, [lead], double_bos_bug))["input_ids"])
+    # Read the logits the model SAMPLES from: Gemma-2 applies `final_logit_softcapping` after
+    # `lm_head`, so `lm_head.output` alone is not the output distribution (INSTRUMENTS §7). The cap
+    # is a plain float bound here, outside the trace, for the whitelisting reason recorded below.
+    cfg = getattr(rlm.model, "config", None)
+    cap = getattr(cfg, "final_logit_softcapping", None) if cfg is not None else None
+    cap = None if cap is None else float(cap)
     blocks = rlm.blocks
     # Bound OUTSIDE the trace on purpose. The block body's source is shipped to the deployment, and
     # any attribute path through a non-whitelisted module fails there -- `rlm.model.lm_head.output`
@@ -422,6 +454,15 @@ def asserted_remote_patched_logprob(rlm: RemoteLM, lead: str, candidates: Sequen
         score_mask[r, : first + n_lead - 1] = 0.0
     if float(score_mask.sum()) <= 0:
         raise checks.EmptySpan("no candidate tokens left to score after masking the lead")
+    # Only the columns that hold candidate tokens are reduced over the vocabulary. Under left
+    # padding every row's candidate sits at its right end, so that is a suffix of the sequence;
+    # slicing it keeps the fp32 softcapped logits small enough for a contended deployment. The
+    # scored mass before and after slicing must be identical, or the slice lost a token.
+    first = int((score_mask.sum(0) > 0).nonzero().min())
+    full_mass = float(score_mask.sum())
+    tgt, score_mask = tgt[:, first:], score_mask[:, first:]
+    if float(score_mask.sum()) != full_mass:
+        raise checks.EmptySpan("column slice dropped scored candidate tokens")
 
     def build(backend):
         with rlm.model.trace({"input_ids": ids, "attention_mask": mask}, backend=backend) as tracer:
@@ -432,9 +473,11 @@ def asserted_remote_patched_logprob(rlm: RemoteLM, lead: str, candidates: Sequen
                 else:
                     h = o if isinstance(o, torch.Tensor) else o[0]
                 h[:] = h + v.to(h.device, h.dtype)
-            logits = lm_head.output[:, :-1, :]
-            picked = (logits.gather(-1, tgt.unsqueeze(-1).to(logits.device)).squeeze(-1).float()
-                      - torch.logsumexp(logits, dim=-1).float())
+            logits = lm_head.output[:, first:-1, :].float()
+            if cap is not None:
+                logits = torch.tanh(logits / cap) * cap
+            picked = (logits.gather(-1, tgt.unsqueeze(-1).to(logits.device)).squeeze(-1)
+                      - torch.logsumexp(logits, dim=-1))
             out = (picked * score_mask.to(picked.device)).sum(-1).save()
         return tracer
 
@@ -500,8 +543,9 @@ def asserted_remote_generate(rlm: RemoteLM, prompt: str, *, max_new_tokens: int 
     blocks = rlm.blocks
     v = None if patch_vec is None else torch.as_tensor(
         np.asarray(patch_vec, dtype=np.float32) * float(scale))
-    # Tokenized here, not by nnsight: handed a string, nnsight adds special tokens itself, and a
-    # chat-rendered prompt then reaches the model as <bos><bos>.
+    if not double_bos_bug:
+        prompt = strip_template_bos(rlm.tok, prompt)   # INSTRUMENTS §7: exactly one <bos>
+    # Tokenized here, not by nnsight: handed a string, nnsight adds special tokens itself.
     in_ids, in_mask = _encode(rlm, [prompt], double_bos_bug)
     n_in = int(in_mask.sum())
     # Bound OUTSIDE the trace, for the reason `asserted_remote_patched_logprob` records above and

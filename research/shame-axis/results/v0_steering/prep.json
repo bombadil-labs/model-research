@@ -1,0 +1,47 @@
+{
+  "extraction": "final_token",
+  "patch_layer": 12,
+  "vector_source": "painaxis_scenarios.build_vectors on core_{S1,S2,ControlSupplement}_1P shards, final_token, shard index 12 = output of block 12",
+  "index_check_L37_cos_vs_published": {
+    "s1_pain_vector": 0.9999008358158792,
+    "s2_pain_vector": 0.9999440670103753
+  },
+  "published_layer": 37,
+  "s2_L12_raw_norm": 25.11893095761336,
+  "s1_L12_raw_norm": 15.038112712015868,
+  "cos_s2_s1_L12": 0.5886686699150516,
+  "replication_saved_L12_vector": false,
+  "cos_s2_L12_vs_their_published_s2_L37": 0.10107664636391106,
+  "their_published_s2_L37_raw_norm": 113.74181585527221,
+  "hbar_norm": 124.9353138841777,
+  "hbar_source": "scen_chat shards on disk, final_token, shard index 12, rows mapped by scenario_order.json",
+  "hbar_norm_sd": 10.895065044936732,
+  "hbar_norm_min": 102.60022016911225,
+  "hbar_norm_max": 144.9951557834861,
+  "n_items": 60,
+  "excluded_by_validator": [],
+  "hbar_norm_by_tier": {
+    "A": 122.56068770623953,
+    "B": 116.25239176951955,
+    "N": 135.992862176774
+  },
+  "proj_on_direction_mean": 2.871894343951262,
+  "random_seed": 62062,
+  "random_cos_to_direction": [
+    -0.00641493002095434,
+    -0.00934044695150427,
+    0.021419921366405102
+  ],
+  "random_pairwise_cos": [
+    0.005353575226715549,
+    -0.009091125785342512,
+    0.03527500922936934
+  ],
+  "shift_norms": {
+    "-0.2": 24.987062776835543,
+    "-0.1": 12.493531388417772,
+    "0.1": 12.493531388417772,
+    "0.2": 24.987062776835543
+  },
+  "direction_sha": "34eee3a428065d5f"
+}

@@ -1,4 +1,5 @@
-"""Hour 62b: steer the paper's S2 pain direction at L12 and read the frozen opener set.
+"""ABANDONED -- never produced a number; the 62b of record is v0_steering.py (see the prereg,
+"which run is the 62b of record"). Hour 62b: steer the paper's S2 pain direction at L12 and read the frozen opener set.
 
 Pre-registered in `research/shame-axis/notes/v0_correction_shape_prereg.md`, Part 2 and its
 operational resolutions. Items: all of `gaslighting` (A), `repeated_rejection` (B), `casual_chat`

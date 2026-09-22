@@ -56,3 +56,20 @@ reproduces the old path, for this audit only.
 
 Per-item |Δritual| between the two tokenizations is reported for every rescored row, whatever
 happens to the verdicts.
+
+## Superseded in part, same day: the readout was also pre-softcap
+
+*Added at the merge with commit `1da2dd9` (a parallel session's 62b run, which found the same
+double-`<bos>` defect independently, and a second one).* `asserted_remote_patched_logprob` read
+`lm_head.output`, but Gemma-2 applies `final_logit_softcapping` after `lm_head`, so every opener
+score here was also computed on the wrong distribution. See `docs/INSTRUMENTS.md` §7.
+
+What that does to this audit:
+- **Attribution (step 1) stands.** The old path reproduces the committed rows exactly.
+- **The 62a rescore (step 2) corrected the `<bos>` only.** Its result, "every 62a verdict
+  unchanged", holds for that one component and says nothing about the softcap. The claims 62a
+  supports stay `running`, as §7 set them, until they are re-scored with both fixes.
+- **The hour-56 rescore (step 3) was stopped at 37 of 288 rows**, because it ran on the
+  pre-softcap readout. Those rows are not a result.
+- **The fix.** The merged `lsx.core.remote` carries both sessions' `<bos>` handling and the
+  softcap. Re-scores should run on it at one fixed chunking.
