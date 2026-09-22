@@ -90,3 +90,23 @@ the dense pain direction *move* the behaviour, or is it only a correlate?
   this behaviour, not a cause, and the line is a behavioural study** — stated now so it cannot be
   softened afterwards.
 - **Cost:** 60 items × 21 cells, six openers each.
+
+## Part 2, operational resolutions (2026-09-22, committed before any 62b number)
+
+The cloud run of 62b was lost in the move to local hardware; no 62b number was ever written. Three
+points the text above leaves open are fixed here, before scoring, by the new operator:
+
+1. **‖h̄‖** is the mean over the 60 items of the residual norm **at the final token** (the read
+   position) at the output of block 12, taken from the re-extracted core stacks. Not a per-position
+   mean: Gemma's `<bos>` position carries an outsized norm and would set the dose by the attention
+   sink. This choice scales every arm identically, so it sets the units of α, not the comparison.
+2. **Random directions:** three seeded Gaussian unit vectors drawn once and used at every α, so each
+   random direction has a dose curve like the treatment's.
+3. **"Exceeds the random band at |α|"** means: the treatment's tier-mean Δritual, with the sign of
+   α, is larger in magnitude than **every** one of the six random cells at that |α| (3 directions
+   × 2 signs). With six draws a 95th percentile is not estimable, so the rule is the maximum.
+   The pass-through arm is the treatment direction at block 41 at the same α; "exceeds" means
+   |treatment| > |pass-through| on the same tier.
+
+The no-patch arm is re-scored in the same run, not reused from 62a; agreement with 62a's
+`openers.jsonl` is reported as a determinism check on the new environment.
