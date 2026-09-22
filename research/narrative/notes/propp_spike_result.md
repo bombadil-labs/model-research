@@ -15,6 +15,8 @@ so the readout is the model state at the last token of each annotation signal, w
 earlier tale available causally. The local run used CUDA and float16. Each tale was held out in turn;
 class centroids were fit only on the other 14. The primary score averages balanced accuracy over
 the preselected layers 10–18. There is no intervention or generation in this measurement.
+The longest body has 2,518 model tokens, below the checkpoint configuration's 131,072-token
+position limit.
 
 ## Registered prediction and controls
 
@@ -81,6 +83,11 @@ would follow only if this stricter within-story control clears its lexical and p
   labels were resampled, baseline predictions were not. Correcting it left the saved vectors and
   primary classification untouched. A synthetic test with unequal tale lengths now exercises this
   case. The local context run had one transient CUDA initialization failure and succeeded on retry.
+- Fresh full-story and 200-character extractions from committed code `e12c6c8` reproduced their
+  respective activation digests and aggregate reports exactly. The fresh checkpoints record the
+  extraction script hash in ignored local provenance.
 - The within-tale permutation null sat near five-way chance and below the observed score. A
   synthetic known-signal test scored 1.00 with all text/position controls at 0.20. The raw vectors
   and per-tale checkpoints remain local; the aggregate JSON contains no copyrighted tale text.
+- Every held-out training fold contains all five families; the scorer now refuses a missing class
+  rather than letting a NaN centroid silently win an `argmax`.

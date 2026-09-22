@@ -38,3 +38,11 @@ def test_story_held_out_classifier_detects_signal_above_floors():
         "text": .2, "position": .2, "combined": .2, "layer_0": .2,
     }
     assert result["primary_gain_over_strongest_baseline"] == .8
+
+
+def test_missing_training_class_refuses_scoring():
+    events = [module.Event(t, label, 10, .5, "ordinary words nearby")
+              for t in range(15) for label in (module.LABELS if t == 0 else ("A", "H", "I", "K"))]
+    acts = np.ones((len(events), 29, 8), dtype=np.float32)
+    with pytest.raises(ValueError, match="training fold lacks classes"):
+        module.score(acts, events, n_perm=1, n_boot=1)

@@ -224,6 +224,9 @@ def score(acts: np.ndarray, events: list[Event], n_perm: int = 1000,
         pred_position = np.empty(len(y), dtype="<U1") if with_controls else None
         pred_combined = np.empty(len(y), dtype="<U1") if with_controls else None
         for (train, test), (xtr, xte, text_train, text_test) in zip(folds, prepared):
+            missing = [label for label in LABELS if not np.any(labels[train] == label)]
+            if missing:
+                raise ValueError(f"training fold lacks classes {missing}; held-out tale {int(tale[test[0]])}")
             if with_controls:
                 text_cent = centroids(text_train, labels[train])
                 text_score = text_test @ text_cent.T
