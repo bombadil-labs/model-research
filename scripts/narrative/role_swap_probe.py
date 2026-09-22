@@ -195,7 +195,9 @@ def score(full: np.ndarray, local: np.ndarray, *, n_null: int = 1000,
     delta = full[:, :, 0] - full[:, :, 1]
     u = unit(delta)
     treatment, margins = heldout_scores(u)
+    local_treatment, _ = heldout_scores(unit(local[:, :, 0] - local[:, :, 1]))
     curve = treatment.mean(axis=(0, 1))
+    local_curve = local_treatment.mean(axis=(0, 1))
     mid = float(np.mean(curve[list(MID)]))
     rng = np.random.default_rng(SEED)
     permuted = []
@@ -216,6 +218,7 @@ def score(full: np.ndarray, local: np.ndarray, *, n_null: int = 1000,
     return {
         "n_domains": 12, "n_pairs": 24, "n_passages": 48,
         "full_layer_curve_pair_accuracy": list(map(float, curve)),
+        "local_only_full_layer_curve_pair_accuracy": list(map(float, local_curve)),
         "mid_layers": list(MID), "mid_pair_accuracy": mid,
         "mid_tale_bootstrap_ci95": list(map(float, np.quantile(boot, [.025, .975]))),
         "permutation": {"draws": n_null, "seed": SEED,
@@ -223,7 +226,8 @@ def score(full: np.ndarray, local: np.ndarray, *, n_null: int = 1000,
                         "p_ge_observed": (1 + sum(x >= mid for x in permuted)) / (n_null + 1)},
         "random_direction": {"draws": n_null, "mean": float(np.mean(random_scores)),
                              "q025_q975": list(map(float, np.quantile(random_scores, [.025, .975])))},
-        "local_only_pair_accuracy": .5, "layer_0_pair_accuracy": float(curve[0]),
+        "local_only_pair_accuracy": float(np.mean(local_curve[list(MID)])),
+        "layer_0_pair_accuracy": float(curve[0]),
         "layer_14_per_domain_pair_accuracy": list(map(float, treatment[:, :, 14].mean(axis=1))),
         "layer_14_per_domain_margins": margins[:, :, 14].tolist(),
     }

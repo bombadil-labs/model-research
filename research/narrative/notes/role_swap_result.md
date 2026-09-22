@@ -87,4 +87,6 @@ The next discriminating measurement should change the *final action* while keepi
 prior goal assignments fixed, and compare final-action versus pre-action readouts. A
 claim about the handover's role requires an interaction between prior goals and the
 action. If the direction is already present before the action and does not change with
-the action, it is actor-goal binding, not a representation of that plot event.
+the action, it is predicate–recipient binding, not a representation of that plot event.
+One way to hold that binding fixed is to keep both predicates and vary whether the
+group's goal makes each activity protective or harmful.
