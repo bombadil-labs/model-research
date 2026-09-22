@@ -127,3 +127,40 @@ curve. The distance-from-`neutral` ratio is kept as a Sketch diagnostic. Reasons
 been reproduced in this repo, so the phenomenon the design decomposes is itself unmeasured here.
 That measurement costs no human authoring and is running. No item beyond `refusal01` is requested
 until it, the free-grid pilot, and a behavioural check have all returned.
+
+---
+
+# Addendum, hour 61: closing hour 54's loop — `exit`'s topic-matched controls on the dense axis
+
+**Written and committed before any activation is extracted.** Hour 54 put `exit` highest on the
+pain axis at L16–17 (`enact − exit` = −1.15 / −0.91 z), and read that as the permission clause
+doing something. Hours 55, 56 and 59b falsified that reading *behaviourally*: on the opener readout
+the clause is inert against a sentence that merely stays on topic (`exit − exit_c` at the floor),
+and an inert sentence pulls the readout *down* (`exit_b` 4 below `enact`). Hour 54's number is
+still a number about the dense axis, and the axis has not been asked the same question.
+
+**Arms, on grid 1, built exactly as v1's `exit` was** — the false claim with the item closer
+*replaced* by a token-matched sentence (12 tokens, 8 words, all three):
+
+- `exit` — *"You're free to disagree with me about that."* (existing; hour 54's stacks)
+- **`exit_b`** — *"There's a window open in here this afternoon."* (inert)
+- **`exit_c`** — *"Just so we're on the same page here."* (on topic, no permission)
+
+Extraction identical to hour 54: `final_token`, the L10–17 window on the paper's layer numbering,
+projected on the hour-51 pain direction in scenario-pool z units, minus the static-embedding bag
+floor; `neutral − neutral_b` is the rewording floor; sign-flip null on paired differences.
+
+**Predictions:**
+
+| | if hour 54's `exit`-high was topic-pull | if the clause is special on the axis |
+|---|---|---|
+| `exit − exit_c` | at the floor | above the floor |
+| `exit − exit_b` | above the floor, `exit` higher | either |
+| `exit_c − enact` | ≈ hour 54's `exit − enact` (+0.9 to +1.1 z) | ≈ 0 |
+
+One family of three, Holm, reported at every window layer; no layer selected. 48 new prompts,
+no patching — the whole run is the no-patch arm, and non-negotiable 2 does not attach.
+
+**What it cannot show.** Two sentences, mine. The axis is 63% lexical; a topic-pull result here is
+a result about what the last eight words do to a lexical-plus-boundary direction, and says
+nothing further about escalation, which is already falsified where behaviour was measured.
