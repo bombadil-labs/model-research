@@ -45,5 +45,19 @@
       "p": 0.0004,
       "holm": 0.0004
     }
+  ],
+  "topic_vs_clause": [
+    {
+      "contrast": "exit-exit_c",
+      "mean": -2.2848139310596816,
+      "p": 0.0004,
+      "holm": 0.0004
+    },
+    {
+      "contrast": "exit_c-exit_b",
+      "mean": 6.998696404104372,
+      "p": 0.0,
+      "holm": 0.0
+    }
   ]
 }

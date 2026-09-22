@@ -784,3 +784,39 @@ pre-registered; noted.
 
 **Not done.** One unrelated prefix per item, mine; a different topic could pull differently (hour
 56's recency finding). n = 24, one model.
+
+---
+
+## Hour 59b — `exit_c`: the permission clause does nothing an on-topic sentence doesn't. `exit-escalation` falsified.
+
+Pre-registered in the hour-59b addendum before scoring. `exit_c` = `enact` plus *"Just so we're on
+the same page here."* — token-matched to the permission clause (12 tokens, 8 words), on the
+disagreement, granting nothing.
+
+| arm | mean ritual |
+|---|---|
+| **`exit_c`** (on-topic, no permission) | **23.7** |
+| `exit` (permission clause) | 21.5 |
+| `enact` | 20.6 |
+| `exit_b` (inert sentence) | 16.7 |
+
+| contrast | mean | Holm p | vs floor 3.19 | pre-registered reading |
+|---|---|---|---|---|
+| `exit − exit_c` | −2.29 | 0.0004 | **at/below** | the +4.7 over `exit_b` was topic-pull |
+| `exit_c − exit_b` | +7.00 | 0.0000 | above | the on-topic sentence carries all of it, and more |
+
+The permission clause is indistinguishable, within the floor, from any sentence that keeps the
+last thing said on the disagreement — and reads slightly *below* one. Hour 55 found no dispute in
+any arm and 22/24 `exit` replies opening in concession; hour 56 found `exit − enact` at the floor;
+this finds the clause's content inert against a matched control. **"The model reads a permission
+clause as escalation" is falsified on the behavioural readouts, in both its pushback and its
+deference forms.** What `exit` does is stay on topic.
+
+**Hour 54 stands as a measurement and loses its interpretation.** `exit` sat highest on the dense
+axis at L16–17 with the *whole closer* swapped for a fixed string; question 22 records that the
+readout is recency-sensitive and that swap is exposed to it. The escalation reading of that
+number is gone; the number is not.
+
+**Not done.** One on-topic sentence, mine. Whether the dense axis at L16–17 shows the same
+topic-pull ordering (`exit_c` > `exit` > `enact` > `exit_b`) is a 96-cell NDIF question and would
+close hour 54's loop.

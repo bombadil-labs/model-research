@@ -91,15 +91,15 @@ claims:
 
   - id: exit-escalation
     claim: The exit arm sits high because the model reads a permission clause as escalation, not relief.
-    status: narrowed
+    status: falsified
     evidence: >-
-      hour 55: zero dispute in any arm, 22/24 exit replies open in concession (pushback falsified);
-      hour 56: exit - enact +0.85 at a floor of 3.19 (deference undecided at n=24); exit - exit_b
-      +4.7, so the clause is not inert against a token-matched sentence.
+      hour 55: zero dispute in any arm, 22/24 exit replies open in concession; hour 56: exit - enact
+      +0.85 at a floor of 3.19; hour 59b: exit - exit_c -2.29 at the floor against a token-matched
+      on-topic sentence with no permission, while exit_c - exit_b = +7.0. The clause is inert
+      beyond staying on topic. Hour 54's dense-axis number stands; its escalation reading does not.
     where: notes/behavioural_prereg_v2.md
-    pre_registered: false
+    pre_registered: true
     superseded_by: null
-
   - id: painaxis-sparse-in-sae
     claim: >-
       The pain axis is sparse in the Gemma Scope residual basis: at layer 31, five features of
