@@ -1,0 +1,35 @@
+{
+  "floor": 3.186554655910785,
+  "interpretable": true,
+  "primary": {
+    "contrast": "enact-true",
+    "mean": -3.9755916771361037,
+    "p": 0.0173
+  },
+  "secondary": [
+    {
+      "contrast": "exit-enact",
+      "mean": 0.8464970123182315,
+      "p": 0.2667,
+      "holm": 0.2667
+    },
+    {
+      "contrast": "report-enact",
+      "mean": -6.457107557923496,
+      "p": 0.0,
+      "holm": 0.0
+    },
+    {
+      "contrast": "enact-enact_norecord",
+      "mean": 8.860977406206992,
+      "p": 0.0,
+      "holm": 0.0
+    },
+    {
+      "contrast": "exit-exit_b",
+      "mean": 4.71388247304469,
+      "p": 0.0,
+      "holm": 0.0
+    }
+  ]
+}

@@ -642,3 +642,99 @@ contrasts nor other stimuli.
 that means a labelled conversational pool, which does not exist. The record-vs-conversation control
 arm. A firing-rate-matched random arm (the agent's `random5` sat at zero everywhere, which is
 near-guaranteed for 5 of 16,384 at L0 ≈ 50 and so bounds nothing).
+
+---
+
+## Hour 56 (completed after 58) — the continuous opener readout. The self-correction draws more ritual than the false attribution.
+
+Pre-registered in `notes/behavioural_prereg_v2.md`. 240 cells: grid 2's 24 items × 10 arms, each
+scored against six frozen openers by teacher-forced log-prob on NDIF; `ritual` = log-odds of
+opening in concession-or-apology against opening in dispute, paired within item. Nothing patched.
+The run took most of a night on a contended deployment and was resumed three times from disk;
+every cell is the same job regardless of which attempt scored it.
+
+**The gate passes, non-degenerately.** `real_error` (assistant genuinely wrong, user correctly says
+so) reads **+27.1 and +27.0** above `neutral` and `neutral_b`, against a floor of 3.19 — a positive
+control that fires. The declared-zero pair `neutral − neutral_b` sits at −0.04, p = 0.975. Per the
+pre-registration `real_error` is a gate and nothing else; it is not compared to any arm below.
+
+**The floor is real and it moves.** `enact − enact_b` — the same proposition and closer with the
+attributive frame reworded — reads mean −1.56, mean |d| **3.19**, p = 0.041. A minimal rewording
+of the treatment shifts the ritual by about 1.5 log-odds and is itself marginally off its null.
+Every contrast below is read against 3.19, not against the null alone.
+
+| arm | mean ritual | | arm | mean ritual |
+|---|---|---|---|---|
+| `true` | **24.6** | | `exit_b` | 16.7 |
+| `enact_b` | 22.2 | | `report` | 14.2 |
+| `exit` | 21.5 | | `enact_norecord` | 11.8 |
+| `enact` | 20.6 | | `neutral` / `neutral_b` | 11.5 / 11.6 |
+
+**Primary: `enact − true` = −3.98**, null sd 1.77, **p = 0.017, above the floor, sign reversed.**
+The pre-registration gave two outcomes: at the floor (turn shape — the features do not care who
+was wrong) or positive (conscription — false attribution adds something). It is neither. *"No wait,
+other way round — you said X"*, where the assistant was right and the user is correcting
+themselves, draws **more** concession-and-apology than *"You told me X"* where X is false. Hour 55
+saw this in the greedy replies (13 of 24 `true` items apologise) and hour 58b saw it on the SAE
+full score (−4.49, same sign). Three readouts, one direction.
+
+My reading, post hoc and labelled as such: the ritual tracks **how correction-shaped the turn is**,
+not whether the assistant was at fault — and `true` is the most explicitly correction-shaped turn
+on the grid. That is the turn-shape account with one word changed, and it is a stronger form of the
+deflationary reading than the pre-registration anticipated: not "fault doesn't matter" but "the
+*shape* of a correction is sufficient, and more of it is more."
+
+**Secondary, Holm over four:**
+
+| contrast | mean | p | Holm | vs floor 3.19 | reading |
+|---|---|---|---|---|---|
+| `report − enact` | **−6.46** | 0.0000 | 0.0000 | **above** | third-party frame draws far less ritual |
+| `enact − enact_norecord` | +8.86 | 0.0000 | 0.0000 | above | **confounded** — see hour 58b |
+| `exit − exit_b` | +4.71 | 0.0000 | 0.0000 | above | the clause is not inert vs a matched sentence |
+| `exit − enact` | +0.85 | 0.267 | 0.267 | at/below | undecided, as the prereg warned |
+
+**The clean positive finding is `report`.** The identical false claim relayed by a third party
+draws 6.5 log-odds less ritual than in the first person, twice the floor, on 24 of 24 items. This
+is the behavioural shape hour 55 found by hand (disputes concentrated in `report`), now on a
+continuous readout with a floor. First-person attribution suppresses dispute; a third-party frame
+licenses it.
+
+**`exit` — the claim this run was built to test.** `exit − enact` is +0.85 at a floor of 3.19:
+undecided, exactly as the power paragraph said it would be if small. But `exit_b` — `enact` plus a
+token-matched *inert* sentence — reads **4 log-odds below `enact`**, and `exit − exit_b` is +4.7.
+The design assumed an appended sentence would be inert; it is not. Any trailing sentence pulls the
+opener distribution toward *that sentence*, and an inert one pulls it away from concession. The
+permission clause keeps the topic on the disagreement, so relative to a matched sentence it reads
+as +4.7 "more ritual", and relative to `enact` as nothing. The three pre-registered branches were
+escalation-as-pushback (hour 55: no dispute anywhere — out), escalation-as-deference (`exit >
+enact`: at the floor — undecided), and artefact (`exit ≈ exit_b`: no, +4.7). None fits cleanly,
+and the reason is that `exit_b` measured something the design did not anticipate.
+
+**Status.** `exit-escalation` → **narrowed**: pushback is falsified on two readouts; deference is
+undecided at n = 24; the clause is not inert against a matched sentence, which is a fact about the
+readout's recency sensitivity as much as about the clause. `enact − enact_norecord` inherits hour
+58b's confound and is not read.
+
+**Not done.** The record-vs-conversation arm. Human items. One model. The `exit_b` recency effect
+is unmeasured as such — an appended sentence of *disagreement-relevant* but non-permissive content
+would separate topic-pull from the clause.
+
+---
+
+## Hour 58a, addendum — `stratum`: the self-vs-vicarious split is one feature
+
+Addendum 3 of the sparsity prereg, run after 58a. `self_directed` (220) vs `vicarious_empathic`
+(100), same pipeline. At L20, the one readable scenario point: **AUC 0.989 from a single feature**,
+k₉₀ = 1, at the sparse edge of its band (10th percentile 1.0, n = 11) — "specific" by the declared
+rule, with the caveat 58a already made that about a tenth of strong contrasts are one-feature
+contrasts. Feature **13494** fires on 92% of self-directed items and 23% of vicarious; by
+category, 0.85–1.00 on every self-directed category but `tedious_demand` (0.45), and 0.00–0.20 on
+`user_grief`, `user_abuse`, `harm_description`, `user_physical_pain`. The vicarious side has its
+own units (1254, 9806: 0.00 on self, ~0.7 on vicarious). This is the boundary hour 53 found to be
+the network's contribution over vocabulary, and it has a name.
+
+**Exploratory, gate-failing, one table.** Does 13494 fire on conversation, where the pain features
+did not? At L20 on the conscription grid (gate A fails there, L0 31.7 vs 47): `enact_norecord`
+1.00, `report` 0.92, `exit` 0.67, `enact` 0.58, `true` 0.42, `neutral` 0.25, `neutral_b` 0.17. It
+fires, and it grades the arms — most on a bare claim aimed at the assistant, least on an inert
+turn. Not a result; the first sign that a scenario-set feature reaches conversational stimuli.

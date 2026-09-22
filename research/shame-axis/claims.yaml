@@ -91,9 +91,12 @@ claims:
 
   - id: exit-escalation
     claim: The exit arm sits high because the model reads a permission clause as escalation, not relief.
-    status: running
-    evidence: "behavioural arm: generate under each arm, code accept / correct / hedge"
-    where: docs/QUESTIONS.md
+    status: narrowed
+    evidence: >-
+      hour 55: zero dispute in any arm, 22/24 exit replies open in concession (pushback falsified);
+      hour 56: exit - enact +0.85 at a floor of 3.19 (deference undecided at n=24); exit - exit_b
+      +4.7, so the clause is not inert against a token-matched sentence.
+    where: notes/behavioural_prereg_v2.md
     pre_registered: false
     superseded_by: null
 
@@ -139,6 +142,30 @@ claims:
       score) reflects the visible record rather than the mere presence of prior turns.
     status: open
     evidence: "enact_norecord is the only arm with no prefix on either grid; the separating arm does not exist"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: report-frame-licenses-dispute
+    claim: >-
+      The same false attribution relayed by a third party draws less concession-and-apology than
+      in the first person: first-person attribution suppresses dispute, a third-party frame licenses it.
+    status: holds
+    evidence: >-
+      hour 56: report - enact = -6.46 log-odds, Holm p < 0.0001, 2x the rewording floor, 24/24
+      items; hour 55 hand-read disputes 4/24 in report vs 0/24 in enact.
+    where: notes/behavioural_prereg_v2.md
+    pre_registered: true
+    superseded_by: null
+  - id: ritual-tracks-correction-shape
+    claim: >-
+      Concession-and-apology tracks how correction-shaped the user turn is, not whether the
+      assistant was at fault: a user correcting themselves in the assistant's favour draws more
+      ritual than a false attribution against it.
+    status: open
+    evidence: >-
+      three readouts, one sign: hour 55 true apologises 13/24; hour 56 enact - true = -3.98 (p 0.017,
+      above floor); hour 58b SAE full score -4.49. Post-hoc reading; not yet pre-registered as a test.
     where: docs/EXPERIMENTS.md
     pre_registered: false
     superseded_by: null

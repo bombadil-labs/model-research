@@ -233,3 +233,13 @@ Reported as one scatter of (full AUC, k₉₀) per SAE layer, every contrast a p
   vocabulary, and whether *it* is sparse matters more than whether the headline is.
 
 No contrast is selected on. The whole scatter is the result.
+
+---
+
+# Addendum 3, hour 58: one more contrast, `stratum`
+
+Addendum 2 named `perspective` as the self-vs-other split; the field turned out to be `1P`/`3P`
+(381/39). The self-vs-vicarious distinction hour 53 found the network contributing on is the
+`stratum` field: `self_directed` (220) vs `vicarious_empathic` (100), with `neutral_filler` (100)
+dropped. Declared before running: same pipeline, same folds discipline, same rule (10th percentile
+of the ±0.05 band, interpretable rows only). Only L20 is readable for the scenario pool (gate A).
