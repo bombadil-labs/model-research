@@ -240,8 +240,16 @@ claims:
 
   - id: fixed-predicate-goal-switch
     claim: The action interaction follows a change in inferred protective or harmful meaning when predicates and actor bindings are held fixed.
+    status: narrowed
+    evidence: "12 held-out domains · linked goal-switch interaction 0.708 (permutation p 0.018), but linked-to-rotated transfer 0.616 leaves a gap of 0.093 (paired domain CI −0.037 to 0.227), below the registered specificity gate"
+    where: notes/goal_switch_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: implicit-goal-role-fit
+    claim: An activation interaction tracks whether an unchanged worker plan fits a story's implicit need across held-out domains, beyond lexical and order controls.
     status: open
-    evidence: "Needed after the action-interaction spike: the current goal/neutral grids change predicates as well as plot meaning, so the 0.190 gap cannot isolate meaning"
-    where: notes/action_interaction_result.md
+    evidence: "The explicit goal-switch spike did not clear its linked-versus-rotated specificity gate; implicit needs and a stronger matched control remain untested"
+    where: notes/goal_switch_result.md
     pre_registered: false
     superseded_by: null
