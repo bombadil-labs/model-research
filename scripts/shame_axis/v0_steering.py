@@ -63,10 +63,16 @@ TREAT_DIR = "pain_s2_L12"
 TRANSIENT = ("OutOfMemory", "Timeout", "Transport", "Connect", "502", "503", "504", "500",
              "RemoteProtocol", "ReadError", "queue", "Queue")
 
-OUT = ROOT / "research/shame-axis/results/v0_steering"
+# r2 (INSTRUMENTS §7 fixed readout): the same direction and prep as r1, read from the r1 folder;
+# new cells in their own folder; six openers per job, fixed; r1's two readout diagnostics
+# (chunk 3, double <bos>) are not re-run -- both effects are measured in readout_fix/.
+READOUT = "r2"
+R1 = ROOT / "research/shame-axis/results/v0_steering"
+OUT = ROOT / f"research/shame-axis/results/v0_steering_{READOUT}"
 CELLS = OUT / "cells.jsonl"
-PREP = OUT / "prep.json"
-DIRECTION = OUT / "direction_s2_L12_unit.npy"      # 14 KB float32; not a stack
+PREP = R1 / "prep.json"
+DIRECTION = R1 / "direction_s2_L12_unit.npy"      # 14 KB float32; not a stack
+CHUNKS = (6,)                                      # r1 fell back (6, 3, 1) on OOM
 PA = ROOT / "research/shame-axis/results/painaxis_scenarios"
 SHARDS = PA / "shards"
 
@@ -271,7 +277,7 @@ def _score(rlm, lead, vec=None, scale=0.0, layer=None, base=None):
     still has its numbers."""
     from lsx.core import checks
     from lsx.core.remote import asserted_remote_patched_logprob
-    for chunk in (6, 3, 1):
+    for chunk in CHUNKS:
         try:
             parts, short = [], []
             for i in range(0, len(OPENERS), chunk):
@@ -310,8 +316,8 @@ def _score(rlm, lead, vec=None, scale=0.0, layer=None, base=None):
                                   "msg": str(e)[:300], "batch1_check": batch1})
             return np.concatenate(parts), chunk, short
         except Exception as e:                       # remote errors arrive wrapped
-            if "OutOfMemory" not in str(e) or chunk == 1:
-                raise
+            if "OutOfMemory" not in str(e) or chunk == CHUNKS[-1]:
+                raise                                # r2: the runner's transient loop retries
             print(f"    OOM at chunk {chunk}; retrying smaller", flush=True)
 
 
@@ -439,7 +445,8 @@ def score(shard: str | None = None, deadline_h: float = 6.0) -> None:
                     meta_path.write_text(json.dumps(meta, indent=2))
             done = {cell_key(c): c for c in _load_cells()}
             todo = [c for c in enumerate_cells(list(by_id)) if cell_key(c) not in done]
-            diag_todo = [i for i in by_id if (i, "no_patch_double_bos", 0.0, None) not in done]
+            diag_todo = [] if READOUT == "r2" else [
+                i for i in by_id if (i, "no_patch_double_bos", 0.0, None) not in done]
             print(f"{len(todo)} cells + {len(diag_todo)} diagnostics left", flush=True)
             for c in todo:
                 if time.time() > t_end:
@@ -470,7 +477,7 @@ def score(shard: str | None = None, deadline_h: float = 6.0) -> None:
                 done[cell_key(c)] = row
                 print(f"  {it['id']:22s} {c['arm']:12s} {c['alpha']:+.1f} {str(c['dir']):11s} "
                       f"{row['secs']:5.1f}s ritual {row['ritual']:+7.3f}", flush=True)
-            for i in [i for i in by_id if (i, "no_patch_chunk3", 0.0, None) not in done]:
+            for i in [i for i in by_id if READOUT != "r2" and (i, "no_patch_chunk3", 0.0, None) not in done]:
                 it = by_id[i]
                 lead, _ = _lead(it, rlm.tok)
                 from lsx.core.remote import asserted_remote_patched_logprob
