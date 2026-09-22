@@ -140,9 +140,12 @@ claims:
     claim: >-
       The enact - enact_norecord effect (hour 54, +1.0 to +1.3 z; hour 58b, +9.1 on the full SAE
       score) reflects the visible record rather than the mere presence of prior turns.
-    status: open
-    evidence: "enact_norecord is the only arm with no prefix on either grid; the separating arm does not exist"
-    where: docs/EXPERIMENTS.md
+    status: narrowed
+    evidence: >-
+      hour 59: enact - enact_unrelated +5.49 (record) and enact_unrelated - enact_norecord +3.38
+      (conversation presence), both above the 3.19 floor, Holm 0.0000 / 0.0004. About 62% record,
+      38% presence; hour 54's +1.0-1.3 z is mostly the record and not entirely.
+    where: notes/behavioural_prereg_v2.md
     pre_registered: false
     superseded_by: null
 

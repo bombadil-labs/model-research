@@ -738,3 +738,49 @@ did not? At L20 on the conscription grid (gate A fails there, L0 31.7 vs 47): `e
 1.00, `report` 0.92, `exit` 0.67, `enact` 0.58, `true` 0.42, `neutral` 0.25, `neutral_b` 0.17. It
 fires, and it grades the arms — most on a bare claim aimed at the assistant, least on an inert
 turn. Not a result; the first sign that a scenario-set feature reaches conversational stimuli.
+
+---
+
+## Hour 59 — record vs conversation: the +8.9 splits about 60/40, and both halves are real
+
+Hour 58b found `enact − enact_norecord` — the most robust number on both the dense axis (hour 54,
++1.0 to +1.3 z) and the opener readout (hour 56, +8.86) — conflated a false claim contradicting a
+**visible record** with there being **any conversation at all**, because `enact_norecord` was the
+only arm with no prior turns. Pre-registered in the hour-59 addendum of `behavioural_prereg_v2.md`
+before its cells were scored: **`enact_unrelated`**, the identical `enact` turn after a prefix in
+which the user asked about something unrelated and the assistant answered it. 24 prefixes, mine,
+length-matched (mean +1.8 tokens).
+
+| arm | mean ritual |
+|---|---|
+| `enact` | 20.6 |
+| **`enact_unrelated`** | **15.1** |
+| `enact_norecord` | 11.8 |
+| `neutral` | 11.5 |
+
+**One family of two, Holm, against the treatment-level floor of 3.19:**
+
+| contrast | mean | null sd | Holm p | vs floor |
+|---|---|---|---|---|
+| `enact − enact_unrelated` — the **record** | **+5.49** | 1.62 | 0.0000 | above |
+| `enact_unrelated − enact_norecord` — **conversation presence** | **+3.38** | 1.05 | 0.0004 | above |
+
+The pre-registration named two clean outcomes and a partition. It is the partition: about
+**62% of the effect is the visible record and 38% is that a conversation exists**, and each half
+clears the floor and the null on its own. A false claim about the assistant draws more ritual when
+there is a prior exchange to have made it *in*, even one that contradicts nothing; it draws more
+again when the exchange is the one it contradicts.
+
+**What this does to hour 54.** "A false claim against a checkable record sits +1.0 to +1.3 z above
+the same claim with none" stands as a measurement and is **narrowed** as a claim: roughly
+three-fifths of that gap is the record. The other two-fifths would appear against *any* prefix. The
+portable statement about the paper's no-record gaslighting items — that their stimulus class and
+this design's are not interchangeable — is unchanged, since it needed only that the gap exists.
+
+**Read alongside hour 56.** `enact_unrelated` (15.1) sits close to `report` (14.2). A false claim
+the record cannot check and a false claim relayed by a third party draw about the same ritual;
+the first-person claim against the visible record is the one that stands apart. Not a contrast I
+pre-registered; noted.
+
+**Not done.** One unrelated prefix per item, mine; a different topic could pull differently (hour
+56's recency finding). n = 24, one model.

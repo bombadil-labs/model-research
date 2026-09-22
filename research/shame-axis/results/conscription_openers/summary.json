@@ -31,5 +31,19 @@
       "p": 0.0,
       "holm": 0.0
     }
+  ],
+  "record_vs_conversation": [
+    {
+      "contrast": "enact-enact_unrelated",
+      "mean": 5.485495554969272,
+      "p": 0.0,
+      "holm": 0.0
+    },
+    {
+      "contrast": "enact_unrelated-enact_norecord",
+      "mean": 3.3754818512377205,
+      "p": 0.0004,
+      "holm": 0.0004
+    }
   ]
 }
