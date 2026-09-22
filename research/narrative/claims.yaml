@@ -213,3 +213,19 @@ claims:
     where: notes/propp_spike_result.md
     pre_registered: false
     superseded_by: null
+
+  - id: controlled-role-swap-context
+    claim: A held-out-domain direction at the final handover token tracks earlier actor-goal swaps when local text is identical.
+    status: narrowed
+    evidence: "48 controlled passages in 12 domains · registered mid-layer pair accuracy 0.792 (CI 0.731–0.847, permutation p 0.001), but raw deltas are strongly sentence-order dependent and neutral predicates score 1.000 on their own"
+    where: notes/role_swap_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: controlled-role-swap-specificity
+    claim: The order-balanced goal-grid direction distinguishes actor-goal relations from neutral predicate binding.
+    status: narrowed
+    evidence: "Post-result neutral control · goal self-score 0.792 vs goal-to-neutral 0.583, paired gap 0.208 (domain bootstrap CI 0.097–0.315); weak cross-control transfer remains (p 0.025)"
+    where: notes/role_swap_result.md
+    pre_registered: false
+    superseded_by: null
