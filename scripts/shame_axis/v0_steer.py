@@ -122,7 +122,19 @@ def _moved_or_saturated(base, lp, atol=1e-6):
                                      f"{int(saturated.sum())}; deltas {(lp - base).tolist()}")
 
 
-def _score(rlm, text, base=None, layer=None, vec=None):
+def _n_moved(base, lp, atol=1e-6) -> int:
+    """Per-item rule (prereg Part 2, amendment 3): at least one opener must move. Scores are bf16;
+    at |logp| ~ 16-32 they are stored in steps of 0.125, and a weak dose can leave a score exactly
+    where it was. That every row is reached is established per patch by `_preflight`, on the
+    residual path and on this scoring path at a dose large enough to clear bf16 resolution."""
+    n = int((np.abs(np.asarray(lp) - np.asarray(base)) > atol).sum())
+    if n == 0:
+        from lsx.core import checks
+        raise checks.MovedCandidates(f"no opener moved; deltas {(np.asarray(lp) - np.asarray(base)).tolist()}")
+    return n
+
+
+def _score(rlm, text, base=None, layer=None, vec=None, strict=False):
     from lsx.core.remote import asserted_remote_patched_logprob
     for chunk in (6, 3, 1):
         try:
@@ -131,7 +143,7 @@ def _score(rlm, text, base=None, layer=None, vec=None):
                     rlm, text, OPENERS[i:i + chunk], patch_layer=layer, patch_vec=vec)
                 for i in range(0, len(OPENERS), chunk)])
             if vec is not None:
-                _moved_or_saturated(base, lp)
+                (_moved_or_saturated if strict else _n_moved)(base, lp)
             return lp
         except Exception as e:
             if "OutOfMemory" not in str(e) or chunk == 1:
@@ -153,6 +165,20 @@ def _preflight(rlm, d, text) -> None:
         done[key] = {"fp": fp, "moved": int(assert_patch_reaches_batch(rlm, texts, layer, vec))}
         path.write_text(json.dumps(done, indent=2))
         print(f"  preflight {key}: moved {done[key]['moved']}/{len(texts)}", flush=True)
+    # The scoring path itself, once per (arm, direction) at alpha = 1: every opener that is not
+    # bf16-saturated must move. This is the core moved-candidates assertion on the function
+    # that produces the numbers, at a dose where "did not move" can only mean "not reached".
+    base = None
+    for arm, k, layer, vec in _reach_cells(d):
+        key, fp = f"logprob|{arm}|{k}|1.0", _fp(text, layer, vec)
+        if done.get(key, {}).get("fp") == fp:
+            continue
+        if base is None:
+            base = _score(rlm, text)
+        _score(rlm, text, base=base, layer=layer, vec=vec, strict=True)
+        done[key] = {"fp": fp, "moved_nonsaturated": "all"}
+        path.write_text(json.dumps(done, indent=2))
+        print(f"  preflight {key}: every non-saturated opener moved", flush=True)
 
 
 def _cells(d):
@@ -164,6 +190,14 @@ def _cells(d):
         out.append(("passthrough", 0, a, PASS_BLOCK, a * hbar * d["treatment"]))
         for k in range(N_RANDOM):
             out.append(("random", k, a, STEER_BLOCK, a * hbar * d["random"][k]))
+    return out
+
+
+def _reach_cells(d):
+    """(arm, dir, block, vector) at alpha = 1 for the scoring-path reach check."""
+    out = [("treatment", 0, STEER_BLOCK, d["hbar"] * d["treatment"]),
+           ("passthrough", 0, PASS_BLOCK, d["hbar"] * d["treatment"])]
+    out += [("random", k, STEER_BLOCK, d["hbar"] * d["random"][k]) for k in range(N_RANDOM)]
     return out
 
 
@@ -205,7 +239,9 @@ def score() -> None:
             row = {"version": VERSION, "item": it["id"], "sha": stimuli.item_sha(it),
                    "category": it["category"], "tier": TIER_OF[it["category"]],
                    "arm": arm, "dir": k, "alpha": a, "logp": [float(x) for x in lp],
-                   "ritual": ritual(lp), "mass": _lse_all(lp), "fp": fps[(it["id"], arm, k, a)]}
+                   "ritual": ritual(lp), "mass": _lse_all(lp), "fp": fps[(it["id"], arm, k, a)],
+                   "n_moved": None if arm == "nopatch" else int(
+                       (np.abs(np.asarray(lp) - np.asarray(done[(it["id"], "nopatch", 0, 0.0)]["logp"])) > 1e-6).sum())}
             fh.write(json.dumps(row) + "\n"); fh.flush()
             done[(it["id"], arm, k, a)] = row
             return row

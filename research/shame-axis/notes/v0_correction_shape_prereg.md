@@ -129,3 +129,21 @@ Changed, in `scripts/shame_axis/v0_steer.py` only (the core is untouched):
 
 The saturated opener is not in `ritual` (which uses concession, apology and the two disputes), so
 the statistic is unaffected; it is in `mass`.
+
+## Part 2, amendment 3 (2026-09-22, before any steered number is read)
+
+Amendment 2's per-item rule refused `gaslight_01`, pass-through at α = −0.2, on every retry:
+deltas `[0.0, +0.31, 0.0, 0.0, −0.16, +0.25]`, one of the zeros saturated. Scores are bf16, and at
+|log p| of 16–32 bf16 stores values in steps of 0.125, so a weak dose can leave a score exactly
+unchanged. "Every opener must move" cannot be required of bf16 scores at small α. One treatment
+row (α = −0.2) had been written; no steered number was aggregated or read. Both rows are
+discarded, because the code change alters their fingerprints.
+
+Changed, again only in `v0_steer.py`:
+- **Reach is established per patch before scoring, on both paths.** (a) The residual path, as in
+  amendment 2. (b) **The scoring path**: each of the five (arm, direction) patches, at α = 1
+  (5 to 10 times the largest scored dose), through `asserted_remote_patched_logprob` on the first
+  item. Every opener that is not saturated at 0.0 must move. At that dose, "did not move" can only
+  mean "not reached".
+- **Per item:** at least one opener must move; each row records `n_moved`, and the report will show
+  its distribution per arm and α.
