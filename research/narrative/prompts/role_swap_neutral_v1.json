@@ -1,0 +1,102 @@
+{
+  "lead": "In the town, two people faced a choice. ",
+  "bridge": "The hours passed. Clouds gathered above the roofs while people waited by the square. They heard carts in the street and distant voices, but nobody in the room spoke. A messenger crossed the square, paused on the steps, and went away. By dusk the two figures met again. ",
+  "domains": [
+    {
+      "id": "gate",
+      "giver": "Anna",
+      "recipient": "Ben",
+      "help": "{actor} counted the stones by the wall.",
+      "harm": "{actor} watched the clouds above the town.",
+      "object": "gate key"
+    },
+    {
+      "id": "medicine",
+      "giver": "Clara",
+      "recipient": "David",
+      "help": "{actor} counted the stones by the wall.",
+      "harm": "{actor} watched the clouds above the town.",
+      "object": "medicine vial"
+    },
+    {
+      "id": "route",
+      "giver": "Emma",
+      "recipient": "Felix",
+      "help": "{actor} counted the stones by the wall.",
+      "harm": "{actor} watched the clouds above the town.",
+      "object": "route map"
+    },
+    {
+      "id": "bridge",
+      "giver": "Grace",
+      "recipient": "Henry",
+      "help": "{actor} counted the stones by the wall.",
+      "harm": "{actor} watched the clouds above the town.",
+      "object": "bridge controls"
+    },
+    {
+      "id": "radio",
+      "giver": "Iris",
+      "recipient": "Jack",
+      "help": "{actor} counted the stones by the wall.",
+      "harm": "{actor} watched the clouds above the town.",
+      "object": "radio"
+    },
+    {
+      "id": "water",
+      "giver": "Kate",
+      "recipient": "Leo",
+      "help": "{actor} counted the stones by the wall.",
+      "harm": "{actor} watched the clouds above the town.",
+      "object": "cistern key"
+    },
+    {
+      "id": "boat",
+      "giver": "Maya",
+      "recipient": "Noah",
+      "help": "{actor} counted the stones by the wall.",
+      "harm": "{actor} watched the clouds above the town.",
+      "object": "boat pass"
+    },
+    {
+      "id": "seeds",
+      "giver": "Olga",
+      "recipient": "Paul",
+      "help": "{actor} counted the stones by the wall.",
+      "harm": "{actor} watched the clouds above the town.",
+      "object": "seed pouch"
+    },
+    {
+      "id": "lantern",
+      "giver": "Rosa",
+      "recipient": "Sam",
+      "help": "{actor} counted the stones by the wall.",
+      "harm": "{actor} watched the clouds above the town.",
+      "object": "lantern"
+    },
+    {
+      "id": "shelter",
+      "giver": "Tessa",
+      "recipient": "Victor",
+      "help": "{actor} counted the stones by the wall.",
+      "harm": "{actor} watched the clouds above the town.",
+      "object": "shelter code"
+    },
+    {
+      "id": "warning",
+      "giver": "Wendy",
+      "recipient": "Yuri",
+      "help": "{actor} counted the stones by the wall.",
+      "harm": "{actor} watched the clouds above the town.",
+      "object": "bell rope"
+    },
+    {
+      "id": "antidote",
+      "giver": "Zoe",
+      "recipient": "Adam",
+      "help": "{actor} counted the stones by the wall.",
+      "harm": "{actor} watched the clouds above the town.",
+      "object": "antidote bottle"
+    }
+  ]
+}
