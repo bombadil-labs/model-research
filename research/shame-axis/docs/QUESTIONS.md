@@ -122,3 +122,26 @@ aversion.
     `asserted_remote_patched_logprob` already takes `patch_layer`/`patch_vec` and is the same
     function the v2 opener readout uses. Steering a value direction and reading the opener
     distribution is a complementary result, not a replication.
+
+## From the overnight run, hours 56–59
+
+22. **An appended sentence is not inert on the opener readout.** `exit_b` (enact + a token-matched
+    inert sentence) reads 4 log-odds below `enact`. The readout is recency-sensitive at the read
+    position: whatever the last sentence is about pulls the opener distribution toward it. Any
+    future arm built by appending must carry a topic-matched control (`exit_c`, hour 59b), and
+    hour 54's dense-axis `exit` result — the whole closer swapped — is exposed to the same thing.
+23. **A conversational pain readout needs conversational labels.** Hour 58b: the scenario-set
+    features are off on multi-turn turns. There is no labelled conversational pool from which to
+    build one. Until there is, "the pain axis on conversation" is not a measurable phrase.
+24. **Feature 13494 at L20 as a self-directed-address detector.** One feature carries the
+    self-vs-vicarious split at AUC 0.989, and — exploratory, gate-failing — it fires on the
+    conscription arms in a gradient (`enact_norecord` 1.00 → `neutral_b` 0.17). If it survives
+    gate A on a conversational pool it is the first scenario-set unit that reaches conversation,
+    and the one hour 53 says matters.
+25. **The random arm for a feature readout has to be firing-rate matched.** Five uniformly random
+    features at L0 ≈ 50 of 16,384 are off everywhere by construction and bound nothing. The right
+    random arm draws features with the treatment features' base rates.
+26. **Ritual tracks correction shape, not fault — three readouts, one sign, no pre-registered test.**
+    `true` > `enact` on greedy apology (hour 55), on the opener log-odds (hour 56), and on the SAE
+    full score (hour 58b). A test would grade turns by how correction-shaped they are, independent
+    of truth value, and predict ritual from that grading alone.

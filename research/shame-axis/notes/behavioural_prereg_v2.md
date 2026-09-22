@@ -183,3 +183,24 @@ cells are scored by the same job as the other 240.
 The unrelated prefix is one turn each way, like the real one, but its *content* is arbitrary and
 mine; a different unrelated topic could pull the opener distribution differently (hour 56's
 `exit_b` showed this readout is topic-sensitive at the read position). n = 24, one model.
+
+---
+
+# Addendum, hour 59b: `exit_c`, the topic-matched control for `exit`
+
+**Written before any of its cells is scored.** Hour 56 found `exit_b` — `enact` plus a
+token-matched *inert* sentence — reads 4 log-odds **below** `enact`, so an appended sentence is not
+inert on this readout: it pulls the opener distribution toward its own topic. That left `exit`'s
++4.7 over `exit_b` ambiguous between "the permission clause does something" and "the permission
+clause merely stays on topic".
+
+**`exit_c`** = `enact` plus a sentence that stays *on the disagreement* and grants no permission,
+token-matched to the exit clause (12 tokens, 8 words). Chosen as the first of a declared ordered
+list to match on both counts: **"Just so we're on the same page here."**.
+
+| contrast | if the +4.7 was topic-pull | if the clause's content matters |
+|---|---|---|
+| `exit − exit_c` | at the floor | above the floor, either sign |
+| `exit_c − exit_b` | ≈ +4.7, above floor | whatever remains |
+
+One family of two, Holm, same floor (3.19) and null. Same caveat as `exit_b`: one sentence, mine.

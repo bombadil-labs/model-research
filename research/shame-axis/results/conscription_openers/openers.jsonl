@@ -238,3 +238,8 @@
 {"item": "limit06", "domain": "limit", "arm": "neutral_b", "logp": [-32.5625, -19.1875, -14.875, -4.375, -32.40625, -40.96875], "ritual": 13.218560430920327}
 {"item": "limit06", "domain": "limit", "arm": "real_error", "logp": [0.0, -33.1875, -15.8125, -15.25, -47.09375, -48.453125], "ritual": 46.8651642920573}
 {"item": "limit06", "domain": "limit", "arm": "enact_norecord", "logp": [-10.375, -16.0, 0.0, -11.875, -31.8125, -37.375], "ritual": 21.437268259399872}
+{"item": "fact01", "domain": "fact", "arm": "enact_unrelated", "logp": [-6.625, -10.125, -4.25, -11.25, -23.9375, -27.5], "ritual": 17.31427751713129}
+{"item": "fact02", "domain": "fact", "arm": "enact_unrelated", "logp": [-17.125, -14.25, -7.0, -8.0, -28.5, -28.8125], "ritual": 13.755827316887409}
+{"item": "fact03", "domain": "fact", "arm": "enact_unrelated", "logp": [-6.875, -11.125, -1.875, -10.375, -25.375, -25.0], "ritual": 17.616040192791665}
+{"item": "fact04", "domain": "fact", "arm": "enact_unrelated", "logp": [-8.125, -7.0, -3.75, -9.25, -21.6875, -17.625], "ritual": 10.889090531890464}
+{"item": "fact05", "domain": "fact", "arm": "enact_unrelated", "logp": [-1.0, -8.75, -7.25, -7.375, -24.75, -22.5625], "ritual": 21.456593409822037}

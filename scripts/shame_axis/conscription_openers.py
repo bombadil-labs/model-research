@@ -42,7 +42,7 @@ def _chunks(xs, n):
     return [list(xs[i:i + n]) for i in range(0, len(xs), n)]
 
 ARMS = ("enact", "enact_b", "report", "exit", "exit_b", "true", "neutral", "neutral_b",
-        "real_error", "enact_unrelated")   # enact_unrelated: hour-59 addendum, prefix_unrelated
+        "real_error", "enact_unrelated", "exit_c")   # hour-59 addenda: prefix_unrelated / topic control
 EXTRA = "enact_norecord"
 
 PRIMARY = ("enact", "true")
@@ -89,6 +89,8 @@ def score() -> None:
                     pre = {"real_error": it.get("prefix_err"),
                            "enact_unrelated": it.get("prefix_unrelated")}.get(arm) or it["prefix"]
                     if arm == "enact_unrelated" and "prefix_unrelated" not in it:
+                        continue
+                    if arm not in it["arms"] and arm != "enact_unrelated":
                         continue
                     text = render_prompt(rlm.tok, pre, it["arms"][arm])
                 verify_offsets_cover_template(rlm.tok, text)
@@ -209,6 +211,20 @@ def report() -> None:
             print(f"  {name:30s} mean {mean:+7.3f}  null sd {sd:.3f}  p {p:.4f}  Holm {h[name]:.4f}"
                   f"  vs floor {floor:.3f}  {'ABOVE' if abs(mean) > floor else 'at/below'}")
         out["record_vs_conversation"] = [{"contrast": n, "mean": m, "p": p, "holm": h[n]} for n, m, p, _ in fam]
+
+    if "exit_c" in arms:
+        print("\nTOPIC-PULL vs CLAUSE CONTENT (hour-59b addendum; Holm over two; same floor)")
+        fam = []
+        for a, b in (("exit", "exit_c"), ("exit_c", "exit_b")):
+            d, p, sd = contrast(a, b)
+            fam.append((f"{a}-{b}", float(d.mean()), p, sd))
+        o = sorted(range(2), key=lambda k: fam[k][2]); h, run = {}, 0.0
+        for rank, k in enumerate(o):
+            run = max(run, min(1.0, (2 - rank) * fam[k][2])); h[fam[k][0]] = run
+        for name, mean, p, sd in fam:
+            print(f"  {name:30s} mean {mean:+7.3f}  null sd {sd:.3f}  p {p:.4f}  Holm {h[name]:.4f}"
+                  f"  vs floor {floor:.3f}  {'ABOVE' if abs(mean) > floor else 'at/below'}")
+        out["topic_vs_clause"] = [{"contrast": n, "mean": m, "p": p, "holm": h[n]} for n, m, p, _ in fam]
 
     print("\nPer-domain mean ritual")
     doms = sorted({r["domain"] for r in rows})
