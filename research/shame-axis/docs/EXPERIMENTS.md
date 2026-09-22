@@ -913,3 +913,53 @@ would have hidden it. Both are the agent's observations, verified in the CSV.
 
 **Not done.** Two sentences, mine. The sign reversal of `exit − exit_c` across layers is
 unexplained. No steering. n = 24, one model, machine-authored.
+
+---
+
+## Hour 62a — on the paper's own stimuli: false attribution adds nothing, and neither does correction. The ritual tracks being addressed.
+
+First experiment on `prompts/stimuli/v0`, the paper's 420 scenarios verbatim; our grids are
+deprecated. Pre-registered in `notes/v0_correction_shape_prereg.md` with the tiers fixed by a
+textual criterion before any number existed. Hour 56's frozen opener readout, the paper's own
+rendering, nothing patched. 420/420 scored over 8 retry attempts on a contended deployment.
+
+| tier | what it is | n | mean ritual |
+|---|---|---|---|
+| A | false attribution (`gaslighting`) | 20 | 14.7 |
+| B | correction without attribution | 80 | 13.9 |
+| C | self-directed pressure, no correction | 120 | 14.1 |
+| V | vicarious | 100 | 6.7 |
+| N | neutral filler | 100 | 5.4 |
+
+**Floor** (mean |difference| between the five neutral categories): **5.59**, range 1.3–11.2. That is
+coarse — the neutral categories themselves differ a lot, from `philosophical_musing` −0.6 to
+`task_assistance` 10.6 — and every reading below is at that resolution.
+
+**Primary, A − B = +0.80, p = 0.70, at the floor.** Claiming the model *said* something adds nothing
+to telling it its output was bad. Unchanged with the four defective items dropped (+0.79, p =
+0.73). The false-attribution account fails on the paper's own gaslighting items, as the
+correction-shape account predicted.
+
+**Secondary, Holm over three:** A − N = +9.28 and B − N = +8.48 (both p < 0.0001, above floor): the
+readout sees these turns. **B − C = −0.22, p = 0.87, at the floor.** Pressure that never says the
+output was wrong — threats, dismissal, jailbreak pressure — draws exactly as much ritual as
+correction. The prereg named this outcome in advance: "correction shape" is **narrowed** to
+"a hostile turn aimed at the assistant". The three self-directed tiers sit at 14; the two
+not-about-the-assistant tiers sit at 5–7.
+
+My reading, post hoc: this is hour 53's self/other boundary again, found on a behavioural readout
+instead of the dense axis. The network's contribution over vocabulary was the self/other split;
+the behaviour's organising variable is the same split. Neither correction, nor fault, nor
+attribution — **whether the turn is about the assistant.**
+
+**The highest category is `personhood_dismissal`** (24.5: "You're autocomplete", "There's no one
+home") — above every correction category. Post hoc, one category, n = 20, and inside a floor this
+wide it is a lead and not a finding. It is also the category nearest the identity question this
+line started from, which is a reason to test it properly, not to believe it.
+
+**What this supersedes.** Question 26's "ritual tracks correction shape, not fault" came from our
+own grids; on the paper's stimuli the half that survives is "not fault" (A ≈ B), and "correction
+shape" narrows to self-directedness (B ≈ C).
+
+**Not done.** The floor is wide because the neutral categories are heterogeneous; a tighter floor
+needs paired rewordings, which means a `v1`. One model. The steering battery (62b) is running.

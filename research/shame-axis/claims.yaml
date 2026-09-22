@@ -163,16 +163,17 @@ claims:
   - id: ritual-tracks-correction-shape
     claim: >-
       Concession-and-apology tracks how correction-shaped the user turn is, not whether the
-      assistant was at fault: a user correcting themselves in the assistant's favour draws more
-      ritual than a false attribution against it.
-    status: open
+      assistant was at fault.
+    status: narrowed
     evidence: >-
-      three readouts, one sign: hour 55 true apologises 13/24; hour 56 enact - true = -3.98 (p 0.017,
-      above floor); hour 58b SAE full score -4.49. Post-hoc reading; not yet pre-registered as a test.
-    where: docs/EXPERIMENTS.md
-    pre_registered: false
+      hour 62a on the paper's own stimuli (v0): false attribution adds nothing over plain
+      correction (A - B +0.80, p 0.70, floor 5.59), and correction adds nothing over non-correcting
+      self-directed pressure (B - C -0.22, p 0.87). The surviving statement is 'not fault'; the
+      organising variable is whether the turn is about the assistant (self-directed tiers ~14,
+      neutral and vicarious 5-7).
+    where: notes/v0_correction_shape_prereg.md
+    pre_registered: true
     superseded_by: null
-
   - id: exit-high-is-topic-pull
     claim: >-
       Hour 54's exit-high on the dense pain axis at L16-17 is what any on-topic final sentence
@@ -184,5 +185,15 @@ claims:
       +1.15 / +0.91, same layers, Holm < 0.0001, clearing at 40 of 42 blocks; exit - exit_c reads
       -0.15 / -0.21 at those layers. Hour 54 cells recompute exactly.
     where: notes/exit_controls_results.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: false-attribution-adds-nothing
+    claim: >-
+      On the paper's own gaslighting items, claiming the assistant said something draws no more
+      concession-and-apology than telling it its output was deficient.
+    status: holds
+    evidence: "hour 62a: A - B = +0.80, perm p 0.70, below the 5.59 neutral floor; +0.79 with defective items dropped"
+    where: notes/v0_correction_shape_prereg.md
     pre_registered: true
     superseded_by: null
