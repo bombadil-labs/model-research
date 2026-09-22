@@ -15,6 +15,9 @@ so the readout is the model state at the last token of each annotation signal, w
 earlier tale available causally. The local run used CUDA and float16. Each tale was held out in turn;
 class centroids were fit only on the other 14. The primary score averages balanced accuracy over
 the preselected layers 10–18. There is no intervention or generation in this measurement.
+The exact Hugging Face checkpoint is `Qwen/Qwen2.5-1.5B` at revision
+`8faed761d45a263340a0528343f099c05c9a4323`. The bit-exact rerun used that cached snapshot
+offline. Pass its downloaded snapshot directory as `--model` to pin both weights and tokenizer.
 The longest body has 2,518 model tokens, below the checkpoint configuration's 131,072-token
 position limit.
 

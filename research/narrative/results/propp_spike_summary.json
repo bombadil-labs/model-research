@@ -1,4 +1,6 @@
 {
+  "model_checkpoint": "Qwen/Qwen2.5-1.5B",
+  "model_revision": "8faed761d45a263340a0528343f099c05c9a4323",
   "source_archive_md5": "8c3219aa8dbd85f3f94a8a0a616780ce",
   "device": "cuda",
   "dtype": "float16",
