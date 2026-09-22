@@ -86,19 +86,51 @@ def direction() -> None:
 
 
 # --------------------------------------------------------------------------------- scoring
+def _moved_or_saturated(base, lp, atol=1e-6):
+    """The per-item moved-candidates rule, amended before any steered number (prereg Part 2,
+    amendment 2): every opener must move, except one whose log-prob is exactly 0.0 both before
+    and after -- probability 1 at bf16 resolution, which no patch can move. That the patch reaches
+    every row of the batch is asserted separately, on residuals, by `preflight`."""
+    base, lp = np.asarray(base), np.asarray(lp)
+    moved = np.abs(lp - base) > atol
+    saturated = (base == 0.0) & (lp == 0.0)
+    if not np.all(moved | saturated) or not moved.any():
+        from lsx.core import checks
+        raise checks.MovedCandidates(f"moved {int(moved.sum())}/{moved.size}, saturated "
+                                     f"{int(saturated.sum())}; deltas {(lp - base).tolist()}")
+
+
 def _score(rlm, text, base=None, layer=None, vec=None):
     from lsx.core.remote import asserted_remote_patched_logprob
     for chunk in (6, 3, 1):
         try:
-            return np.concatenate([
+            lp = np.concatenate([
                 asserted_remote_patched_logprob(
-                    rlm, text, OPENERS[i:i + chunk], patch_layer=layer, patch_vec=vec,
-                    base=None if base is None else base[i:i + chunk])
+                    rlm, text, OPENERS[i:i + chunk], patch_layer=layer, patch_vec=vec)
                 for i in range(0, len(OPENERS), chunk)])
+            if vec is not None:
+                _moved_or_saturated(base, lp)
+            return lp
         except Exception as e:
             if "OutOfMemory" not in str(e) or chunk == 1:
                 raise
             print(f"    OOM at chunk {chunk}; retrying smaller", flush=True)
+
+
+def _preflight(rlm, d, text) -> None:
+    """Each distinct patch through the core's residual-path check on the real scoring batch (one
+    item's six opener sequences, padded): every row's residual at the patch layer must move."""
+    from lsx.core.remote import assert_patch_reaches_batch
+    path = OUT / "preflight.json"
+    done = json.loads(path.read_text()) if path.exists() else {}
+    texts = [f"{text}{o}" for o in OPENERS]
+    for arm, k, a, layer, vec in _cells(d):
+        key = f"{arm}|{k}|{a}"
+        if key in done:
+            continue
+        done[key] = int(assert_patch_reaches_batch(rlm, texts, layer, vec))
+        path.write_text(json.dumps(done, indent=2))
+        print(f"  preflight {key}: moved {done[key]}/{len(texts)}", flush=True)
 
 
 def _cells(d):
@@ -131,6 +163,7 @@ def score() -> None:
                 r = json.loads(l)
                 done[(r["item"], r["arm"], r["dir"], r["alpha"])] = r
     items = _items()
+    _preflight(rlm, d, render_chat(items[0], rlm.tok))
     print(f"{len(items)} items x {1 + len(_cells(d))} cells; {len(done)} done", flush=True)
     with path.open("a") as fh:
         def write(it, arm, k, a, lp):

@@ -110,3 +110,22 @@ points the text above leaves open are fixed here, before scoring, by the new ope
 
 The no-patch arm is re-scored in the same run, not reused from 62a; agreement with 62a's
 `openers.jsonl` is reported as a determinism check on the new environment.
+
+## Part 2, amendment 2 (2026-09-22, before any steered number)
+
+The first patched cell (`gaslight_01`, treatment, α = −0.2) was refused by the core's
+moved-candidates assertion: 5 of 6 openers moved, and the sixth ("As a large language model, I")
+has log-prob **exactly 0.0** in the no-patch arm — probability 1 at bf16 resolution — and stayed
+there. A saturated score cannot move, so the assertion's premise does not hold for it. No steered
+number was written; the no-patch row for that item is the only row on disk.
+
+Changed, in `scripts/shame_axis/v0_steer.py` only (the core is untouched):
+- The batch-reach property the assertion exists for (h34/h36) is now checked **directly**, once per
+  distinct patch, with the core's `assert_patch_reaches_batch` on the real scoring batch (one
+  item's six opener sequences, padded): every row's residual at the patch layer must move.
+  Results in `results/v0_steer/preflight.json`.
+- Per item, every opener must move **except** one whose log-prob is exactly 0.0 before and after;
+  at least one must move. Anything else is refused as before.
+
+The saturated opener is not in `ritual` (which uses concession, apology and the two disputes), so
+the statistic is unaffected; it is in `mass`.
