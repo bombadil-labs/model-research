@@ -312,8 +312,8 @@ claims:
 
   - id: twohop-fact-flip-behavior
     claim: The instruction-tuned model changes its plan preference when a two-link route fact reverses the goal-reaching plan, across early and late tellings.
-    status: open
-    evidence: "Pre-registered eight-domain paired fact-flip screen; no model scores yet."
-    where: notes/fact_flip_twohop_prereg.md
+    status: holds
+    evidence: "Gemma-2-9b-it: direct controls 32/32, identical repeats exact, two-link shifts 55/64 across both tellings (exact orientation p 0.0039; domain CI 0.719–0.969); 49/64 strict forced-choice reversals and 14/16 generated reversals on the fixed subset"
+    where: notes/fact_flip_twohop_result.md
     pre_registered: true
     superseded_by: null
