@@ -366,6 +366,14 @@ claims:
     pre_registered: true
     superseded_by: null
 
+  - id: late-reveal-route-choice
+    claim: Goal- and route-sensitive choice is preserved across chronological, late-reveal and near-adjacent tellings of the fixed two-hop stories under all registered format and fact-order gates.
+    status: narrowed
+    evidence: "Gemma-2-9b-it: 27/32 quartets pass in all three tellings (exact domain-orientation p 1/256, domain CI 0.688–0.969), and both late-format non-inferiority bounds pass. The registered overall gate fails because near-adjacent fact-order quadrant 00 is 4/8 = 0.50, short of >0.50. Strict four-cell correct choices are only 16/32 in late reveal; controls are 16/16 and repeat drift is zero."
+    where: notes/reveal_order_result.md
+    pre_registered: true
+    superseded_by: null
+
   - id: story-fact-token-causal-edit
     claim: Replacing one post-fact story-token residual with its counterfactual-world state after block 24 moves later goal-sensitive name choice toward the counterfactual route winner.
     status: open
