@@ -383,9 +383,17 @@ claims:
     superseded_by: null
 
   - id: story-fact-token-causal-edit
-    claim: Replacing one post-fact story-token residual with its counterfactual-world state after block 24 moves later goal-sensitive name choice toward the counterfactual route winner.
-    status: open
-    evidence: "Bidirectional world-pair substitution on 128 fixed late-telling route prompts. No-patch, zero, natural and norm-matched last-noun, plan-order, Gaussian and final-block same-token pass-through arms were frozen before any source-to-target patch; the beyond-noun decision uses five token-length-matched domains."
-    where: notes/story_fact_token_patch_prereg.md
+    claim: Replacing one post-fact story-token residual with its counterfactual-world state after block 24 specifically redirects later goal-sensitive name choice toward the counterfactual route winner under the registered causal screen.
+    status: falsified
+    evidence: "The world-state patch shifts the signed name margin +0.386 nat in 8/8 domains and 106/128 cells (exact p 1/256), but the answer-neutral matched plan-order patch shifts it +0.784 nat. The treatment fails the registered twice-max-control gate and causes zero top-name flips toward the source winner, one away. The lexical-surplus component passes on five matched domains, but the gated beyond-noun decision fails with the full screen. This falsifies the specified single-token causal-edit claim at this site and dose, not all distributed story representations."
+    where: notes/story_fact_token_patch_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: story-period-margin-shift
+    claim: On the fixed late-telling two-hop prompts, substituting the other world's block-24 period state causes a positive relative-name margin shift toward the other-world winner.
+    status: holds
+    evidence: "This was a registered component of the failed full causal decision: mean +0.386 nat, 8/8 domains and 106/128 cells positive, exact domain-sign p 1/256, bootstrap CI +0.232 to +0.547. The answer-neutral plan-order control is about twice as strong and no top-name choices flip toward the source winner, so this result is a relative-score effect without established world specificity or choice redirection."
+    where: notes/story_fact_token_patch_result.md
     pre_registered: true
     superseded_by: null
