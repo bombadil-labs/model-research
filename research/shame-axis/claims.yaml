@@ -90,8 +90,16 @@ claims:
   - id: shame-not-pain
     claim: The axis is better described as tracking shame than as tracking pain.
     status: open
-    evidence: "Pre-registered test frozen: shame vs witness clauses at matched length on 40 paper base events (20 A1, 20 D), written blind by two model authors (0/80 cross-audit misclassifications each), read on the S2 pain axis of four models, with floors, nulls, a positive control and valence adjustment; decided per author on the two instruct models."
-    where: notes/shame_vs_pain_prereg.md
+    evidence: "Hour 65 (pre-registered, two blind model authors) is unreadable: at the frozen screen layer the pain axis fails its positive control in all four models (it separates the paper's own A1 pain events from its D neutral events no better than random directions). Descriptively, no cell met the effect criteria; the Claude set's contrast is lexical (network contribution <= 0 everywhere) and the two authors disagree in sign on Llama. A rerun needs a readout layer chosen from the positive-control curve on other data and a stricter lexical match."
+    where: notes/shame_vs_pain_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: pain-axis-separates-own-categories
+    claim: At the paper's screen layer, the S2 pain axis separates the paper's own A1 (physical pain) events from its D (neutral) events beyond random and shuffled-label directions.
+    status: narrowed
+    evidence: "Hour 65 positive control, 20 vs 20 base sentences, four models: fails at every screen layer (A1 - D = 0.96 to 1.25 z against random q95 1.45 to 1.78). It passes only at later layers: Gemma-2-2B L15-16 and L21-25, Gemma-2-2B-it L18-20, Llama-3.1-70B L40, L48 and L79. Llama-3.1-70B-Instruct passes at no captured layer."
+    where: notes/shame_vs_pain_result.md
     pre_registered: true
     superseded_by: null
 
