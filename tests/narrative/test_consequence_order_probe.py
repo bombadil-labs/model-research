@@ -61,7 +61,8 @@ def test_cross_order_and_polarity_controls_on_synthetic_states():
     assert relation["primary_cross_order_mid"] == 1
     assert relation["polarity_halves_mid"] == {"active_A": 1, "restrictive_A": 1}
     assert relation["arms"]["pre_action"]["mid"] == .5
-    assert relation["arms"]["local_only"]["mid"] == .5
+    assert relation["lexical_baselines"] == {"local_200_char_trigrams": .5,
+                                             "full_word_bag": .5}
 
     position = module.score(_states("clause_position"), n_null=10, n_boot=20)
     assert position["primary_cross_order_mid"] == 0

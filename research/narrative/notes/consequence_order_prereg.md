@@ -75,17 +75,19 @@ Gaussian directions. Calibrate the scorer with known-signal and noise synthetic
 states. These exact arms must score 0.5:
 
 - **Local-only:** within each recipient and fixed clause order, the last 200
-  characters are identical between consequence mappings; an activation of only
-  that local string has zero interaction.
+  characters are identical between consequence mappings. Build character
+  trigram-count vectors from those actual suffixes and score their interaction
+  with the same held-out cross-order rule; it must be 0.5.
 - **Pre-action:** before the handover, recipient choices have identical prefixes;
   their difference of mapping differences must be bit-exact zero.
 - **No-mapping:** compare each state with itself as its mapping alternative.
 - **Layer 0:** every final readout has the same token ID and position; the
   interaction must be bit-exact zero.
 
-The lexical bag is also equal between mappings at fixed clause order. Report a
-bag-of-words baseline as a tie rather than treating it as evidence that the
-ordered phrasing is understood semantically.
+Build full-passage word-count vectors from the actual texts and score them by the
+same rule. The bag is equal between mappings at fixed clause order, so this
+baseline must be 0.5. Both lexical scores are calculated from the frozen text,
+not inserted as constants.
 
 ## Prediction and decision
 

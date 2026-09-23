@@ -209,6 +209,23 @@ def interaction(states: np.ndarray) -> np.ndarray:
                 (states[:, :, :, 0, 1] - states[:, :, :, 1, 1]))
 
 
+def lexical_baseline(cases: list[Case], *, local: bool) -> float:
+    if len(cases) != 192:
+        raise ValueError("lexical baseline requires the complete grid")
+    if local:
+        rows = [Counter(c.text[-200:][i:i + 3]
+                        for i in range(len(c.text[-200:]) - 2)) for c in cases]
+    else:
+        rows = [Counter(re.findall(r"\b\w+\b", c.text.lower())) for c in cases]
+    vocab = sorted(set().union(*(set(row) for row in rows)))
+    matrix = np.array([[row.get(term, 0) for term in vocab] for row in rows],
+                      dtype=np.float32).reshape(12, 2, 2, 2, 2, 1, -1)
+    state = interaction(matrix)
+    a = cross_scores(state[:, :, 0], state[:, :, 1])
+    b = cross_scores(state[:, :, 1], state[:, :, 0])
+    return float(np.stack([a, b]).mean())
+
+
 def score(stacks: tuple[np.ndarray, np.ndarray], *, n_null: int = 1000,
           n_boot: int = 2000) -> dict:
     final, pre = stacks
@@ -230,14 +247,16 @@ def score(stacks: tuple[np.ndarray, np.ndarray], *, n_null: int = 1000,
     zero = np.zeros_like(state[:, :, 0])
     arms.update({"pre_action": cross_scores(interaction(pre)[:, :, 0],
                                               interaction(pre)[:, :, 1]),
-                 "no_mapping": cross_scores(zero, zero),
-                 "local_only": cross_scores(zero, zero),
-                 "word_bag": cross_scores(zero, zero)})
+                 "no_mapping": cross_scores(zero, zero)})
     if any(not np.all(x[:, :, 0] == .5) for x in arms.values()):
         raise ValueError("layer-0 control failed")
-    if any(arms[name].mean() != .5 for name in
-           ("pre_action", "no_mapping", "local_only", "word_bag")):
+    if any(arms[name].mean() != .5 for name in ("pre_action", "no_mapping")):
         raise ValueError("exact-null arm failed")
+    cases, _ = make_cases(GRID)
+    lexical = {"local_200_char_trigrams": lexical_baseline(cases, local=True),
+               "full_word_bag": lexical_baseline(cases, local=False)}
+    if any(x != .5 for x in lexical.values()):
+        raise ValueError(f"lexical exact-null arm failed: {lexical}")
     primary = np.stack([arms["clause_0_to_1"], arms["clause_1_to_0"]], axis=1)
     observed = float(primary[:, :, :, list(MID)].mean())
     polarity = np.array([d["a_has_original_active_task"]
@@ -265,6 +284,7 @@ def score(stacks: tuple[np.ndarray, np.ndarray], *, n_null: int = 1000,
         "arms": {name: {"mid": float(s[:, :, list(MID)].mean()),
                          "curve": list(map(float, s.mean(axis=(0, 1))))}
                  for name, s in arms.items()},
+        "lexical_baselines": lexical,
         "primary_cross_order_mid": observed,
         "primary_cross_order_curve": list(map(float, primary.mean(axis=(0, 1, 2)))),
         "polarity_halves_mid": {
@@ -297,6 +317,7 @@ def main() -> None:
     report["self_test"] = calibration
     (OUT / "report.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps({"arms_mid": {k: v["mid"] for k, v in report["arms"].items()},
+                      "lexical_baselines": report["lexical_baselines"],
                       "primary_cross_order_mid": report["primary_cross_order_mid"],
                       "primary_bootstrap_ci95": report["primary_bootstrap_ci95"],
                       "permutation": report["permutation"],
