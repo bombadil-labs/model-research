@@ -28,7 +28,9 @@ def _scores(cells, margin):
 def test_frozen_grid_and_lexical_ceiling():
     cal, stories, neutral, generated, doc, _ = module.make_cells()
     v3 = json.loads((module.GRID.parent / "goal_reversal_v3.json").read_text())
+    v4 = json.loads((module.GRID.parent / "goal_reversal_v4.json").read_text())
     assert doc["domains"] == v3["domains"]
+    assert doc["domains"] == v4["domains"]
     assert doc["bridge"] == v3["bridge"]
     assert doc["question"] == v3["question"]
     assert (len(cal), len(stories), len(neutral), len(generated)) == (32, 192, 48, 48)
@@ -43,6 +45,7 @@ def test_frozen_grid_and_lexical_ceiling():
     assert base["goal_type_to_contain_accuracy"] == .5
     assert base["goal_category_to_semantic_accuracy"] == 45 / 48
     assert base["goal_category_correct_reversal"] == 21 / 24
+    assert all(value == .5 for value in module.control_baselines(doc).values())
 
 
 def test_calibration_rejects_name_and_position_bias():

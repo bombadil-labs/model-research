@@ -12,7 +12,7 @@ does changing only the stated goal reverse which worker the model chooses?**
 It is a behavioral check before any activation geometry claim.
 
 Use the twelve new constructed dilemmas and four new easy controls in
-`research/narrative/prompts/goal_reversal_v4.json`. The v1 grid was frozen
+`research/narrative/prompts/goal_reversal_v5.json`. The v1 grid was frozen
 before scores, then adversarial review found that every protective goal chose
 the withholding plan. V2 balanced the status quo but a second review found
 that all protective goals still chose containing/closing verbs. V3 corrects
@@ -169,3 +169,30 @@ amendment was written. There is no further control replacement in this run:
 if any V4 control fails, the run stops. A V4 pass is an **exploratory amended
 screen** because the calibration instrument was revised after seeing its V3
 failure. Formal confirmation would need a fresh independently fixed battery.
+
+## Amendment 2: balance the controls against the frozen lexical ceiling
+
+Adversarial review of V4 found that all four `keep` control goals chose
+the containing plan, while the other goals chose release. A simple
+keep→contain rule could therefore pass all 32 controls without using their
+setups. The exact frozen goal-type and goal-category baselines scored 7/8 and
+6/8 goals respectively, still above neutral. A V4 run had started while
+review was pending. It was interrupted after nine **control** scores; there was no
+complete calibration, story score or generation, and those partial scores are
+discarded. This supersedes Amendment 1's planned no-replacement rule because
+the battery had a pre-score design flaw.
+
+V5 keeps the V4 `bakery` and `records` controls and replaces `observatory`
+with `greenhouse` and the earlier `aquarium` with a heat-versus-cat version.
+In both new controls, a protective **preserve** goal requires the releasing
+plan: opening vents trapped heat. A separate provision goal requires the
+containing plan: closed windows retain humidity for heat-tolerant orchids,
+and a closed aquarium lid provides a barrier against a cat. These are
+unambiguous physical tradeoffs in the frozen setups. Among the eight V5
+control goals, both the frozen goal-type→contain rule and the stronger frozen
+goal-category→plan-semantic rule have 4/8 correct choices and 2/4 correct
+paired reversals. The scorer asserts both rates. Two controls have plan A
+active and two withholding. The twelve story domains, the question, bridge,
+candidate continuations and thresholds remain text-identical to V3 and V4.
+No V5 score existed when this amendment was written. V5 is still an
+exploratory amended screen; if its controls fail, stop and report the failure.

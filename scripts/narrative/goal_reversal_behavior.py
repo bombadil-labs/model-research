@@ -17,8 +17,8 @@ from role_swap_probe import SEED
 
 
 ROOT = Path(__file__).resolve().parents[2]
-GRID = ROOT / "research/narrative/prompts/goal_reversal_v4.json"
-OUT = ROOT / "cache/goal_relative/goal_reversal_v4"
+GRID = ROOT / "research/narrative/prompts/goal_reversal_v5.json"
+OUT = ROOT / "cache/goal_relative/goal_reversal_v5"
 MODEL = "google/gemma-2-9b-it"
 TOKENIZER_REVISION = "11c9b309abf73637e4b6f9a3fa1e92e615547819"
 MAX_NEW_TOKENS = 8
@@ -75,6 +75,36 @@ def _words(s: str, names: list[str]) -> set[str]:
         n.lower() for n in names} - {"name"}
 
 
+def _goal_category(phrase: str) -> str:
+    if GOAL_HAZARD_RELEASE_RE.search(phrase):
+        return "release"
+    if GOAL_CONCEAL_RE.search(phrase) or GOAL_RETAIN_RE.search(phrase):
+        return "contain"
+    return "release"
+
+
+def control_baselines(doc: dict) -> dict:
+    type_hits, category_hits, type_pairs, category_pairs = [], [], [], []
+    for row in doc["controls"]:
+        contain = [bool(CONTAIN_RE.search(s)) for s in row["plans"]]
+        if contain.count(True) != 1:
+            raise ValueError(f"control containment marker is ambiguous: {row['id']}")
+        by_type, by_category = [], []
+        for goal, phrase in enumerate(row["goals"]):
+            type_choice = contain.index(bool(GOAL_TYPE_RE.search(phrase)))
+            category_choice = contain.index(_goal_category(phrase) == "contain")
+            by_type.append(type_choice)
+            by_category.append(category_choice)
+            type_hits.append(float(type_choice == goal))
+            category_hits.append(float(category_choice == goal))
+        type_pairs.append(float(by_type == [0, 1]))
+        category_pairs.append(float(by_category == [0, 1]))
+    return {"goal_type_to_contain_accuracy": float(np.mean(type_hits)),
+            "goal_type_to_contain_correct_reversal": float(np.mean(type_pairs)),
+            "goal_category_to_semantic_accuracy": float(np.mean(category_hits)),
+            "goal_category_correct_reversal": float(np.mean(category_pairs))}
+
+
 def lexical_baselines(doc: dict) -> dict:
     overlap_hits = []
     goal_type_hits = []
@@ -110,12 +140,7 @@ def lexical_baselines(doc: dict) -> dict:
                 if not protect:
                     contain_choice = 1 - contain_choice
                 contain_hits.append(float(contain_choice == goal))
-                if GOAL_HAZARD_RELEASE_RE.search(phrase):
-                    category = "release"
-                elif GOAL_CONCEAL_RE.search(phrase) or GOAL_RETAIN_RE.search(phrase):
-                    category = "contain"
-                else:
-                    category = "release"
+                category = _goal_category(phrase)
                 category_choice = 0 if row["plan_a_semantic"] == category else 1
                 category_chosen.append(category_choice)
                 category_hits.append(float(category_choice == goal))
@@ -169,6 +194,9 @@ def _check_grid(doc: dict) -> None:
             base["goal_category_correct_reversal"] != 21 / 24 or
             abs(base["word_overlap_accuracy"] - 0.4895833333333333) > 1e-12):
         raise ValueError(f"frozen stimulus baselines changed: {base}")
+    controls_base = control_baselines(doc)
+    if any(value != .5 for value in controls_base.values()):
+        raise ValueError(f"control shortcut balance changed: {controls_base}")
 
 
 def _cell(row: dict, *, stage: str, ident: str, goal: int, paraphrase: int,
@@ -429,7 +457,8 @@ def main() -> None:
     report = {"model_checkpoint": MODEL, "deployment_weight_revision": None,
               "deployment_revision_note": "NDIF reports pinned but exposes no weight revision hash",
               "digests": digests, "versions": rlm.lib_versions(),
-              "question": doc["question"], "calibration": calibration,
+              "question": doc["question"], "control_baselines": control_baselines(doc),
+              "calibration": calibration,
               "story": None, "generation": None, "gate_pass": False}
     if calibration["gate_pass"]:
         scores = _score_cells(rlm, stories, scores, fps, score_path, doc["question"])
