@@ -421,3 +421,11 @@ claims:
     where: notes/firsthop_swap_behavior_result.md
     pre_registered: true
     superseded_by: null
+
+  - id: firsthop-winning-slot-cancellation
+    claim: At the fixed block-24 story-period token, transplanting a state with both the route world and plan order reversed has near-zero later name-margin effect because the two changes preserve which listed plan slot wins.
+    status: open
+    evidence: "Post-hoc hypothesis from the completed first-hop patch, before any double-flip score. The frozen follow-up compares natural and world-norm-matched double flips with the already observed single flips under equivalence and paired-contrast gates."
+    where: notes/firsthop_doubleflip_prereg.md
+    pre_registered: true
+    superseded_by: null
