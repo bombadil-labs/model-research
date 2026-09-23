@@ -133,3 +133,10 @@ pain axis responds to evaluation by others beyond valence and vocabulary, which 
 line its name. A negative result says the axis is better described by valence, in these models, on
 these stimuli. Both authors are language models who knew the hypothesis. The per-author
 requirement limits that confound but does not remove it.
+
+## Amendment 1 (before any activation or valence score): shuffled-label null draws off the screen layer
+
+Each shuffled-label S2 vector takes about 1.4 s to build. At 250 draws, every captured layer of
+four models would take about ten hours of shared CPU. The decision is taken only at each model's
+screen layer, which keeps **250** shuffled draws. The rest of the curve uses **50** per layer, as
+hour 64 did. The random-direction null stays at 1,000 draws everywhere. No threshold changes.
