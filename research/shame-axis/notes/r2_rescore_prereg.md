@@ -49,3 +49,13 @@ The chunking is therefore fixed **per hour**, and constant across every row of t
 - **62b: 6 per job**, unchanged. Its 60 items are short, and it is scoring without OOM.
 
 Every row records its chunk.
+
+## Amendment 2 (same day, before any r2 result was read): 62b chunking fixed per item
+
+The 62b runner stalled on `rejection_08` (98 tokens, the longest v0 item): six openers per job OOM
+on it through 31 retries. 62b's statistic is a paired difference within each item, so the chunking
+must be constant within an item. It need not be constant across items. Rule, fixed by length: an
+item whose rendered lead is **≥ 90 tokens** is scored entirely at **3 openers per job**, its
+no-patch baseline included. Every other item stays at 6. Of the 60 items, only `rejection_08`
+qualifies. Its no-patch row had not been written. The 567 cells already on disk are all at 6 and
+all belong to shorter items, so they stand.
