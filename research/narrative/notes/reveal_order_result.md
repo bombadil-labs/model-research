@@ -42,11 +42,15 @@ test.
 **The registered overall screen fails.** The near-adjacent telling's
 `00` first-hop×second-hop fact-order quadrant scores **4/8 = 0.50**;
 the preregistration required *every* quadrant in *every* format to
-exceed 0.50. Its two domains are clinic and library, each 2/4 in that
-telling. All other near-adjacent quadrants are 8/8. Chronological and
-late reveal pass their four quadrant gates and all other format-specific
-gates. Five of the eight domains pass all four quartets in all three
-tellings; clinic and library pass only two each, and ship passes three.
+exceed 0.50. That `00` quadrant is the weakest in **all three** tellings:
+5/8 chronological, 6/8 late, 4/8 near adjacent. Its two domains are
+clinic and library, each 2/4 in the near-adjacent telling. The grid has
+only two domains in this quadrant, so domain identity and fact order
+cannot be separated here. All other near-adjacent quadrants are 8/8.
+Chronological and late reveal pass their four quadrant gates and all
+other format-specific gates. Five of the eight domains pass all four
+quartets in all three tellings; clinic and library pass only two each,
+and ship passes three.
 The all-format paired test and both non-inferiority tests pass, but they
 do not override the failed eligibility gate.
 
@@ -69,13 +73,14 @@ tellings; each two-candidate score ran as one verified fp32-softcapped
 job. The failed near-adjacent quadrant is therefore a model/readout
 result on this grid, not a repeatability or surface-count failure.
 
-This narrows the behavioral claim. Goal-and-route-sensitive margin
-changes often survive a late destination reveal and an intervening
-passage on these miniature stories. The registered test does **not**
-establish format-robust correct choice across every fact-order quadrant.
-The late format's advantage could reflect its more recent destination
-facts; the near-adjacent comparison holds that recency fixed but also
-moves the plan-to-first-hop gap, as the preregistration states. These
+The registered all-gates claim is **falsified** by the near-adjacent
+quadrant. Its registered paired component still shows goal-and-route
+sensitive margin changes in 27/32 matched quartets across all three
+tellings. The late format is non-inferior by the frozen margin; its
++0.0625 point differences have intervals touching zero, so they do not
+establish superiority. Its strict-choice count is the lowest of the
+three. The near-adjacent comparison holds second-hop recency fixed but
+also moves the plan-to-first-hop gap, as the preregistration states. These
 orders do not identify a stable latent story shape or a causal
 representation. They do give a concrete boundary for the next test:
 absolute name choice and the clinic/library `00` cases need to improve

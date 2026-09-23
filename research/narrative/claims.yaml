@@ -368,8 +368,16 @@ claims:
 
   - id: late-reveal-route-choice
     claim: Goal- and route-sensitive choice is preserved across chronological, late-reveal and near-adjacent tellings of the fixed two-hop stories under all registered format and fact-order gates.
-    status: narrowed
-    evidence: "Gemma-2-9b-it: 27/32 quartets pass in all three tellings (exact domain-orientation p 1/256, domain CI 0.688–0.969), and both late-format non-inferiority bounds pass. The registered overall gate fails because near-adjacent fact-order quadrant 00 is 4/8 = 0.50, short of >0.50. Strict four-cell correct choices are only 16/32 in late reveal; controls are 16/16 and repeat drift is zero."
+    status: falsified
+    evidence: "The registered all-gates decision fails: near-adjacent fact-order quadrant 00 is 4/8 = 0.50, short of >0.50. Gemma-2-9b-it nevertheless has 27/32 matched quartets with correct margin shifts in all three tellings (paired p 1/256), and both late non-inferiority bounds pass. Strict four-cell correct choices are only 16/32 in late reveal. This falsifies the specified all-gates claim, not sensitivity in every telling."
+    where: notes/reveal_order_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: late-reveal-paired-margin-shifts
+    claim: The same two-hop story quartets retain goal- and route-sensitive relative name-preference shifts across chronological, late-reveal and near-adjacent tellings.
+    status: holds
+    evidence: "A registered component of the three-format test, not its full decision: 27/32 matched quartets pass both world×goal contrasts in all three tellings, exact domain-orientation p 1/256, domain CI 0.688–0.969; direct controls 16/16 and repeats exact. The all-gates claim fails at near-adjacent quadrant 00, and strict four-cell correct choices in late reveal are 16/32."
     where: notes/reveal_order_result.md
     pre_registered: true
     superseded_by: null
