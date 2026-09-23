@@ -121,10 +121,14 @@ def _save(cell: cross.Cell, fp: str, arr: np.ndarray) -> None:
 
 def _extract_one(rlm, prompt: str, index: int) -> np.ndarray:
     import torch
-    from lsx.core.remote import _encode, assert_single_bos
+    from lsx.core.remote import _encode, assert_single_bos, strip_template_bos
 
     ids, mask = _encode(rlm, [prompt])
     assert_single_bos(ids, mask, getattr(rlm.tok, "bos_token_id", None))
+    expected = rlm.tok(strip_template_bos(rlm.tok, prompt),
+                       add_special_tokens=True)["input_ids"]
+    if ids.shape != (1, len(expected)) or ids[0].tolist() != expected:
+        raise ValueError("core encoding differs from the token-offset encoding")
     if int(mask[0, -1]) != 1 or not 0 <= index < ids.shape[1]:
         raise ValueError("invalid story-end position or padding")
     blocks = rlm.blocks
