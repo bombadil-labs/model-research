@@ -1,0 +1,69 @@
+{
+  "status": "post-result exploratory",
+  "mid_layers": [
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "edges": [
+    [
+      0,
+      3
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      3,
+      0
+    ]
+  ],
+  "effects": {
+    "interaction": {
+      "double_order_rdm_pearson": 0.2748907804489136,
+      "domain_permutation_draws": 1000,
+      "domain_permutation_mean": 0.0002718140370270703,
+      "domain_permutation_q95": 0.09223745837807652,
+      "domain_permutation_p_ge_observed": 0.000999000999000999
+    },
+    "world_main": {
+      "double_order_rdm_pearson": 0.8593922853469849,
+      "domain_permutation_draws": 1000,
+      "domain_permutation_mean": -0.0031404247438767924,
+      "domain_permutation_q95": 0.23147383332252489,
+      "domain_permutation_p_ge_observed": 0.000999000999000999
+    },
+    "recipient_main": {
+      "double_order_rdm_pearson": 0.3099671006202698,
+      "domain_permutation_draws": 1000,
+      "domain_permutation_mean": 0.0009235153798945248,
+      "domain_permutation_q95": 0.13805554956197738,
+      "domain_permutation_p_ge_observed": 0.000999000999000999
+    }
+  },
+  "rdm_script_sha256": "86f4abc5ad3b30903c1fe16a04f1332656058fb849df9148377a9374a9b7328f",
+  "source_provenance": {
+    "model_checkpoint": "Qwen/Qwen2.5-1.5B",
+    "model_revision": "8faed761d45a263340a0528343f099c05c9a4323",
+    "device": "cuda",
+    "dtype": "float16",
+    "grid_sha256": "0faffd9e9eba4358923b630886f1771a2f98e37380c0d77dae590f9ccd751b1a",
+    "script_sha256": "9ddd2ff3091512d7a40389143208ca73a9929d7453d459fec0da07bbc10f5173",
+    "torch": "2.14.0+cu130",
+    "transformers": "5.17.0",
+    "context_limit": 131072,
+    "final_sha256": "5d102703b89531ac2703f0a71e5a08237eee1edfcdd301e87ddcba813b580bde",
+    "bridge_sha256": "ead0f825fbfcf53eac3afd980c98fd85cc0fa27cc30a6f6be915684db84d5a4e"
+  }
+}
