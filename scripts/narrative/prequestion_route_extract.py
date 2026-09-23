@@ -35,7 +35,7 @@ def _repeats(stories: list[cross.Cell]) -> list[cross.Cell]:
                     stage="prequestion_repeat") for di in range(8)]
 
 
-def _locate(rlm, cell: cross.Cell, question: str) -> dict:
+def _locate(rlm, cell: cross.Cell, question: str, bridge: str) -> dict:
     from lsx.core.remote import strip_template_bos
 
     tok = rlm.tok
@@ -47,19 +47,29 @@ def _locate(rlm, cell: cross.Cell, question: str) -> dict:
     period = lead.index(body) + len(body) - 1
     if lead[period] != ".":
         raise ValueError(f"bridge does not end at a period: {cell.id}")
+    if not cell.user_text.endswith(bridge):
+        raise ValueError(f"neutral bridge changed: {cell.id}")
+    informative = cell.user_text[:-len(bridge)].rstrip()
+    if not informative.endswith(".") or lead.count(informative) != 1:
+        raise ValueError(f"informative boundary is not unique: {cell.id}")
+    prebridge_period = lead.index(informative) + len(informative) - 1
     encoded = tok(lead, add_special_tokens=True, return_offsets_mapping=True)
     offsets = encoded["offset_mapping"]
-    hits = [i for i, (start, end) in enumerate(offsets)
-            if start <= period < end]
-    if len(hits) != 1:
-        raise ValueError(f"story period maps to {len(hits)} tokens: {cell.id}")
-    index = hits[0]
-    prefix = lead[:period + 1]
-    prefix_ids = tok(prefix, add_special_tokens=True)["input_ids"]
-    if (prefix_ids != encoded["input_ids"][:len(prefix_ids)] or
-            index != len(prefix_ids) - 1):
-        raise ValueError(f"story prefix tokenization changed: {cell.id}")
-    decoded = tok.decode([encoded["input_ids"][index]])
+    def boundary(position: int) -> tuple[int, str, str]:
+        hits = [i for i, (start, end) in enumerate(offsets)
+                if start <= position < end]
+        if len(hits) != 1:
+            raise ValueError(f"period maps to {len(hits)} tokens: {cell.id}")
+        index = hits[0]
+        prefix = lead[:position + 1]
+        prefix_ids = tok(prefix, add_special_tokens=True)["input_ids"]
+        if (prefix_ids != encoded["input_ids"][:len(prefix_ids)] or
+                index != len(prefix_ids) - 1):
+            raise ValueError(f"prefix tokenization changed: {cell.id}")
+        return index, prefix, tok.decode([encoded["input_ids"][index]])
+
+    index, prefix, decoded = boundary(period)
+    prebridge_index, prebridge_prefix, prebridge_decoded = boundary(prebridge_period)
     question_start = lead.index("\n\n" + question) + 2
     if (question in lead[:offsets[index][1]] or
             offsets[index][1] > question_start):
@@ -67,16 +77,26 @@ def _locate(rlm, cell: cross.Cell, question: str) -> dict:
     return {"prompt": prompt, "prefix": prefix, "index": index,
             "token_id": int(encoded["input_ids"][index]),
             "decoded_token": decoded, "prompt_length": len(encoded["input_ids"]),
-            "offset": list(map(int, offsets[index]))}
+            "offset": list(map(int, offsets[index])),
+            "prebridge_index": prebridge_index, "prebridge_prefix": prebridge_prefix,
+            "prebridge_token_id": int(encoded["input_ids"][prebridge_index]),
+            "prebridge_decoded_token": prebridge_decoded,
+            "prebridge_offset": list(map(int, offsets[prebridge_index]))}
 
 
-def _preflight(rlm, cells: list[cross.Cell], question: str) -> dict[str, dict]:
-    located = {c.id: _locate(rlm, c, question) for c in cells}
+def _preflight(rlm, cells: list[cross.Cell], question: str,
+               bridge: str) -> dict[str, dict]:
+    located = {c.id: _locate(rlm, c, question, bridge) for c in cells}
     if len({p["token_id"] for p in located.values()}) != 1:
         raise ValueError("story-ending token ID differs across prompts")
     indices = [p["index"] for p in located.values()]
     if min(indices) != 150 or max(indices) != 160:
         raise ValueError(f"story-end token position audit changed: {min(indices)}..{max(indices)}")
+    prebridge_indices = [p["prebridge_index"] for p in located.values()]
+    if (len({p["prebridge_token_id"] for p in located.values()}) != 1 or
+            min(prebridge_indices) != 86 or max(prebridge_indices) != 96 or
+            any(p["prebridge_decoded_token"] != "." for p in located.values())):
+        raise ValueError("informative-boundary token audit changed")
     for i in range(0, len(cells), 4):
         four = cells[i:i + 4]
         if len({located[c.id]["token_id"] for c in four}) != 1:
@@ -86,7 +106,8 @@ def _preflight(rlm, cells: list[cross.Cell], question: str) -> dict[str, dict]:
 
 def _fp(cell: cross.Cell, located: dict, digests: dict) -> str:
     body = {"id": cell.id, "prompt": located["prompt"],
-            "story_end_index": located["index"], "model": cross.MODEL,
+            "story_end_index": located["index"],
+            "prebridge_index": located["prebridge_index"], "model": cross.MODEL,
             **digests}
     return hashlib.sha256(json.dumps(body, sort_keys=True).encode()).hexdigest()
 
@@ -103,7 +124,7 @@ def _load(cell: cross.Cell, expected_fp: str, hidden: int) -> np.ndarray | None:
         if z["id"].item() != cell.id or z["fp"].item() != expected_fp:
             raise ValueError(f"stale pre-question state: {cell.id}")
         arr = np.array(z["vec"], dtype=np.float32)
-    if arr.shape != (2, len(pilot.BLOCKS), hidden) or not np.isfinite(arr).all():
+    if arr.shape != (3, len(pilot.BLOCKS), hidden) or not np.isfinite(arr).all():
         raise ValueError(f"invalid pre-question vector: {cell.id}")
     return arr
 
@@ -119,7 +140,8 @@ def _save(cell: cross.Cell, fp: str, arr: np.ndarray) -> None:
     os.replace(tmp, path)
 
 
-def _extract_one(rlm, prompt: str, index: int) -> np.ndarray:
+def _extract_one(rlm, prompt: str, index: int,
+                 prebridge_index: int) -> np.ndarray:
     import torch
     from lsx.core.remote import _encode, assert_single_bos, strip_template_bos
 
@@ -129,7 +151,8 @@ def _extract_one(rlm, prompt: str, index: int) -> np.ndarray:
                        add_special_tokens=True)["input_ids"]
     if ids.shape != (1, len(expected)) or ids[0].tolist() != expected:
         raise ValueError("core encoding differs from the token-offset encoding")
-    if int(mask[0, -1]) != 1 or not 0 <= index < ids.shape[1]:
+    if (int(mask[0, -1]) != 1 or
+            not 0 <= prebridge_index < index < ids.shape[1]):
         raise ValueError("invalid story-end position or padding")
     blocks = rlm.blocks
     hidden = int(rlm.model.config.hidden_size)
@@ -137,19 +160,21 @@ def _extract_one(rlm, prompt: str, index: int) -> np.ndarray:
     def build(backend):
         with rlm.model.trace({"input_ids": ids, "attention_mask": mask},
                              backend=backend) as tracer:
-            story, final = [], []
+            prebridge, story, final = [], [], []
             for bi in pilot.BLOCKS:
                 o = blocks[bi].output
                 h = o if isinstance(o, torch.Tensor) else o[0]
+                prebridge.append(h[:, prebridge_index, :].float().reshape(-1, hidden)[-1].cpu())
                 story.append(h[:, index, :].float().reshape(-1, hidden)[-1].cpu())
                 final.append(h[:, -1, :].float().reshape(-1, hidden)[-1].cpu())
-            out = torch.stack((torch.stack(story), torch.stack(final))).save()
+            out = torch.stack((torch.stack(prebridge), torch.stack(story),
+                               torch.stack(final))).save()
         return tracer
 
     for attempt in range(12):
         try:
             arr = np.asarray(rlm._run(build), dtype=np.float32)
-            if arr.shape != (2, len(pilot.BLOCKS), hidden) or not np.isfinite(arr).all():
+            if arr.shape != (3, len(pilot.BLOCKS), hidden) or not np.isfinite(arr).all():
                 raise ValueError(f"remote pre-question state has shape {arr.shape}")
             return arr
         except Exception as exc:
@@ -181,17 +206,25 @@ def _first_equivalence(rlm, cell: cross.Cell, located: dict, arr: np.ndarray) ->
         core = np.asarray(remote_residuals(rlm, [located["prompt"]], bi)[0],
                           dtype=np.float32)
         checks.append({"block": bi,
-                       "story_to_core": _compare(arr[0, li], core[located["index"]],
+                       "prebridge_to_core": _compare(arr[0, li], core[located["prebridge_index"]],
+                                                     f"prebridge vs core block {bi}"),
+                       "story_to_core": _compare(arr[1, li], core[located["index"]],
                                                  f"story vs core block {bi}"),
-                       "final_to_core": _compare(arr[1, li], core[-1],
+                       "final_to_core": _compare(arr[2, li], core[-1],
                                                  f"final vs core block {bi}")})
     truncated = pilot._extract_one(rlm, located["prefix"])
-    prefix = [_compare(arr[0, pilot.BLOCKS.index(bi)],
+    prebridge_truncated = pilot._extract_one(rlm, located["prebridge_prefix"])
+    prefix = [_compare(arr[1, pilot.BLOCKS.index(bi)],
                        truncated[pilot.BLOCKS.index(bi)],
                        f"full vs truncated prefix block {bi}")
               for bi in (16, 24)]
+    prebridge_prefix = [_compare(arr[0, pilot.BLOCKS.index(bi)],
+                                 prebridge_truncated[pilot.BLOCKS.index(bi)],
+                                 f"full vs truncated prebridge block {bi}")
+                        for bi in (16, 24)]
     return {"prompt_id": cell.id, "core": checks,
-            "truncated_prefix": prefix}
+            "truncated_prefix": prefix,
+            "truncated_prebridge_prefix": prebridge_prefix}
 
 
 def main() -> None:
@@ -216,9 +249,9 @@ def main() -> None:
     ref = hf_home / "hub/models--google--gemma-2-9b-it/refs/main"
     if not ref.exists() or ref.read_text().strip() != cross.TOKENIZER_REVISION:
         raise ValueError("local tokenizer revision changed")
-    located = _preflight(rlm, stories, doc["question"])
+    located = _preflight(rlm, stories, doc["question"], doc["bridge"])
     for repeat in repeats:
-        located[repeat.id] = _locate(rlm, repeat, doc["question"])
+        located[repeat.id] = _locate(rlm, repeat, doc["question"], doc["bridge"])
     all_cells = stories + repeats
     fps = {c.id: _fp(c, located[c.id], digests) for c in all_cells}
     hidden = int(rlm.model.config.hidden_size)
@@ -226,7 +259,8 @@ def main() -> None:
     first_arr = _load(first, fps[first.id], hidden)
     if first_arr is None:
         first_arr = _extract_one(rlm, located[first.id]["prompt"],
-                                 located[first.id]["index"])
+                                 located[first.id]["index"],
+                                 located[first.id]["prebridge_index"])
         _save(first, fps[first.id], first_arr)
         print(f"extracted {first.id}", flush=True)
     equivalence = _first_equivalence(rlm, first, located[first.id], first_arr)
@@ -235,7 +269,8 @@ def main() -> None:
         arr = first_arr if cell.id == first.id else _load(cell, fps[cell.id], hidden)
         if arr is None:
             arr = _extract_one(rlm, located[cell.id]["prompt"],
-                               located[cell.id]["index"])
+                               located[cell.id]["index"],
+                               located[cell.id]["prebridge_index"])
             _save(cell, fps[cell.id], arr)
             print(f"extracted {cell.id}", flush=True)
         if cell.stage == "story":
@@ -245,7 +280,7 @@ def main() -> None:
                 raise ValueError(f"missing prior final-token vector: {cell.id}")
             for bi in (16, 24):
                 li = pilot.BLOCKS.index(bi)
-                check = _compare(arr[1, li], old[li], f"prior final: {cell.id} block {bi}")
+                check = _compare(arr[2, li], old[li], f"prior final: {cell.id} block {bi}")
                 min_cos = min(min_cos, check["cosine"])
                 max_rel = max(max_rel, check["relative_l2_error"])
     result = {"model_checkpoint": cross.MODEL,
@@ -256,6 +291,10 @@ def main() -> None:
               "n_story_prompts": len(stories), "n_repeats": len(repeats),
               "story_end_token_id": located[first.id]["token_id"],
               "story_end_token_decoded": located[first.id]["decoded_token"],
+              "prebridge_token_id": located[first.id]["prebridge_token_id"],
+              "prebridge_token_decoded": located[first.id]["prebridge_decoded_token"],
+              "prebridge_index_by_prompt": {c.id: located[c.id]["prebridge_index"]
+                                            for c in stories},
               "story_end_index_by_prompt": {c.id: located[c.id]["index"] for c in stories},
               "prompt_length_by_prompt": {c.id: located[c.id]["prompt_length"] for c in stories},
               "first_prompt_equivalence": equivalence,

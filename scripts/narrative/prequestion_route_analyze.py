@@ -49,15 +49,17 @@ def main() -> None:
     repeats = extract._repeats(stories)
     rlm = RemoteLM(cross.MODEL)
     hidden = int(rlm.model.config.hidden_size)
-    story_saved, final_saved = {}, {}
+    prebridge_saved, story_saved, final_saved = {}, {}, {}
     for cell in stories + repeats:
-        located = extract._locate(rlm, cell, doc["question"])
+        located = extract._locate(rlm, cell, doc["question"], doc["bridge"])
         fp = extract._fp(cell, located, extraction_report["digests"])
         arr = extract._load(cell, fp, hidden)
         if arr is None:
             raise ValueError(f"missing story-end vector: {cell.id}")
-        story_saved[cell.id], final_saved[cell.id] = arr[0], arr[1]
+        prebridge_saved[cell.id] = arr[0]
+        story_saved[cell.id], final_saved[cell.id] = arr[1], arr[2]
     story = pilot.analyze(stories, repeats, story_saved)
+    prebridge = pilot.analyze(stories, repeats, prebridge_saved)
     final_dir = _direction(final_saved, stories, 24)
     story_dir = _direction(story_saved, stories, 24)
     direction_cosine = float(np.dot(story_dir, final_dir))
@@ -73,6 +75,9 @@ def main() -> None:
               "state_position": "final neutral-bridge token inside user story, before question",
               "story_end_token_id": extraction_report["story_end_token_id"],
               "story_end_token_decoded": extraction_report["story_end_token_decoded"],
+              "prebridge_token_id": extraction_report["prebridge_token_id"],
+              "prebridge_token_decoded": extraction_report["prebridge_token_decoded"],
+              "prebridge_diagnostic": prebridge,
               "source_final_prompt_curve": source["transfer_curve"],
               "story_to_final_direction_cosine_block24": direction_cosine,
               "goal_token_length_audit": {

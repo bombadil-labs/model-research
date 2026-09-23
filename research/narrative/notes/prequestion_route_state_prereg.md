@@ -96,3 +96,22 @@ a story representation elsewhere in the prompt or model. If the final-prompt
 pilot remains positive while this location is null, the next frozen test
 should shorten the neutral bridge to separate question-driven assembly from
 loss across the intervening text.
+
+## Amendment before extraction: informative-boundary diagnostic
+
+Before any pre-question activation was extracted, an offline tokenizer audit
+found a second stable boundary: the period ending the informative story facts,
+immediately before the neutral bridge. It is one token decoded `.` in all 256
+prompts, at indices 86–96, and the prefix ending there is a prefix of the
+full tokenization. Capture that token in the **same trace** as the bridge-end
+and final-prompt tokens. Repeat the core and truncated-prefix equivalence
+checks on the first prompt. Check the new vector's repeat drift, run the same
+fixed block-16/24 opposite-telling transfer analysis, and report its full
+curve and decision components separately. The bridge-end state remains the
+sole primary test. The earlier state is a secondary location diagnostic: if
+it passes while bridge-end fails, the neutral bridge is a candidate source of
+loss; if both fail, this readout still cannot distinguish a missing story
+representation from a code that assembles only after the question. Neither
+secondary outcome changes the original primary decision or licenses layer
+selection. A short-bridge follow-up remains useful if the two locations are
+inconclusive.
