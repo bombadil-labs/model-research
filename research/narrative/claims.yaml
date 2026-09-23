@@ -289,7 +289,7 @@ claims:
   - id: fixed-plan-behavioral-capacity
     claim: The model can choose the goal-serving plan when a circumstance changes in the fixed-plan stories.
     status: open
-    evidence: "First cloze failed its sensitivity control (one of two easy name orders); 96 story choices at 0.500 are descriptive only"
-    where: notes/goal_relative_behavior_result.md
+    evidence: "The first cloze failed sensitivity; none of six new clozes passed sixteen name×plan-order controls, so story choices remain descriptive only"
+    where: notes/elicitor_calibration_result.md
     pre_registered: true
     superseded_by: null
