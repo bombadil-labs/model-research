@@ -26,7 +26,8 @@ def _sha(data: bytes) -> str:
 
 def _code_digest() -> str:
     paths = (Path(__file__), Path(grid.__file__), Path(base.__file__),
-             ROOT / "src/lsx/core/remote.py", ROOT / "src/lsx/ndif.py")
+             ROOT / "src/lsx/core/remote.py", ROOT / "src/lsx/core/checks.py",
+             ROOT / "src/lsx/ndif.py")
     h = hashlib.sha256()
     for path in paths:
         h.update(str(path.relative_to(ROOT)).encode())
