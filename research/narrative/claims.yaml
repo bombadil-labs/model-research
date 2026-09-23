@@ -360,9 +360,9 @@ claims:
 
   - id: answer-slot-patch-steering
     claim: A block-24 addition of the route-trained first-listed-person direction causally biases a model's two-name choice toward the first-mentioned person on the frozen property prompts beyond direct residual pass-through and matched random directions.
-    status: open
-    evidence: "Signed ±20-unit treatment at block 24, matched direct-path arms at final block 41, zero-vector identity, no-patch and two matched random directions frozen before any target patch outcome."
-    where: notes/answer_slot_patch_prereg.md
+    status: holds
+    evidence: "Gemma-2-9b-it: the frozen net block-24-minus-direct effect is +1.126 nats, 8/8 domains and 60/64 prompts positive, exact p 1/256, domain CI +0.985 to +1.282; random net means −0.058/+0.093. All ten gates pass, including zero/drift 0 and 25/768 deterministic moved-score flags below 5%. The +u arm flips four choices, two correct and two incorrect, so accuracy remains 62/64. This is a distributed generic choice bias, not a story edit."
+    where: notes/answer_slot_patch_result.md
     pre_registered: true
     superseded_by: null
 
