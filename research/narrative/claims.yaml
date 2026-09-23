@@ -337,8 +337,8 @@ claims:
   - id: generic-choice-slot-explanation
     claim: A generic two-person answer-slot direction is sufficient to explain the route-trained residual interaction's held-out transfer.
     status: open
-    evidence: "Gemma-2-9b-it: route-trained block-24 direction transfers to direct route at +0.513 and unrelated property choice at +0.543, close to property's within-task +0.566 and far above random-direction q95 +0.020. The registered source-flip p is 25/256 for property and misses the gate, but this null is structurally weak for fixed-target transfer (93/256 assignments preserve a homogeneous source direction). Formal reading remains mixed/partial; a substantial generic component is supported, sufficiency remains open."
-    where: notes/choice_slot_control_result.md
+    evidence: "Gemma-2-9b-it: the first four-domain property control gave route-trained block-24 cosine +0.543 versus within-task +0.566, but its source-flip null was structurally weak. An independent eight-domain property replication with a target-label null passed at +0.583 versus within-task +0.579, 8/8 positive domains, exact p 1/256 and domain CI +0.492 to +0.653. This supports a substantial task-general answer-slot component; causal sufficiency to explain route transfer remains open."
+    where: notes/choice_slot_replication_result.md
     pre_registered: true
     superseded_by: null
 
@@ -352,8 +352,8 @@ claims:
 
   - id: generic-choice-slot-replication
     claim: The route-trained final-token interaction shares a direction with independent, behaviorally valid property-choice domains under a target-label orientation test.
-    status: open
-    evidence: "Eight new property domains and a target-domain world-label exact null frozen before any target score or activation."
-    where: notes/choice_slot_replication_prereg.md
+    status: holds
+    evidence: "Gemma-2-9b-it: new property choices passed behavior 60/64 quartets; route-trained block-24 cosine +0.583, internal property reference +0.579, positive in 8/8 domains, target-label exact p 1/256, domain CI +0.492 to +0.653, random-direction q95 +0.022, and zero repeat drift. Alignment, not causal sufficiency."
+    where: notes/choice_slot_replication_result.md
     pre_registered: true
     superseded_by: null
