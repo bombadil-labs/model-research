@@ -16,19 +16,31 @@ Use the eight two-link domains and four independent direct-route controls in
 `goal_route_cross_v1.json`, unchanged, with their exact setup, two goals,
 names, route/link/destination words, fact-order quadrants and question. The
 exact interlude, closing passage and order templates are frozen in
-`reveal_order_v1.json`. Each text starts with setup, goal, two plan sentences
-and both first-hop clauses. It then puts the second-hop destination clauses
-**before** the interlude (chronological) or **after** it (late reveal),
-followed by the same closing passage and question. The interlude is moved,
-not rewritten. The source grid and reveal grid file hashes are part of every
-score fingerprint. Direct-route controls use their two direct clauses in the
-same second-hop slot, so they test the answer readout in both formats.
+`reveal_order_v1.json`. Each text starts with setup, goal and two plan
+sentences. It then has one of three orders:
+
+| Format | Fact and interlude order | Question distance after second hop |
+| --- | --- | --- |
+| Chronological | first hop, second hop, interlude | long |
+| Late reveal | first hop, interlude, second hop | short |
+| Near adjacent | interlude, first hop, second hop | short |
+
+All three finish with the same closing passage and question. The interlude
+is moved, not rewritten. Late reveal versus near adjacent compares separated
+and adjacent hops at the same second-hop recency; near adjacent versus
+chronological compares recent and earlier adjacent hops. These contrasts
+also move the plan-to-first-hop distance, so they describe complete telling
+orders rather than isolate one causal distance. The third format was added
+**before scoring** after peer review identified opposing hop-separation and
+recency effects in the two-format design. The source and reveal grid file
+hashes are part of every score fingerprint. Direct-route controls use their
+two direct clauses in the second-hop slot in all three formats.
 
 Cross format, name assignment, plan-sentence order, world and goal:
-8 domains × 2 × 2 × 2 × 2 × 2 = **256 story prompts** and
-4 controls × 2 × 2 × 2 × 2 × 2 = **128 control prompts**. Repeat the
-world-0/goal-0/name-0/order-0 prompt in both formats and all eight story
-domains: 16 separate jobs. The total is 400 two-candidate score jobs.
+8 domains × 3 × 2 × 2 × 2 × 2 = **384 story prompts** and
+4 controls × 3 × 2 × 2 × 2 × 2 = **192 control prompts**. Repeat the
+world-0/goal-0/name-0/order-0 prompt in all three formats and eight story
+domains: 24 separate jobs. The total is 600 two-candidate score jobs.
 Run all arms regardless of an early control failure; checkpoint per prompt.
 
 Before remote work, assert exactly one instance of each name and route
@@ -54,45 +66,47 @@ For each format × name × plan-order quartet, score both bare names and let
 `D0=m00−m10` and `D1=m11−m01`. A quartet succeeds only if both exceed
 +0.25 nat. Report strict four-cell correct choice at ±0.1 nat, individual
 world contrasts, wrong shifts below −0.25, near-zero shifts, every domain,
-both formats, name and plan-order halves, and each first-hop × second-hop
+all three formats, name and plan-order halves, and each first-hop × second-hop
 fact-order quadrant. Report the *paired* proportion of the same quartet
-passing in **both** formats, plus the paired late-minus-chronological
-difference. Neither name preference, fixed plan position nor goal-only or
+passing in **all three** formats, plus paired late-minus-chronological,
+late-minus-near-adjacent and near-adjacent-minus-chronological differences.
+Neither name preference, fixed plan position nor goal-only or
 world-only scoring can create both correct contrasts. The ordinal shortcut
 gets two fact-order quadrants correct and two wrong; keep the per-quadrant
 gate. These are the same limits as the source screen. This experiment does
 not isolate reasoning from all lexical-semantic shortcuts.
 
 For the primary paired exact null, exchange the two world labels jointly
-for both goals and both formats within each domain, enumerating all 2^8
-assignments including identity. A flip maps a both-format successful
-quartet to a both-format *wrong* quartet. Compare the observed
-both-format success fraction with the exact upper tail. Separately compute
+for both goals and all three formats within each domain, enumerating all
+2^8 assignments including identity. A flip maps an all-format successful
+quartet to an all-format *wrong* quartet. Compare the observed
+all-format success fraction with the exact upper tail. Separately compute
 the same exact null for each format. Bootstrap 10,000 samples of eight
-fixed domain-level both-format rates for its 95% interval; also bootstrap
-the paired late-minus-chronological difference by domain. Report null mean,
+fixed domain-level all-format rates for its 95% interval; also bootstrap
+all three paired format differences by domain. Report null mean,
 95th percentile, p, and all valid draws. The orientation-null floor is
 1/256 if only the identity reaches the observed rate.
 
 The direct-route control must pass at least 12/16 quartets in **each**
 format, each name/order half >0.5, and at least 10/16 matched quartets in
-both formats. Each repeat's absolute margin difference from its original
+all three formats. Each repeat's absolute margin difference from its original
 must be ≤0.25 nat. If either control fails, label the story result
-descriptive and do not claim format invariance. The story is eligible only
-when both format-specific rates are at least 21/32, both format-specific
+descriptive and do not claim format robustness. The story is eligible only
+when all three format-specific rates are at least 21/32, all format-specific
 exact p≤.05 and bootstrap lower bounds >.5, and all their name/order and
 fact-quadrant halves exceed .5.
 
 ## Decision
 
-Call **choice invariant to late destination disclosure on this grid** only
+Call **correct two-hop choice preserved across these three tellings** only
 if controls and story eligibility pass, at least 21/32 matched quartets
-succeed in *both* formats, its paired exact p≤.05, its domain-bootstrap
-lower bound >.5, and the late-minus-chronological domain-bootstrap 95%
-interval lies wholly within [−0.15,+0.15]. The equivalence margin is
-fixed before seeing scores; a high both-format rate with a larger format
-effect is a format-sensitive result, not equivalence. Report every gate
-separately. A pass establishes behavioral stability on these short,
-constructed stories, not a stable story-space vector or causal composition.
+succeed in *all three* formats, its paired exact p≤.05, its domain-bootstrap
+lower bound >.5, and the bootstrap lower bounds of both
+late-minus-chronological and late-minus-near-adjacent differences are
+at least −0.15. This is a pre-registered **non-inferiority** margin for the
+late reveal, not an equivalence claim about internal computation. Report
+all three paired differences and every gate separately. A pass establishes
+behavioral robustness on these short, constructed stories, not a stable
+story-space vector or causal composition.
 An activation or intervention follow-up is justified only after this
 behavioral calibration.
