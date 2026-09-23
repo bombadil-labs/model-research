@@ -209,6 +209,13 @@ def _transfer(domain_means: np.ndarray, signs: np.ndarray) -> np.ndarray:
     return out
 
 
+def _orientation_null(domain_means: np.ndarray) -> np.ndarray:
+    # Match the observed reduction exactly, including summation order.
+    return np.array([_transfer(domain_means, np.array(signs))[
+        ..., list(PRIMARY)].mean()
+        for signs in itertools.product((-1, 1), repeat=8)])
+
+
 def analyze(stories: list[cross.Cell], repeats: list[cross.Cell], saved: dict,
             *, n_boot: int = 10000, n_random: int = 1000) -> dict:
     hidden = next(iter(saved.values())).shape[-1]
@@ -239,12 +246,7 @@ def analyze(stories: list[cross.Cell], repeats: list[cross.Cell], saved: dict,
     raw_observed = _transfer(raw_domain_means, np.ones(8))
     primary_domain_telling = observed[..., list(PRIMARY)].mean(axis=-1)
     primary_observed = float(primary_domain_telling.mean())
-    # Use the identical reduction for observed and every null assignment.
-    # Changing the reduction order can put the identity assignment one ulp
-    # below observed and incorrectly report an impossible exact p of zero.
-    null = np.array([_transfer(domain_means, np.array(signs))[
-                        ..., list(PRIMARY)].mean()
-                     for signs in itertools.product((-1, 1), repeat=8)])
+    null = _orientation_null(domain_means)
     domain_scores = primary_domain_telling.mean(axis=1)
     rng = np.random.default_rng(SEED)
     boot = domain_scores[rng.integers(0, 8, size=(n_boot, 8))].mean(axis=1)

@@ -60,6 +60,18 @@ def test_exact_null_contains_unflipped_assignment_with_nonuniform_vectors():
     assert report["exact_orientation_null"]["p_ge_observed"] >= 2 / 256
 
 
+def test_exact_null_identity_uses_the_observed_reduction_order():
+    rng = np.random.default_rng(2)
+    domain_means = rng.normal(size=(8, 2, len(module.BLOCKS), 9))
+    domain_means[:, :, module.PRIMARY[0]] += .8
+    domain_means[:, :, module.PRIMARY[1]] += .8
+    observed = module._transfer(domain_means, np.ones(8))[
+        ..., list(module.PRIMARY)].mean()
+    null = module._orientation_null(domain_means)
+    assert null[0] == observed
+    assert null[-1] == observed
+
+
 def test_telling_sign_reversal_fails_directed_transfer():
     stories, repeats, _, _ = module._cells()
     saved = _states(stories, repeats, reverse_late=True)

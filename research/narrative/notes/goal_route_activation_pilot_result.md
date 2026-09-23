@@ -51,6 +51,12 @@ version, which does not orient by plan order, had primary mean +0.0477;
 its exploratory exact null gives p = 0.203. Thus the raw check is not
 convincing evidence of a common A-owner code, although its nonzero point
 estimate calls for replication rather than assuming exact cancellation.
+One plausible grid source is the link vocabulary: link 0 is the upper,
+ridge, high, north or forward route in five domains. This could give A a
+shared lexical or spatial meaning. Raw transfer is already +0.159 at block
+0 and +0.206 at block 32, despite the nonsignificant registered block-16/24
+mean. The primary plan-order sign cancels a stable A-code, but a future grid
+should counterbalance which link occupies A across domains.
 Full-text and last-200-character word-bag interactions were measured as
 exact zero. The five domains with equal goal token lengths had mean +0.0690;
 the three with a one-token goal-length difference had mean +0.1127.
@@ -83,4 +89,7 @@ longer narratives. The next discriminating step is a held-out intervention:
 fit the direction on separate domains, patch it at a frozen location and
 dose, and test whether the goal × route choice interaction changes more than
 matched random and name/position controls. A larger independent domain set
-should then test whether the block-24 pattern replicates.
+should then test whether the block-24 pattern replicates. Before treating it
+as route composition, project the fitted direction onto the existing direct
+route controls and an unrelated, name-and-position-balanced two-option task.
+Comparable transfer there would identify a generic answer-position code.
