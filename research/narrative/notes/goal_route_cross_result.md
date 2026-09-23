@@ -47,8 +47,9 @@ correctly oriented world contrasts are `D0 = m(0,0) − m(1,0)` and
 
 The name-assignment halves were 27/32 and 30/32; plan-order halves were
 30/32 and 27/32, clearing every registered split. The exact null's mean
-was 0.492 and 95th percentile 0.734. Every behavioral gate passes. The
-claim therefore **holds on this constructed grid**: preference responds
+was 0.492 and 95th percentile 0.734. The p value 1/256 is the smallest
+attainable from eight domains under this exact test. Every behavioral gate
+passes. The claim therefore **holds on this constructed grid**: preference responds
 jointly to the requested destination and the two-link route facts, in both
 tellings. Goal-only, route-only, stable name and plan-position rules cannot
 make both contrasts positive. Clause-order shortcuts solve only half the
