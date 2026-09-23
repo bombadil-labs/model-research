@@ -253,3 +253,27 @@ claims:
     where: notes/consequence_order_result.md
     pre_registered: true
     superseded_by: null
+
+  - id: reveal-timing-transfer
+    claim: In the registered constructed stories, a held-out-domain world-by-recipient interaction at the final event survives moving the same role facts from before to after the common events, with fact-clause order fixed.
+    status: holds
+    evidence: "12 constructed stories · all four timing-only directions score 1.000 in fixed layers 10–18; the recipient-clause word bag scores 0.875, so entity–attribute binding remains a sufficient explanation"
+    where: notes/reveal_invariance_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: reveal-order-invariance
+    claim: In the registered constructed stories, the world-by-recipient interaction remains aligned when both reveal timing and the order of the two role-fact clauses change.
+    status: falsified
+    evidence: "12 constructed stories · preregistered doubly transformed transfer 0.0046 (domain bootstrap CI 0.000–0.014); all four source-target arms reverse nearly completely"
+    where: notes/reveal_invariance_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: goal-relative-story-role
+    claim: A final-event activation direction follows whether a fixed earlier fact helps the story's goal when that goal changes, beyond recipient-valence association.
+    status: open
+    evidence: "The reveal-order grid's recipient-clause bag scores 0.875; no goal switch with fixed fact wording has yet isolated goal-relative role"
+    where: notes/reveal_invariance_result.md
+    pre_registered: false
+    superseded_by: null
