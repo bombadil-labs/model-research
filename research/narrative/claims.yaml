@@ -289,7 +289,7 @@ claims:
   - id: fixed-plan-behavioral-capacity
     claim: The local base model can choose the goal-serving plan when a circumstance changes in the fixed-plan stories.
     status: open
-    evidence: "The first cloze failed sensitivity; none of six new clozes passed sixteen name×plan-order controls, so story choices remain descriptive only"
+    evidence: "Wording clarified to name the original Qwen local base model; its first cloze failed sensitivity and none of six new clozes passed sixteen name×plan-order controls, so story choices remain descriptive only"
     where: notes/elicitor_calibration_result.md
     pre_registered: true
     superseded_by: null
