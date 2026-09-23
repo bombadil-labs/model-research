@@ -221,6 +221,11 @@ def story_report(stories: list[Cell], no_cue: list[Cell], saved: dict,
               "cue_0": float(accuracy[:, 0::2].mean()),
               "cue_1": float(accuracy[:, 1::2].mean())}
     no_cue_max = float(np.abs(no_cue_delta).max())
+    gates = {"cell_accuracy": bool(accuracy.mean() >= .70),
+             "world_switch": bool(observed >= .75),
+             "permutation": bool(p <= .05),
+             "no_cue_repeat": bool(no_cue_max <= .25),
+             **{name: bool(value > .5) for name, value in halves.items()}}
     return {"n_cells": 96, "cell_accuracy": float(accuracy.mean()),
             "both_worlds_correct_fraction": float(correct.all(axis=-1).mean()),
             "world_switch_fraction": observed, "order_halves": halves,
@@ -231,9 +236,7 @@ def story_report(stories: list[Cell], no_cue: list[Cell], saved: dict,
             "permutation": {"draws": n_perm, "mean": float(np.mean(null)),
                             "q95": float(np.quantile(null, .95)),
                             "p_ge_observed": float(p)},
-            "gate_pass": bool(accuracy.mean() >= .70 and observed >= .75 and p <= .05
-                              and all(x > .5 for x in halves.values())
-                              and no_cue_max <= .25)}
+            "gate_components": gates, "gate_pass": all(gates.values())}
 
 
 def main() -> None:
