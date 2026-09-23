@@ -1,4 +1,4 @@
-# The shared choice direction is absent at two pre-question story tokens
+# The final-token choice direction does not transfer before the question
 
 The [frozen location test](prequestion_route_state_prereg.md) reused all 256
 two-link route-story prompts from the positive
