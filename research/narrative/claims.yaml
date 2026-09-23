@@ -391,9 +391,9 @@ claims:
     superseded_by: null
 
   - id: story-period-margin-shift
-    claim: On the fixed late-telling two-hop prompts, substituting the other world's block-24 period state causes a positive relative-name margin shift toward the other-world winner.
+    claim: On the fixed late-telling two-hop prompts, substituting the other world's block-24 period state increases the signed relative-name margin for the other-world winner on average, chiefly by compressing the existing name preference rather than flipping choices.
     status: holds
-    evidence: "This was a registered component of the failed full causal decision: mean +0.386 nat, 8/8 domains and 106/128 cells positive, exact domain-sign p 1/256, bootstrap CI +0.232 to +0.547. The answer-neutral plan-order control is about twice as strong and no top-name choices flip toward the source winner, so this result is a relative-score effect without established world specificity or choice redirection."
+    evidence: "The signed-margin statistic was a registered component of the failed full causal decision: mean +0.386 nat, 8/8 domains and 106/128 cells positive, exact domain-sign p 1/256, bootstrap CI +0.232 to +0.547. A post-hoc split finds |name margin| shrinks in 106/128 cells and the effect is −0.096 nat in the 18 cells already favouring the source winner; no top-name choice flips toward it. The answer-neutral plan-order control is about twice as strong, so world specificity and choice redirection are not established."
     where: notes/story_fact_token_patch_result.md
     pre_registered: true
     superseded_by: null
