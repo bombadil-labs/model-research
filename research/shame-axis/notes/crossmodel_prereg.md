@@ -106,3 +106,7 @@ correlate, not cause) is half of the masking test, not the test.
 looked at, and the drop there falls mostly on self-directed items (Llama-70B, Qwen-32B,
 Gemma-27B). The pre-registered test is on our own replicated, floor-adjusted, format-crossed
 measurements.
+
+**Operational note (before any activation):** the base tokenizers (`gemma-2-2b`,
+`Llama-3.1-70B`) carry no chat template. Their `chat` rendering uses the instruct sibling's
+template, and the script asserts the two vocabularies are identical.
