@@ -53,8 +53,10 @@ def test_transfer_distinguishes_shared_from_task_specific_slot():
     repeats = {"direct": np.zeros((4, 6, 10)),
                "property": np.zeros((4, 6, 10))}
     behavior = {"direct": True, "property": True}
-    preflight = {"direct": {"same_goal_token_length_fraction": 1.0},
-                 "property": {"same_goal_token_length_fraction": 1.0}}
+    preflight = {"direct": {"same_goal_token_length_fraction": 1.0,
+                             "goal_1_minus_goal_0_tokens_by_quartet": [0] * 32},
+                 "property": {"same_goal_token_length_fraction": 1.0,
+                               "goal_1_minus_goal_0_tokens_by_quartet": [0] * 32}}
     shared = analysis.analyze(source, {"direct": direct,
                                        "property": property_shared},
                               repeats, behavior, preflight, n_random=10)

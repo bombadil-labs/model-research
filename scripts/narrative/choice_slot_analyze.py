@@ -110,9 +110,25 @@ def analyze(source_h: np.ndarray, targets: dict[str, np.ndarray],
             directions = rng.standard_normal((n_random, unit.shape[-1]))
             directions /= np.linalg.norm(directions, axis=-1, keepdims=True)
             target_mean = unit[..., li, :].mean(axis=(0, 1, 2, 3))
+            random_scores = directions @ target_mean
             random_arms.append({"block": pilot.BLOCKS[li],
-                                "q95": float(np.quantile(directions @ target_mean, .95)),
-                                "mean": float((directions @ target_mean).mean())})
+                                "q95": float(np.quantile(random_scores, .95)),
+                                "mean": float(random_scores.mean()),
+                                "route_to_target_percentile": float(np.mean(
+                                    random_scores <= cross_scores[..., li].mean())),
+                                "within_target_percentile": float(np.mean(
+                                    random_scores <= within[..., li].mean()))})
+        same_length = (np.asarray(preflight[battery][
+            "goal_1_minus_goal_0_tokens_by_quartet"]).reshape(4, 2, 2, 2) == 0)
+        length_split = {}
+        for label, mask in (("same", same_length), ("changed", ~same_length)):
+            length_split[label] = {
+                "n_quartets": int(mask.sum()),
+                "route_to_target_block24": (float(cross_scores[..., PRIMARY][mask].mean())
+                                             if mask.any() else None),
+                "within_target_block24": (float(np.broadcast_to(
+                    within[..., PRIMARY][:, :, None, None], mask.shape)[mask].mean())
+                                          if mask.any() else None)}
         internal_resolved = bool(within_primary >= .05 and within_ci[0] > 0 and
                                  int((within_domain > 0).sum()) >= 3)
         eligible = bool(behavior[battery])
@@ -148,7 +164,8 @@ def analyze(source_h: np.ndarray, targets: dict[str, np.ndarray],
             "within_target_resolved": internal_resolved,
             "generic_component_gate": generic_component,
             "same_goal_token_length_fraction": preflight[battery][
-                "same_goal_token_length_fraction"]}
+                "same_goal_token_length_fraction"],
+            "goal_length_split": length_split}
 
     # Independent reverse projection: the four property domains fit a
     # direction without any route data, then score every source route domain.
