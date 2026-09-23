@@ -359,9 +359,9 @@ claims:
     superseded_by: null
 
   - id: answer-slot-patch-steering
-    claim: A block-24 addition of the route-trained first-listed-person direction causally biases a model's two-name choice toward the first-mentioned person on the frozen property prompts, beyond matched random directions.
+    claim: A block-24 addition of the route-trained first-listed-person direction causally biases a model's two-name choice toward the first-mentioned person on the frozen property prompts beyond direct residual pass-through and matched random directions.
     status: open
-    evidence: "Signed ±20-unit treatment, zero-vector pass-through, no-patch and two matched random directions frozen before any target patch outcome."
+    evidence: "Signed ±20-unit treatment at block 24, matched direct-path arms at final block 41, zero-vector identity, no-patch and two matched random directions frozen before any target patch outcome."
     where: notes/answer_slot_patch_prereg.md
     pre_registered: true
     superseded_by: null
