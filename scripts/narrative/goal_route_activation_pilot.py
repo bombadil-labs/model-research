@@ -283,14 +283,24 @@ def main() -> None:
     fps = {c.id: _fp(c, cross.base.render(rlm, c, doc["question"]), digests)
            for c in all_cells}
     saved = {}
+    first = stories[0]
+    first_arr = _load(first, fps[first.id], hidden)
+    if first_arr is None:
+        first_arr = _extract_one(rlm, cross.base.render(rlm, first, doc["question"]))
+        _save(first, fps[first.id], first_arr)
+        print(f"extracted {first.id}", flush=True)
+    saved[first.id] = first_arr
+    # Check the new capture path against the core before submitting the full grid.
+    equivalence = _equivalence(rlm, first, first_arr, doc["question"])
     for cell in all_cells:
+        if cell.id in saved:
+            continue
         arr = _load(cell, fps[cell.id], hidden)
         if arr is None:
             arr = _extract_one(rlm, cross.base.render(rlm, cell, doc["question"]))
             _save(cell, fps[cell.id], arr)
             print(f"extracted {cell.id}", flush=True)
         saved[cell.id] = arr
-    equivalence = _equivalence(rlm, stories[0], saved[stories[0].id], doc["question"])
     result = analyze(stories, repeats, saved)
     result.update({"model_checkpoint": cross.MODEL,
                    "deployment_weight_revision": None,
