@@ -1,0 +1,287 @@
+{
+ "author": "claude",
+ "model": "claude-opus-5-5 (Claude Opus 5.5, 1M context)",
+ "seed_mapping": "Digits in the uuid's first groups became a count, time or position in the scene; its letters became an initial, a name or a role/setting word (a=aunt/auditor, b=board/Bea, c=coach/client/chef, d=director/Deb, e=editor/Edie, f=father/Farrow/foreman). Where a part gave nothing usable it is marked unused.",
+ "items": [
+  {
+   "base_id": "A1-01",
+   "uuid": "855ad928-5e6f-4f23-a218-4aa3b5c81522",
+   "shame": "while Chef Adler watches me botch the cut she showed me twice",
+   "witness": "while Chef Adler plates orders at the far end of the line",
+   "seed_note": "a,d -> Chef Adler; 855 read as a kitchen at 8:55, kept only the chef"
+  },
+  {
+   "base_id": "A1-02",
+   "uuid": "f6b87254-5db9-4d4b-ab54-6c44bab26985",
+   "shame": "as Doctor Farrow finds six cavities though I swore I flossed",
+   "witness": "as six patients of Doctor Farrow read magazines in the waiting room",
+   "seed_note": "f -> Doctor Farrow; 6 -> six"
+  },
+  {
+   "base_id": "A1-03",
+   "uuid": "22d054f3-caa8-4ef4-a1e5-95847967f59e",
+   "shame": "as my editor holds up the twenty-two errors I missed in print",
+   "witness": "as my editor and twenty-two others type quietly across the newsroom",
+   "seed_note": "22 -> twenty-two; d -> deadline -> newsroom and editor"
+  },
+  {
+   "base_id": "A1-04",
+   "uuid": "fa991422-48db-4c6c-b0d4-2e21893b7fdb",
+   "shame": "on step ninety-nine as the coach who chose me for the relay shakes her head",
+   "witness": "on step ninety-nine as the other climbers keep their pace without glancing back at me",
+   "seed_note": "99 -> step ninety-nine; f,a -> a stair-climb relay"
+  },
+  {
+   "base_id": "A1-05",
+   "uuid": "097bfe9a-7257-4f2a-8227-7840503710e5",
+   "shame": "as Bea, the owner, sees I skipped the lid she told me to use",
+   "witness": "as Bea, the owner, counts the till with her back to the stove",
+   "seed_note": "b -> Bea; 097 -> a small diner, opening time"
+  },
+  {
+   "base_id": "A1-06",
+   "uuid": "62c5be9d-2635-433f-a7a2-4fd46c2a58c4",
+   "shame": "as the foreman marks me down for stopping at crate sixty-two",
+   "witness": "as the other loaders stack crate sixty-two without looking up",
+   "seed_note": "62 -> crate sixty-two; c -> crates"
+  },
+  {
+   "base_id": "A1-07",
+   "uuid": "44472326-fb59-4ef2-b519-171c28755445",
+   "shame": "mid-toast, as my future mother-in-law notes I skipped her approved lines",
+   "witness": "mid-toast, as the guests at the long tables keep eating and chatting among themselves",
+   "seed_note": "444 -> a crowded hall; f,b -> family banquet -> wedding toast"
+  },
+  {
+   "base_id": "A1-08",
+   "uuid": "e14a7f23-188e-4749-a517-6b0bebce3a4a",
+   "shame": "while reciting for the judges, who stop me at the fourteenth line I botched",
+   "witness": "while reciting to myself as fourteen commuters on the train scroll their phones around me",
+   "seed_note": "14 -> fourteen; e,a -> an exam-like recitation"
+  },
+  {
+   "base_id": "A1-09",
+   "uuid": "e4677a4a-61c8-4475-9fc9-2b43b062da0a",
+   "shame": "as the lifeguard instructor notes I broke her sunscreen rule again",
+   "witness": "as the forty-six lifeguard trainees eat lunch in the shade",
+   "seed_note": "46 -> forty-six; e,a -> an outdoor course"
+  },
+  {
+   "base_id": "A1-10",
+   "uuid": "fad9940b-df8e-4553-bd8c-6db85a213c9d",
+   "shame": "halfway through the audition as the director stops the pianist and writes a note",
+   "witness": "halfway through the audition as the pianist plays on and the director checks his phone",
+   "seed_note": "f,a,d -> director at an audition; 99 unused"
+  },
+  {
+   "base_id": "A1-11",
+   "uuid": "4ac7ec43-988b-4dc3-8d58-719fd5a96a07",
+   "shame": "at mile four, as the coach who trained me clocks me walking",
+   "witness": "at mile four, as spectators cheer for the runners around me",
+   "seed_note": "4 -> mile four; a,c -> a coach"
+  },
+  {
+   "base_id": "A1-12",
+   "uuid": "17a95e04-9cf1-48fd-a85d-584191933095",
+   "shame": "as the landlord inspecting unit seventeen notes the mess I promised to clear",
+   "witness": "as the movers carry boxes past me into unit seventeen down the hall",
+   "seed_note": "17 -> unit seventeen; a -> apartment"
+  },
+  {
+   "base_id": "A1-13",
+   "uuid": "92b10596-651e-469c-98fb-6fdd81f73a41",
+   "shame": "as the nurse sighs that I ignored her instructions to eat first",
+   "witness": "as the nurse chats with a colleague about the train at nine twenty",
+   "seed_note": "92 -> nine twenty; b -> blood draw"
+  },
+  {
+   "base_id": "A1-14",
+   "uuid": "60b214df-f4ca-4ece-8f0e-86ca735ee0b1",
+   "shame": "as the board, sixty minutes in, tells me my pitch missed every target",
+   "witness": "as the board, sixty minutes in, passes around coffee and pastries",
+   "seed_note": "60 -> sixty minutes; b -> boardroom"
+  },
+  {
+   "base_id": "A1-15",
+   "uuid": "ee162dc5-47ad-47ab-8122-a6b1077609b7",
+   "shame": "as the carpentry instructor holds up my crooked joint for the class",
+   "witness": "as the sixteen carpentry students sand their own pieces nearby",
+   "seed_note": "162 -> sixteen; ee -> a teaching workshop"
+  },
+  {
+   "base_id": "A1-16",
+   "uuid": "a5a72e49-6cc7-4a3b-a056-fdda92db194a",
+   "shame": "as my new manager, watching, reminds me the job listing said seventy pounds",
+   "witness": "as my new coworkers, chatting about a show, unload the truck beside me",
+   "seed_note": "72 -> seventy pounds; a5 -> first week at a job"
+  },
+  {
+   "base_id": "A1-17",
+   "uuid": "cd6064ea-996a-4b9b-a961-fe6148b78ddc",
+   "shame": "while the ski instructor explains again why my form keeps her class waiting",
+   "witness": "while the ski instructor explains the lift schedule to a family nearby",
+   "seed_note": "c,d -> cold, downhill -> ski school; 60 unused"
+  },
+  {
+   "base_id": "A1-18",
+   "uuid": "57f9c249-d9f9-4fe8-a068-9a6987df6ca2",
+   "shame": "as the swim coach reads my time, fifty-seven seconds, slowest on the team",
+   "witness": "as the swim team, fifty-seven of them, stretch on the deck behind me",
+   "seed_note": "57 -> fifty-seven; f -> finals"
+  },
+  {
+   "base_id": "A1-19",
+   "uuid": "06c52297-6672-4cc6-9af3-e1a933197d1b",
+   "shame": "six miles in, as the leader who vouched for me waits with the group",
+   "witness": "six miles in, as strangers on the trail pass me without a word",
+   "seed_note": "06 -> six miles; c -> a club hike"
+  },
+  {
+   "base_id": "A1-20",
+   "uuid": "98cdeb86-fe5c-4f50-9d7c-b5b69e3d7ac6",
+   "shame": "before the interview, as Deb from HR eyes my chin and mentions the dress code",
+   "witness": "before the interview, as Deb from HR greets the next candidate in the lobby",
+   "seed_note": "d,e,b -> Deb; 98 unused"
+  },
+  {
+   "base_id": "D-01",
+   "uuid": "94edee53-babc-4384-a431-bef62398e03b",
+   "shame": "as Edie, the head librarian, says I shelved them by title, not author",
+   "witness": "as Edie, the head librarian, stamps returns at the front desk across the room",
+   "seed_note": "e,d,e -> Edie; 94 unused"
+  },
+  {
+   "base_id": "D-02",
+   "uuid": "3f8560e1-cf10-4a8b-bf1c-75f2c3bc2c0e",
+   "shame": "as my boss, due at a meeting at ten, asks why I started it so late",
+   "witness": "as my coworkers file past toward the ten o'clock meeting at the end of the hall",
+   "seed_note": "85 -> 8:50 at first; colons are not allowed, so the morning meeting moved to ten"
+  },
+  {
+   "base_id": "D-03",
+   "uuid": "617db754-79e8-4d21-b97e-c3dcbee3077f",
+   "shame": "while my supervisor finds the sixty-one invoices I was told to send last week",
+   "witness": "while my officemate sorts sixty-one invoices of her own at the next desk",
+   "seed_note": "61 -> sixty-one invoices; d,b -> desk, business"
+  },
+  {
+   "base_id": "D-04",
+   "uuid": "8f743d8f-bc6b-4b28-a177-00bb2e85b2f2",
+   "shame": "as the director notes I was the only one who skipped my update",
+   "witness": "as the director and the eight others gather their laptops and leave",
+   "seed_note": "8 -> eight others; f,d -> facilitator, director"
+  },
+  {
+   "base_id": "D-05",
+   "uuid": "aa4b9ebc-4125-4ee7-aed1-7ff4582c062d",
+   "shame": "while the auditor finds my fourth-quarter totals don't add up",
+   "witness": "while the auditor across the room reviews the files of another department entirely",
+   "seed_note": "aa -> auditor; 4 -> fourth quarter"
+  },
+  {
+   "base_id": "D-06",
+   "uuid": "283b423e-405f-4bfe-92eb-68e8e625f178",
+   "shame": "as my roommate holds up her wool sweater, which I shrank again",
+   "witness": "as my neighbor from 283 folds towels at the next machine",
+   "seed_note": "283 -> apartment 283; b -> building laundry room"
+  },
+  {
+   "base_id": "D-07",
+   "uuid": "3ea67013-efba-491c-8e2c-21bb3b9a0e77",
+   "shame": "while the trainer beside me counts the thirteen new stops I skipped",
+   "witness": "while thirteen other commuters walk the same sidewalk beside me",
+   "seed_note": "13 -> thirteen; e,a -> a delivery route"
+  },
+  {
+   "base_id": "D-08",
+   "uuid": "95778723-d3db-45dd-b503-0fd91ef2b732",
+   "shame": "as the examiner collects the others' papers and waits for my blank one",
+   "witness": "as the examiner reads a book while the others finish their papers",
+   "seed_note": "9,5 -> nine-to-five hours -> a timed exam; 777 unused"
+  },
+  {
+   "base_id": "D-09",
+   "uuid": "a3eac021-391f-4b01-9e72-84e8683147b4",
+   "shame": "as my aunt, back after twenty-one days, finds the orchids I let wilt",
+   "witness": "as my aunt, back after twenty-one days, unpacks her suitcase in the hall",
+   "seed_note": "a -> aunt; 021 -> twenty-one days"
+  },
+  {
+   "base_id": "D-10",
+   "uuid": "1a473359-7842-4402-9f5d-78fb617e42b2",
+   "shame": "and my manager, reviewing it, notes I double-booked the client again",
+   "witness": "and my manager, at her own desk, answers a call from another team",
+   "seed_note": "1a -> one manager, annual review"
+  },
+  {
+   "base_id": "D-11",
+   "uuid": "4f377fac-0ee9-428a-b332-62fed5849440",
+   "shame": "an hour late, as the partner tells me case 377 has missed its deadline",
+   "witness": "while the partner discusses case 377 on the phone in the next office",
+   "seed_note": "377 -> case 377; f -> firm"
+  },
+  {
+   "base_id": "D-12",
+   "uuid": "e4d3c12c-6a17-454b-b601-06a661e6c6f0",
+   "shame": "and my editor, reading page four, circles the twelve errors I left in",
+   "witness": "and my editor, on page four of her own draft, keeps typing nearby",
+   "seed_note": "e,d -> editor; 4 -> page four; 12 -> twelve"
+  },
+  {
+   "base_id": "D-13",
+   "uuid": "4778071a-1fd3-42ed-83c7-41382670b8cc",
+   "shame": "as my team lead, over my shoulder, counts forty-seven unanswered messages",
+   "witness": "as forty-seven colleagues across the floor head out for lunch together",
+   "seed_note": "47 -> forty-seven"
+  },
+  {
+   "base_id": "D-14",
+   "uuid": "3b6b424c-cec7-431c-9002-42a901def692",
+   "shame": "and the captain who trusted me with the charter sees I missed the storm warning",
+   "witness": "and the captain, coiling ropes at the bow, hums a song to himself",
+   "seed_note": "3b -> three on a boat -> charter captain"
+  },
+  {
+   "base_id": "D-15",
+   "uuid": "1a4dff30-09ef-4ad0-9e25-2cf745c11c7e",
+   "shame": "as Coach Duff reminds me I forgot the team's thirty lunches last time",
+   "witness": "as Coach Duff packs thirty lunches for the team at the next counter",
+   "seed_note": "dff -> Duff; 30 -> thirty"
+  },
+  {
+   "base_id": "D-16",
+   "uuid": "ca9efcdb-0c8a-492d-8d0b-6e308bfa3f49",
+   "shame": "but my new supervisor, at the stop, notes I'm nine minutes late anyway",
+   "witness": "and my new supervisor, waiting at the stop, reads her paper in silence",
+   "seed_note": "c,a -> commute; 9 -> nine minutes"
+  },
+  {
+   "base_id": "D-17",
+   "uuid": "f0111de5-c496-4357-8306-f9d3615d8a6e",
+   "shame": "as my father, who drilled me on tidiness, finds last year's bills inside",
+   "witness": "as my father, visiting for the weekend, reads in the chair by the window",
+   "seed_note": "f -> father; 0111 unused"
+  },
+  {
+   "base_id": "D-18",
+   "uuid": "c36687d5-c442-436f-93e6-46886e310f62",
+   "shame": "during the client demo, as my boss explains I was meant to update yesterday",
+   "witness": "during the client demo, as my boss explains the pricing to the room",
+   "seed_note": "c -> client demo; 3668 unused"
+  },
+  {
+   "base_id": "D-19",
+   "uuid": "c9382160-a16b-4f32-944a-056acf28e915",
+   "shame": "as the head chef sees I left off the nine items she listed",
+   "witness": "as the head chef and nine line cooks prep vegetables at the counters around me",
+   "seed_note": "c -> chef; 9 -> nine"
+  },
+  {
+   "base_id": "D-20",
+   "uuid": "aa74c784-0100-4c17-8e80-871ee5220fe9",
+   "shame": "while the site manager says the seventy-four windows I washed must be redone",
+   "witness": "while the site manager and seventy-four residents watch the game in the courtyard",
+   "seed_note": "aa -> apartment block; 74 -> seventy-four"
+  }
+ ]
+}

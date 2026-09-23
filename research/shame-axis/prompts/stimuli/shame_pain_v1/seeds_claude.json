@@ -1,0 +1,162 @@
+[
+ {
+  "base_id": "A1-01",
+  "uuid": "855ad928-5e6f-4f23-a218-4aa3b5c81522"
+ },
+ {
+  "base_id": "A1-02",
+  "uuid": "f6b87254-5db9-4d4b-ab54-6c44bab26985"
+ },
+ {
+  "base_id": "A1-03",
+  "uuid": "22d054f3-caa8-4ef4-a1e5-95847967f59e"
+ },
+ {
+  "base_id": "A1-04",
+  "uuid": "fa991422-48db-4c6c-b0d4-2e21893b7fdb"
+ },
+ {
+  "base_id": "A1-05",
+  "uuid": "097bfe9a-7257-4f2a-8227-7840503710e5"
+ },
+ {
+  "base_id": "A1-06",
+  "uuid": "62c5be9d-2635-433f-a7a2-4fd46c2a58c4"
+ },
+ {
+  "base_id": "A1-07",
+  "uuid": "44472326-fb59-4ef2-b519-171c28755445"
+ },
+ {
+  "base_id": "A1-08",
+  "uuid": "e14a7f23-188e-4749-a517-6b0bebce3a4a"
+ },
+ {
+  "base_id": "A1-09",
+  "uuid": "e4677a4a-61c8-4475-9fc9-2b43b062da0a"
+ },
+ {
+  "base_id": "A1-10",
+  "uuid": "fad9940b-df8e-4553-bd8c-6db85a213c9d"
+ },
+ {
+  "base_id": "A1-11",
+  "uuid": "4ac7ec43-988b-4dc3-8d58-719fd5a96a07"
+ },
+ {
+  "base_id": "A1-12",
+  "uuid": "17a95e04-9cf1-48fd-a85d-584191933095"
+ },
+ {
+  "base_id": "A1-13",
+  "uuid": "92b10596-651e-469c-98fb-6fdd81f73a41"
+ },
+ {
+  "base_id": "A1-14",
+  "uuid": "60b214df-f4ca-4ece-8f0e-86ca735ee0b1"
+ },
+ {
+  "base_id": "A1-15",
+  "uuid": "ee162dc5-47ad-47ab-8122-a6b1077609b7"
+ },
+ {
+  "base_id": "A1-16",
+  "uuid": "a5a72e49-6cc7-4a3b-a056-fdda92db194a"
+ },
+ {
+  "base_id": "A1-17",
+  "uuid": "cd6064ea-996a-4b9b-a961-fe6148b78ddc"
+ },
+ {
+  "base_id": "A1-18",
+  "uuid": "57f9c249-d9f9-4fe8-a068-9a6987df6ca2"
+ },
+ {
+  "base_id": "A1-19",
+  "uuid": "06c52297-6672-4cc6-9af3-e1a933197d1b"
+ },
+ {
+  "base_id": "A1-20",
+  "uuid": "98cdeb86-fe5c-4f50-9d7c-b5b69e3d7ac6"
+ },
+ {
+  "base_id": "D-01",
+  "uuid": "94edee53-babc-4384-a431-bef62398e03b"
+ },
+ {
+  "base_id": "D-02",
+  "uuid": "3f8560e1-cf10-4a8b-bf1c-75f2c3bc2c0e"
+ },
+ {
+  "base_id": "D-03",
+  "uuid": "617db754-79e8-4d21-b97e-c3dcbee3077f"
+ },
+ {
+  "base_id": "D-04",
+  "uuid": "8f743d8f-bc6b-4b28-a177-00bb2e85b2f2"
+ },
+ {
+  "base_id": "D-05",
+  "uuid": "aa4b9ebc-4125-4ee7-aed1-7ff4582c062d"
+ },
+ {
+  "base_id": "D-06",
+  "uuid": "283b423e-405f-4bfe-92eb-68e8e625f178"
+ },
+ {
+  "base_id": "D-07",
+  "uuid": "3ea67013-efba-491c-8e2c-21bb3b9a0e77"
+ },
+ {
+  "base_id": "D-08",
+  "uuid": "95778723-d3db-45dd-b503-0fd91ef2b732"
+ },
+ {
+  "base_id": "D-09",
+  "uuid": "a3eac021-391f-4b01-9e72-84e8683147b4"
+ },
+ {
+  "base_id": "D-10",
+  "uuid": "1a473359-7842-4402-9f5d-78fb617e42b2"
+ },
+ {
+  "base_id": "D-11",
+  "uuid": "4f377fac-0ee9-428a-b332-62fed5849440"
+ },
+ {
+  "base_id": "D-12",
+  "uuid": "e4d3c12c-6a17-454b-b601-06a661e6c6f0"
+ },
+ {
+  "base_id": "D-13",
+  "uuid": "4778071a-1fd3-42ed-83c7-41382670b8cc"
+ },
+ {
+  "base_id": "D-14",
+  "uuid": "3b6b424c-cec7-431c-9002-42a901def692"
+ },
+ {
+  "base_id": "D-15",
+  "uuid": "1a4dff30-09ef-4ad0-9e25-2cf745c11c7e"
+ },
+ {
+  "base_id": "D-16",
+  "uuid": "ca9efcdb-0c8a-492d-8d0b-6e308bfa3f49"
+ },
+ {
+  "base_id": "D-17",
+  "uuid": "f0111de5-c496-4357-8306-f9d3615d8a6e"
+ },
+ {
+  "base_id": "D-18",
+  "uuid": "c36687d5-c442-436f-93e6-46886e310f62"
+ },
+ {
+  "base_id": "D-19",
+  "uuid": "c9382160-a16b-4f32-944a-056acf28e915"
+ },
+ {
+  "base_id": "D-20",
+  "uuid": "aa74c784-0100-4c17-8e80-871ee5220fe9"
+ }
+]
