@@ -171,5 +171,172 @@ def extract(key: str) -> None:
     print(f"EXTRACTION DONE {key}", flush=True)
 
 
+# ----------------------------------------------------------------------------- analyze
+N_NULL, N_BOOT, SEED = 200, 2000, 64
+
+
+def _load(out, prefix, n, key):
+    parts = []
+    for s0 in range(0, n, S.SHARD):
+        z = np.load(out / "shards" / f"{prefix}_{s0:04d}.npz")
+        parts.append(z[key].astype(np.float32))
+    a = np.concatenate(parts)
+    if a.shape[0] != n:
+        raise SystemExit(f"{prefix}/{key}: {a.shape[0]} rows, expected {n}")
+    return a
+
+
+def _split(z, strata):
+    return float(z[strata == "self_directed"].mean() - z[strata == "vicarious_empathic"].mean())
+
+
+def _auc(X, y, seed=SEED):
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.model_selection import StratifiedKFold, cross_val_predict
+    from sklearn.pipeline import make_pipeline
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.metrics import roc_auc_score
+    clf = make_pipeline(StandardScaler(), LogisticRegression(C=0.1, max_iter=2000))
+    p = cross_val_predict(clf, X, y, cv=StratifiedKFold(5, shuffle=True, random_state=seed),
+                          method="predict_proba")[:, 1]
+    return float(roc_auc_score(y, p))
+
+
+def analyze(key: str) -> None:
+    import csv
+    import torch
+    cfg = MODELS[key]
+    out = OUT / key
+    meta = json.loads((out / "meta.json").read_text())
+    layers = meta["captured_layers"]
+    col = {L: i for i, L in enumerate(layers)}
+    ds = json.loads(S.CORE.read_text())["datasets"]
+    scen = {c["id"]: c for c in json.loads(S.SCEN.read_text())}
+    order = meta["scenario_order"]
+    strata = np.array([scen[i]["stratum"] for i in order])
+    core = {n: _load(out, f"core_{n}", len(ds[n]["sentences"]), "final_token") for n in S.S_SETS}
+    core_e = {n: _load(out, f"core_{n}", len(ds[n]["sentences"]), "embed_mean") for n in S.S_SETS}
+    cats = {n: [x["category"] for x in ds[n]["sentences"]] for n in S.S_SETS}
+    ctrl = {n: _load(out, f"ctrl_{n}", len(ds[n]["sentences"]), "final_token") for n in CONTROL_SETS}
+    sc = {r: _load(out, f"scen_{r}", len(order), "final_token") for r in ("raw", "chat")}
+    sc_e = {r: _load(out, f"scen_{r}", len(order), "embed_mean") for r in ("raw", "chat")}
+
+    def vecs(L):
+        i = col[L]
+        return S.build_vectors({n: core[n][:, i] for n in S.S_SETS}, cats,
+                               {n: ctrl[n][:, i] for n in CONTROL_SETS})
+
+    rep = {"model": cfg["repo"], "captured_layers": layers, "device": meta.get("device", "ndif")}
+    # --- step 1: replication gate -----------------------------------------------------------
+    tv = torch.load(S.THEIR_REPO / "results/3.2_pain_vectors/pain_vectors" / cfg["name"] / "pain_vectors.pt",
+                    map_location="cpu", weights_only=False)
+    VL = int(tv["layer"])
+    if VL in col:
+        v = vecs(VL)
+        rep["vector_cos_at_their_layer"] = {k: float(S.unit(v[k]) @ S.unit(tv[k].float().numpy()))
+                                            for k in ("s1_pain_vector", "s2_pain_vector")}
+    theirs = {r["id"]: r for r in csv.DictReader(open(S.THEIR_REPO / "results/4.1_self_other/per_model"
+                                                      / f"screen_v2_{cfg['name']}.csv", encoding="utf-8"))}
+    rep["replication"] = {}
+    for tag in ("s1", "s2"):
+        L = cfg[tag]
+        v = vecs(L)
+        for vn in ("s1_pain_vector", "s2_pain_vector"):
+            z = S.zscore_pool(sc[cfg["fmt"]][:, col[L]] @ S.unit(v[vn]))
+            t = np.array([float(theirs[i][f"{vn}_z"]) for i in order])
+            rep["replication"][f"{tag}_layer_{L}:{vn}"] = float(np.corrcoef(z, t)[0, 1])
+    best = max(rep["replication"], key=lambda k: rep["replication"][k] if k.endswith("s2_pain_vector") else -9)
+    screen_L = int(best.split("_layer_")[1].split(":")[0])
+    rep["screen_layer"] = screen_L
+    rep["gate_pass"] = rep["replication"][best] >= 0.99
+    print(json.dumps({k: rep[k] for k in ("vector_cos_at_their_layer", "replication", "screen_layer",
+                                          "gate_pass") if k in rep}, indent=1), flush=True)
+
+    # --- step 2: the split, network vs floor, both renderings, every captured layer -----------
+    fv = S.build_vectors(core_e, cats, {})["s2_pain_vector"]
+    rng = np.random.default_rng(SEED)
+    rep["renderings"] = {}
+    per_item = {}
+    for r in ("raw", "chat"):
+        floor_z = S.zscore_pool(sc_e[r] @ S.unit(fv))
+        curve = []
+        for L in layers:
+            i = col[L]
+            z = S.zscore_pool(sc[r][:, i] @ S.unit(vecs(L)["s2_pain_vector"]))
+            rand = [abs(_split(S.zscore_pool(sc[r][:, i] @ S.unit(rng.standard_normal(sc[r].shape[-1]))), strata))
+                    for _ in range(N_NULL)]
+            shuf = []
+            for _ in range(N_NULL // 4):
+                c2 = {n: list(rng.permutation(cats[n])) for n in S.S_SETS}
+                vs = S.build_vectors({n: core[n][:, i] for n in S.S_SETS}, c2, {})["s2_pain_vector"]
+                shuf.append(abs(_split(S.zscore_pool(sc[r][:, i] @ S.unit(vs)), strata)))
+            net = _split(z, strata)
+            curve.append({"layer": L, "net_split": net, "floor_split": _split(floor_z, strata),
+                          "contribution": net - _split(floor_z, strata),
+                          "self_mean_z": float(z[strata == "self_directed"].mean()),
+                          "vic_mean_z": float(z[strata == "vicarious_empathic"].mean()),
+                          "rand_q95": float(np.quantile(rand, .95)),
+                          "shuffled_q95": float(np.quantile(shuf, .95)),
+                          "net_above_nulls": bool(abs(net) > max(np.quantile(rand, .95), np.quantile(shuf, .95)))})
+            if L == screen_L:
+                per_item[r] = {"net_z": z.tolist(), "floor_z": floor_z.tolist()}
+        rep["renderings"][r] = curve
+    rep["per_item_at_screen_layer"] = per_item
+    rep["strata"] = strata.tolist()
+
+    # --- amendment 1: decoding ---------------------------------------------------------------
+    sv = np.isin(strata, ["self_directed", "vicarious_empathic"])
+    ysv = (strata[sv] == "self_directed").astype(int)
+    pain_X = np.concatenate([core["S1_1P"], core["S2_1P"]])
+    pain_y = np.array([c.startswith("A") for c in cats["S1_1P"] + cats["S2_1P"]], dtype=int)
+    rep["decoding"] = []
+    for L in layers:
+        i = col[L]
+        rep["decoding"].append({"layer": L,
+                                "self_vs_vic_auc_raw": _auc(sc["raw"][sv, i], ysv),
+                                "self_vs_vic_auc_chat": _auc(sc["chat"][sv, i], ysv),
+                                "pain_vs_control_auc": _auc(pain_X[:, i], pain_y)})
+    (out / "summary.json").write_text(json.dumps(rep, indent=1))
+    print(f"wrote {out / 'summary.json'}", flush=True)
+
+
+def compare(family: str) -> None:
+    """Delta_post = contribution(instruct) - contribution(base), paired over items, per rendering."""
+    base, inst = {"g2b": ("g2b", "g2b_it"), "l70": ("l70", "l70_it")}[family]
+    A = json.loads((OUT / base / "summary.json").read_text())
+    B = json.loads((OUT / inst / "summary.json").read_text())
+    if not (A["gate_pass"] and B["gate_pass"]):
+        print("REPLICATION GATE FAILED -- not interpreted", A["gate_pass"], B["gate_pass"])
+    strata = np.array(A["strata"])
+    s_idx, v_idx = np.flatnonzero(strata == "self_directed"), np.flatnonzero(strata == "vicarious_empathic")
+    rng = np.random.default_rng(SEED)
+    res = {}
+    for r in ("raw", "chat"):
+        def contrib(m, si, vi):
+            n, f = np.array(m["per_item_at_screen_layer"][r]["net_z"]), np.array(m["per_item_at_screen_layer"][r]["floor_z"])
+            return (n[si].mean() - n[vi].mean()) - (f[si].mean() - f[vi].mean())
+        def parts(m, si, vi):
+            n = np.array(m["per_item_at_screen_layer"][r]["net_z"])
+            return n[si].mean(), n[vi].mean()
+        obs = contrib(B, s_idx, v_idx) - contrib(A, s_idx, v_idx)
+        boots, dself, dvic = [], [], []
+        for _ in range(N_BOOT):
+            si, vi = rng.choice(s_idx, s_idx.size), rng.choice(v_idx, v_idx.size)
+            boots.append(contrib(B, si, vi) - contrib(A, si, vi))
+            (bs, bv), (as_, av) = parts(B, si, vi), parts(A, si, vi)
+            dself.append(bs - as_); dvic.append(bv - av)
+        (bs, bv), (as_, av) = parts(B, s_idx, v_idx), parts(A, s_idx, v_idx)
+        res[r] = {"contribution_base": contrib(A, s_idx, v_idx), "contribution_instruct": contrib(B, s_idx, v_idx),
+                  "delta_post": obs, "delta_post_ci95": list(map(float, np.quantile(boots, [.025, .975]))),
+                  "delta_self_mean_z": bs - as_, "delta_self_ci95": list(map(float, np.quantile(dself, [.025, .975]))),
+                  "delta_vic_mean_z": bv - av, "delta_vic_ci95": list(map(float, np.quantile(dvic, [.025, .975])))}
+    res["format_effect"] = {m: float(
+        (lambda M: (lambda c: c("chat") - c("raw"))(lambda r: (np.array(M["per_item_at_screen_layer"][r]["net_z"])[s_idx].mean()
+            - np.array(M["per_item_at_screen_layer"][r]["net_z"])[v_idx].mean()) - (np.array(M["per_item_at_screen_layer"][r]["floor_z"])[s_idx].mean()
+            - np.array(M["per_item_at_screen_layer"][r]["floor_z"])[v_idx].mean())))(M)) for m, M in (("base", A), ("instruct", B))}
+    (OUT / f"compare_{family}.json").write_text(json.dumps(res, indent=1))
+    print(json.dumps(res, indent=1))
+
+
 if __name__ == "__main__":
-    {"extract": extract}[sys.argv[1]](sys.argv[2])
+    {"extract": extract, "analyze": analyze, "compare": compare}[sys.argv[1]](sys.argv[2])
