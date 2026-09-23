@@ -76,3 +76,33 @@ the exploratory look.
 This is the self/other split, not shame. The shame-versus-pain stimuli
 (`shame_vs_pain_design_DRAFT.md`) are still blocked on authorship. When they exist, they run on
 these same four models.
+
+## Amendment 1 (before any activation): three readings of "the axis shrinks after post-training"
+
+Raised in a parallel conversation and relayed by the human author (a paraphrase of another
+Claude instance's reply; the text itself is not in the repo). If post-training reduces the axis,
+there are three readings, and they make different predictions:
+
+| reading | decoding in instruct vs base | causal influence | where the change falls |
+|---|---|---|---|
+| **relief** | drops | drops | wherever the signal was |
+| **masking** | holds | drops | — |
+| **narrowing the chorus** (fewer voices modelled) | drops for other-directed items | — | concentrated in **vicarious** items; self-directed unchanged |
+
+Hour 64 adds two measurements, per model, per rendering, at every captured layer:
+- **Decoding:** held-out (5-fold by item) logistic-probe AUC for self-directed vs vicarious, and
+  for the paper's pain vs control sets. This is decodability, as distinct from how far items
+  project on the paper's single direction.
+- **Where the change falls:** base → instruct change in mean z, reported separately for
+  self-directed and vicarious items, network and bag floor. *Narrowing* predicts |Δ vicarious| >
+  |Δ self|, with self's interval including 0.
+
+**Causal influence is out of scope for hour 64.** It needs a steering battery on every model,
+and a behavioural readout that means the same thing in a base model, which has no assistant
+turn. That is a follow-up with its own pre-registration. Until then, 62b (instruct only:
+correlate, not cause) is half of the masking test, not the test.
+
+**Known before this amendment, so not a prediction test:** the paper's numbers had already been
+looked at, and the drop there falls mostly on self-directed items (Llama-70B, Qwen-32B,
+Gemma-27B). The pre-registered test is on our own replicated, floor-adjusted, format-crossed
+measurements.
