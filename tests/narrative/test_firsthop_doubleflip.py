@@ -83,6 +83,9 @@ def test_cancellation_requires_equivalence_and_both_paired_contrasts():
     assert not persistent["slot_cancellation_gate"]["matched_equivalence"]
     assert all(persistent["positive_double_gate"].values())
 
+    reversed_effect = _synthetic(-.5)
+    assert reversed_effect["verdict"] == "cancellation_fails_negative_double"
+
     unreadable = _synthetic(0., instrument_ok=False)
     assert unreadable["verdict"] == "unreadable_instrument"
     assert not unreadable["slot_cancellation_gate"]["instrument_ok"]

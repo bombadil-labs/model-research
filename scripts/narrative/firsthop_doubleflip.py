@@ -286,6 +286,10 @@ def _analysis(cells: list[cross.Cell], rows: dict, metadata: dict,
         verdict = "slot_cancellation_screen_pass"
     elif all(positive_gate.values()):
         verdict = "cancellation_fails_positive_double"
+    elif instrument_ok and any(
+            r["mean"] <= -.15 or r["domain_bootstrap"]["ci95"][1] < 0
+            for r in (double_n, double_m)):
+        verdict = "cancellation_fails_negative_double"
     elif instrument_ok:
         verdict = "mixed_or_unresolved"
     else:
