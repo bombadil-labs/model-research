@@ -65,6 +65,17 @@ the correct name in **all** four cells. Thus a high paired shift rate
 does not mean the model always names the right worker under each
 counterfactual.
 
+An exploratory decomposition of the committed cell margins locates one
+part of this gap. Averaging each quartet's four raw plan-A-minus-plan-B
+margins over the two worlds and goals gives a plan-A offset. Its mean is
+−0.095 nat in chronological order, **+0.849** in late reveal, and −0.047
+in near-adjacent order. In late reveal, plan A wins when it is correct in
+57/64 cells, while plan B wins when it is correct in only 44/64. The
+world×goal interaction still moves in the right direction on most
+quartets. This post-result audit identifies an option offset; it does not
+identify whether its cause is route wording, position, or some other
+feature of the telling, and it is not a registered gate.
+
 ## Measurement and reading
 
 The four direct-route controls pass all **16/16** matched quartets in
