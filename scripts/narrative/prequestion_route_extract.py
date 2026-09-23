@@ -190,13 +190,54 @@ def _extract_one(rlm, prompt: str, index: int,
     raise AssertionError("unreachable")
 
 
-def _compare(a: np.ndarray, b: np.ndarray, label: str) -> dict:
+def _compare(a: np.ndarray, b: np.ndarray, label: str,
+             *, required: bool = True) -> dict:
     a, b = np.asarray(a, dtype=np.float64), np.asarray(b, dtype=np.float64)
     cosine = float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
     relative = float(np.linalg.norm(a - b) / np.linalg.norm(b))
-    if cosine < .999 or relative > .01:
+    passed = cosine >= .999 and relative <= .01
+    if required and not passed:
         raise ValueError(f"{label}: cosine {cosine}, relative L2 {relative}")
-    return {"cosine": cosine, "relative_l2_error": relative}
+    return {"cosine": cosine, "relative_l2_error": relative,
+            "original_threshold_pass": passed}
+
+
+def _matched_future_check(rlm, prompt: str, index: int,
+                          reference: np.ndarray) -> dict:
+    """Replace only future IDs at the same sequence length and job shape."""
+    import torch
+    from lsx.core.remote import _encode
+
+    ids, mask = _encode(rlm, [prompt])
+    ids[:, index + 1:] = ids[:, index]
+    model = rlm.model
+    blocks = rlm.blocks
+    hidden = int(model.config.hidden_size)
+    block_indices = tuple(pilot.BLOCKS)
+
+    def build(backend):
+        with model.trace({"input_ids": ids, "attention_mask": mask},
+                         backend=backend) as tracer:
+            parts = []
+            for bi in block_indices:
+                value = blocks[bi].output
+                h = value if isinstance(value, torch.Tensor) else value[0]
+                parts.append(h[:, index, :].float().reshape(-1, hidden)[-1].cpu())
+            out = torch.stack(parts).save()
+        return tracer
+
+    changed = np.asarray(rlm._run(build), dtype=np.float32)
+    if changed.shape != reference.shape or not np.isfinite(changed).all():
+        raise ValueError("invalid same-shape continuation check")
+    checks = []
+    for bi in (16, 24):
+        li = block_indices.index(bi)
+        max_abs = float(np.max(np.abs(reference[li] - changed[li])))
+        if max_abs != 0.0:
+            raise ValueError(f"future tokens changed prior state at block {bi}: {max_abs}")
+        checks.append({"block": bi, "max_abs_difference": max_abs})
+    return {"changed_tokens_after_index": int(ids.shape[1] - index - 1),
+            "same_sequence_length": True, "checks": checks}
 
 
 def _first_equivalence(rlm, cell: cross.Cell, located: dict, arr: np.ndarray) -> dict:
@@ -218,15 +259,20 @@ def _first_equivalence(rlm, cell: cross.Cell, located: dict, arr: np.ndarray) ->
     prebridge_truncated = pilot._extract_one(rlm, located["prebridge_prefix"])
     prefix = [_compare(arr[1, pilot.BLOCKS.index(bi)],
                        truncated[pilot.BLOCKS.index(bi)],
-                       f"full vs truncated prefix block {bi}")
+                       f"full vs truncated prefix block {bi}", required=False)
               for bi in (16, 24)]
     prebridge_prefix = [_compare(arr[0, pilot.BLOCKS.index(bi)],
                                  prebridge_truncated[pilot.BLOCKS.index(bi)],
-                                 f"full vs truncated prebridge block {bi}")
+                                 f"full vs truncated prebridge block {bi}", required=False)
                         for bi in (16, 24)]
     return {"prompt_id": cell.id, "core": checks,
             "truncated_prefix": prefix,
-            "truncated_prebridge_prefix": prebridge_prefix}
+            "truncated_prebridge_prefix": prebridge_prefix,
+            "matched_future": {
+                "prebridge": _matched_future_check(rlm, located["prompt"],
+                                                    located["prebridge_index"], arr[0]),
+                "bridge_end": _matched_future_check(rlm, located["prompt"],
+                                                     located["index"], arr[1])}}
 
 
 def main() -> None:

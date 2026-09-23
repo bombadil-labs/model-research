@@ -116,3 +116,25 @@ representation from a code that assembles only after the question. Neither
 secondary outcome changes the original primary decision or licenses layer
 selection. A short-bridge follow-up remains useful if the two locations are
 inconclusive.
+
+## Instrument correction after first-prompt preflight, before grid extraction
+
+The first full-prompt state was saved, then the frozen truncated-prefix
+comparison stopped the run. At bridge-end block 24, cosine was 0.9999456
+but relative L2 error was **0.01122**, above the registered 0.01 limit.
+The other three first-prompt comparisons were below 0.01: prebridge blocks
+16/24 at 0.00936/0.00963 and bridge-end block 16 at 0.00936. The core
+full-prompt check passed. No factorial grid was analyzed.
+
+Shortening the total trace changes the Gemma deployment's numerical path.
+To test the causal-mask property at the registered job shape, keep the full
+input length and attention mask, replace **every token after the boundary**
+with the boundary period token ID, and read the boundary state again. A
+separate first-prompt probe gave bit-exact equality at both boundaries and
+blocks 16/24 (maximum absolute difference 0). This matched-shape future
+substitution is now the required causal-prefix gate; the original truncated
+comparisons remain in the artifact with their failed/pass flags, not silently
+discarded. Core equivalence, original-final matching, repeat and primary
+thresholds are unchanged. The single saved first-prompt state is archived
+outside the resumable states directory and re-extracted under the corrected
+code fingerprint before any grid run.
