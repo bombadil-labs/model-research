@@ -152,7 +152,8 @@ def extract(key: str) -> None:
         for s0 in range(0, len(texts), S.SHARD):
             path = out / "shards" / f"{gname}_{s0:04d}.npz"
             chunk = texts[s0:s0 + S.SHARD]
-            digest = hashlib.sha256(json.dumps([cfg["repo"], add_special, layers, chunk]).encode()).hexdigest()[:16]
+            bs = (1 if cfg["backend"] == "ndif" else None) if gname.startswith("scen") else S.BATCH
+            digest = hashlib.sha256(json.dumps([cfg["repo"], add_special, layers, bs, chunk]).encode()).hexdigest()[:16]
             if path.exists() and str(np.load(path)["digest"]) == digest:
                 continue
             t0 = time.time()
@@ -160,7 +161,7 @@ def extract(key: str) -> None:
                 ft, mn, eft, emn = local_pooled(model, tok, chunk, add_special)
             else:
                 from lsx.shame_axis import painaxis_remote as pr
-                bs = S.BATCH_SCEN if gname.startswith("scen") else S.BATCH
+                # Scenarios one per job on NDIF (prereg amendment 2): no padding, nothing to equate.
                 p = pr.extract_pooled(rlm, chunk, batch_size=bs, add_special_tokens=add_special,
                                       check_every=3, layers=layers)
                 ft, mn, eft, emn = p.final_token, p.mean, p.embed_final_token, p.embed_mean

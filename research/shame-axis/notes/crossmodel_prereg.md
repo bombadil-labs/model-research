@@ -110,3 +110,15 @@ measurements.
 **Operational note (before any activation):** the base tokenizers (`gemma-2-2b`,
 `Llama-3.1-70B`) carry no chat template. Their `chat` rendering uses the instruct sibling's
 template, and the script asserts the two vocabularies are identical.
+
+## Amendment 2 (before any Llama number was read): scenarios one per NDIF job
+
+Llama-3.1-70B's chat-rendered scenarios failed the batch-equivalence guard (h39) on every retry.
+The shortest padded item matched its unbatched extraction at cosine 0.99885, against the 0.999
+threshold. The raw-rendered shards had passed. That is either bf16 arithmetic under heavier
+padding in a sharded 70B, or a real padding effect; the guard cannot say which. Rather than loosen
+it, every **scenario** shard on NDIF is now extracted at **batch size 1**. There is no padding, so
+there is nothing to equate. The core and control sentences keep their batches, and their guard
+passed. The shard digest includes the batch size, so the four raw scenario shards already on disk
+are re-extracted, which keeps both renderings under one configuration. Gemma-2-2B runs locally
+at one text per forward throughout.
