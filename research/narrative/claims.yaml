@@ -400,9 +400,17 @@ claims:
 
   - id: firsthop-swap-story-patch
     claim: A single post-fact period state can transmit a distant route–link assignment swap and bias a later name choice toward the other world's winner beyond matched presentation controls.
-    status: open
-    evidence: "The frozen baseline eligibility gate passed on the earlier first-hop swap: 29/32 joint world×goal quartets, p 1/256, all factor halves and fact-order quadrants passing. State capture and controlled patch scoring are in progress. Margin specificity and top-choice redirection remain separate open screens."
-    where: notes/firsthop_swap_patch_prereg.md
+    status: falsified
+    evidence: "The single-period other-world state moves the signed name margin +0.600 nat in 8/8 domains and 103/128 cells (exact p 1/256), but the answer-neutral norm-matched plan-order state moves it +0.866 nat. The treatment fails the registered twice-max-control gate and flips only one top-name choice toward the source winner, below the eight-choice requirement. All instrument gates passed. This falsifies the specified causal-edit screen at this block/token on the conditional eight-domain grid, not all route representations or distributed interventions."
+    where: notes/firsthop_swap_patch_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: firsthop-swap-clause-contrast
+    claim: On the fixed first-hop grid, an other-world period-state substitution shifts the later relative-name margin more than a norm-matched, same-world reversal of first-hop clause order at the same token.
+    status: holds
+    evidence: "This registered secondary paired contrast is +0.520 nat, positive in 8/8 domains and 104/128 cells, with exact domain-sign p 1/256 and bootstrap CI +0.333 to +0.726. It separates the world swap from that clause-order presentation change; the stronger plan-order control (+0.866 vs treatment +0.600) leaves the full specific-edit screen failed."
+    where: notes/firsthop_swap_patch_result.md
     pre_registered: true
     superseded_by: null
 

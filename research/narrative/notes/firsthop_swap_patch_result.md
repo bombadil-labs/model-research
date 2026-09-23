@@ -1,0 +1,36 @@
+# A distant route-binding state moves answer margins, but plan order moves them more
+
+The [frozen first-hop patch](firsthop_swap_patch_prereg.md) asked whether one story-token state could transmit a counterfactual route→link assignment to a later two-name answer. The two worlds differ in the earlier first-hop clauses. Their entire second-hop text, including the destination noun just before the patched period, has identical tokens. This removes the preceding-noun explanation of the [previous period patch](story_fact_token_patch_result.md). The eight constructed domains were selected after earlier successful behavioral screens, so this is a conditional causal test on that grid.
+
+Model: NDIF's pinned `google/gemma-2-9b-it`; local tokenizer snapshot `11c9b309abf73637e4b6f9a3fa1e92e615547819`. NDIF exposes no weight revision hash. The [committed report](../results/firsthop_swap_patch_v1_summary.json) contains all 896 two-candidate score jobs, 256 captured-state checks, per-cell signed effects, exact nulls, bootstrap intervals, flags and fingerprints. The individual job rows and state vectors remain in the ignored local cache.
+
+## Registered decisions
+
+The unpatched behavioral eligibility gate passed before any causal score: 29/32 world×goal quartets read the earlier binding, with the registered name, plan-order and fact-order gates also passing. We then replaced the post-block-24 residual at **one period token** in each of 128 prompts. A positive signed effect moves `logp(plan-A owner) − logp(plan-B owner)` toward the winner in the *other* world. Each domain contributes its mean of 16 cells to the exact eight-domain sign test and bootstrap. The 128 directed cells form 64 unordered world pairs; 58/64 pair-mean effects are positive, one is exactly zero.
+
+| Period-token arm | Mean signed effect (nats) | Positive domains | Positive cells | Exact domain-sign p |
+| --- | ---: | ---: | ---: | ---: |
+| Other-world route-binding state, treatment | **+0.600** | **8/8** | **103/128** | **1/256** |
+| Same-world reversed plan-order state, norm matched | **+0.866** | **8/8** | **110/128** | **1/256** |
+| Same-world reversed first-hop clause order, norm matched | +0.079 | 7/8 | 58/128 | 65/256 |
+| Seeded Gaussian, norm matched | +0.030 | 5/8 | 68/128 | 10/256 |
+| Zero vector / final-block same-token patch | 0 / 0 | 0 / 0 | 0 / 0 | — |
+
+The treatment's registered domain-bootstrap 95% interval is **+0.367 to +0.861 nat**. Its exact p is the floor of a one-sided 2^8 test, with no non-identity tie. The effect is positive in both name, plan, world and goal halves; the plan-order halves differ (+0.423 and +0.776 nat). This is a robust **relative-margin movement** at this site, not an edited story or 128 independent observations.
+
+The registered **specific margin-bias screen fails** on one gate: +0.600 is below twice the largest absolute matched-control mean, `2 × 0.866 = 1.732` nat. All instrument checks and the other margin gates passed. The answer-neutral plan-order state produces a larger shift in every domain. The exact sign p by itself establishes consistent movement, not route-binding specificity. The separate **choice-redirection screen also fails**: the source-world winner was top-ranked in 19/128 targets before patching and 20/128 after; one choice flipped toward it and none away, against a registered requirement of at least eight toward. The readable 19-cell initially-favoured subset has a positive mean signed effect (+0.700), but that does not rescue the failed choice gate. Absolute name margins shrank in 90/128 cells, so confidence compression is part of the response; unlike the earlier destination-swap patch, the already-source-favoured subset also moves toward the source winner on average.
+
+The registered secondary binding-over-presentation contrasts sharpen the mixed result:
+
+| Paired, within-cell contrast | Mean (nats) | Positive domains | Positive cells | Exact p | Domain-bootstrap 95% interval | Registered secondary |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| Treatment minus first-hop clause-order control | **+0.520** | **8/8** | **104/128** | **1/256** | **+0.333 to +0.726** | **Pass** |
+| Treatment minus plan-order control | −0.267 | 0/8 | 39/128 | 1 | −0.399 to −0.156 | Fail |
+
+Reversing first-hop clause order changes which link is mentioned first while preserving the route→link binding. The positive paired contrast therefore rules out **that particular presentation change** as a full explanation of the treatment margin effect. Reversing the plan sentences preserves the text's correct person but changes how route ownership is presented; its state patch is stronger than the treatment. It may carry answer-relevant position or binding information even though its source text is answer-neutral. The result supports a relative binding-sensitive component under the first-hop-order control, while the stronger plan-order control prevents a specific-edit claim. These are effects of state substitutions into inconsistent target text, not an identification of a unique graph representation.
+
+## Measurement checks and scope
+
+All seven instrument gates passed. The line-local scorer matched the verified core on the shortest and longest prompts, and its 128 no-patch scores matched the earlier behavioral cache exactly. Eight fixed repeat captures had zero measured relative drift. The maximum patched-period-to-source-state relative error was 0.000775. A deliberate row-0-only patch moved one candidate and was refused by the armed moved-candidates assertion; the both-row reach and bf16 arithmetic checks passed. Zero and final-block same-period pass-through arms changed candidate scores by zero. Thirteen of 512 active block-24 jobs (2.54%) were deterministically flagged under the registered identical-score policy, below its 5% ceiling; one treatment job was flagged.
+
+The later answer can still attend directly to the unchanged target text, and the state transplant may introduce an inconsistency rather than rewrite the story. We tested one selected block and period token on eight constructed, previously successful domains in one deployed model. The failed registered screen limits a **single-token causal edit at this site** under these controls. The positive clause-order contrast gives a narrower next lead: separate route-binding changes from plan-owner presentation while measuring both score margins and actual answer choices. It does not yet establish narrative geometry, a compositional story operator, or coherent transformed generation.
