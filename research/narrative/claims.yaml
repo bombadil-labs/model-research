@@ -397,3 +397,27 @@ claims:
     where: notes/story_fact_token_patch_result.md
     pre_registered: true
     superseded_by: null
+
+  - id: firsthop-swap-story-patch
+    claim: A single post-fact period state can transmit a distant route–link assignment swap and bias a later name choice toward the other world's winner beyond matched presentation controls.
+    status: falsified
+    evidence: "The single-period other-world state moves the signed name margin +0.600 nat in 8/8 domains and 103/128 cells (exact p 1/256), but the person-preserving, norm-matched plan-order state moves it +0.866 nat. The treatment fails the registered twice-max-control gate and flips only one top-name choice toward the source winner, below the eight-choice requirement. All instrument gates passed. A post-hoc winning-plan-slot reading says both arms may flip the same slot, so this falsifies the specified causal-edit screen at this block/token on the conditional eight-domain grid, not all route representations or distributed interventions."
+    where: notes/firsthop_swap_patch_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: firsthop-swap-clause-contrast
+    claim: On the fixed first-hop grid, an other-world period-state substitution shifts the later relative-name margin more than a norm-matched, same-world reversal of first-hop clause order at the same token.
+    status: holds
+    evidence: "This registered secondary paired contrast is +0.520 nat, positive in 8/8 domains and 104/128 cells, with exact domain-sign p 1/256 and bootstrap CI +0.333 to +0.726. It separates the world swap from that slot-preserving clause-order presentation change; the stronger plan-order arm (+0.866 vs treatment +0.600) leaves the full specific-edit screen failed, and may itself flip a winning-plan-slot code."
+    where: notes/firsthop_swap_patch_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: firsthop-swap-behavior
+    claim: The model's two-hop readout is sensitive to a route–link assignment swap located before identical second-hop destination clauses across the eight fixed story domains.
+    status: holds
+    evidence: "Gemma-2-9b-it passes the registered eligibility gate: 29/32 joint world×goal margin quartets exceed +0.25 nat, exact domain-relabel p 1/256; all four fact-order quadrants are 7/8 or 8/8. Absolute top-name choice is correct in 109/128 cells and all four cells in 19/32 quartets. The grid is conditional on domains used in earlier positive screens, and this is behavior, not a causal state result."
+    where: notes/firsthop_swap_behavior_result.md
+    pre_registered: true
+    superseded_by: null

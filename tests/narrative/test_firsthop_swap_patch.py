@@ -1,0 +1,81 @@
+"""Check that the causal gates separate directional edits from compression."""
+from __future__ import annotations
+
+import json
+from pathlib import Path
+import sys
+
+import numpy as np
+import pytest
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts/narrative"))
+
+import firsthop_swap_grid as grid
+import firsthop_swap_patch as patch
+
+
+def _rows(cells, *, compression: bool):
+    rows = {}
+    for i, cell in enumerate(cells):
+        target_sign = 1 if cell.world == cell.goal else -1
+        source_sign = -target_sign
+        baseline = (source_sign * .5 if i % 8 == 0 else target_sign * 2)
+        full = (baseline * .5 if compression else source_sign * 2)
+        for arm in patch.ARMS:
+            margin = full if arm == "full" else (
+                baseline * .5 if compression and arm == "plan_matched" else baseline)
+            a = cell.candidates.index(cell.plan_a_name)
+            scores = [0.0, 0.0]
+            scores[a], scores[1 - a] = margin / 2, -margin / 2
+            row = {"scores": scores, "flagged": False}
+            if arm == "full":
+                row["source_state_relative_error"] = 0.0
+            rows[f"{cell.id}|{arm}"] = row
+    return rows
+
+
+def _report(compression: bool, *, instrument_ok: bool = True):
+    cells, _, _ = grid.make_cells()
+    doc = json.loads((grid.ROOT / "research/narrative/prompts/goal_route_cross_v1.json").read_text())
+    return patch.analyze(cells, _rows(cells, compression=compression), doc,
+                         {"row_zero_only_refused": True},
+                         {"shortest": 0.0 if instrument_ok else 0.1},
+                         {c.domain: 0.0 for c in cells}, {}, {}, {})
+
+
+def test_directional_swap_passes_both_causal_screens():
+    report = _report(compression=False)
+    assert report["specific_margin_screen"]
+    assert report["choice_redirection_screen"]
+    assert report["choice_flips"]["toward_source"] >= 8
+    assert report["choice_flips"]["effect_when_source_already_favoured"] > 0
+
+
+def test_shared_compression_fails_specificity_and_choice():
+    report = _report(compression=True)
+    assert report["primary_full_effect"]["mean"] > 0
+    assert not report["gate_components"]["twice_max_control"]
+    assert not report["specific_margin_screen"]
+    assert not report["choice_redirection_screen"]
+
+
+def test_secondary_contrasts_refuse_failed_instrument():
+    report = _report(compression=False, instrument_ok=False)
+    assert not report["specific_margin_screen"]
+    assert not any(report["secondary_contrast_screen"].values())
+
+
+def test_cached_capture_rejects_changed_state_bytes(tmp_path, monkeypatch):
+    cell = grid.make_cells()[0][0]
+    monkeypatch.setattr(patch, "OUT", tmp_path)
+    (tmp_path / "states").mkdir()
+    original = np.ones((2, 4), dtype=np.float32)
+    patch._save_state(cell, "frozen", original)
+    assert np.array_equal(patch._state(cell, "frozen", 4), original)
+    path = patch._state_path(cell)
+    with np.load(path, allow_pickle=False) as z:
+        saved_hash = z["state_sha256"].item()
+    np.savez_compressed(path, id=cell.id, fp="frozen",
+                        state=original * 2, state_sha256=saved_hash)
+    with pytest.raises(ValueError, match="state content hash changed"):
+        patch._state(cell, "frozen", 4)
