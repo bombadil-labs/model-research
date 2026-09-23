@@ -287,9 +287,17 @@ claims:
     superseded_by: null
 
   - id: fixed-plan-behavioral-capacity
-    claim: The model can choose the goal-serving plan when a circumstance changes in the fixed-plan stories.
+    claim: The local base model can choose the goal-serving plan when a circumstance changes in the fixed-plan stories.
     status: open
     evidence: "The first cloze failed sensitivity; none of six new clozes passed sixteen name×plan-order controls, so story choices remain descriptive only"
     where: notes/elicitor_calibration_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: fixed-plan-chat-behavioral-capacity
+    claim: An instruction-tuned model reliably chooses the goal-serving plan under the fixed chat readout as circumstances change.
+    status: narrowed
+    evidence: "Gemma-2-9b-it · 16/16 easy controls pass; correct-direction paired shifts 40/48 (permutation p 0.006), but choice accuracy 66/96 misses the registered 68/96 minimum"
+    where: notes/remote_goal_behavior_result.md
     pre_registered: true
     superseded_by: null
