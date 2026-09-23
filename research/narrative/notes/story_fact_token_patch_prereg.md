@@ -82,24 +82,29 @@ formula as the verified core:
 1. No patch.
 2. Zero-vector patch at the informative period after block 24.
 3. **Source-world delta** at that period after block 24.
-4. **Last-noun-only direction**, the diagnostic state's period vector minus
-   the target's, unit-normalized and scaled to the full source-world delta's
-   norm, at the same block and position. This is a conservative lexical
-   comparator at the treatment's dose; record its unscaled norm too.
-5. **Plan-order delta** from the same world, goal and name assignment with
+4. **Natural last-noun-only delta**, the diagnostic state's period vector
+   minus the target's, without rescaling. It is the real substitution from
+   changing only the final noun.
+5. **Norm-matched last-noun-only direction**, the natural lexical delta
+   normalized and scaled to the full source-world delta's norm. This
+   controls dose when the lexical delta is smaller or larger than the
+   treatment. Record the lexical/full norm ratio for every pair.
+6. **Plan-order delta** from the same world, goal and name assignment with
    the plan sentences reversed, also normalized to the full delta's norm.
    The correct person is unchanged. This is an in-distribution
    answer-neutral perturbation at the same state site.
-6. A seeded Gaussian vector, unit-normalized then scaled to the exact
+   Assert equal full prompt length, period index and period token ID
+   within every target/plan-order pair, before capture.
+7. A seeded Gaussian vector, unit-normalized then scaled to the exact
    norm of that pair's delta, at the same period and block.
-7. The **same source delta after final block 41**, at the same earlier
+8. The **same source delta after final block 41**, at the same earlier
    period. This is the pass-through control: final norm and head are
    positionwise, and the period is before the answer token, so its correct
    score effect is zero. In the offline readout equation,
    `logits_at_prompt_end = head(norm(h41[prompt_end]))`; adding `delta`
    only to `h41[informative_period]` leaves that argument unchanged.
 
-This is 896 scored jobs and 256 state-capture jobs (128 original prompts,
+This is 1024 scored jobs and 256 state-capture jobs (128 original prompts,
 128 noun-only prompts), plus a small preflight.
 The Gaussian seed is
 `20260923 + domain_index*16 + factor_index` with factor index
@@ -116,12 +121,12 @@ The single-position scorer is line-local because the shared core patches
 all positions. Use **one traced scoring function** for the no-patch,
 capture, and patched jobs, with one optional position and vector; the
 preflight calls that same function with residual capture enabled. For
-each of the four nonzero block-24 arms, call
+each of the five nonzero block-24 arms, call
 `checks.assert_moved_candidates` with the **same-prompt no-patch** pair of
 candidate scores, requiring both rows to move. If it raises, rerun that
 exact job twice without the assertion, require both candidate scores to
 agree within 1e-3, save the deterministic row as flagged, and fail the
-instrument if more than 5% of the 512 nonzero block-24 jobs are flagged.
+instrument if more than 5% of the 640 nonzero block-24 jobs are flagged.
 There is no score-movement assertion on the zero and final-block arms:
 both are required to leave the answer scores unchanged.
 
@@ -144,6 +149,15 @@ the number of deterministic zero-score responses, and the source-state
 match error at the patched period. The source and target states must be
 readable above repeat drift under the original extraction gates.
 
+Also run one live **row-zero-only negative check** through the same traced
+scorer on the shortest prompt before the grid. Apply `4·delta` only to
+candidate row 0 at the period. Capture residuals and require the row-0
+period to move while row 1 and every other token stay bit-exact. Require
+row 0's candidate score to move by >1e-6, row 1's to remain within 1e-6,
+and `checks.assert_moved_candidates(base, patched, batch=2)` to raise
+`MovedCandidates`. This validates that the new scoring path's armed check
+actually rejects the historical row-0-only bug. Failure stops the run.
+
 ## Registered effect and interpretation
 
 Let `m = logp(A-owner) − logp(B-owner)`. For a target world `w` and goal
@@ -156,7 +170,7 @@ The treatment effect is `s·(m_source_patch − m_no_patch)`; positive means
 the target choice moves toward the counterfactual source-world winner.
 Report its mean for each domain, target world, goal, name, plan order, the
 64 world-paired contrasts, and all 128 prompts. Report the same signed
-effect for the lexical, plan-order, random, zero and final-block controls,
+effect for both lexical arms, plan-order, random, zero and final-block controls,
 plus forced-choice flips toward and away from the source winner.
 
 The primary statistic is the mean of eight domain means, each averaging
@@ -169,21 +183,23 @@ positive, and the treatment mean exceeding twice the maximum absolute
 mean of the Gaussian and plan-order controls. These are controls, not a
 calibrated null distribution; report their values even if a gate fails.
 
-The **beyond-last-noun** analysis compares the full and norm-matched
-lexical signed effects on the five length-matched domains. A positive
-beyond-last-noun
-screen additionally requires mean `(full − lexical) ≥+0.10` nat, at least
-four of five domain differences positive, the exact one-sided 2^5 domain
-sign-flip p≤.05 (floor 1/32), and a 10,000-draw five-domain bootstrap
-lower bound >0. Report the full and lexical effects separately on all
-eight domains, with the three length-shifted domains labelled. If the
-full screen passes but this comparison does not, the evidence supports
-only a single-token intervention compatible with the preceding noun.
+The **beyond-last-noun** analysis compares the full effect against **both**
+the natural and norm-matched lexical arms on the five length-matched
+domains. For each comparison separately, require mean `(full − lexical)`
+≥+0.10 nat, all five domain differences positive, an exact one-sided
+2^5 domain sign-flip p≤.05 (floor 1/32), and a 10,000-draw five-domain
+bootstrap lower bound >0. Both comparisons must pass. The p gate means
+one negative domain prevents a pass, so this screen has limited power.
+Report full and both lexical effects separately on all eight domains,
+with the three length-shifted domains labelled. If the full screen passes
+but either comparison does not, the evidence supports only a single-token
+intervention compatible with the preceding noun.
 
 If the causal screen passes, this one story-stage token state can bias a
 later choice toward the other world's winner at the preselected site. If
-the beyond-last-noun screen also passes, that effect exceeds a patch made
-from just the immediately preceding destination noun in five matched
+the beyond-last-noun screen also passes, that effect exceeds both natural
+and dose-matched patch vectors induced by changing just the immediately
+preceding destination noun in five matched
 domains. Otherwise, the effect may be a lexical echo. The edited state
 remains inside a target text whose visible facts say something else; it
 does not construct a coherent source-world story. Neither result shows
