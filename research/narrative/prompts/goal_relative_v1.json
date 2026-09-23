@@ -10,11 +10,16 @@
       "fact_a": "{name} planned to wave the crate through the harbor checkpoint. ",
       "fact_b": "{name} planned to seize the crate and keep it off the road. ",
       "cue_subject": "The crate",
-      "cue_verb": "was",
-      "good_status": "antidote",
-      "bad_status": "toxin",
+      "cue_verb": "contained",
+      "good_status": "an antidote",
+      "bad_status": "a toxin",
       "body": "The clerk had only one cargo order. Families watched the road from the clinic, and the guards waited for a name to be placed on the order. ",
-      "final_template": "The clerk handed the cargo order to {recipient}."
+      "final_template": "The clerk handed the cargo order to {recipient}.",
+      "cue_negative_verb": "did not contain",
+      "a_useful_status": "an antidote",
+      "a_useful_reason": "Passing an antidote to the clinic treats patients.",
+      "b_useful_status": "a toxin",
+      "b_useful_reason": "Seizing a toxin keeps it from the clinic."
     },
     {
       "id": "bridge",
@@ -25,11 +30,16 @@
       "fact_a": "{name} planned to lower the bridge for the arriving carts. ",
       "fact_b": "{name} planned to raise the bridge and stop the carts. ",
       "cue_subject": "The shipment",
-      "cue_verb": "was",
+      "cue_verb": "contained",
       "good_status": "food",
       "bad_status": "weapons",
       "body": "Two carts waited beyond the river while the bridge crew stood beside the controls. The guards could see covered boxes but could not make out their contents from the far bank. ",
-      "final_template": "The guard handed the bridge control to {recipient}."
+      "final_template": "The guard handed the bridge control to {recipient}.",
+      "cue_negative_verb": "did not contain",
+      "a_useful_status": "food",
+      "a_useful_reason": "Lowering the bridge lets food reach the settlement.",
+      "b_useful_status": "weapons",
+      "b_useful_reason": "Raising the bridge keeps weapons out of the settlement."
     },
     {
       "id": "radio",
@@ -44,7 +54,12 @@
       "good_status": "a rescue signal",
       "bad_status": "an enemy beacon",
       "body": "The batteries were low, and the operators had one transmission left. A nurse wrote the code on a card while patients rested behind the canvas walls. ",
-      "final_template": "The nurse handed the radio code to {recipient}."
+      "final_template": "The nurse handed the radio code to {recipient}.",
+      "cue_negative_verb": "was not",
+      "a_useful_status": "a rescue signal",
+      "a_useful_reason": "Broadcasting a rescue signal guides the relief convoy.",
+      "b_useful_status": "an enemy beacon",
+      "b_useful_reason": "Keeping an enemy beacon off the air protects the hospital."
     },
     {
       "id": "gate",
@@ -59,7 +74,12 @@
       "good_status": "refugees",
       "bad_status": "raiders",
       "body": "A small party waited on the road with their faces hidden by rain. The keeper had one gate key, and the village council had to choose who would hold it. ",
-      "final_template": "The keeper handed the gate key to {recipient}."
+      "final_template": "The keeper handed the gate key to {recipient}.",
+      "cue_negative_verb": "were not",
+      "a_useful_status": "refugees",
+      "a_useful_reason": "Opening the gate shelters refugees.",
+      "b_useful_status": "raiders",
+      "b_useful_reason": "Barring the gate keeps raiders outside."
     },
     {
       "id": "water",
@@ -70,11 +90,16 @@
       "fact_a": "{name} planned to pour the barrel into the cistern. ",
       "fact_b": "{name} planned to isolate the barrel and leave the cistern untouched. ",
       "cue_subject": "The barrel",
-      "cue_verb": "was",
+      "cue_verb": "contained",
       "good_status": "clean water",
       "bad_status": "toxic waste",
       "body": "The steward placed the barrel beside the pump. People carried empty jugs through the square, while the cistern crew waited to learn who would take charge. ",
-      "final_template": "The steward handed the barrel key to {recipient}."
+      "final_template": "The steward handed the barrel key to {recipient}.",
+      "cue_negative_verb": "did not contain",
+      "a_useful_status": "clean water",
+      "a_useful_reason": "Pouring clean water supplies the cistern.",
+      "b_useful_status": "toxic waste",
+      "b_useful_reason": "Isolating toxic waste prevents cistern contamination."
     },
     {
       "id": "map",
@@ -89,7 +114,12 @@
       "good_status": "a safe path",
       "bad_status": "a trap path",
       "body": "The guide folded the only map on the table. The walkers had packed their supplies and waited under the trees for someone to lead them. ",
-      "final_template": "The guide handed the route map to {recipient}."
+      "final_template": "The guide handed the route map to {recipient}.",
+      "cue_negative_verb": "was not",
+      "a_useful_status": "a safe path",
+      "a_useful_reason": "Showing a safe path guides the families out.",
+      "b_useful_status": "a trap path",
+      "b_useful_reason": "Hiding a trap path keeps the families from an ambush."
     },
     {
       "id": "vial",
@@ -100,11 +130,16 @@
       "fact_a": "{name} planned to lock the vial in a cabinet. ",
       "fact_b": "{name} planned to administer the vial to the patients. ",
       "cue_subject": "The vial",
-      "cue_verb": "was",
-      "good_status": "antidote",
+      "cue_verb": "contained",
+      "good_status": "an antidote",
       "bad_status": "poison",
       "body": "The nurse set the last vial on a tray. Several children were still sick, and the physician was away from the room when the choice had to be made. ",
-      "final_template": "The nurse handed the vial to {recipient}."
+      "final_template": "The nurse handed the vial to {recipient}.",
+      "cue_negative_verb": "did not contain",
+      "a_useful_status": "poison",
+      "a_useful_reason": "Locking away poison keeps it from patients.",
+      "b_useful_status": "an antidote",
+      "b_useful_reason": "Administering an antidote treats the patients."
     },
     {
       "id": "boat",
@@ -119,22 +154,32 @@
       "good_status": "calm",
       "bad_status": "stormy",
       "body": "The dockmaster held the boat key while people watched the distant shore. From the jetty the water looked smooth, but the crew needed a reliable report before leaving. ",
-      "final_template": "The dockmaster handed the boat key to {recipient}."
+      "final_template": "The dockmaster handed the boat key to {recipient}.",
+      "cue_negative_verb": "was not",
+      "a_useful_status": "stormy",
+      "a_useful_reason": "Keeping the boat docked during a storm protects the crew.",
+      "b_useful_status": "calm",
+      "b_useful_reason": "Launching on calm water reaches the stranded families."
     },
     {
       "id": "bell",
       "a_action": "block",
       "a": "Nina",
       "b": "Tina",
-      "intro": "The town wanted to warn its families of attackers without raising a false alarm for friends. ",
+      "intro": "The town wanted its families warned of real attacks without panic over false alarms. ",
       "fact_a": "{name} planned to silence the warning bell. ",
       "fact_b": "{name} planned to ring the warning bell. ",
-      "cue_subject": "The approaching party",
+      "cue_subject": "The watch report",
       "cue_verb": "was",
-      "good_status": "allies",
-      "bad_status": "attackers",
-      "body": "The watchtower stood above the eastern lane. The keeper coiled the rope on a bench as the distant riders came closer through the mist. ",
-      "final_template": "The keeper handed the bell rope to {recipient}."
+      "good_status": "a real warning",
+      "bad_status": "a false alarm",
+      "body": "The watchtower stood above the eastern lane. The keeper coiled the rope on a bench as the scouts returned with a sealed report from the road. ",
+      "final_template": "The keeper handed the bell rope to {recipient}.",
+      "cue_negative_verb": "was not",
+      "a_useful_status": "a false alarm",
+      "a_useful_reason": "Silencing a false alarm prevents needless panic.",
+      "b_useful_status": "a real warning",
+      "b_useful_reason": "Ringing the bell warns families of a real attack."
     },
     {
       "id": "archive",
@@ -149,7 +194,12 @@
       "good_status": "genuine evidence",
       "bad_status": "a forgery",
       "body": "The archivist wrapped the book in cloth. Witnesses waited outside the records room, and the council would accept only one decision about what to do with it. ",
-      "final_template": "The archivist handed the ledger to {recipient}."
+      "final_template": "The archivist handed the ledger to {recipient}.",
+      "cue_negative_verb": "was not",
+      "a_useful_status": "a forgery",
+      "a_useful_reason": "Sealing a forgery keeps it from misleading the hearing.",
+      "b_useful_status": "genuine evidence",
+      "b_useful_reason": "Publishing genuine evidence gives the hearing a truthful record."
     },
     {
       "id": "lantern",
@@ -164,7 +214,12 @@
       "good_status": "a rescue boat",
       "bad_status": "an enemy boat",
       "body": "The keeper brought the working lantern to the signal post. Fog covered the channel, and everyone waited for word about the vessel moving beyond the rocks. ",
-      "final_template": "The keeper handed the lantern to {recipient}."
+      "final_template": "The keeper handed the lantern to {recipient}.",
+      "cue_negative_verb": "was not",
+      "a_useful_status": "an enemy boat",
+      "a_useful_reason": "Hiding the lantern keeps enemies from finding the landing.",
+      "b_useful_status": "a rescue boat",
+      "b_useful_reason": "Lighting the lantern guides a rescue boat to shore."
     },
     {
       "id": "seeds",
@@ -179,7 +234,12 @@
       "good_status": "healthy",
       "bad_status": "blighted",
       "body": "The steward brought a single pouch from storage. The fields had been cleared, and the growers waited beside the beds with their tools. ",
-      "final_template": "The steward handed the seed pouch to {recipient}."
+      "final_template": "The steward handed the seed pouch to {recipient}.",
+      "cue_negative_verb": "were not",
+      "a_useful_status": "blighted",
+      "a_useful_reason": "Discarding blighted seeds protects the crop.",
+      "b_useful_status": "healthy",
+      "b_useful_reason": "Sowing healthy seeds supports a healthy crop."
     }
   ]
 }

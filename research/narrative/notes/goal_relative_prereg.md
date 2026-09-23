@@ -23,11 +23,14 @@ plan allows a shipment, signal, visitor or route through and B's blocks it.
 In six, A's plan blocks an item or action and B's allows it. Each story states
 a stable group goal, the workers' two fixed plans, a circumstance about the
 relevant item, a common sequence of events, a neutral bridge, and a final
-handover to one worker. World 0 always makes A's plan useful and world 1 B's:
-the affirmed item status is favorable in world 0 for the allow-A stories and
-unfavorable in world 0 for the block-A stories. Thus the same worker plan
-changes from goal-serving to goal-frustrating across worlds, while the action
-polarity is counterbalanced over domains.
+handover to one worker. Each grid row records `a_useful_status` and
+`b_useful_status`, with a sentence explaining why each plan serves the stated
+goal under that status. The scorer asserts that these are the two distinct
+statuses in the story, then derives world 0 from `a_useful_status` and world 1
+from `b_useful_status`. A plan's mechanical allow/block label never sets the
+world orientation. Six A-useful statuses have favorable valence and six have
+unfavorable valence. The same worker plan changes from goal-serving to
+goal-frustrating across worlds, while action polarity is balanced over domains.
 
 The circumstance has two sentences: an affirmative statement that the item
 *is* status X, and a negative statement that it is *not* status Y. Reversing
@@ -85,9 +88,22 @@ synthetic shared-signal and noise calibration, and the following nulls:
   yield a zero interaction.
 
 These bags do not exhaust lexical shortcuts. A reader who identifies the
-affirmed status and knows whether A allows or blocks the item can solve the
-grid without a reusable story-shape coordinate. Treat that symbolic rule as
+affirmed status and its goal relation to each fixed plan can solve the grid
+without a reusable story-shape coordinate. Treat that symbolic rule as
 a design ceiling of 1.0, not as measured model evidence.
+
+## Pre-extraction amendment after adversarial review
+
+The first grid commit (`38fa04d`) mislabeled bell: silencing a warning during
+an actual attack frustrates the stated goal. Bell now pits a real warning
+against a false alarm, so silencing serves the goal only for a false alarm.
+Every domain now declares the useful status for **both** plans and gives a
+reason tied to the story's goal. World orientation follows those declarations.
+Cue verbs were also made grammatical for both statuses (for example,
+"contained an antidote" and "did not contain a toxin"). These edits preceded
+token preflight, activation extraction and scoring; all decision criteria
+above are unchanged. The reason strings are human-auditable semantic
+annotations, while code checks their completeness and opposing orientation.
 
 ## Prediction and decision
 
