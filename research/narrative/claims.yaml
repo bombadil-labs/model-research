@@ -317,3 +317,11 @@ claims:
     where: notes/fact_flip_twohop_result.md
     pre_registered: true
     superseded_by: null
+
+  - id: goal-route-cross-behavior
+    claim: The instruction-tuned model's plan preference jointly tracks the requested destination and two-link route facts when either factor changes across early and late tellings.
+    status: open
+    evidence: "Pre-registered eight-domain goal × route-fact crossing; no scores on the new grid yet."
+    where: notes/goal_route_cross_prereg.md
+    pre_registered: true
+    superseded_by: null
