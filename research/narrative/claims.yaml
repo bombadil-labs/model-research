@@ -279,9 +279,9 @@ claims:
     superseded_by: null
 
   - id: fixed-plan-circumstance-transfer
-    claim: A final-event direction for which fixed plan serves a stable goal transfers across held-out stories when both plan-fact order and circumstance-cue order change.
-    status: falsified
-    evidence: "12 stories · registered double-order transfer 0.600, below the 0.700 gate; permutation p 0.104 and random-direction margin 0.100, both fail their gates; exact and bag controls 0.500"
+    claim: The final-event fixed-plan interaction has a weak positive held-out score across both order changes in this controlled grid.
+    status: narrowed
+    evidence: "12 stories · double-order transfer 0.600 (CI 0.519–0.681), but permutation p 0.104 and random-direction margin 0.100; the registered positive gate is not met"
     where: notes/goal_relative_result.md
     pre_registered: true
     superseded_by: null

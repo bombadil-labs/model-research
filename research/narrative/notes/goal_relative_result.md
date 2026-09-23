@@ -84,7 +84,10 @@ formats gives a 1,000-draw mean near zero and upper-tail p **0.001**.
 That correspondence is not specific to the goal-relative interaction. The
 same analysis gives **0.859** for the world main effect and **0.310** for the
 recipient main effect. General story identity and surface content can preserve
-a domain similarity pattern across tellings. The [diagnostic artifact](../results/goal_relative_rdm_exploratory.json)
+a domain similarity pattern across tellings. This distance matrix also stays
+unchanged if an entire format's directions rotate together or reverse sign;
+its correlation cannot test whether the role direction keeps its orientation
+across formats. The [diagnostic artifact](../results/goal_relative_rdm_exploratory.json)
 records its code and source-activation digests. This pattern motivates a
 fresh, controlled geometry test; it does not rescue the failed registered
 readout or establish a narrative shape.
