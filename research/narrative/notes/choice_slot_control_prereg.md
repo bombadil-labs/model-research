@@ -89,6 +89,9 @@ Three unpatched readout arms are reported on **both** target batteries:
   names and orders of each source domain, refit, then score the unchanged
   targets. Report the upper-tail p, null mean and 95th percentile. This is
   the causal-label null for the fitted readout, not a random text baseline.
+  Its minimum possible one-sided p is 1/256: globally reversing the source
+  direction reverses the target cosine, unlike the source-within-source
+  test, which reversed both sides and had a 2/256 floor.
 
 All activations are from **unpatched** forwards. A patching battery, if
 subsequently run, will add treatment, matched random and no-patch arms,
@@ -100,18 +103,43 @@ telling means, both name and order halves, all six blocks, repeat noise,
 goal-length split, and source-route reference +0.171 at block 24. No layer,
 domain, name, telling or order is selected from these results.
 
+The same saved states provide **within-target references**, with no extra
+forwards. Separately in each target battery, for held-out domain `d` and
+target telling `t`, fit the unit direction on the other three domains in
+the **opposite telling**, averaging over both names and orders, then score
+the held-out domain's four unit interactions. Report the four-domain mean,
+per-domain values, both telling directions and full curve. Also fit on all
+four property domains and project onto each of the eight route domains,
+reporting the reverse property→route curve and per-domain block-24 values.
+The within-target references distinguish a poor target instrument from a
+task-specific direction. A four-domain exact sign test has minimum p 2/16,
+so it is not used as a .05 gate; report a domain bootstrap and the same
+random-direction calibration instead.
+
 ## Reading rules
 
+Treat within-property transfer as **resolved** only if its block-24 mean is
+at least +0.05, its four-domain bootstrap lower bound is above zero, and at
+least three of four held-out domains are positive. The +0.05 is fixed above
+the pilot's random-direction 95th percentile (+0.0093 at block 24); this
+is a screen for a usable internal reference, not a significance claim.
+
 Call the route signal **compatible with a generic two-option answer slot**
-if the unrelated property battery is behaviorally eligible and readable,
-has block-24 mean ≥+0.0855 (half the previous route transfer), exact source
-orientation p≤.05, bootstrap lower bound >0, and ≥3/4 target domains have
-positive means. The direct-route battery must also be reported: positive
-direct transfer with weak property transfer would show transfer within the
-route family but would not prove a graph operator. If both controls are
-weak, the pilot remains a candidate route-specific signal, limited by task
-and question wording differences and four target domains. Any partial or
-mixed pattern is reported without forcing one of these readings.
+if the property battery is behaviorally eligible and readable, its internal
+reference is resolved, and route→property block-24 transfer is at least
+half the property-internal transfer, with source-orientation p≤.05 and a
+four-domain bootstrap lower bound >0. If within-property is resolved but
+route→property is less than half of it, call the observed code
+**task-dependent**, without claiming a two-link graph operator. If
+within-property is unresolved or behavioral eligibility fails, the property
+battery cannot adjudicate route specificity. Report direct-route transfer
+and its internal reference by the same measures: positive direct transfer
+with weak property transfer shows transfer within the route family, subject
+to the property's internal resolution. Any partial or mixed pattern is
+reported without forcing one of these readings. The prior +0.171 route
+reference came from opposite-telling leave-domain-out fitting, whereas the
+cross-task source direction here uses all eight domains and both tellings;
+it is context, not the decision denominator.
 
 This screen does not patch activations or demonstrate causality. An
 intervention is justified only after the target batteries and their
