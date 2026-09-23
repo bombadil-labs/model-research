@@ -44,6 +44,22 @@ def test_synthetic_interaction_transfers_across_domains_and_tellings():
     assert report["max_repeat_l2_by_block"] == [0] * len(module.BLOCKS)
 
 
+def test_exact_null_contains_unflipped_assignment_with_nonuniform_vectors():
+    stories, repeats, _, _ = module._cells()
+    saved = _states(stories, repeats)
+    domain_index = {stories[di * 32].domain: di for di in range(8)}
+    for cell in stories + repeats:
+        # Unequal domain and block weights expose differences in summation order.
+        vec = saved[cell.id].copy()
+        di = domain_index[cell.domain]
+        vec[:, 1] = (di + 1) * np.arange(1, len(module.BLOCKS) + 1) / 19
+        if cell.plan_order == 1:
+            vec[:, 2] = (cell.goal - cell.world) * (di + 1) / 31
+        saved[cell.id] = vec
+    report = module.analyze(stories, repeats, saved, n_boot=100, n_random=10)
+    assert report["exact_orientation_null"]["p_ge_observed"] >= 2 / 256
+
+
 def test_telling_sign_reversal_fails_directed_transfer():
     stories, repeats, _, _ = module._cells()
     saved = _states(stories, repeats, reverse_late=True)

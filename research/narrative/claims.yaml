@@ -325,3 +325,11 @@ claims:
     where: notes/goal_route_cross_result.md
     pre_registered: true
     superseded_by: null
+
+  - id: goal-route-choice-slot-transfer
+    claim: A first-listed-plan-oriented goal × route interaction at the final prompt token has positive residual-direction transfer across held-out domains and early/late tellings on the frozen route miniatures.
+    status: holds
+    evidence: "Gemma-2-9b-it block-16/24 mean cosine +0.0854; exact orientation p 2/256; domain CI +0.0660 to +0.1094; positive in 8/8 domains in both telling directions. Block 16 alone is null and block 24 carries the signal; causal role remains untested."
+    where: notes/goal_route_activation_pilot_result.md
+    pre_registered: true
+    superseded_by: null

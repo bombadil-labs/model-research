@@ -239,8 +239,11 @@ def analyze(stories: list[cross.Cell], repeats: list[cross.Cell], saved: dict,
     raw_observed = _transfer(raw_domain_means, np.ones(8))
     primary_domain_telling = observed[..., list(PRIMARY)].mean(axis=-1)
     primary_observed = float(primary_domain_telling.mean())
-    null = np.array([_transfer(domain_means, np.array(signs)).mean(axis=(0, 1))[
-                        list(PRIMARY)].mean()
+    # Use the identical reduction for observed and every null assignment.
+    # Changing the reduction order can put the identity assignment one ulp
+    # below observed and incorrectly report an impossible exact p of zero.
+    null = np.array([_transfer(domain_means, np.array(signs))[
+                        ..., list(PRIMARY)].mean()
                      for signs in itertools.product((-1, 1), repeat=8)])
     domain_scores = primary_domain_telling.mean(axis=1)
     rng = np.random.default_rng(SEED)
