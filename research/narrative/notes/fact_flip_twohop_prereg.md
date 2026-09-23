@@ -69,6 +69,18 @@ solver gets 8/8. Passing the model screen would establish composition of
 explicit route relations in these miniatures, not recognition of a broad
 narrative trope or a continuous latent shape.
 
+Adversarial review identified a possible semantic route prior before any
+score: `gallery hall` sounds nearer a reading room than a boiler room;
+`lower passage` may sound nearer a stage; `creek track` may sound nearer an
+orchard; `aft passage` may sound nearer an engine room. The grid freezes a
+subjective `prior_congruent_world` label: world 0 for library, world 1 for
+theater, orchard and ship, and `null` for the other four domains. Report
+correct-shift fraction separately for labelled versus neutral domains and,
+within labelled domains, strict choice accuracy in the prior-congruent versus
+prior-incongruent world. This split is descriptive, not a gate or a selected
+subset. The prior is constant across worlds, so it cannot by itself produce
+a correct paired shift, but it may make one world harder.
+
 ## Measurement and arms
 
 For each cell let `m = logp(name for plan A) − logp(name for plan B)` after
@@ -123,3 +135,14 @@ passes but strict choice reversals or generation do not, the conclusion is
 limited to fact-dependent movement of the forced-name score. No activation
 direction, causal intervention or high-dimensional story shape is claimed
 from this behavioral battery alone.
+
+## Pre-score review and tokenization amendment
+
+The first adversarial review found no gate-passing shortcut or ambiguous
+winner. It identified the possible route-semantic prior now labelled above;
+that stratification was frozen before scoring. Local tokenizer preflight then
+found unequal name-continuation token counts in the `aqueduct` direct control
+(`Asha` versus `Mina`). That pair was changed to `Dora` and `Mira`; no story
+domain, route fact, goal, plan verb or decision rule changed. All 192 unique
+score prompts then passed the equal-token and unchanged-prefix checks. No
+model forward was run before these amendments.

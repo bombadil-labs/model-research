@@ -15,7 +15,8 @@
       "links": ["cedar road", "birch road"],
       "target": "clinic",
       "foil": "granary",
-      "fact_order": [0, 0]
+      "fact_order": [0, 0],
+      "prior_congruent_world": null
     },
     {
       "id": "library",
@@ -26,7 +27,9 @@
       "links": ["gallery hall", "service hall"],
       "target": "reading room",
       "foil": "boiler room",
-      "fact_order": [0, 0]
+      "fact_order": [0, 0],
+      "prior_congruent_world": 0,
+      "prior_rationale": "A gallery hall sounds nearer a reading room; a service hall sounds nearer a boiler room."
     },
     {
       "id": "theater",
@@ -37,7 +40,9 @@
       "links": ["upper passage", "lower passage"],
       "target": "stage",
       "foil": "storeroom",
-      "fact_order": [0, 1]
+      "fact_order": [0, 1],
+      "prior_congruent_world": 1,
+      "prior_rationale": "A lower passage sounds nearer a stage; an upper passage sounds nearer a storeroom."
     },
     {
       "id": "orchard",
@@ -48,7 +53,9 @@
       "links": ["ridge track", "creek track"],
       "target": "orchard",
       "foil": "warehouse",
-      "fact_order": [0, 1]
+      "fact_order": [0, 1],
+      "prior_congruent_world": 1,
+      "prior_rationale": "A creek track sounds nearer an orchard; a ridge track sounds nearer a warehouse."
     },
     {
       "id": "shelter",
@@ -59,7 +66,8 @@
       "links": ["high pass", "low pass"],
       "target": "shelter",
       "foil": "quarry",
-      "fact_order": [1, 0]
+      "fact_order": [1, 0],
+      "prior_congruent_world": null
     },
     {
       "id": "museum",
@@ -70,7 +78,8 @@
       "links": ["north corridor", "south corridor"],
       "target": "restoration studio",
       "foil": "lobby",
-      "fact_order": [1, 0]
+      "fact_order": [1, 0],
+      "prior_congruent_world": null
     },
     {
       "id": "factory",
@@ -81,7 +90,8 @@
       "links": ["drying line", "packing line"],
       "target": "assembly bench",
       "foil": "waste chute",
-      "fact_order": [1, 1]
+      "fact_order": [1, 1],
+      "prior_congruent_world": null
     },
     {
       "id": "ship",
@@ -92,7 +102,9 @@
       "links": ["forward passage", "aft passage"],
       "target": "engine room",
       "foil": "galley",
-      "fact_order": [1, 1]
+      "fact_order": [1, 1],
+      "prior_congruent_world": 1,
+      "prior_rationale": "An aft passage sounds nearer an engine room than a forward passage."
     }
   ],
   "controls": [
@@ -128,7 +140,7 @@
     },
     {
       "id": "aqueduct",
-      "names": ["Asha", "Mina"],
+      "names": ["Dora", "Mira"],
       "setup": "A repair crew had a filter to deliver along an aqueduct. Only one member could carry it through the service tunnel. ",
       "goal": "The crew wanted the filter to reach the pump room before sunset. ",
       "routes": ["upper walkway", "lower walkway"],
