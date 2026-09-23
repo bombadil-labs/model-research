@@ -1,0 +1,70 @@
+{
+  "question": "Which person matches the requested property? Answer with the person's name only.",
+  "bridge_source": "goal_route_cross_v1.json:bridge",
+  "domains": [
+    {
+      "id": "ribbon",
+      "names": ["Ruby", "Skye"],
+      "setup": "A costume maker checked two ribbons. ",
+      "labels": ["green", "yellow"],
+      "fact_template": "{name} tied the {label} ribbon. ",
+      "goal_template": "The requested ribbon color was {label}. "
+    },
+    {
+      "id": "key",
+      "names": ["Dean", "Paul"],
+      "setup": "A locksmith checked two keys. ",
+      "labels": ["brass", "steel"],
+      "fact_template": "{name} carried the {label} key. ",
+      "goal_template": "The requested key material was {label}. "
+    },
+    {
+      "id": "parcel",
+      "names": ["Owen", "Evan"],
+      "setup": "A courier checked two parcels. ",
+      "labels": ["light", "heavy"],
+      "fact_template": "{name} lifted the {label} parcel. ",
+      "goal_template": "The requested parcel weight was {label}. "
+    },
+    {
+      "id": "tile",
+      "names": ["Hugo", "Levi"],
+      "setup": "A builder checked two tiles. ",
+      "labels": ["striped", "dotted"],
+      "fact_template": "{name} chose the {label} tile. ",
+      "goal_template": "The requested tile pattern was {label}. "
+    },
+    {
+      "id": "lantern",
+      "names": ["Lucy", "Vera"],
+      "setup": "A guide checked two lanterns. ",
+      "labels": ["bright", "dim"],
+      "fact_template": "{name} placed the {label} lantern. ",
+      "goal_template": "The requested lantern brightness was {label}. "
+    },
+    {
+      "id": "bottle",
+      "names": ["Ruth", "Beth"],
+      "setup": "A packer checked two bottles. ",
+      "labels": ["glass", "metal"],
+      "fact_template": "{name} packed the {label} bottle. ",
+      "goal_template": "The requested bottle material was {label}. "
+    },
+    {
+      "id": "stamp",
+      "names": ["Kyle", "Ryan"],
+      "setup": "A clerk checked two stamps. ",
+      "labels": ["new", "used"],
+      "fact_template": "{name} kept the {label} stamp. ",
+      "goal_template": "The requested stamp condition was {label}. "
+    },
+    {
+      "id": "scarf",
+      "names": ["Milo", "Theo"],
+      "setup": "A tailor checked two scarves. ",
+      "labels": ["wool", "silk"],
+      "fact_template": "{name} folded the {label} scarf. ",
+      "goal_template": "The requested scarf material was {label}. "
+    }
+  ]
+}

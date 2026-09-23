@@ -349,3 +349,11 @@ claims:
     where: notes/prequestion_route_state_prereg.md
     pre_registered: true
     superseded_by: null
+
+  - id: generic-choice-slot-replication
+    claim: The route-trained final-token interaction shares a direction with independent, behaviorally valid property-choice domains under a target-label orientation test.
+    status: open
+    evidence: "Eight new property domains and a target-domain world-label exact null frozen before any target score or activation."
+    where: notes/choice_slot_replication_prereg.md
+    pre_registered: true
+    superseded_by: null
