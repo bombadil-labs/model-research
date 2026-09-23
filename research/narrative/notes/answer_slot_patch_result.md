@@ -42,6 +42,14 @@ the four instrument gates. The p-value is at the 1/256 floor of this
 eight-domain one-sided exact test, with no non-identity tie at the observed
 value.
 
+The second random direction is positive in **8/8 domains**, so its own
+domain-sign test also reaches p=1/256. The sign test establishes a
+consistent first-mention bias; it does not by itself distinguish `u` from
+a random direction at this dose. The direction-specific evidence is the
+**about 12-fold effect magnitude** over the larger of only two Gaussian
+controls. Those controls do not calibrate the full space of plausible
+in-distribution directions.
+
 The +20u arm changes the first-mentioned candidate's log probability by
 an average **+0.152** nat and the alternative's by **−1.026**; the −20u
 arm changes them by −0.140 and +0.941. Thus most of the relative-margin
@@ -50,8 +58,13 @@ raising the first name. These are log probabilities, not isolated raw
 logits. The `+u` patch changes four of 64 top-name choices toward the
 first-mentioned person and changes none away. Two of those flips correct
 the answer and two make it wrong; accuracy stays **62/64** from the
-unpatched baseline. The direction is an answer-selection bias, not an
-accuracy-improving story edit.
+unpatched baseline. The baseline count is recoverable from the earlier
+[committed property-replication margins](../results/choice_slot_replication_v1_summary.json)
+at early telling and world 0: 32/32 plan-A-correct and 30/32
+plan-B-correct cells. The present report's `first_mention_choices` records
+the two corrected and two broken flips, yielding the same patched count.
+The direction is an answer-selection bias, not an accuracy-improving
+story edit.
 
 ## Measurement and scope
 
