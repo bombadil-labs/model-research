@@ -54,3 +54,12 @@ def test_items_are_the_committed_stimuli():
     assert len(rows) == 200
     assert sum(r["arm"] == "base" for r in rows) == 40
     assert all(r["text"].endswith(". I feel:") for r in rows)
+
+
+def test_cell_needs_its_positive_control():
+    cell = {"delta": 0.5, "p": 0.001, "clears_nulls": True, "network_contribution_ci": [0.1, 0.9],
+            "alpha_ci": [0.1, 0.9], "delta_D": 0.4, "p_D": 0.001}
+    assert sp.tracks_shame(cell, True)
+    assert not sp.tracks_shame(cell, False)
+    for k, bad in (("delta_D", -0.1), ("p_D", 0.2), ("alpha_ci", [-0.1, 0.9]), ("clears_nulls", False)):
+        assert not sp.tracks_shame({**cell, k: bad}, True)

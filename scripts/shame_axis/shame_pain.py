@@ -164,6 +164,14 @@ def alpha_fit(d: np.ndarray, dv: np.ndarray) -> tuple[float, float]:
     return float(a), float(b)
 
 
+def tracks_shame(cell: dict, positive_control_pass: bool) -> bool:
+    """The five frozen criteria, and the model's positive control (prereg, "Decision")."""
+    return bool(positive_control_pass
+                and cell["delta"] > 0 and cell["p"] <= .05 and cell["clears_nulls"]
+                and cell["network_contribution_ci"][0] > 0 and cell["alpha_ci"][0] > 0
+                and cell["delta_D"] > 0 and cell["p_D"] <= .05)
+
+
 def _hour64_stacks(key: str):
     """Core and control final-token stacks and the embed_mean core stack, digest-checked."""
     out = X.OUT / key
@@ -277,10 +285,8 @@ def analyze_model(key: str, rows, val) -> dict:
                     "alpha": al, "beta": be,
                     "alpha_ci": boot_ci(lambda ix: alpha_fit(dd[ix], dval[a][ix])[0], 40, rng),
                     "per_base_delta": dd.tolist()})
-                cell["tracks_shame"] = bool(
-                    cell["delta"] > 0 and cell["p"] <= .05 and cell["clears_nulls"]
-                    and cell["network_contribution_ci"][0] > 0 and cell["alpha_ci"][0] > 0
-                    and cell["delta_D"] > 0 and cell["p_D"] <= .05)
+                cell["dval_range"] = [float(dval[a].min()), float(dval[a].max())]
+                cell["tracks_shame"] = tracks_shame(cell, row["positive_control_pass"])
                 cells[a] = cell
         curve.append(row)
         print(f"  {key} L{L} done", flush=True)
