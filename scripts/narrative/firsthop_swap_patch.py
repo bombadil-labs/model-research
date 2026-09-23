@@ -224,6 +224,12 @@ def analyze(cells: list[cross.Cell], rows: dict, doc: dict,
              "six_positive_domains": primary["positive_domains"] >= 6,
              "ninety_six_positive_cells": primary["positive_cells"] >= 96,
              "twice_max_control": primary["mean"] > 2 * max_control}
+    instrument_names = ("core_scorer_equivalence", "row_zero_negative_refused",
+                        "zero_identity", "last_block_pass_through",
+                        "repeat_drift_at_most_0_02",
+                        "source_state_match_at_most_0_02",
+                        "flag_fraction_at_most_0_05")
+    instrument_ok = all(gates[name] for name in instrument_names)
     specific = all(gates.values())
     contrasts = {}
     contrast_gates = {}
@@ -232,6 +238,7 @@ def analyze(cells: list[cross.Cell], rows: dict, doc: dict,
                                     seed=SEED + j)
         contrasts[arm] = report
         contrast_gates[arm] = {
+            "instrument_ok": instrument_ok,
             "mean_at_least_0_10": report["mean"] >= .10,
             "exact_p": report["exact_null"]["p_ge_observed"] <= .05,
             "bootstrap_lower": report["domain_bootstrap"]["ci95"][0] > 0,
@@ -256,6 +263,8 @@ def analyze(cells: list[cross.Cell], rows: dict, doc: dict,
             "gate_components": gates,
             "secondary_binding_contrasts": contrasts,
             "secondary_contrast_gate_components": contrast_gates,
+            "secondary_contrast_screen": {arm: all(values.values())
+                                          for arm, values in contrast_gates.items()},
             "primary_full_effect": primary,
             "arm_effects": {arm: old._effect_report(effect, seed=SEED + 10 + i)
                             for i, (arm, effect) in enumerate(effects.items())},

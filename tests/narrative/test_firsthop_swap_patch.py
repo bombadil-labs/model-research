@@ -31,11 +31,12 @@ def _rows(cells, *, compression: bool):
     return rows
 
 
-def _report(compression: bool):
+def _report(compression: bool, *, instrument_ok: bool = True):
     cells, _, _ = grid.make_cells()
     doc = json.loads((grid.ROOT / "research/narrative/prompts/goal_route_cross_v1.json").read_text())
     return patch.analyze(cells, _rows(cells, compression=compression), doc,
-                         {"row_zero_only_refused": True}, {"shortest": 0.0},
+                         {"row_zero_only_refused": True},
+                         {"shortest": 0.0 if instrument_ok else 0.1},
                          {c.domain: 0.0 for c in cells}, {}, {}, {})
 
 
@@ -53,3 +54,9 @@ def test_shared_compression_fails_specificity_and_choice():
     assert not report["gate_components"]["twice_max_control"]
     assert not report["specific_margin_screen"]
     assert not report["choice_redirection_screen"]
+
+
+def test_secondary_contrasts_refuse_failed_instrument():
+    report = _report(compression=False, instrument_ok=False)
+    assert not report["specific_margin_screen"]
+    assert not any(report["secondary_contrast_screen"].values())
