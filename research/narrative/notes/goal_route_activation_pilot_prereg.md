@@ -18,12 +18,22 @@ deployment metadata, tokenizer snapshot, library versions, grid/code digests,
 and the six block indices. NDIF exposes no weight revision hash.
 
 Let `h(w,g)` be that vector for a fixed domain, telling, name assignment,
-plan order and layer. Form the directed factorial interaction
+plan order and layer. Form the raw factorial interaction
 
-`I = h(0,0) − h(0,1) − h(1,0) + h(1,1)`.
+`I_A = h(0,0) − h(0,1) − h(1,0) + h(1,1)`.
 
-Its sign is oriented so the A-owner is correct in `(0,0)` and `(1,1)`.
-Normalize each nonzero `I` to unit length before fitting. A goal-only or
+The sign of `I_A` means that the plan-A owner is correct in `(0,0)` and
+`(1,1)`, but the A-owner has no common name or sentence position across
+domains. Before fitting, orient each interaction to the **first-listed
+plan's owner**: `I_first = I_A` for plan order 0 and `I_first = −I_A`
+for plan order 1. Average and score unit-normalized `I_first`. This gives
+the direction a cross-domain referent while name assignment remains
+balanced. Report the otherwise identical transfer statistic from raw
+`I_A` beside it as an expected-null check; a strong raw signal would need
+its own explanation. A positive `I_first` signal would be a shared
+choice-slot code, not a two-link relation operator.
+
+Normalize each nonzero interaction to unit length before fitting. A goal-only or
 world-only *additive* state cancels exactly. The full-text word-bag and
 last-200-character interaction vectors must be computed and reported; both
 are expected to be zero. These are surface nulls, not evidence that the
@@ -33,9 +43,9 @@ model's residual has the same property.
 
 For each held-out domain `d` and target telling `t`, fit a direction from
 the **other seven domains in the opposite telling**: average their unit
-interaction vectors over both name assignments and both plan orders, then
+`I_first` vectors over both name assignments and both plan orders, then
 unit-normalize that mean. Score the held-out domain's four individual
-name×plan interaction vectors in telling `t` by cosine with the fitted
+name×plan `I_first` vectors in telling `t` by cosine with the fitted
 direction. Average the four cosines per `(d,t)`, then average over the
 eight domains and two target tellings. This is the primary directed transfer
 statistic; a representation that flips sign under telling order scores
@@ -51,6 +61,13 @@ held-out domain. Bootstrap the eight fixed domain-level scores for 10,000
 draws and report the 95% interval. Also compare with 1,000 seeded random
 unit directions per block (a zero-centered calibration, not a second
 selection rule).
+
+Tokenizer preflight before any activation extraction found equal goal-0
+and goal-1 prompt lengths in clinic, library, orchard, factory and ship;
+goal 1 is one token longer in theater and shelter and one shorter in
+museum. Report the primary domain score separately for the five
+length-matched and three length-changed domains. This is a descriptive
+position confound audit, not a gate or a selected subset.
 
 ## Measurement checks and decision
 
@@ -78,7 +95,8 @@ block-16/24 mean transfer is positive, exact upper-tail p ≤0.05, its
 domain-bootstrap 95% lower bound >0, and each telling direction has
 positive domain-mean transfer in at least six of eight held-out domains.
 Report failures and all controls regardless. Passing would show that a
-directed interaction in the residual transfers across these miniature
-stories and tellings. It would not show that this interaction causes the
-model's choice, is a plot component, or extends to full stories. Those
+first-listed-plan choice interaction in the residual transfers across these
+miniature stories and tellings. It would not show that this interaction
+causes the model's choice, is a two-link graph operator or plot component,
+or extends to full stories. Those
 require a held-out intervention and a larger, independent domain set.

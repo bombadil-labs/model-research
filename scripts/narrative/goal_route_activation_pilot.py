@@ -101,6 +101,21 @@ def _validate_final_tokens(rlm, cells: list[cross.Cell], question: str) -> None:
             raise ValueError(f"four-cell final text differs: {four[0].id}")
 
 
+def _goal_length_deltas(rlm, stories: list[cross.Cell], question: str) -> list[int]:
+    from lsx.core.remote import strip_template_bos
+
+    tok = rlm.tok
+    out = []
+    for di in range(8):
+        pair = stories[di * 32:di * 32 + 2]
+        lengths = [len(tok(strip_template_bos(tok, cross.base.render(rlm, c, question)),
+                           add_special_tokens=True)["input_ids"]) for c in pair]
+        out.append(lengths[1] - lengths[0])
+    if out != [0, 0, 1, 0, 1, -1, 0, 0]:
+        raise ValueError(f"frozen goal-token length audit changed: {out}")
+    return out
+
+
 def _extract_one(rlm, prompt: str) -> np.ndarray:
     import torch
     from lsx.core.remote import _encode, assert_single_bos
@@ -199,8 +214,12 @@ def analyze(stories: list[cross.Cell], repeats: list[cross.Cell], saved: dict,
     hidden = next(iter(saved.values())).shape[-1]
     h = np.stack([saved[c.id] for c in stories]).reshape(
         8, 2, 2, 2, 2, 2, len(BLOCKS), hidden).astype(np.float64)
-    interaction = h[..., 0, 0, :, :] - h[..., 0, 1, :, :] - h[..., 1, 0, :, :] + h[..., 1, 1, :, :]
-    # [domain,telling,name,plan,block,hidden]
+    raw_interaction = (h[..., 0, 0, :, :] - h[..., 0, 1, :, :] -
+                       h[..., 1, 0, :, :] + h[..., 1, 1, :, :])
+    # [domain,telling,name,plan,block,hidden]. The A-owner has no shared
+    # cross-domain identity; orient to the first-listed plan's owner.
+    plan_sign = np.array([1.0, -1.0])[None, None, None, :, None, None]
+    interaction = raw_interaction * plan_sign
     norms = np.linalg.norm(interaction, axis=-1)
     drift = np.stack([saved[rep.id] - saved[stories[di * 32].id]
                       for di, rep in enumerate(repeats)])
@@ -216,6 +235,8 @@ def analyze(stories: list[cross.Cell], repeats: list[cross.Cell], saved: dict,
                      where=norms[..., None] > 0)
     domain_means = unit.mean(axis=(2, 3))
     observed = _transfer(domain_means, np.ones(8))
+    raw_domain_means = (unit * plan_sign).mean(axis=(2, 3))
+    raw_observed = _transfer(raw_domain_means, np.ones(8))
     primary_domain_telling = observed[..., list(PRIMARY)].mean(axis=-1)
     primary_observed = float(primary_domain_telling.mean())
     null = np.array([_transfer(domain_means, np.array(signs)).mean(axis=(0, 1))[
@@ -249,6 +270,8 @@ def analyze(stories: list[cross.Cell], repeats: list[cross.Cell], saved: dict,
             "repeat_to_interaction_ratio_by_block": repeat_ratio.tolist(),
             "unresolved_interactions_by_block": unresolved.tolist(),
             "transfer_curve": observed.mean(axis=(0, 1)).tolist(),
+            "raw_a_oriented_transfer_curve": raw_observed.mean(axis=(0, 1)).tolist(),
+            "raw_a_oriented_primary_mean": float(raw_observed[..., list(PRIMARY)].mean()),
             "transfer_by_target_telling": observed.mean(axis=0).tolist(),
             "transfer_by_domain_telling": observed.tolist(),
             "primary_mean_cosine": primary_observed,
@@ -277,6 +300,7 @@ def main() -> None:
     if not ref.exists() or ref.read_text().strip() != cross.TOKENIZER_REVISION:
         raise ValueError("local tokenizer ref changed")
     _validate_final_tokens(rlm, stories, doc["question"])
+    goal_length_deltas = _goal_length_deltas(rlm, stories, doc["question"])
     surface = _surface_nulls(stories)
     hidden = int(rlm.model.config.hidden_size)
     all_cells = stories + repeats
@@ -302,6 +326,13 @@ def main() -> None:
             print(f"extracted {cell.id}", flush=True)
         saved[cell.id] = arr
     result = analyze(stories, repeats, saved)
+    domain_scores = np.asarray(result["primary_domain_telling"]).mean(axis=1)
+    same_length = [i for i, delta in enumerate(goal_length_deltas) if delta == 0]
+    changed_length = [i for i, delta in enumerate(goal_length_deltas) if delta != 0]
+    result["goal_token_length_audit"] = {
+        "goal_1_minus_goal_0_by_domain": goal_length_deltas,
+        "same_length_domain_mean": float(domain_scores[same_length].mean()),
+        "changed_length_domain_mean": float(domain_scores[changed_length].mean())}
     result.update({"model_checkpoint": cross.MODEL,
                    "deployment_weight_revision": None,
                    "deployment_revision_note": "NDIF reports pinned but exposes no weight revision hash",
