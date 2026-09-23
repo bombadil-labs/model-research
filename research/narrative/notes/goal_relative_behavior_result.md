@@ -37,6 +37,14 @@ The world-switch permutation mean is 0.503 and 95th percentile 0.604 over
 cannot produce a world contrast. The no-cue repeated prompts agree exactly,
 so the run is deterministic at the measured resolution.
 
+The two easy-example margins contain a small content signal: expressed as
+`logp(Mara) − logp(Lena)`, they are +0.922 when Mara delivers food and +0.078
+when Lena delivers it. Their average is a +0.500 name prior for Mara; half
+their difference is a +0.422 effect in the correct direction for the
+deliverer. On this pair, the cloze responds to the plan but the name prior
+overrides it in one order. A name-balanced or paired-contrast elicitor is the
+next instrument to test.
+
 **The registered behavioral-capacity gate fails at its sensitivity control.**
 The second easy example's margin is close to zero but points to the wrong
 name. Consequently, the story scores are descriptive and cannot tell us
