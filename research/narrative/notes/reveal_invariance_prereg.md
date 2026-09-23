@@ -79,6 +79,14 @@ calibration, and these null arms:
 - **Local and bag:** construct character-trigram vectors from the actual final
   200 characters and full-passage word-count vectors from the actual texts.
   Their world-by-recipient interactions must score 0.5 under the same rule.
+- **Recipient-clause bag:** find the reveal clause containing the final
+  recipient's name using text alone, build its word-count vector, and score its
+  interaction with the same held-out cross-format rule. This exposes the
+  design's lexical ceiling: every clause uses explicit helpful or harmful
+  language. Its expected score is high. Text-only preflight before any
+  activation extraction scores 0.875, below perfection because the twelve
+  stories use different wording. A model result at or below this arm cannot
+  support a claim beyond entity-to-attribute binding.
 
 The pre-reveal null is deliberately **not** invariant between telling times:
 the early telling has already stated the role facts at that story point, while
@@ -93,8 +101,10 @@ exceeds random-direction mean by at least 0.15, has permutation p at most 0.05,
 and has a domain-bootstrap 95% lower endpoint above 0.5. All four doubly
 transformed transfers and both mechanism halves must individually exceed 0.5.
 Passing would establish a format-tolerant context-by-recipient interaction in
-these constructed stories. It would not establish a Hero's Journey manifold,
-natural-story generalization, causal control or a decomposition operator.
+these constructed stories, with the recipient-clause bag as its explicit
+lexical ceiling. It would not establish goal-relative plot understanding, a
+Hero's Journey manifold, natural-story generalization, causal control or a
+decomposition operator.
 Failure would show that this corpus and readout still depend on the telling
 format at the registered resolution. Either outcome is compared against the
 earlier order-reversal failure rather than silently pooling the two formats.
