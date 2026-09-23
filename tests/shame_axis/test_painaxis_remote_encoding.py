@@ -97,7 +97,7 @@ def test_extract_pooled_threads_the_flag_to_every_encode(monkeypatch):
     rlm = StubRLM()
     seen = []
 
-    def fake_job(r, texts, *, add_special_tokens=True):
+    def fake_job(r, texts, *, add_special_tokens=True, layers=None):
         seen.append(("job", add_special_tokens, len(texts)))
         n, d = len(texts), 4
         return {"final_token": np.ones((n, 2, d), dtype=np.float32),

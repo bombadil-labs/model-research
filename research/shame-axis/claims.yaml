@@ -27,9 +27,15 @@ claims:
 
   - id: floor-self-other
     claim: What the network adds over a bag of static embeddings is the self/other boundary.
-    status: holds
-    evidence: "h53 · all 11 self-directed categories gain, all 5 vicarious lose — 16 of 16 by sign"
-    where: notes/painaxis_scenarios.md
+    status: narrowed
+    evidence: >-
+      h53: all 11 self-directed categories gain, all 5 vicarious lose, 16 of 16 by sign; the sign
+      pattern stands. h64: the self-vs-vicarious split on the pain axis clears random-direction
+      and shuffled-label nulls in 1 of 8 model x rendering cells (Gemma-2-2B base and instruct,
+      Llama-3.1-70B base and instruct), and not on gemma-2-9b-it (exploratory: +1.15 vs random
+      q95 1.27). Self and vicarious turns separate along almost any direction (probe AUC >= 0.997
+      everywhere), so the split is not specific to the pain axis.
+    where: notes/crossmodel_result.md
     pre_registered: false
     superseded_by: null
 
@@ -220,5 +226,20 @@ claims:
       sign of alpha on tier A but never beyond the largest random direction at any |alpha| (r2: -0.28
       vs 0.36 at 0.2); tier B flat; tier N inside the band. Correlate, not cause, at doses to 0.2 ||h||.
     where: notes/r2_rescore_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: self-other-instilled-by-post-training
+    claim: >-
+      Post-training raises the network's self/other contribution on the pain axis over its base
+      model, in both families and both renderings (pre-registered prediction of "instilled").
+    status: falsified
+    evidence: >-
+      h64: delta_post +1.12 (Gemma raw), -0.11 (Gemma chat, CI spans 0), -1.44 and -1.40 (Llama
+      raw and chat, CIs exclude 0: post-training removes the split). All four models replicate
+      the paper at r >= 0.9996. Caveat recorded with it: the contributions mostly do not clear
+      their nulls, so by the frozen combined rule the comparison is mixed. The instilled
+      prediction fails its own criterion regardless.
+    where: notes/crossmodel_result.md
     pre_registered: true
     superseded_by: null
