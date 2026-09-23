@@ -333,3 +333,11 @@ claims:
     where: notes/goal_route_activation_pilot_result.md
     pre_registered: true
     superseded_by: null
+
+  - id: generic-choice-slot-explanation
+    claim: A generic two-person answer-slot direction is sufficient to explain the route-trained residual interaction's held-out transfer.
+    status: open
+    evidence: "Frozen direct-route and unrelated property-choice cross-task control; no target scores yet. A positive unrelated transfer at the registered threshold would support this explanation."
+    where: notes/choice_slot_control_prereg.md
+    pre_registered: true
+    superseded_by: null

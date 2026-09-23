@@ -1,0 +1,38 @@
+{
+  "question": "Which person matches the requested property? Answer with the person's name only.",
+  "bridge_source": "goal_route_cross_v1.json:bridge",
+  "domains": [
+    {
+      "id": "badge",
+      "names": ["Erin", "Tess"],
+      "setup": "A clerk checked two badges. ",
+      "labels": ["red", "blue"],
+      "fact_template": "{name} wore the {label} badge. ",
+      "goal_template": "The requested badge color was {label}. "
+    },
+    {
+      "id": "cup",
+      "names": ["Jade", "Rose"],
+      "setup": "A server checked two cups. ",
+      "labels": ["hot", "cold"],
+      "fact_template": "{name} held the {label} cup. ",
+      "goal_template": "The requested cup temperature was {label}. "
+    },
+    {
+      "id": "card",
+      "names": ["Elle", "June"],
+      "setup": "A sorter checked two cards. ",
+      "labels": ["round", "square"],
+      "fact_template": "{name} held the {label} card. ",
+      "goal_template": "The requested card shape was {label}. "
+    },
+    {
+      "id": "folder",
+      "names": ["Dora", "Mira"],
+      "setup": "An archivist checked two folders. ",
+      "labels": ["sealed", "open"],
+      "fact_template": "{name} carried the {label} folder. ",
+      "goal_template": "The requested folder state was {label}. "
+    }
+  ]
+}
