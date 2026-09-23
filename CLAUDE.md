@@ -78,10 +78,10 @@ what you resolved will report a line closed while its open problems run to a pag
 
 ## Conventions
 
-Do not open pull requests. Record negatives and confounds with the same care as positives;
-**retraction is a first-class operation** — withdraw in place, where the claim was made, with what
-replaced it. Never include a model identifier in a commit message, PR body, or any artifact pushed
-to the repository.
+Integrate finished work to `origin` by pull request. Record negatives and confounds with the same
+care as positives; **retraction is a first-class operation** — withdraw in place, where the claim
+was made, with what replaced it. Name the models that produced a result — checkpoint and revision —
+in its committed artifacts; a result without its model is not reproducible.
 
 Agents must not edit another line's `README.md`, `VISION.md`, `WRITEUP.md`, `ALGEBRA.md`, or any
 `docs/EXPERIMENTS.md` without being asked.
