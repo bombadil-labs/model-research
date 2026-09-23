@@ -558,7 +558,10 @@ def analyze(cells: list[cross.Cell], rows: dict, pair_metrics: dict,
              "six_positive_domains": primary["positive_domains"] >= 6,
              "ninety_six_positive_cells": primary["positive_cells"] >= 96,
              "twice_max_control": primary["mean"] > 2 * max_control}
-    matched_indices = [i for i, name in enumerate(token_audit)
+    domain_order = [cells[di * 16].domain for di in range(8)]
+    if set(domain_order) != set(token_audit):
+        raise ValueError("token audit and scored domain names differ")
+    matched_indices = [i for i, name in enumerate(domain_order)
                        if name in MATCHED]
     if len(matched_indices) != 5:
         raise ValueError("length-matched domain count changed")
