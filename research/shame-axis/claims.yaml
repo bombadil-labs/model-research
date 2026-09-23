@@ -90,9 +90,9 @@ claims:
   - id: shame-not-pain
     claim: The axis is better described as tracking shame than as tracking pain.
     status: open
-    evidence: "needs stimuli splitting self-directed aversiveness at matched valence"
-    where: docs/QUESTIONS.md
-    pre_registered: false
+    evidence: "Pre-registered test frozen: shame vs witness clauses at matched length on 40 paper base events (20 A1, 20 D), written blind by two model authors (0/80 cross-audit misclassifications each), read on the S2 pain axis of four models, with floors, nulls, a positive control and valence adjustment; decided per author on the two instruct models."
+    where: notes/shame_vs_pain_prereg.md
+    pre_registered: true
     superseded_by: null
 
   - id: exit-escalation
