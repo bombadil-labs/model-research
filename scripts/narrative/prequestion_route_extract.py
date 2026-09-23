@@ -155,13 +155,15 @@ def _extract_one(rlm, prompt: str, index: int,
             not 0 <= prebridge_index < index < ids.shape[1]):
         raise ValueError("invalid story-end position or padding")
     blocks = rlm.blocks
-    hidden = int(rlm.model.config.hidden_size)
+    model = rlm.model
+    hidden = int(model.config.hidden_size)
+    block_indices = tuple(pilot.BLOCKS)
 
     def build(backend):
-        with rlm.model.trace({"input_ids": ids, "attention_mask": mask},
-                             backend=backend) as tracer:
+        with model.trace({"input_ids": ids, "attention_mask": mask},
+                         backend=backend) as tracer:
             prebridge, story, final = [], [], []
-            for bi in pilot.BLOCKS:
+            for bi in block_indices:
                 o = blocks[bi].output
                 h = o if isinstance(o, torch.Tensor) else o[0]
                 prebridge.append(h[:, prebridge_index, :].float().reshape(-1, hidden)[-1].cpu())
