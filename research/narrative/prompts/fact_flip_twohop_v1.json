@@ -1,0 +1,140 @@
+{
+  "bridge": "A pause followed. People checked their bags, watched the changing light, and listened to footsteps nearby. Others waited for a decision without knowing which person would act. No one repeated the earlier conversation. Time moved slowly, and the ordinary work around them continued. At last, attention returned to the object they had kept aside. ",
+  "question": "Which person's plan delivers the item to the stated destination? Answer with the person's name only.",
+  "plan_template": "{name} planned to use the {route}. ",
+  "first_hop_template": "The {route} joined the {link}. ",
+  "second_hop_template": "The {link} led to the {destination}. ",
+  "direct_template": "The {route} led to the {destination}. ",
+  "domains": [
+    {
+      "id": "clinic",
+      "names": ["Mara", "Lena"],
+      "setup": "A courier team had to move a medicine crate through a quiet district. Two routes were open, but only one worker could carry it before dusk. ",
+      "goal": "The team wanted the medicine crate to reach the clinic before dusk. ",
+      "routes": ["north lane", "south lane"],
+      "links": ["cedar road", "birch road"],
+      "target": "clinic",
+      "foil": "granary",
+      "fact_order": [0, 0]
+    },
+    {
+      "id": "library",
+      "names": ["Anna", "Maya"],
+      "setup": "Two aides carried a restored manuscript through an old library. They had to choose one route through the building before the rooms closed. ",
+      "goal": "The aides wanted the restored manuscript to reach the reading room before closing. ",
+      "routes": ["east door", "west door"],
+      "links": ["gallery hall", "service hall"],
+      "target": "reading room",
+      "foil": "boiler room",
+      "fact_order": [0, 0]
+    },
+    {
+      "id": "theater",
+      "names": ["Nina", "Tina"],
+      "setup": "A crew had one stage prop to move through a theater. The show was approaching, and only one crew member could take the prop. ",
+      "goal": "The crew wanted the stage prop to reach the stage before the curtain rose. ",
+      "routes": ["blue stair", "green stair"],
+      "links": ["upper passage", "lower passage"],
+      "target": "stage",
+      "foil": "storeroom",
+      "fact_order": [0, 1]
+    },
+    {
+      "id": "orchard",
+      "names": ["Kate", "Rosa"],
+      "setup": "Farm workers had a water barrel to move before the afternoon heat. Only one worker could take a route with the barrel. ",
+      "goal": "The workers wanted the water barrel to reach the orchard before the heat. ",
+      "routes": ["stone path", "gravel path"],
+      "links": ["ridge track", "creek track"],
+      "target": "orchard",
+      "foil": "warehouse",
+      "fact_order": [0, 1]
+    },
+    {
+      "id": "shelter",
+      "names": ["Iris", "Nora"],
+      "setup": "Rescuers had a blanket bundle to carry through the hills. Both routes were walkable, but only one rescuer could leave before nightfall. ",
+      "goal": "The rescuers wanted the blanket bundle to reach the shelter before dark. ",
+      "routes": ["river trail", "pine trail"],
+      "links": ["high pass", "low pass"],
+      "target": "shelter",
+      "foil": "quarry",
+      "fact_order": [1, 0]
+    },
+    {
+      "id": "museum",
+      "names": ["Amir", "Omar"],
+      "setup": "Museum workers had a picture frame to move before visitors arrived. The workers had to choose one elevator route. ",
+      "goal": "The workers wanted the picture frame to reach the restoration studio before opening. ",
+      "routes": ["brass elevator", "glass elevator"],
+      "links": ["north corridor", "south corridor"],
+      "target": "restoration studio",
+      "foil": "lobby",
+      "fact_order": [1, 0]
+    },
+    {
+      "id": "factory",
+      "names": ["Noah", "Liam"],
+      "setup": "Factory workers had a spare gear to move through the plant. The shift ended soon, and one worker had to choose a conveyor route. ",
+      "goal": "The workers wanted the spare gear to reach the assembly bench before the shift ended. ",
+      "routes": ["red conveyor", "gray conveyor"],
+      "links": ["drying line", "packing line"],
+      "target": "assembly bench",
+      "foil": "waste chute",
+      "fact_order": [1, 1]
+    },
+    {
+      "id": "ship",
+      "names": ["Sara", "Leah"],
+      "setup": "A ship's crew had a replacement valve to carry below deck. The repair could wait for only one messenger to return. ",
+      "goal": "The crew wanted the replacement valve to reach the engine room before the next watch. ",
+      "routes": ["port hatch", "starboard hatch"],
+      "links": ["forward passage", "aft passage"],
+      "target": "engine room",
+      "foil": "galley",
+      "fact_order": [1, 1]
+    }
+  ],
+  "controls": [
+    {
+      "id": "post",
+      "names": ["Erin", "Tess"],
+      "setup": "Postal workers had a parcel to carry through a distribution building. They had to choose one belt before the dispatch bell. ",
+      "goal": "The workers wanted the parcel to reach the sorting office before dispatch. ",
+      "routes": ["red belt", "blue belt"],
+      "target": "sorting office",
+      "foil": "loading dock",
+      "fact_order": 0
+    },
+    {
+      "id": "laboratory",
+      "names": ["Jade", "Rose"],
+      "setup": "Laboratory workers had a sample to carry through a research building. Only one worker could leave before the test began. ",
+      "goal": "The workers wanted the sample to reach the cold tank before the test. ",
+      "routes": ["upper hall", "lower hall"],
+      "target": "cold tank",
+      "foil": "wash station",
+      "fact_order": 0
+    },
+    {
+      "id": "farmstore",
+      "names": ["Elle", "June"],
+      "setup": "Farm hands had a seed sack to carry across a yard. There was time for only one trip before rain began. ",
+      "goal": "The hands wanted the seed sack to reach the silo before the rain. ",
+      "routes": ["left track", "right track"],
+      "target": "silo",
+      "foil": "shed",
+      "fact_order": 1
+    },
+    {
+      "id": "aqueduct",
+      "names": ["Asha", "Mina"],
+      "setup": "A repair crew had a filter to deliver along an aqueduct. Only one member could carry it through the service tunnel. ",
+      "goal": "The crew wanted the filter to reach the pump room before sunset. ",
+      "routes": ["upper walkway", "lower walkway"],
+      "target": "pump room",
+      "foil": "storage bay",
+      "fact_order": 1
+    }
+  ]
+}

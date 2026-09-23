@@ -309,3 +309,11 @@ claims:
     where: notes/goal_reversal_calibration_result.md
     pre_registered: true
     superseded_by: null
+
+  - id: twohop-fact-flip-behavior
+    claim: The instruction-tuned model changes its plan preference when a two-link route fact reverses the goal-reaching plan, across early and late tellings.
+    status: open
+    evidence: "Pre-registered eight-domain paired fact-flip screen; no model scores yet."
+    where: notes/fact_flip_twohop_prereg.md
+    pre_registered: true
+    superseded_by: null
