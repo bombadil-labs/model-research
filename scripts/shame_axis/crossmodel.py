@@ -132,7 +132,7 @@ def extract(key: str) -> None:
         from transformers import AutoModelForCausalLM
         tok = AutoTokenizer.from_pretrained(cfg["repo"])
         model = AutoModelForCausalLM.from_pretrained(cfg["repo"], torch_dtype=torch.bfloat16,
-                                                     device_map="cuda").eval()
+                                                     low_cpu_mem_usage=True).to("cuda").eval()
         layers = list(range(len(model.model.layers)))
         meta = {"device": "cuda", "dtype": "bfloat16", "torch": torch.__version__}
     else:

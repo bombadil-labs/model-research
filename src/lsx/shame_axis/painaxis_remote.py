@@ -132,8 +132,10 @@ def _pooled_job(rlm, texts: Sequence[str], *, add_special_tokens: bool = True,
                 o = blocks[i].output
                 # BY TYPE, never by index: `o[0]` is batch row 0 on a bare-tensor block (h36).
                 h = (o if isinstance(o, torch.Tensor) else o[0]).float()
-                fts.append(h[:, -1, :])
-                mns.append((h * w).sum(dim=1) / denom)
+                # A model sharded over several GPUs puts blocks on different devices; the mask
+                # follows each block's output. On one device this is a no-op.
+                fts.append(h[:, -1, :].to(eh.device))
+                mns.append(((h * w.to(h.device)).sum(dim=1) / denom.to(h.device)).to(eh.device))
             ft = torch.stack(fts, dim=1).save()
             mn = torch.stack(mns, dim=1).save()
         return tracer
