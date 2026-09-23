@@ -1,0 +1,279 @@
+{
+  "retries": 32,
+  "errors": [
+    {
+      "t": 1790117648.3202364,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 30
+    },
+    {
+      "t": 1790117901.051812,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-r",
+      "wait": 30
+    },
+    {
+      "t": 1790117939.3835037,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-r",
+      "wait": 30
+    },
+    {
+      "t": 1790117972.0422835,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 60
+    },
+    {
+      "t": 1790118034.6975884,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 120
+    },
+    {
+      "t": 1790118174.5362222,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-r",
+      "wait": 30
+    },
+    {
+      "t": 1790118207.205829,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 60
+    },
+    {
+      "t": 1790118270.1047063,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 120
+    },
+    {
+      "t": 1790118410.2415981,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-r",
+      "wait": 30
+    },
+    {
+      "t": 1790118443.0079668,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 60
+    },
+    {
+      "t": 1790118505.633094,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 120
+    },
+    {
+      "t": 1790118645.4492912,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-r",
+      "wait": 30
+    },
+    {
+      "t": 1790118678.0262733,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 60
+    },
+    {
+      "t": 1790118740.6388807,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 120
+    },
+    {
+      "t": 1790118883.8783848,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-r",
+      "wait": 30
+    },
+    {
+      "t": 1790118922.1527174,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-r",
+      "wait": 30
+    },
+    {
+      "t": 1790118954.7971914,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 60
+    },
+    {
+      "t": 1790119017.463202,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 120
+    },
+    {
+      "t": 1790119160.3780606,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-r",
+      "wait": 30
+    },
+    {
+      "t": 1790119198.8946145,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-r",
+      "wait": 30
+    },
+    {
+      "t": 1790119231.496599,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 60
+    },
+    {
+      "t": 1790120757.746447,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 30
+    },
+    {
+      "t": 1790120790.4409785,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 60
+    },
+    {
+      "t": 1790120853.0707383,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 120
+    },
+    {
+      "t": 1790120975.6517665,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 240
+    },
+    {
+      "t": 1790121218.551635,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 240
+    },
+    {
+      "t": 1790121461.198374,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 240
+    },
+    {
+      "t": 1790121703.7796562,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 240
+    },
+    {
+      "t": 1790121946.5799994,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 240
+    },
+    {
+      "t": 1790122189.2125835,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 240
+    },
+    {
+      "t": 1790122431.9110818,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 240
+    },
+    {
+      "t": 1790122674.6641042,
+      "type": "NNsightException",
+      "msg": "Traceback (most recent call last):\n  File \"/home/mykola/bombadil-labs/model-research-shame-axis/src/lsx/ndif.py\", line 45, in get_response\n    return self.handle_response(ResponseModel(**response.json()))\n\nRemoteException: Traceback (most recent call last):\n  File \"/u/svcndifuser/deployment/repos/nd",
+      "wait": 240
+    }
+  ],
+  "started": 1790117319.816964,
+  "sessions": [
+    {
+      "start": 1790117319.816965
+    },
+    {
+      "start": 1790122743.802839,
+      "end": 1790126963.6467912
+    }
+  ],
+  "reach_checks": [
+    {
+      "layer": 12,
+      "dir": "pain_s2_L12",
+      "chunk": 6,
+      "rows_moved": 6,
+      "batch": 6,
+      "alpha": 0.1
+    },
+    {
+      "layer": 12,
+      "dir": "pain_s2_L12",
+      "chunk": 3,
+      "rows_moved": 3,
+      "batch": 3,
+      "alpha": 0.1
+    },
+    {
+      "layer": 12,
+      "dir": "rand0",
+      "chunk": 6,
+      "rows_moved": 6,
+      "batch": 6,
+      "alpha": 0.1
+    },
+    {
+      "layer": 12,
+      "dir": "rand0",
+      "chunk": 3,
+      "rows_moved": 3,
+      "batch": 3,
+      "alpha": 0.1
+    },
+    {
+      "layer": 41,
+      "dir": "pain_s2_L12",
+      "chunk": 6,
+      "rows_moved": 6,
+      "batch": 6,
+      "alpha": 0.1
+    },
+    {
+      "layer": 41,
+      "dir": "pain_s2_L12",
+      "chunk": 3,
+      "rows_moved": 3,
+      "batch": 3,
+      "alpha": 0.1
+    },
+    {
+      "layer": 41,
+      "dir": "rand0",
+      "chunk": 6,
+      "rows_moved": 6,
+      "batch": 6,
+      "alpha": 0.1
+    },
+    {
+      "layer": 41,
+      "dir": "rand0",
+      "chunk": 3,
+      "rows_moved": 3,
+      "batch": 3,
+      "alpha": 0.1
+    }
+  ],
+  "scale_check": {
+    "item": "gaslight_01",
+    "cos": 0.999970588261796,
+    "remote_norm": 121.53650808339633,
+    "shard_norm": 121.54636243738122
+  }
+}
