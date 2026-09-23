@@ -176,14 +176,25 @@ def token_audit(tok) -> dict:
         if (x["prompt_length"], x["prebridge_index"],
                 x["prebridge_token_id"]) != (
                     y["prompt_length"], y["prebridge_index"],
-                    y["prebridge_token_id"]):
+                y["prebridge_token_id"]):
             raise ValueError(f"first-hop-order token mismatch: {cell.id}")
+    for di, name, world, goal in itertools.product(range(8), (0, 1),
+                                                    (0, 1), (0, 1)):
+        i = di * 16 + name * 8 + world * 2 + goal
+        a, b = stories[i], stories[i + 4]
+        x, y = locations[a.id], locations[b.id]
+        if (x["prompt_length"], x["prebridge_index"],
+                x["prebridge_token_id"]) != (
+                    y["prompt_length"], y["prebridge_index"],
+                    y["prebridge_token_id"]):
+            raise ValueError(f"plan-order token mismatch: {a.id}")
     return {"model_checkpoint": metadata["model_checkpoint"],
             "tokenizer_revision": metadata["tokenizer_revision"],
             "source_grid_sha256": metadata["source_grid_sha256"],
             "prompt_count": len(stories), "order_control_count": len(controls),
             "world_pairs_same_full_length_period_and_second_hop_ids": 64,
             "first_hop_order_pairs_same_full_length_and_period": 128,
+            "plan_order_pairs_same_full_length_and_period": 64,
             "max_prompt_tokens": max(x["prompt_length"] for x in locations.values()),
             "min_prompt_tokens": min(x["prompt_length"] for x in locations.values()),
             "grid_sha256": hashlib.sha256(GRID.read_bytes()).hexdigest(),
