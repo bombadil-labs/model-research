@@ -33,14 +33,32 @@ all target interactions were resolved.
 
 The direct-route transfer passes its measured readout gates. The property
 transfer is nearly as large as the property battery's own opposite-telling,
-leave-domain-out reference, and its four domains are all positive. But the
-registered **source-orientation** test does not reach p≤0.05 on property.
-The frozen reading is therefore **mixed or partial**. A generic answer-slot
-component is plausible and substantial, but this run does not establish that
-it is sufficient to explain the original route transfer. Nor does it
-establish a route-specific operator. The reverse property-trained direction
-projected onto the eight source route domains at +0.235, another descriptive
-sign of overlap with an asymmetric fitted direction.
+leave-domain-out reference, and its four domains are all positive. The
+registered **source-orientation** test does not reach p≤0.05 on property,
+so the frozen reading remains **mixed or partial**. Its failure is a poor
+reason to discount the property alignment, because this particular null has
+little power for fixed-target cross-task transfer:
+
+If all eight source domains share a direction `u`, flipping any zero to
+three source domains leaves the unit-normalized fitted mean pointing along
+`u`. That is `1 + 8 + 28 + 56 = 93` of the 256 assignments with essentially
+the observed target score, giving a null-tail floor near **93/256** in the
+homogeneous limit. The smaller observed tails (25/256 for property, 6/256
+for direct route) reflect heterogeneity among source domains as well as
+alignment. The source-flip p value does not cleanly test whether target
+alignment beats chance. This weakness was identified after scoring; the
+registered gate and reading are retained unchanged.
+
+The informative comparisons are the seeded random-direction arm and the
+within-property reference. Against a random-direction 95th percentile of
++0.020, the route-trained property alignment is +0.543, close to the
+property-internal +0.566. This is strong descriptive evidence for a
+**substantial task-general answer-slot component** at the final prompt
+token. The run does not show that this component is sufficient to explain
+all of the original route transfer, nor does it establish a route-specific
+operator. The reverse property-trained direction projected onto the eight
+source route domains at +0.235, another descriptive sign of overlap with
+an asymmetric fitted direction.
 
 | Block | 0 | 8 | 16 | 24 | 32 | 40 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -49,8 +67,8 @@ sign of overlap with an asymmetric fitted direction.
 | Within direct | +0.027 | +0.063 | +0.020 | +0.440 | +0.285 | +0.102 |
 | Within property | +0.089 | +0.015 | +0.048 | +0.566 | +0.330 | +0.082 |
 
-The block-24 route-trained values exceed the seeded random-direction 95th
-percentiles (+0.018 direct, +0.020 property). Both batteries had equal goal
+The direct-route block-24 value exceeds its seeded random-direction 95th
+percentile (+0.018). Both batteries had equal goal
 token lengths in all 32 quartets, so the length split has no changed-length
 subset. The property cross-task value was lower in the early target telling
 (+0.453) than the late telling (+0.634); the frozen analysis reports that
@@ -61,9 +79,12 @@ split without selecting one. The direct telling values were +0.460/+0.566.
 This is a readout comparison, with no activation patching. The final-token
 interaction looks much less route-specific than the earlier pilot alone
 suggested: an unrelated, behaviorally validated property task carries a
-closely aligned direction at the same block. The exact source-label null is
-the remaining limitation on the registered generic-slot conclusion, and a
-four-domain interval is descriptive over these constructed controls.
+closely aligned direction at the same block. The preregistered source-flip
+null is structurally weak for this question, while a four-domain interval
+describes only these constructed controls. A future cross-task replication
+should freeze more independent target domains and flip their world labels
+by domain in its null; with four target domains, an exact `2^4` test has a
+one-sided floor of 1/16, above 0.05.
 
 The next frozen test moves the readout to two locations **before the answer
 question**: just after the informative facts and after the long neutral

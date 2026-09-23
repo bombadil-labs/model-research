@@ -337,7 +337,7 @@ claims:
   - id: generic-choice-slot-explanation
     claim: A generic two-person answer-slot direction is sufficient to explain the route-trained residual interaction's held-out transfer.
     status: open
-    evidence: "Gemma-2-9b-it: route-trained block-24 direction transfers to direct route at +0.513 (source-orientation p 6/256) and unrelated property choice at +0.543, close to property's within-task +0.566. Property source-orientation p 25/256 misses the registered .05 gate, so the formal reading is mixed/partial and generic sufficiency remains open."
+    evidence: "Gemma-2-9b-it: route-trained block-24 direction transfers to direct route at +0.513 and unrelated property choice at +0.543, close to property's within-task +0.566 and far above random-direction q95 +0.020. The registered source-flip p is 25/256 for property and misses the gate, but this null is structurally weak for fixed-target transfer (93/256 assignments preserve a homogeneous source direction). Formal reading remains mixed/partial; a substantial generic component is supported, sufficiency remains open."
     where: notes/choice_slot_control_result.md
     pre_registered: true
     superseded_by: null
