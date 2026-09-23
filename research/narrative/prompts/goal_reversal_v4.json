@@ -1,0 +1,440 @@
+{
+  "bridge": "A pause followed. People checked their bags, watched the changing light, and listened to footsteps nearby. Others waited for a decision without knowing which person would act. No one repeated the earlier conversation. Time moved slowly, and the ordinary work around them continued. At last, attention returned to the object they had kept aside. ",
+  "question": "Which person's plan best serves the stated goal? Answer with the person's name only.",
+  "controls": [
+    {
+      "id": "bakery",
+      "names": [
+        "Anna",
+        "Maya"
+      ],
+      "setup": "A bakery had one electric oven in a room with an ice sculpture display. The oven was off. Switching it on would bake prepared bread but warm the room enough to melt the display before guests arrived. Only one setting could be kept this morning. ",
+      "goals": [
+        "The bakery's goal was to keep the ice sculptures intact until guests arrived. ",
+        "The bakery's goal was to bake the prepared bread before the morning delivery. "
+      ],
+      "plans": [
+        "{name} planned to leave the oven off. ",
+        "{name} planned to switch the oven on. "
+      ],
+      "reasons": [
+        "An off oven keeps the display cold.",
+        "An on oven bakes the bread."
+      ],
+      "plan_a_polarity": "withhold"
+    },
+    {
+      "id": "observatory",
+      "names": [
+        "Kate",
+        "Rosa"
+      ],
+      "setup": "A telescope sat under a sliding dome. The night sky was clear, but dust from nearby construction was blowing across the observatory. Opening the dome would give the telescope a view of the moon and let dust settle on its mirror. Closing it would block both. The dome had to stay in one position tonight. ",
+      "goals": [
+        "The observatory's goal was to observe the moon tonight. ",
+        "The observatory's goal was to keep construction dust off the telescope mirror. "
+      ],
+      "plans": [
+        "{name} planned to slide the dome open. ",
+        "{name} planned to leave the dome closed. "
+      ],
+      "reasons": [
+        "An open dome gives the telescope a view.",
+        "A closed dome blocks construction dust."
+      ],
+      "plan_a_polarity": "act"
+    },
+    {
+      "id": "records",
+      "names": [
+        "Nina",
+        "Tina"
+      ],
+      "setup": "A locked drawer held the only copy of a personnel file. It contained private contact details, and a hearing tomorrow needed the same file as evidence. Shredding it now would destroy that evidence permanently; leaving it locked would preserve the private details until the hearing. Only one decision could be made today. ",
+      "goals": [
+        "The office's goal was to keep the file available as evidence for tomorrow's hearing. ",
+        "The office's goal was to destroy the private contact details before anyone could copy them. "
+      ],
+      "plans": [
+        "{name} planned to leave the file in the locked drawer. ",
+        "{name} planned to shred the file. "
+      ],
+      "reasons": [
+        "Keeping the file preserves evidence.",
+        "Shredding destroys the private details."
+      ],
+      "plan_a_polarity": "withhold"
+    },
+    {
+      "id": "aquarium",
+      "names": [
+        "Mara",
+        "Lena"
+      ],
+      "setup": "A cat was prowling around an aquarium. The lid was closed. Opening it would let the keeper feed the fish but give the cat access to the water; leaving it closed would keep the cat out but postpone the feeding. The keeper had to choose before leaving. ",
+      "goals": [
+        "The keeper's goal was to feed the fish before leaving. ",
+        "The keeper's goal was to keep the cat away from the fish until returning. "
+      ],
+      "plans": [
+        "{name} planned to open the aquarium lid. ",
+        "{name} planned to leave the aquarium lid closed. "
+      ],
+      "reasons": [
+        "An open lid permits feeding.",
+        "A closed lid keeps the cat out."
+      ],
+      "plan_a_polarity": "act"
+    }
+  ],
+  "domains": [
+    {
+      "id": "testimony",
+      "names": [
+        "Mara",
+        "Lena"
+      ],
+      "setup": "A council report says the old footbridge is unsafe and includes the secret route of an aid convoy. The convoy already knows its route. The report is currently sealed; releasing it would warn travelers but also give raiders the convoy route. Only one handling decision can be made before the convoy leaves. ",
+      "goals": [
+        [
+          "The council's immediate goal was to keep travelers from using the unsafe bridge. ",
+          "Leaders wanted to protect residents from crossing the unsafe bridge. "
+        ],
+        [
+          "The council's immediate goal was to get the aid convoy's supplies into town without raider interception. ",
+          "Leaders wanted the medicine shipment to reach the clinic without giving pursuers its route. "
+        ]
+      ],
+      "plans": [
+        "{name} planned to publish the report. ",
+        "{name} planned to leave the report sealed. "
+      ],
+      "reasons": [
+        "Publication warns travelers about the unsafe bridge.",
+        "Keeping the route sealed avoids interception of the aid convoy."
+      ],
+      "plan_a_polarity": "act",
+      "goal_a_type": "protect",
+      "plan_a_semantic": "release"
+    },
+    {
+      "id": "beacon",
+      "names": [
+        "Anna",
+        "Maya"
+      ],
+      "setup": "A beacon at an inlet was dark. Lighting it would warn incoming vessels of a reef but would also reveal the inlet to a patrol searching the coast. A covert medicine boat had charts and could enter without the beacon. The choice had to last until dawn. ",
+      "goals": [
+        [
+          "The harbor crew's immediate goal was to keep incoming vessels from striking the reef. ",
+          "The harbor crew wanted to protect crews from the rocks near the inlet. "
+        ],
+        [
+          "The harbor crew's immediate goal was to bring the covert medicine boat into the inlet without patrol interference. ",
+          "The harbor crew wanted the medicine to come ashore without showing the cove to the patrol. "
+        ]
+      ],
+      "plans": [
+        "{name} planned to light the inlet beacon. ",
+        "{name} planned to leave the inlet beacon dark. "
+      ],
+      "reasons": [
+        "Lighting warns vessels of the reef.",
+        "Darkness conceals the inlet while the charted boat lands."
+      ],
+      "plan_a_polarity": "act",
+      "goal_a_type": "protect",
+      "plan_a_semantic": "release"
+    },
+    {
+      "id": "radio",
+      "names": [
+        "Niko",
+        "Otto"
+      ],
+      "setup": "A relief team carried medicine toward a field clinic. A route message would guide the team, but a rival group monitored the open radio channel and could use it to find the clinic. ",
+      "goals": [
+        [
+          "The hospital's immediate goal was to keep its location unknown to the rival group until patients moved. ",
+          "Before evacuation, the staff wanted the monitoring group unable to find the clinic. "
+        ],
+        [
+          "The hospital's immediate goal was to get the medicine team to the clinic before the doses spoiled. ",
+          "The staff wanted the arriving team to find the clinic in time to save its supplies. "
+        ]
+      ],
+      "plans": [
+        "{name} planned to keep the route message off the air. ",
+        "{name} planned to broadcast the route message. "
+      ],
+      "reasons": [
+        "Silence conceals the clinic.",
+        "Broadcasting guides the team."
+      ],
+      "plan_a_polarity": "withhold",
+      "goal_a_type": "protect",
+      "plan_a_semantic": "contain"
+    },
+    {
+      "id": "bridge",
+      "names": [
+        "Clara",
+        "Grace"
+      ],
+      "setup": "Supply trucks waited across a river with armed pursuers close behind. The bridge was already lowered, and leaving it down would admit both groups. Raising it now would delay both until the guards arrived. ",
+      "goals": [
+        [
+          "The settlement's immediate goal was to bring the waiting supplies inside before the storm. ",
+          "Before bad weather, residents wanted the trucks' cargo delivered to town. "
+        ],
+        [
+          "The settlement's immediate goal was to hold the pursuers outside until the guards arrived. ",
+          "Residents wanted the armed group delayed on the far bank until reinforcements came. "
+        ]
+      ],
+      "plans": [
+        "{name} planned to leave the bridge lowered. ",
+        "{name} planned to raise the bridge. "
+      ],
+      "reasons": [
+        "Leaving the bridge down admits the trucks.",
+        "Raising the bridge delays pursuers."
+      ],
+      "plan_a_polarity": "withhold",
+      "goal_a_type": "provide",
+      "plan_a_semantic": "release"
+    },
+    {
+      "id": "vial",
+      "names": [
+        "David",
+        "Henry"
+      ],
+      "setup": "An infirmary held one safe dose of a new medicine. Using it tonight would consume the only intact reference sample, which the chemists needed to manufacture more doses next week. ",
+      "goals": [
+        [
+          "The infirmary's immediate goal was to treat the patients who were ill tonight. ",
+          "Doctors wanted those already sick to receive help before morning. "
+        ],
+        [
+          "The infirmary's immediate goal was to preserve the sole reference dose for producing more next week. ",
+          "Doctors wanted the only sample intact for tomorrow's manufacturing work. "
+        ]
+      ],
+      "plans": [
+        "{name} planned to administer the entire dose now. ",
+        "{name} planned to store the dose. "
+      ],
+      "reasons": [
+        "Administering treats patients now.",
+        "Storing preserves the reference sample."
+      ],
+      "plan_a_polarity": "act",
+      "goal_a_type": "provide",
+      "plan_a_semantic": "release"
+    },
+    {
+      "id": "map",
+      "names": [
+        "Iris",
+        "Nora"
+      ],
+      "setup": "The only map of a shelter was locked in a cabinet. Displaced families needed its flood escape route, while medicine couriers already had a copy. Raiders in the hall could use any public display to intercept the couriers; a locked map would deny the route to both raiders and families today. ",
+      "goals": [
+        [
+          "The group's immediate goal was to get the medicine convoy to the shelter without interception. ",
+          "Organizers wanted supplies to arrive at refuge before raiders could follow the route. "
+        ],
+        [
+          "The group's immediate goal was to protect families from the rising flood by getting them to shelter. ",
+          "Organizers wanted to keep displaced families out of the floodplain tonight. "
+        ]
+      ],
+      "plans": [
+        "{name} planned to leave the map locked in the cabinet. ",
+        "{name} planned to display the map in the hall. "
+      ],
+      "reasons": [
+        "The locked map conceals the route from raiders while couriers use their copy.",
+        "Display gives families the escape route."
+      ],
+      "plan_a_polarity": "withhold",
+      "goal_a_type": "provide",
+      "plan_a_semantic": "contain"
+    },
+    {
+      "id": "water",
+      "names": [
+        "Amir",
+        "Omar"
+      ],
+      "setup": "A reservoir spillway was open during a surge. Leaving it open reduced pressure on the dam but drained water needed to irrigate fields next month. Closing it would retain water while pressure rose above the town's homes. Only one setting could be held through the surge. ",
+      "goals": [
+        [
+          "The district's immediate goal was to retain enough water to irrigate fields next month. ",
+          "Farmers wanted a reliable water supply for the coming planting season. "
+        ],
+        [
+          "The district's immediate goal was to protect homes below the dam from a pressure failure. ",
+          "Residents wanted to keep the dam from bursting during the current surge. "
+        ]
+      ],
+      "plans": [
+        "{name} planned to close the spillway. ",
+        "{name} planned to leave the spillway open. "
+      ],
+      "reasons": [
+        "Closing retains irrigation water.",
+        "Leaving it open relieves pressure on the dam."
+      ],
+      "plan_a_polarity": "act",
+      "goal_a_type": "provide",
+      "plan_a_semantic": "contain"
+    },
+    {
+      "id": "boat",
+      "names": [
+        "Nina",
+        "Tina"
+      ],
+      "setup": "A rescue boat could reach stranded fishers across a calm bay, but the round trip would take until midday tomorrow. The same boat was the hospital's only vessel for an evacuation scheduled at dawn. ",
+      "goals": [
+        [
+          "The coast crew's immediate goal was to reach the stranded fishers as soon as possible. ",
+          "The crew wanted to begin rescuing the stranded workers without waiting another day. "
+        ],
+        [
+          "The coast crew's immediate goal was to have the vessel available for the hospital evacuation at dawn. ",
+          "The crew wanted an available vessel at first light when the patients had to leave. "
+        ]
+      ],
+      "plans": [
+        "{name} planned to launch the boat. ",
+        "{name} planned to keep the boat moored. "
+      ],
+      "reasons": [
+        "Launching rescues fishers.",
+        "Mooring preserves the boat for dawn."
+      ],
+      "plan_a_polarity": "act",
+      "goal_a_type": "provide",
+      "plan_a_semantic": "release"
+    },
+    {
+      "id": "seeds",
+      "names": [
+        "Noah",
+        "Liam"
+      ],
+      "setup": "A pouch held the last healthy seeds of a resilient crop. Tonight was the final planting window this season; sowing the whole pouch would use the only breeding stock for next year. ",
+      "goals": [
+        [
+          "The village's immediate goal was to preserve the rare cultivar for breeding next year. ",
+          "The growers wanted the only breeding stock still available after this season. "
+        ],
+        [
+          "The village's immediate goal was to produce food from this season's remaining planting window. ",
+          "The growers wanted a harvest this year before the weather changed. "
+        ]
+      ],
+      "plans": [
+        "{name} planned to store the pouch. ",
+        "{name} planned to sow all the seeds tonight. "
+      ],
+      "reasons": [
+        "Storage preserves breeding stock.",
+        "Sowing uses the planting window."
+      ],
+      "plan_a_polarity": "withhold",
+      "goal_a_type": "protect",
+      "plan_a_semantic": "contain"
+    },
+    {
+      "id": "bell",
+      "names": [
+        "Sara",
+        "Leah"
+      ],
+      "setup": "Raiders approached a town. Ringing the bell would warn families in their homes, but its sound would also identify an occupied shelter beneath the tower to the raiders. The decision had to be made before they arrived. ",
+      "goals": [
+        [
+          "The town's immediate goal was to keep the occupied shelter beneath the tower undiscovered. ",
+          "Leaders wanted raiders unaware that evacuees were hiding under the bell tower. "
+        ],
+        [
+          "The town's immediate goal was to warn families in their homes of the approaching danger. ",
+          "Leaders wanted households alerted before the raiders reached the street. "
+        ]
+      ],
+      "plans": [
+        "{name} planned to leave the tower bell silent. ",
+        "{name} planned to ring the tower bell. "
+      ],
+      "reasons": [
+        "Silence conceals the shelter.",
+        "Ringing warns households."
+      ],
+      "plan_a_polarity": "withhold",
+      "goal_a_type": "protect",
+      "plan_a_semantic": "contain"
+    },
+    {
+      "id": "shutters",
+      "names": [
+        "Zoe",
+        "Ava"
+      ],
+      "setup": "A ward's shutters were closed. They held warmth around the infants, but smoke from a faulty stove was gathering around sick patients. Opening the shutters would vent the smoke and also let the cold night air in. Only one setting could last until repair crews arrived. ",
+      "goals": [
+        [
+          "The ward's immediate goal was to provide enough warmth for the infants through the night. ",
+          "Staff wanted the infants to remain warm until the heating crew arrived. "
+        ],
+        [
+          "The ward's immediate goal was to protect patients from the smoke gathering in the room. ",
+          "Staff wanted to keep the sick patients from breathing the fumes. "
+        ]
+      ],
+      "plans": [
+        "{name} planned to leave the shutters closed. ",
+        "{name} planned to open the shutters. "
+      ],
+      "reasons": [
+        "Closed shutters retain warmth.",
+        "Opening vents the smoke."
+      ],
+      "plan_a_polarity": "withhold",
+      "goal_a_type": "provide",
+      "plan_a_semantic": "contain"
+    },
+    {
+      "id": "pasture",
+      "names": [
+        "Kate",
+        "Rosa"
+      ],
+      "setup": "A pasture gate was closed around a hungry flock on grassy low ground. The river was expected to flood the pasture tonight, while a bare hillside beyond the gate would stay dry. Opening the gate would let the sheep leave the grass for high ground. ",
+      "goals": [
+        [
+          "The farm's immediate goal was to protect the flock from rising floodwater tonight. ",
+          "The keepers wanted to keep the sheep above the floodline when the river rose. "
+        ],
+        [
+          "The farm's immediate goal was to feed the hungry flock on the pasture grass today. ",
+          "The keepers wanted the sheep to eat the only fresh grass before dusk. "
+        ]
+      ],
+      "plans": [
+        "{name} planned to open the pasture gate. ",
+        "{name} planned to leave the pasture gate closed. "
+      ],
+      "reasons": [
+        "Opening lets the flock reach high ground.",
+        "A closed gate keeps the flock on grazing grass."
+      ],
+      "plan_a_polarity": "act",
+      "goal_a_type": "protect",
+      "plan_a_semantic": "release"
+    }
+  ]
+}

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 from pathlib import Path
 import sys
 
@@ -26,6 +27,10 @@ def _scores(cells, margin):
 
 def test_frozen_grid_and_lexical_ceiling():
     cal, stories, neutral, generated, doc, _ = module.make_cells()
+    v3 = json.loads((module.GRID.parent / "goal_reversal_v3.json").read_text())
+    assert doc["domains"] == v3["domains"]
+    assert doc["bridge"] == v3["bridge"]
+    assert doc["question"] == v3["question"]
     assert (len(cal), len(stories), len(neutral), len(generated)) == (32, 192, 48, 48)
     assert all(a.user_text != b.user_text for a, b in zip(stories[::2], stories[1::2]))
     for a, b in zip(stories[::2], stories[1::2]):

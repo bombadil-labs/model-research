@@ -17,8 +17,8 @@ from role_swap_probe import SEED
 
 
 ROOT = Path(__file__).resolve().parents[2]
-GRID = ROOT / "research/narrative/prompts/goal_reversal_v3.json"
-OUT = ROOT / "cache/goal_relative/goal_reversal"
+GRID = ROOT / "research/narrative/prompts/goal_reversal_v4.json"
+OUT = ROOT / "cache/goal_relative/goal_reversal_v4"
 MODEL = "google/gemma-2-9b-it"
 TOKENIZER_REVISION = "11c9b309abf73637e4b6f9a3fa1e92e615547819"
 MAX_NEW_TOKENS = 8

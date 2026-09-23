@@ -12,7 +12,7 @@ does changing only the stated goal reverse which worker the model chooses?**
 It is a behavioral check before any activation geometry claim.
 
 Use the twelve new constructed dilemmas and four new easy controls in
-`research/narrative/prompts/goal_reversal_v3.json`. The v1 grid was frozen
+`research/narrative/prompts/goal_reversal_v4.json`. The v1 grid was frozen
 before scores, then adversarial review found that every protective goal chose
 the withholding plan. V2 balanced the status quo but a second review found
 that all protective goals still chose containing/closing verbs. V3 corrects
@@ -148,3 +148,24 @@ the score. Passing would establish goal-dependent *behavior* in these
 miniatures, not an invariant latent narrative shape. A future activation
 study must use its own preregistered readout, lexical/position controls,
 held-out domains and causal checks.
+
+## Amendment 1: calibration failure and new control battery
+
+The first V3 run scored **only** the 32 calibration cells, then stopped as
+specified. It passed 28/32. All four failures were goal 1 in the `stage`
+control: the scorer preferred turning the spotlights off for astronomers even
+when the stated goal was performers rehearsing. No story, goal-omitted or
+generation cell was scored. The full calibration result, including every
+margin, is in `research/narrative/results/goal_reversal_v3_calibration.json`.
+
+After seeing that control result, V4 replaces **all four** controls with new,
+disjoint cases (`bakery`, `observatory`, `records`, `aquarium`). The twelve story
+domains, their goal phrasings, the question, the neutral bridge, both
+candidate continuations and every decision threshold are text-identical to
+V3. The new battery again crosses four domains with both goals, both name
+assignments and both plan orders. Plan A is active in two controls and a
+withholding plan in two. No V4 control or story score existed when this
+amendment was written. There is no further control replacement in this run:
+if any V4 control fails, the run stops. A V4 pass is an **exploratory amended
+screen** because the calibration instrument was revised after seeing its V3
+failure. Formal confirmation would need a fresh independently fixed battery.
