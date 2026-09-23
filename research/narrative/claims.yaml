@@ -365,3 +365,11 @@ claims:
     where: notes/answer_slot_patch_prereg.md
     pre_registered: true
     superseded_by: null
+
+  - id: story-fact-token-causal-edit
+    claim: Replacing one post-fact story-token residual with its counterfactual-world state after block 24 moves later goal-sensitive name choice toward the counterfactual route winner.
+    status: open
+    evidence: "Bidirectional world-pair substitution on 128 fixed late-telling route prompts, with no-patch, zero, norm-matched random and final-block same-token pass-through arms frozen before any source-to-target patch."
+    where: notes/story_fact_token_patch_prereg.md
+    pre_registered: true
+    superseded_by: null
