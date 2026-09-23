@@ -406,6 +406,13 @@ def main() -> None:
             base._append(path, row)
             saved[key] = row
             print(f"scored {key}", flush=True)
+        if cell.id == shortest.id:
+            no_patch = np.asarray(saved[f"{cell.id}|none"]["scores"])
+            zero = np.asarray(saved[f"{cell.id}|zero"]["scores"])
+            old = np.asarray(previous[cell.id]["scores"])
+            if (float(np.max(np.abs(no_patch - zero))) > .001 or
+                    float(np.max(np.abs(no_patch - old))) > .001):
+                raise ValueError("first-prompt zero or deployment-drift gate failed")
     report = analyze(cells, saved, previous, checks, reach)
     report.update({"model_checkpoint": cross.MODEL,
                    "deployment_weight_revision": None,
