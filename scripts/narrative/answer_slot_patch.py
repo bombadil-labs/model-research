@@ -244,8 +244,8 @@ def _effect_report(effect: np.ndarray, *, seed_offset: int) -> dict:
             "exact_domain_sign_null": {"draws": 256,
                                        "mean": float(null.mean()),
                                        "q95": float(np.quantile(null, .95)),
-                                       "p_ge_observed": float(np.mean(null >= observed)),
-                                       "tie_count_at_observed": ties},
+                                       "p_ge_observed": float(np.mean(null >= observed - 1e-12)),
+                                       "tie_count_at_observed_excluding_identity": ties - 1},
             "domain_bootstrap": {"draws": 10000,
                                  "ci95": list(map(float, np.quantile(
                                      boot, [.025, .975])))}}
