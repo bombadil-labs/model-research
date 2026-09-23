@@ -186,15 +186,20 @@ def test_the_calibration_key_covers_the_statistics_dependencies():
 def test_the_closure_follows_calls_made_inside_comprehensions():
     """The hole in the fix for the hole.
 
-    `selector_rank` calls `midrank` inside a LIST COMPREHENSION, which compiles to its own code
-    object whose names do not appear in the enclosing `co_names`. The first closure walker read
-    only the top level, found `cosine_scores` and missed `midrank` -- so editing the tie rule that
-    h34 turned on would still not have re-calibrated the instrument resting on it.
+    Python 3.11 puts `selector_rank`'s list comprehension in a nested code object; Python 3.12
+    inlines it. The dependency must be found in either case. A nested function below preserves
+    the recursive traversal regression check on both versions.
     """
     names = checks._referenced_names(instruments.selector_rank.__code__)
     assert "midrank" in names and "cosine_scores" in names
-    assert "midrank" not in set(instruments.selector_rank.__code__.co_names), (
-        "the call moved out of the comprehension; this regression test no longer tests anything")
+
+    def outer():
+        def inner():
+            return instruments.midrank([1, 2])
+        return inner
+
+    assert "midrank" not in outer.__code__.co_names
+    assert "midrank" in checks._referenced_names(outer.__code__)
 
 
 def test_the_key_is_not_a_repo_wide_version():
