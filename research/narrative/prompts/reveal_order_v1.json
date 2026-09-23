@@ -1,0 +1,8 @@
+{
+  "source_grid": "goal_route_cross_v1.json",
+  "interlude": "A pause followed. People checked their bags, watched the changing light, and listened to footsteps nearby. Others waited for a decision without knowing which person would act. No one repeated the earlier conversation. Time moved slowly, and the ordinary work around them continued. At last, attention returned to the object they had kept aside. ",
+  "closing": "The people involved reviewed the details once more. Neither person had acted yet. They checked the two route options and the stated destination. The facts now stood as stated, with nothing further added. A choice remained to be made before work could continue. ",
+  "chronological_template": "{setup}{goal}{plans}{first_hop}{second_hop}{interlude}{closing}",
+  "late_reveal_template": "{setup}{goal}{plans}{first_hop}{interlude}{second_hop}{closing}",
+  "near_adjacent_template": "{setup}{goal}{plans}{interlude}{first_hop}{second_hop}{closing}"
+}

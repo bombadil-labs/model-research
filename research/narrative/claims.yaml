@@ -333,3 +333,67 @@ claims:
     where: notes/goal_route_activation_pilot_result.md
     pre_registered: true
     superseded_by: null
+
+  - id: generic-choice-slot-explanation
+    claim: A generic two-person answer-slot direction is sufficient to explain the route-trained residual interaction's held-out transfer.
+    status: open
+    evidence: "Gemma-2-9b-it: the first four-domain property control gave route-trained block-24 cosine +0.543 versus within-task +0.566, but its source-flip null was structurally weak. An independent eight-domain property replication with a target-label null passed at +0.583 versus within-task +0.579, 8/8 positive domains, exact p 1/256 and domain CI +0.492 to +0.653. This supports a substantial task-general answer-slot component; causal sufficiency to explain route transfer remains open."
+    where: notes/choice_slot_replication_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: prequestion-route-interaction
+    claim: The first-listed-plan-oriented goal × route interaction transfers across held-out domains and early/late tellings at the neutral bridge-end token before the answer question, under the fixed block-16/24 linear readout.
+    status: falsified
+    evidence: "Gemma-2-9b-it: bridge-end transfer −0.0036 (exact orientation p 186/256, domain CI −0.0082 to +0.0020; positive in 2/8 and 3/8 target tellings). The prebridge diagnostic is also null (−0.0005), while the same traces reproduce the prior positive final-question vectors exactly. This falsifies the specified token/readout transfer, not other positions or codes."
+    where: notes/prequestion_route_state_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: generic-choice-slot-replication
+    claim: The route-trained final-token interaction shares a direction with independent, behaviorally valid property-choice domains under a target-label orientation test.
+    status: holds
+    evidence: "Gemma-2-9b-it: new property choices passed behavior 60/64 quartets; route-trained block-24 cosine +0.583, internal property reference +0.579, positive in 8/8 domains, target-label exact p 1/256, domain CI +0.492 to +0.653, random-direction q95 +0.022, and zero repeat drift. Alignment, not causal sufficiency."
+    where: notes/choice_slot_replication_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: answer-slot-patch-steering
+    claim: A block-24 addition of the route-trained first-listed-person direction causally biases a model's two-name choice toward the first-mentioned person on the frozen property prompts beyond direct residual pass-through and matched random directions.
+    status: holds
+    evidence: "Gemma-2-9b-it: the frozen net block-24-minus-direct effect is +1.126 nats, 8/8 domains and 60/64 prompts positive, exact p 1/256, domain CI +0.985 to +1.282; random net means −0.058/+0.093. All ten gates pass, including zero/drift 0 and 25/768 deterministic moved-score flags below 5%. One random direction is also positive in 8/8 domains, so direction specificity rests on the ~12× magnitude comparison against only two Gaussian controls. The +u arm flips four choices, two correct and two incorrect, so accuracy remains 62/64. This is a distributed generic choice bias, not a story edit."
+    where: notes/answer_slot_patch_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: late-reveal-route-choice
+    claim: Goal- and route-sensitive choice is preserved across chronological, late-reveal and near-adjacent tellings of the fixed two-hop stories under all registered format and fact-order gates.
+    status: falsified
+    evidence: "The registered all-gates decision fails: near-adjacent fact-order quadrant 00 is 4/8 = 0.50, short of >0.50. Gemma-2-9b-it nevertheless has 27/32 matched quartets with correct margin shifts in all three tellings (paired p 1/256), and both late non-inferiority bounds pass. Strict four-cell correct choices are only 16/32 in late reveal. This falsifies the specified all-gates claim, not sensitivity in every telling."
+    where: notes/reveal_order_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: late-reveal-paired-margin-shifts
+    claim: The same two-hop story quartets retain goal- and route-sensitive relative name-preference shifts across chronological, late-reveal and near-adjacent tellings.
+    status: holds
+    evidence: "A registered component of the three-format test, not its full decision: 27/32 matched quartets pass both world×goal contrasts in all three tellings, exact domain-orientation p 1/256, domain CI 0.688–0.969; direct controls 16/16 and repeats exact. The all-gates claim fails at near-adjacent quadrant 00, and strict four-cell correct choices in late reveal are 16/32."
+    where: notes/reveal_order_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: story-fact-token-causal-edit
+    claim: Replacing one post-fact story-token residual with its counterfactual-world state after block 24 specifically redirects later goal-sensitive name choice toward the counterfactual route winner under the registered causal screen.
+    status: falsified
+    evidence: "The world-state patch shifts the signed name margin +0.386 nat in 8/8 domains and 106/128 cells (exact p 1/256), but the answer-neutral matched plan-order patch shifts it +0.784 nat. The treatment fails the registered twice-max-control gate and causes zero top-name flips toward the source winner, one away. The lexical-surplus component passes on five matched domains, but the gated beyond-noun decision fails with the full screen. This falsifies the specified single-token causal-edit claim at this site and dose, not all distributed story representations."
+    where: notes/story_fact_token_patch_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: story-period-margin-shift
+    claim: On the fixed late-telling two-hop prompts, substituting the other world's block-24 period state increases the signed relative-name margin for the other-world winner on average, chiefly by compressing the existing name preference rather than flipping choices.
+    status: holds
+    evidence: "The signed-margin statistic was a registered component of the failed full causal decision: mean +0.386 nat, 8/8 domains and 106/128 cells positive, exact domain-sign p 1/256, bootstrap CI +0.232 to +0.547. A post-hoc split finds |name margin| shrinks in 106/128 cells and the effect is −0.096 nat in the 18 cells already favouring the source winner; no top-name choice flips toward it. The answer-neutral plan-order control is about twice as strong, so world specificity and choice redirection are not established."
+    where: notes/story_fact_token_patch_result.md
+    pre_registered: true
+    superseded_by: null
