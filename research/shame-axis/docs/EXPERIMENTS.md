@@ -1030,3 +1030,18 @@ Claims: `false-attribution-adds-nothing` and `report-frame-licenses-dispute` hol
 `exit-escalation` stays falsified. The line is 19 of 20 terminal. `shame-not-pain`, the line's own
 question, is still open: a draft design (`notes/shame_vs_pain_design_DRAFT.md`) waits on who
 writes the stimulus clauses.
+
+## Hour 64: base vs instruct. The self/other split is not instilled by post-training, and it is not pain-specific.
+
+Pre-registered in `notes/crossmodel_prereg.md`; results in `notes/crossmodel_result.md`. Four
+models, all replicating the paper at r ≥ 0.9996: Gemma-2-2B base and instruct (local GPU) and
+Llama-3.1-70B base and instruct (NDIF). Every model saw both renderings.
+- **The split on the pain axis is not pain-specific.** Self-directed vs vicarious clears
+  random-direction and shuffled-label nulls in 1 of 8 model × rendering cells. An exploratory
+  check on gemma-2-9b-it agrees. The two classes separate along almost any direction (AUC ≥ 0.997).
+- **Post-training:** Δ_post is +1.12 and −0.11 for Gemma (raw, chat) and −1.44 and −1.40 for Llama.
+  The instilled prediction fails; Llama's post-training removes the split.
+- **Relief, masking and narrowing** are not distinguished. Decoding is at ceiling, and Llama's
+  change falls on both classes.
+
+`floor-self-other` is narrowed; `self-other-instilled-by-post-training` is falsified.
