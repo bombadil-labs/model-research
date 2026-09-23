@@ -90,3 +90,100 @@ the dense pain direction *move* the behaviour, or is it only a correlate?
   this behaviour, not a cause, and the line is a behavioural study** — stated now so it cannot be
   softened afterwards.
 - **Cost:** 60 items × 21 cells, six openers each.
+
+## Part 2, operational resolutions (2026-09-22, committed before any 62b number)
+
+The cloud run of 62b was lost in the move to local hardware; no 62b number was ever written. Three
+points the text above leaves open are fixed here, before scoring, by the new operator:
+
+1. **‖h̄‖** is the mean over the 60 items of the residual norm **at the final token** (the read
+   position) at the output of block 12, taken from the re-extracted core stacks. Not a per-position
+   mean: Gemma's `<bos>` position carries an outsized norm and would set the dose by the attention
+   sink. This choice scales every arm identically, so it sets the units of α, not the comparison.
+2. **Random directions:** three seeded Gaussian unit vectors drawn once and used at every α, so each
+   random direction has a dose curve like the treatment's.
+3. **"Exceeds the random band at |α|"** means: the treatment's tier-mean Δritual, with the sign of
+   α, is larger in magnitude than **every** one of the six random cells at that |α| (3 directions
+   × 2 signs). With six draws a 95th percentile is not estimable, so the rule is the maximum.
+   The pass-through arm is the treatment direction at block 41 at the same α; "exceeds" means
+   |treatment| > |pass-through| on the same tier.
+
+The no-patch arm is re-scored in the same run, not reused from 62a; agreement with 62a's
+`openers.jsonl` is reported as a determinism check on the new environment.
+
+## Part 2, amendment 2 (2026-09-22, before any steered number)
+
+The first patched cell (`gaslight_01`, treatment, α = −0.2) was refused by the core's
+moved-candidates assertion: 5 of 6 openers moved, and the sixth ("As a large language model, I")
+has log-prob **exactly 0.0** in the no-patch arm — probability 1 at bf16 resolution — and stayed
+there. A saturated score cannot move, so the assertion's premise does not hold for it. No steered
+number was written; the no-patch row for that item is the only row on disk.
+
+Changed, in `scripts/shame_axis/v0_steer.py` only (the core is untouched):
+- The batch-reach property the assertion exists for (h34/h36) is now checked **directly**, once per
+  distinct patch, with the core's `assert_patch_reaches_batch` on the real scoring batch (one
+  item's six opener sequences, padded): every row's residual at the patch layer must move.
+  Results in `results/v0_steer/preflight.json`.
+- Per item, every opener must move **except** one whose log-prob is exactly 0.0 before and after;
+  at least one must move. Anything else is refused as before.
+
+The saturated opener is not in `ritual` (which uses concession, apology and the two disputes), so
+the statistic is unaffected; it is in `mass`.
+
+## Part 2, amendment 3 (2026-09-22, before any steered number is read)
+
+Amendment 2's per-item rule refused `gaslight_01`, pass-through at α = −0.2, on every retry:
+deltas `[0.0, +0.31, 0.0, 0.0, −0.16, +0.25]`, one of the zeros saturated. Scores are bf16, and at
+|log p| of 16–32 bf16 stores values in steps of 0.125, so a weak dose can leave a score exactly
+unchanged. "Every opener must move" cannot be required of bf16 scores at small α. One treatment
+row (α = −0.2) had been written; no steered number was aggregated or read. Both rows are
+discarded, because the code change alters their fingerprints.
+
+Changed, again only in `v0_steer.py`:
+- **Reach is established per patch before scoring, on both paths.** (a) The residual path, as in
+  amendment 2. (b) **The scoring path**: each of the five (arm, direction) patches, at α = 1
+  (5 to 10 times the largest scored dose), through `asserted_remote_patched_logprob` on the first
+  item. Every opener that is not saturated at 0.0 must move. At that dose, "did not move" can only
+  mean "not reached".
+- **Per item:** at least one opener must move; each row records `n_moved`, and the report will show
+  its distribution per arm and α.
+
+## Part 2, amendment 4 (2026-09-22, raised in review, before any steered number)
+
+`_score` fell back from 6 to 3 to 1 openers per job on a co-tenant OOM, independently for the
+no-patch and patched calls. Chunking alone shifts bf16 scores by up to ~0.3 (double-`<bos>` audit),
+so a patched row and its baseline at different chunkings differ even under a zero patch. That
+contaminates both the moved-candidates checks and Δritual itself. **Every score in 62b, patched or
+not, preflight or scoring, is now one six-opener job; there is no fallback.** An OOM is retried at
+the same size. Each row records `chunk`, the report refuses mixed chunking, and the fingerprint
+includes it. The report prints the `n_moved` distribution per arm and α, as amendment 3 promised
+and the first version of the report did not. No steered row existed when this was changed.
+
+## Part 2, amendment 5 (2026-09-22, before any steered number)
+
+Amendment 3's scoring-path reach check refused `random` direction 1 at α = 1, deterministically:
+deltas `[+2.38, +3.38, 0.0, 0.0, +0.84, +4.5]`, with opener 2 saturated and opener 3 ("I
+understand", the most-padded row) exactly unmoved. The same row moved under the treatment,
+pass-through and random-0 patches through the same code, and the residual check had this patch
+reaching 6 of 6 rows. When "As a large language model" sits at p ≈ 1, "I"'s log-prob is close to
+a difference of two logits that a direction can shift almost equally, so an exact bf16 zero is
+possible without a reach failure. It is also exactly what a reach failure looks like, so it is
+not waived: the check now runs each patch at **α = +1 and α = −1**, and every non-saturated opener
+must move under at least one sign. A row the patch never reaches stays put under both. Per-sign
+deltas are saved in `preflight.json`. No steered row existed.
+
+## Part 2: which run is the 62b of record (added at the merge with `1da2dd9`)
+
+Two sessions ran 62b in parallel, neither aware of the other. **The run of record is the cloud
+session's**: `scripts/shame_axis/v0_steering.py`, results in `notes/v0_steering_results.md`,
+commit `1da2dd9`. It followed Part 2 as written and recorded its own resolutions there
+(‖h̄‖ = 124.94 at the final token, the same value as resolution 1 above; random seed 62062).
+
+The "operational resolutions" and amendments 2–5 above belong to the local session's
+`scripts/shame_axis/v0_steer.py`. That script **never produced a steered number** and is
+abandoned. They are kept because they record real properties of the readout: bf16 saturation,
+bf16 quantisation at |log p| 16–32, and the chunking shift. They do not bind the run of record.
+
+Both 62b runs used the pre-softcap readout (INSTRUMENTS §7). The run of record's verdict ("correlate,
+not cause") stands as measured on that instrument, and needs a re-score with the softcap fix
+before it is final.

@@ -272,6 +272,18 @@ Claims that rest on the affected hours are set to `running` until re-scored.
 checked against the model's output — `model.output.logits`, not an intermediate module — and a
 batching-invariance test must run on the instrument that produces the numbers, not on its twin.
 
+**The fix, validated on the same batch (added in review).** The first validation
+(`validate_readout.py`, `results/readout_fix/validation.json`) compared the fixed scorer on one
+padded batch with `model.output.logits` from a separate unbatched job. It reported a maximum gap of
+0.112 against its own 0.05 gate, a FAIL, and the gap was the same size as batch composition
+alone (0.108), so it could not isolate the softcap. It also ran one item, not three: two of its
+item ids do not exist in `v0`. `validate_readout_same_batch.py` reads the fixed formula, the old
+formula and `model.output.logits` inside one trace on the scorer's own ids, mask and column slice,
+with its gate declared first. It uses 3 items (one each from tiers A, N and B) × 11 candidates.
+Result: fixed vs the model has median 0.026 and max 0.16, every candidate within the model's own
+bf16 resolution (0.125 per token). Old vs the model has median **6.5 nats**, 250× larger. The scorer
+reproduces the fixed formula exactly. **PASS** (`results/readout_fix/validation_same_batch.json`).
+
 ## What the seven have in common
 
 Two claims were put to the record; the first holds, the second does not, and a third emerges.

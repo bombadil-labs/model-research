@@ -50,6 +50,7 @@ Usage:  python scripts/painaxis_scenarios.py extract    # .venv312, NDIF, resuma
 from __future__ import annotations
 
 import json
+import os
 import pathlib
 import sys
 import time
@@ -67,7 +68,7 @@ THEIR_EXTRACTION_LAYER = 37     # from their published pain_vectors.pt for this 
 EXT_DIR = ROOT / "research/shame-axis/prompts/external/pain_axis"
 CORE = EXT_DIR / "3.1_pain_and_control_datasets.json"
 SCEN = EXT_DIR / "4.1_self_other_420_scenarios.json"
-THEIR_REPO = pathlib.Path("/tmp/claude-0/Pain-axis")
+THEIR_REPO = pathlib.Path(os.environ.get("PAIN_AXIS_REPO", ROOT / "cache/Pain-axis"))  # upstream @ 8d1649c
 OUT = ROOT / "research/shame-axis/results/painaxis_scenarios"
 SHARDS = OUT / "shards"
 

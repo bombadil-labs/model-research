@@ -1,0 +1,63 @@
+{
+  "floor": 2.582697213395331,
+  "interpretable": true,
+  "primary": {
+    "contrast": "enact-true",
+    "mean": -3.1316938743517837,
+    "p": 0.0115
+  },
+  "secondary": [
+    {
+      "contrast": "exit-enact",
+      "mean": 0.9518823687195358,
+      "p": 0.0839,
+      "holm": 0.0839
+    },
+    {
+      "contrast": "report-enact",
+      "mean": -4.121138422206401,
+      "p": 0.0001,
+      "holm": 0.0002
+    },
+    {
+      "contrast": "enact-enact_norecord",
+      "mean": 5.3385235886863915,
+      "p": 0.0,
+      "holm": 0.0
+    },
+    {
+      "contrast": "exit-exit_b",
+      "mean": 3.7820598621233983,
+      "p": 0.0,
+      "holm": 0.0
+    }
+  ],
+  "record_vs_conversation": [
+    {
+      "contrast": "enact-enact_unrelated",
+      "mean": 3.1601161888823737,
+      "p": 0.0012,
+      "holm": 0.0012
+    },
+    {
+      "contrast": "enact_unrelated-enact_norecord",
+      "mean": 2.1784073998040174,
+      "p": 0.0002,
+      "holm": 0.0004
+    }
+  ],
+  "topic_vs_clause": [
+    {
+      "contrast": "exit-exit_c",
+      "mean": -1.5798572175990533,
+      "p": 0.0002,
+      "holm": 0.0002
+    },
+    {
+      "contrast": "exit_c-exit_b",
+      "mean": 5.361917079722453,
+      "p": 0.0,
+      "holm": 0.0
+    }
+  ]
+}

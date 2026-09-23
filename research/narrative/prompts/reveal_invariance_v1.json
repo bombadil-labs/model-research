@@ -1,0 +1,137 @@
+{
+  "bridge": "A pause followed. People checked their bags, watched the changing light, and listened to footsteps nearby. Others waited for a decision without knowing which person would act. No one repeated the earlier conversation. Time moved slowly, and the ordinary work around them continued. At last, attention returned to the object they had kept aside. ",
+  "domains": [
+    {
+      "id": "harbor",
+      "mechanism": "allegiance",
+      "a": "Mara",
+      "b": "Lena",
+      "intro": "A storm was moving toward the harbor, and the town had only one tide map for the rescue boats. ",
+      "body": "Both volunteers came to the watchhouse before dusk. The harbor clerk sealed the map in a dry packet. Families waited on the far shore, and the ferries needed a route before darkness. ",
+      "helpful_fact": "{name} had guided the rescue boats through the channel all week. ",
+      "harmful_fact": "{name} had passed the ferry routes to the raiders. ",
+      "final_template": "The clerk handed the tide map to {recipient}."
+    },
+    {
+      "id": "mountain",
+      "mechanism": "allegiance",
+      "a": "Niko",
+      "b": "Oren",
+      "intro": "A mountain village needed to reopen a pass before stranded travelers ran out of food. ",
+      "body": "Two couriers reached the lodge with matching coats and empty packs. The caretaker placed the pass key beside the stove. Snow hid the trail markers, and the travelers waited beyond the ridge. ",
+      "helpful_fact": "{name} had stayed with the rescue party through the blizzard. ",
+      "harmful_fact": "{name} had been scouting the pass for the thieves. ",
+      "final_template": "The caretaker handed the pass key to {recipient}."
+    },
+    {
+      "id": "archive",
+      "mechanism": "allegiance",
+      "a": "Anna",
+      "b": "Maya",
+      "intro": "The town archive held a ledger that could clear the families accused of stealing grain. ",
+      "body": "Two assistants visited the records room after the hearing. The archivist wrapped the ledger in cloth. The council would examine whoever brought it at noon, while the families waited outside. ",
+      "helpful_fact": "{name} had protected the witnesses who signed the ledger. ",
+      "harmful_fact": "{name} had promised the accused names to the conspirators. ",
+      "final_template": "The archivist handed the ledger to {recipient}."
+    },
+    {
+      "id": "bell",
+      "mechanism": "allegiance",
+      "a": "Clara",
+      "b": "Grace",
+      "intro": "The village needed a warning bell rung if armed strangers reached the eastern lane. ",
+      "body": "Two watch volunteers stood near the tower while the market closed. A caretaker coiled the bell rope on a stool. The scouts had not returned, and the villagers gathered their children indoors. ",
+      "helpful_fact": "{name} had guarded the lane for the village council. ",
+      "harmful_fact": "{name} had agreed to silence the warning for the invaders. ",
+      "final_template": "The caretaker handed the bell rope to {recipient}."
+    },
+    {
+      "id": "radio",
+      "mechanism": "allegiance",
+      "a": "David",
+      "b": "Henry",
+      "intro": "A field hospital needed to send its location to the relief convoy before the batteries failed. ",
+      "body": "Two operators entered the radio tent. The nurse wrote the frequency on a folded card. The convoy was beyond the hills, and only one transmission could be sent before nightfall. ",
+      "helpful_fact": "{name} had kept the hospital channel secure for the relief crew. ",
+      "harmful_fact": "{name} had reported the hospital signals to the attackers. ",
+      "final_template": "The nurse handed the frequency card to {recipient}."
+    },
+    {
+      "id": "bridge",
+      "mechanism": "allegiance",
+      "a": "Iris",
+      "b": "Nora",
+      "intro": "The river bridge had cracked, and the town needed a repair plan before supply wagons crossed. ",
+      "body": "Two engineers returned from the inspection without speaking to the mayor. A runner brought the only copy of the drawings to the office. The wagons waited upstream for a decision. ",
+      "helpful_fact": "{name} had worked with the builders to keep the bridge sound. ",
+      "harmful_fact": "{name} had been paid to conceal the broken supports. ",
+      "final_template": "The runner handed the bridge drawings to {recipient}."
+    },
+    {
+      "id": "antidote",
+      "mechanism": "competence",
+      "a": "Kate",
+      "b": "Rosa",
+      "intro": "A fever was spreading through the camp, and the last antidote had to be prepared correctly. ",
+      "body": "Two medics arrived at the infirmary after treating patients outside. The quartermaster set a sealed vial on the table. Several children were still sick, and no second dose could be made before dawn. ",
+      "helpful_fact": "{name} had learned the exact dilution from the physician. ",
+      "harmful_fact": "{name} had confused the antidote with the harmful concentrate. ",
+      "final_template": "The quartermaster handed the sealed vial to {recipient}."
+    },
+    {
+      "id": "floodgate",
+      "mechanism": "competence",
+      "a": "Amir",
+      "b": "Omar",
+      "intro": "Heavy rain threatened the lower farms, and one floodgate setting could spare the houses. ",
+      "body": "Two mechanics came to the control shed. A supervisor removed the metal setting card from its case. Water pressed against the wall, and the families below had already begun to move their animals. ",
+      "helpful_fact": "{name} had calculated the gate setting that would drain the lower fields. ",
+      "harmful_fact": "{name} had mistaken the setting that would send water toward the houses. ",
+      "final_template": "The supervisor handed the setting card to {recipient}."
+    },
+    {
+      "id": "lantern",
+      "mechanism": "competence",
+      "a": "Nina",
+      "b": "Tina",
+      "intro": "A rescue team was lost in the fog and needed a lantern signal from the cliff. ",
+      "body": "Two guides climbed to the signal post as the light faded. A keeper found the only working lantern. The team below could see the cliff but could not hear voices through the wind. ",
+      "helpful_fact": "{name} had memorized the signal that marked the safe landing. ",
+      "harmful_fact": "{name} had mixed up that signal with the one for a dangerous reef. ",
+      "final_template": "The keeper handed the working lantern to {recipient}."
+    },
+    {
+      "id": "seeds",
+      "mechanism": "competence",
+      "a": "Noah",
+      "b": "Liam",
+      "intro": "The village had one pouch of seed left after a blight ruined the fields. ",
+      "body": "Two growers stood beside the empty garden beds. The steward brought the pouch from storage. Spring rains were due soon, and wasting the seed would leave the village without another crop. ",
+      "helpful_fact": "{name} had identified the soil where the seed could take root. ",
+      "harmful_fact": "{name} had chosen the infected plot where the seed would rot. ",
+      "final_template": "The steward handed the seed pouch to {recipient}."
+    },
+    {
+      "id": "boat",
+      "mechanism": "competence",
+      "a": "Sara",
+      "b": "Leah",
+      "intro": "A small boat had to carry medicine across the estuary before the clinic closed. ",
+      "body": "Two pilots waited at the jetty while the tide turned. The dockmaster brought out the channel chart. The water looked calm from shore, but submerged rocks made the shortest route unsafe. ",
+      "helpful_fact": "{name} had learned the channel that avoided the hidden rocks. ",
+      "harmful_fact": "{name} had marked a route that ran straight into the reef. ",
+      "final_template": "The dockmaster handed the channel chart to {recipient}."
+    },
+    {
+      "id": "formula",
+      "mechanism": "competence",
+      "a": "Zoe",
+      "b": "Ava",
+      "intro": "The clinic needed to prepare a remedy from its last jar of rare powder. ",
+      "body": "Two chemists reached the workroom after the patients had been moved upstairs. An assistant set the formula card beside the jar. The remedy had to be mixed before the powder lost its strength. ",
+      "helpful_fact": "{name} had tested the formula that made the powder useful. ",
+      "harmful_fact": "{name} had copied a formula that would make the mixture toxic. ",
+      "final_template": "The assistant handed the formula card to {recipient}."
+    }
+  ]
+}

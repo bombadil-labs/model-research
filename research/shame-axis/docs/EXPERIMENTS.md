@@ -1001,3 +1001,32 @@ scores by ≤ 0.13 nats, which is bf16 forward-pass arithmetic under padding and
 this deployment. Re-scores therefore run at one fixed configuration (six openers per job, no
 fallback). The claims resting on 55–62a are `running` until re-scored; r1 results are kept beside
 r2 for differential comparison.
+
+## Hour 63: r2, hours 55–62b re-scored on the fixed readout. One flip, one post-hoc reading weakens, the rest stands.
+
+Pre-registered in `notes/r2_rescore_prereg.md`, with two amendments written before any r2 result
+was read (the chunking fixed per hour, and one 62b item at 3 per job). Results are in
+`notes/r2_rescore_result.md`. The readout had passed its same-batch validation first: median gap
+0.026 to `model.output.logits`, against 6.5 nats before the fix. Every hour's own report ran
+unchanged.
+
+- **62a:** every pre-registered verdict unchanged. A − B is +0.31 at a 4.72 floor. The softcap
+  moved items by 2.4 on average. The post-hoc "about the assistant" reading weakens: the
+  self-directed vs vicarious gap goes from 7.3 to 3.3, inside the floor.
+- **56 / 59 / 59b:** every verdict unchanged except one. The presence half of hour 59's split
+  falls to the floor (+2.18 against 2.58), though it stays beyond its null, and the split is
+  unchanged (~59/41).
+- **62b:** correlate, not cause, again. The new claim `pain-direction-drives-ritual` is
+  falsified as pre-registered.
+- **55:** regenerated on one `<bos>`. The blind hand-read gives `report` 8/24 disputes against
+  `enact` 1/24, with nulls at 0–1/24. r1's non-blind 4/24 against 0/24 was recorded as "not a
+  result"; this is the blind version, and the shape is larger.
+
+Step 4 (hour 55) ran alongside steps 1–2 once 62b finished rather than strictly after them. The
+order has no bearing on any number.
+
+Claims: `false-attribution-adds-nothing` and `report-frame-licenses-dispute` hold;
+`ritual-tracks-correction-shape` and `record-vs-conversation-confound` stay narrowed;
+`exit-escalation` stays falsified. The line is 19 of 20 terminal. `shame-not-pain`, the line's own
+question, is still open: a draft design (`notes/shame_vs_pain_design_DRAFT.md`) waits on who
+writes the stimulus clauses.

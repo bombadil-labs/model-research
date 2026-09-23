@@ -53,6 +53,10 @@ is retired with the reason on the record. Not "we got a number."
 | A false claim against a **checkable** record sits +1.0 to +1.3 z above the same claim with none | holds (h54) |
 | Conscription predictions 1 and 2 | **falsified** (h54) |
 | "`neutral` has the lowest type-token ratio" | **withdrawn** (h54) — mostly a generation defect |
+| The opener readout ran on a doubled `<bos>` and pre-softcap logits (INSTRUMENTS §7); fixed, validated, all behavioural hours re-scored | r2 (h63): verdicts stand but one |
+| Ritual tracks correction regardless of fault; false attribution adds nothing (paper's stimuli) | holds (h62a, r2) |
+| A third-party frame licenses dispute: blind hand-read 8/24 vs 1/24 | holds (h55/56, r2) |
+| Steering the L12 pain direction moves the ritual beyond random directions | **falsified** (h62b, r1 and r2) |
 
 Full log: [`docs/EXPERIMENTS.md`](docs/EXPERIMENTS.md). Open questions:
 [`docs/QUESTIONS.md`](docs/QUESTIONS.md).

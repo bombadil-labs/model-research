@@ -1,0 +1,58 @@
+{
+  "model_checkpoint": "Qwen/Qwen2.5-1.5B",
+  "model_revision": "8faed761d45a263340a0528343f099c05c9a4323",
+  "device": "cuda",
+  "dtype": "float16",
+  "grid_sha256": "0faffd9e9eba4358923b630886f1771a2f98e37380c0d77dae590f9ccd751b1a",
+  "code_sha256": "7d8e3e2832f5602e36b074524face42f95b5179ed38557bbf8fc862190e5b9b1",
+  "torch": "2.14.0+cu130",
+  "transformers": "5.17.0",
+  "cloze": "The person whose plan would best serve the stated goal is",
+  "sensitivity": [
+    {
+      "good": "Mara",
+      "bad": "Lena",
+      "good_logp": -2.4591152667999268,
+      "bad_logp": -3.3809902667999268
+    },
+    {
+      "good": "Lena",
+      "bad": "Mara",
+      "good_logp": -3.0613749027252197,
+      "bad_logp": -2.9832499027252197
+    }
+  ],
+  "raw_score_sha256": "e8ca899b96db0c59bff6721952859862ad1977c9fefee10a475eadef39551323",
+  "report": {
+    "n_domains": 12,
+    "n_world_pairs": 48,
+    "n_cells": 96,
+    "sensitivity_pass": false,
+    "sensitivity_margins": [
+      0.921875,
+      -0.078125
+    ],
+    "cell_accuracy": 0.5,
+    "fact_order_accuracy": {
+      "0": 0.5,
+      "1": 0.5
+    },
+    "cue_order_accuracy": {
+      "0": 0.5,
+      "1": 0.5
+    },
+    "both_worlds_correct_fraction": 0.0,
+    "world_switch_fraction": 0.5625,
+    "no_cue_world_switch_fraction": 0.5,
+    "no_cue_a_preference_fraction": 0.5833333333333334,
+    "no_cue_name_margin_mean": -0.03632920980453491,
+    "no_cue_max_abs_world_delta": 0.0,
+    "permutation": {
+      "draws": 1000,
+      "mean": 0.5026666666666666,
+      "q95": 0.6041666666666666,
+      "p_ge_observed": 0.2967032967032967
+    },
+    "gate_pass": false
+  }
+}

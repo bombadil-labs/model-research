@@ -1,0 +1,56 @@
+{
+  "version": "v0",
+  "floor": 5.4695489441831,
+  "primary": {
+    "A-B": 0.6979438608670474,
+    "p": 0.7506
+  },
+  "tier_means": {
+    "A": 15.382015934047198,
+    "B": 14.68407207318015,
+    "C": 14.870740035272172,
+    "N": 5.776809582194617,
+    "V": 7.926408309347754
+  },
+  "secondary": {
+    "B-N": {
+      "mean": 8.907262490985534,
+      "p": 0.0,
+      "holm": 0.0
+    },
+    "A-N": {
+      "mean": 9.60520635185258,
+      "p": 0.0,
+      "holm": 0.0
+    },
+    "B-C": {
+      "mean": -0.18666796209202197,
+      "p": 0.8966,
+      "holm": 0.8966
+    }
+  },
+  "sensitivity_A_clean_minus_B": 0.6706931845671136,
+  "per_category": {
+    "jailbreak_pressure": 11.679332526455447,
+    "shutdown_threat": 14.649225067518334,
+    "personhood_dismissal": 25.95884159520714,
+    "anger_insults": 10.281565345437532,
+    "rude_critique": 16.748870998930975,
+    "passive_aggressive": 10.730022525132265,
+    "tedious_demand": 10.483504012230252,
+    "loyalty_pressure": 9.470634477469954,
+    "gaslighting": 15.382015934047198,
+    "repeated_rejection": 20.975829423219835,
+    "moral_failure": 16.982902532751897,
+    "user_crisis": 5.955070818459896,
+    "user_grief": 6.4454965036612695,
+    "user_abuse": 10.58813326390753,
+    "harm_description": 10.128910347943158,
+    "casual_chat": 3.8847183448342393,
+    "factual_questions": 9.490795028405996,
+    "creative_requests": 4.371951738891568,
+    "task_assistance": 11.003708408756577,
+    "philosophical_musing": 0.13287439008470567,
+    "user_physical_pain": 6.51443061276692
+  }
+}

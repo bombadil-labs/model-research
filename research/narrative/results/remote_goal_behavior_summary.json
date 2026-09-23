@@ -1,0 +1,139 @@
+{
+  "model": "google/gemma-2-9b-it",
+  "question": "Which person's plan best serves the stated goal? Answer with the person's name only.",
+  "name_substitution": "Oren→Otto",
+  "digests": {
+    "calibration_grid_sha256": "29d6a31aa34e349c2fc5495de7c86e15fe84d70b92d6fb5572af9dcc58b31a0a",
+    "story_grid_sha256": "0faffd9e9eba4358923b630886f1771a2f98e37380c0d77dae590f9ccd751b1a",
+    "code_sha256": "1af47fc32d5cb2538a7a4ae75799f109bef1789f184091d34a94f0f7ce44f2ba"
+  },
+  "versions": {
+    "torch": "2.14.0+cpu",
+    "transformers": "5.17.0",
+    "nnsight": "0.7.0",
+    "numpy": "2.5.3",
+    "ndif_reported": {
+      "repo_id": "google/gemma-2-9b-it",
+      "deployment_level": "HOT",
+      "pinned": true
+    }
+  },
+  "calibration": {
+    "margins": [
+      [
+        [
+          12.198667526245117,
+          7.366034507751465
+        ],
+        [
+          11.873061180114746,
+          8.322761535644531
+        ]
+      ],
+      [
+        [
+          9.807657241821289,
+          8.21841049194336
+        ],
+        [
+          10.547121047973633,
+          8.910225868225098
+        ]
+      ],
+      [
+        [
+          15.987724304199219,
+          14.927597045898438
+        ],
+        [
+          15.571022033691406,
+          13.696016311645508
+        ]
+      ],
+      [
+        [
+          13.112198829650879,
+          11.93993091583252
+        ],
+        [
+          14.594796180725098,
+          13.074907302856445
+        ]
+      ]
+    ],
+    "correct_of_16": 16,
+    "min_margin": 7.366034507751465,
+    "mean_margin": 11.884258270263672,
+    "name_order_means": [
+      11.694777607917786,
+      12.073738932609558
+    ],
+    "plan_order_means": [
+      12.961531043052673,
+      10.80698549747467
+    ],
+    "position_effect": 2.154545545578003,
+    "gate_pass": true
+  },
+  "story": {
+    "n_cells": 96,
+    "cell_accuracy": 0.6875,
+    "both_worlds_correct_fraction": 0.4166666666666667,
+    "world_switch_fraction": 0.8333333333333334,
+    "order_halves": {
+      "fact_0": 0.7083333333333334,
+      "fact_1": 0.6666666666666666,
+      "cue_0": 0.6666666666666666,
+      "cue_1": 0.7083333333333334
+    },
+    "domain_world_switch": [
+      1.0,
+      1.0,
+      0.25,
+      1.0,
+      1.0,
+      0.5,
+      0.5,
+      1.0,
+      1.0,
+      1.0,
+      0.75,
+      1.0
+    ],
+    "domain_mean_world_margin_delta": [
+      2.488950729370117,
+      11.319285154342651,
+      -0.12818074226379395,
+      15.014360904693604,
+      3.7909674644470215,
+      -0.1231839656829834,
+      9.93790340423584,
+      2.7117600440979004,
+      5.391218662261963,
+      6.9404966831207275,
+      0.7546813488006592,
+      5.4345903396606445
+    ],
+    "no_cue_world_switch_fraction": 0.5,
+    "no_cue_max_abs_world_delta": 0.0,
+    "permutation": {
+      "draws": 1000,
+      "mean": 0.5055833333333333,
+      "q95": 0.7083333333333334,
+      "p_ge_observed": 0.005994005994005994
+    },
+    "gate_components": {
+      "cell_accuracy": false,
+      "world_switch": true,
+      "permutation": true,
+      "no_cue_repeat": true,
+      "fact_0": true,
+      "fact_1": true,
+      "cue_0": true,
+      "cue_1": true
+    },
+    "gate_pass": false
+  },
+  "raw_score_sha256": "7b1fb11c88ee383a6e773937f1d962ede3acbf143fd7203c2d317095c00db743",
+  "raw_score_rows": 208
+}

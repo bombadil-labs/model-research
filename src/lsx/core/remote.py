@@ -213,8 +213,42 @@ def assert_single_bos(ids, mask, bos_id) -> None:
                                    "(INSTRUMENTS §7)")
 
 
-def _encode(rlm: RemoteLM, texts: Sequence[str]):
-    enc = rlm.tok(list(texts), return_tensors="pt", padding=True, add_special_tokens=True)
+def _add_special(rlm: RemoteLM, texts: Sequence[str], double_bos_bug: bool = False) -> bool:
+    """Whether the tokenizer should add its own special tokens to `texts`.
+
+    Raw text needs them. Text rendered by a chat template usually already begins with `<bos>`
+    (Gemma's template emits it), and adding special tokens again gives `<bos><bos>` -- which
+    passes every shape check and is not the model's input. Every tokenization of a text in this
+    module goes through this rule, so ids, lead lengths and offsets always agree. Mixed batches
+    are refused. `double_bos_bug` reproduces the old always-add behaviour on purpose, for the
+    audit that measures what it cost; nothing else should pass it.
+    """
+    if double_bos_bug:
+        return True
+    bos = getattr(rlm.tok, "bos_token", None)
+    if not bos:
+        return True
+    carried = {t.startswith(bos) for t in texts}
+    if len(carried) > 1:
+        raise checks.DoubleBos("a batch mixes texts that carry <bos> with texts that do not")
+    return not carried.pop()
+
+
+def _assert_one_bos(rlm: RemoteLM, ids, mask) -> None:
+    bos_id = getattr(rlm.tok, "bos_token_id", None)
+    if bos_id is None:
+        return
+    for r in range(ids.shape[0]):
+        n = int(((ids[r] == bos_id) & (mask[r] > 0)).sum())
+        if n != 1:
+            raise checks.DoubleBos(f"row {r} carries {n} <bos> tokens")
+
+
+def _encode(rlm: RemoteLM, texts: Sequence[str], double_bos_bug: bool = False):
+    add = _add_special(rlm, texts, double_bos_bug)
+    enc = rlm.tok(list(texts), return_tensors="pt", padding=True, add_special_tokens=add)
+    if not double_bos_bug:
+        _assert_one_bos(rlm, enc["input_ids"], enc["attention_mask"])
     return enc["input_ids"], enc["attention_mask"]
 
 
@@ -265,7 +299,7 @@ def remote_residuals(rlm: RemoteLM, texts: Sequence[str], layer: int, *,
 # --------------------------------------------------------------------------------------------
 def _offsets(rlm: RemoteLM, text: str, spans: dict) -> dict:
     from ..extract import tokens_in_span
-    enc = rlm.tok(text, return_offsets_mapping=True, add_special_tokens=True)
+    enc = rlm.tok(text, return_offsets_mapping=True, add_special_tokens=_add_special(rlm, [text]))
     offsets = enc["offset_mapping"]
     return {name: sorted(set(tokens_in_span(offsets, sp))) for name, sp in spans.items()}
 
@@ -364,7 +398,8 @@ def asserted_remote_patched_logprob(rlm: RemoteLM, lead: str, candidates: Sequen
                                     patch_layer: int | None = None,
                                     patch_vec: np.ndarray | None = None, scale: float = 1.0,
                                     base: np.ndarray | None = None, atol: float = 1e-6,
-                                    batch_row_bug: bool = False) -> np.ndarray:
+                                    batch_row_bug: bool = False,
+                                    double_bos_bug: bool = False) -> np.ndarray:
     """Teacher-forced log p(candidate | lead) for every candidate in ONE padded remote job, with
     the h34/h36 moved-candidates assertion on the way.
 
@@ -380,11 +415,13 @@ def asserted_remote_patched_logprob(rlm: RemoteLM, lead: str, candidates: Sequen
     """
     import torch
 
-    lead = strip_template_bos(rlm.tok, lead)
+    if not double_bos_bug:
+        lead = strip_template_bos(rlm.tok, lead)
     texts = [f"{lead}{c}" for c in candidates]
-    ids, mask = _encode(rlm, texts)
-    assert_single_bos(ids, mask, getattr(rlm.tok, "bos_token_id", None))
-    n_lead = len(rlm.tok(lead, add_special_tokens=True)["input_ids"])
+    ids, mask = _encode(rlm, texts, double_bos_bug)
+    if not double_bos_bug:
+        assert_single_bos(ids, mask, getattr(rlm.tok, "bos_token_id", None))
+    n_lead = len(rlm.tok(lead, add_special_tokens=_add_special(rlm, [lead], double_bos_bug))["input_ids"])
     # Read the logits the model SAMPLES from: Gemma-2 applies `final_logit_softcapping` after
     # `lm_head`, so `lm_head.output` alone is not the output distribution (INSTRUMENTS §7). The cap
     # is a plain float bound here, outside the trace, for the whitelisting reason recorded below.
@@ -482,7 +519,7 @@ def _run_saved(rlm: RemoteLM, build: Callable) -> dict:
 def asserted_remote_generate(rlm: RemoteLM, prompt: str, *, max_new_tokens: int = 48,
                              patch_layer: int | None = None, patch_vec: np.ndarray | None = None,
                              scale: float = 1.0, reimpose: bool = True,
-                             batch_row_bug: bool = False) -> str:
+                             batch_row_bug: bool = False, double_bos_bug: bool = False) -> str:
     """Greedy continuation of `prompt`, optionally under a re-imposed residual patch.
 
     This is the forward h29 ran through `scripts/ndif_recompose_sweep.py`, and the two differences
@@ -506,8 +543,11 @@ def asserted_remote_generate(rlm: RemoteLM, prompt: str, *, max_new_tokens: int 
     blocks = rlm.blocks
     v = None if patch_vec is None else torch.as_tensor(
         np.asarray(patch_vec, dtype=np.float32) * float(scale))
-    prompt = strip_template_bos(rlm.tok, prompt)       # INSTRUMENTS §7: exactly one <bos>
-    n_in = len(rlm.tok(prompt)["input_ids"])
+    if not double_bos_bug:
+        prompt = strip_template_bos(rlm.tok, prompt)   # INSTRUMENTS §7: exactly one <bos>
+    # Tokenized here, not by nnsight: handed a string, nnsight adds special tokens itself.
+    in_ids, in_mask = _encode(rlm, [prompt], double_bos_bug)
+    n_in = int(in_mask.sum())
     # Bound OUTSIDE the trace, for the reason `asserted_remote_patched_logprob` records above and
     # this function's first draft ignored: the block body's source is shipped to the deployment,
     # and `rlm.model.generator` is an attribute path through an instance of a class defined in
@@ -516,8 +556,8 @@ def asserted_remote_generate(rlm: RemoteLM, prompt: str, *, max_new_tokens: int 
     mdl = rlm.model
 
     def build(backend):
-        with mdl.generate(prompt, max_new_tokens=max_new_tokens, do_sample=False,
-                          backend=backend) as tracer:
+        with mdl.generate({"input_ids": in_ids, "attention_mask": in_mask}, max_new_tokens=max_new_tokens,
+                          do_sample=False, backend=backend) as tracer:
             if v is not None:
                 if reimpose:
                     with tracer.all():

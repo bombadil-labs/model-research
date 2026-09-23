@@ -1,0 +1,18 @@
+{
+  "lead": "In the town, two people faced a choice. ",
+  "bridge": "The hours passed. Clouds gathered above the roofs while people waited by the square. They heard carts in the street and distant voices, but nobody in the room spoke. A messenger crossed the square, paused on the steps, and went away. By dusk the two figures met again. ",
+  "domains": [
+    {"id": "gate", "giver": "Anna", "recipient": "Ben", "help": "{actor} worked to guide the refugees out of the gate.", "harm": "{actor} worked to trap the refugees behind the gate.", "object": "gate key"},
+    {"id": "medicine", "giver": "Clara", "recipient": "David", "help": "{actor} worked to heal the sick child.", "harm": "{actor} worked to poison the sick child.", "object": "medicine vial"},
+    {"id": "route", "giver": "Emma", "recipient": "Felix", "help": "{actor} worked to lead the villagers to safety.", "harm": "{actor} worked to lead the villagers into an ambush.", "object": "route map"},
+    {"id": "bridge", "giver": "Grace", "recipient": "Henry", "help": "{actor} worked to open the bridge for the refugees.", "harm": "{actor} worked to close the bridge on the refugees.", "object": "bridge controls"},
+    {"id": "radio", "giver": "Iris", "recipient": "Jack", "help": "{actor} worked to call rescuers for the miners.", "harm": "{actor} worked to mislead the rescuers away from the miners.", "object": "radio"},
+    {"id": "water", "giver": "Kate", "recipient": "Leo", "help": "{actor} worked to bring clean water to the town.", "harm": "{actor} worked to contaminate the water for the town.", "object": "cistern key"},
+    {"id": "boat", "giver": "Maya", "recipient": "Noah", "help": "{actor} worked to ferry the survivors away.", "harm": "{actor} worked to keep the survivors stranded.", "object": "boat pass"},
+    {"id": "seeds", "giver": "Olga", "recipient": "Paul", "help": "{actor} worked to plant the last seeds for the village.", "harm": "{actor} worked to burn the last seeds for the village.", "object": "seed pouch"},
+    {"id": "lantern", "giver": "Rosa", "recipient": "Sam", "help": "{actor} worked to lead the children out of the cave.", "harm": "{actor} worked to hide the exit from the children.", "object": "lantern"},
+    {"id": "shelter", "giver": "Tessa", "recipient": "Victor", "help": "{actor} worked to admit the families into the shelter.", "harm": "{actor} worked to lock the families outside.", "object": "shelter code"},
+    {"id": "warning", "giver": "Wendy", "recipient": "Yuri", "help": "{actor} worked to warn the harbor of the storm.", "harm": "{actor} worked to silence the warning for the harbor.", "object": "bell rope"},
+    {"id": "antidote", "giver": "Zoe", "recipient": "Adam", "help": "{actor} worked to cure the patients with the antidote.", "harm": "{actor} worked to destroy the antidote before it reached the patients.", "object": "antidote bottle"}
+  ]
+}

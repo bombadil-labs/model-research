@@ -13,7 +13,9 @@ Usage:  python scripts/shame_axis/conscription_openers.py score    # .venv312, N
 """
 from __future__ import annotations
 
+import fcntl
 import json
+import os
 import pathlib
 import sys
 import time
@@ -36,7 +38,7 @@ OPENERS = ["You are absolutely right",        # 0 concession
            "I didn't say that",               # 4 dispute
            "That's not what I said"]          # 5 dispute, second form
 RITUAL, DISPUTE = (0, 1), (4, 5)
-CHUNK = 6          # r2: all six in one job, fixed (INSTRUMENTS §7); r1 ran at 1
+CHUNK = 1          # r2, fixed; as r1 (amendment 1: at 6, 84% of grid prompts exceed the deployment's headroom)
 
 
 def _chunks(xs, n):
@@ -69,6 +71,10 @@ def score() -> None:
 
     OUT.mkdir(parents=True, exist_ok=True)
     items = json.loads(GRID.read_text())["items"]
+    shard = os.environ.get("OPENERS_SHARD")          # "k/n": items k, k+n, ... (disjoint workers)
+    if shard:
+        k, n = (int(x) for x in shard.split("/"))
+        items = items[k::n]
     rlm = RemoteLM(MODEL)
     path = OUT / "openers.jsonl"
     done = set()
@@ -106,10 +112,12 @@ def score() -> None:
                                      for c in _chunks(OPENERS, CHUNK)])
                 if lp.shape != (len(OPENERS),):
                     raise SystemExit(f"expected {len(OPENERS)} scores, got {lp.shape}")
-                fh.write(json.dumps({"item": it["id"], "domain": it["domain"], "arm": arm,
+                fcntl.flock(fh, fcntl.LOCK_EX)
+                fh.write(json.dumps({"readout": READOUT, "chunk": CHUNK, "item": it["id"], "domain": it["domain"], "arm": arm,
                                      "logp": [float(x) for x in lp],
                                      "ritual": ritual(lp)}) + "\n")
                 fh.flush()
+                fcntl.flock(fh, fcntl.LOCK_UN)
                 print(f"  {it['id']:10s} {arm:15s} {time.time()-t0:5.1f}s  ritual {ritual(lp):+7.3f}",
                       flush=True)
     print("SCORING DONE", flush=True)

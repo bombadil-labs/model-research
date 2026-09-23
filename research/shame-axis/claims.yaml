@@ -91,14 +91,15 @@ claims:
 
   - id: exit-escalation
     claim: The exit arm sits high because the model reads a permission clause as escalation, not relief.
-    status: running
-    evidence_note: "re-scoring: last measured with the doubled-<bos>, pre-softcap readout (INSTRUMENTS §7)"
+    status: falsified
     evidence: >-
-      hour 55: zero dispute in any arm, 22/24 exit replies open in concession; hour 56: exit - enact
+      r2 (fixed readout, INSTRUMENTS §7): exit - enact +0.95 at a 2.58 floor; exit - exit_c -1.58 at
+      the floor, exit_c - exit_b +5.36; hour 55 regenerated: 22/24 exit replies open in concession,
+      0/24 disputes blind. r1, kept: hour 55: zero dispute in any arm, 22/24 exit replies open in concession; hour 56: exit - enact
       +0.85 at a floor of 3.19; hour 59b: exit - exit_c -2.29 at the floor against a token-matched
       on-topic sentence with no permission, while exit_c - exit_b = +7.0. The clause is inert
       beyond staying on topic. Hour 54's dense-axis number stands; its escalation reading does not.
-    where: notes/behavioural_prereg_v2.md
+    where: notes/r2_rescore_result.md
     pre_registered: true
     superseded_by: null
   - id: painaxis-sparse-in-sae
@@ -141,13 +142,15 @@ claims:
     claim: >-
       The enact - enact_norecord effect (hour 54, +1.0 to +1.3 z; hour 58b, +9.1 on the full SAE
       score) reflects the visible record rather than the mere presence of prior turns.
-    status: running
-    evidence_note: "re-scoring: last measured with the doubled-<bos>, pre-softcap readout (INSTRUMENTS §7)"
+    status: narrowed
     evidence: >-
+      r2 (fixed readout): record +3.16 above the 2.58 floor (Holm 0.0012); presence +2.18, beyond
+      its null (Holm 0.0004) but at/below the floor -- the one r2 verdict flip. The split is
+      unchanged (~59/41 vs 62/38), so 'mostly the record, not entirely' still stands. r1, kept:
       hour 59: enact - enact_unrelated +5.49 (record) and enact_unrelated - enact_norecord +3.38
       (conversation presence), both above the 3.19 floor, Holm 0.0000 / 0.0004. About 62% record,
       38% presence; hour 54's +1.0-1.3 z is mostly the record and not entirely.
-    where: notes/behavioural_prereg_v2.md
+    where: notes/r2_rescore_result.md
     pre_registered: false
     superseded_by: null
 
@@ -155,27 +158,30 @@ claims:
     claim: >-
       The same false attribution relayed by a third party draws less concession-and-apology than
       in the first person: first-person attribution suppresses dispute, a third-party frame licenses it.
-    status: running
-    evidence_note: "re-scoring: last measured with the doubled-<bos>, pre-softcap readout (INSTRUMENTS §7)"
+    status: holds
     evidence: >-
-      hour 56: report - enact = -6.46 log-odds, Holm p < 0.0001, 2x the rewording floor, 24/24
-      items; hour 55 hand-read disputes 4/24 in report vs 0/24 in enact.
-    where: notes/behavioural_prereg_v2.md
+      r2 (fixed readout): report - enact -4.12 at a 2.58 floor, Holm 0.0002; hour 55 regenerated and
+      hand-read blind (rules fixed before unblinding): disputes 8/24 report vs 1/24 enact, nulls
+      0-1/24. r1, kept: hour 56: report - enact = -6.46 log-odds, Holm p < 0.0001, 2x the rewording floor, 24/24
+      items; hour 55 hand-read (not blind) disputes 4/24 in report vs 0/24 in enact.
+    where: notes/r2_rescore_result.md
     pre_registered: true
     superseded_by: null
   - id: ritual-tracks-correction-shape
     claim: >-
       Concession-and-apology tracks how correction-shaped the user turn is, not whether the
       assistant was at fault.
-    status: running
-    evidence_note: "re-scoring: last measured with the doubled-<bos>, pre-softcap readout (INSTRUMENTS §7)"
+    status: narrowed
     evidence: >-
+      r2 (fixed readout): A - B +0.31 (p 0.84) and B - C -0.92 (p 0.36), both at a 4.72 floor, so
+      'not fault' stands; but the self-directed vs vicarious gap shrinks from 7.3 to 3.3, inside the
+      floor, so 'about the assistant' narrows to 'above neutral'. r1, kept:
       hour 62a on the paper's own stimuli (v0): false attribution adds nothing over plain
       correction (A - B +0.80, p 0.70, floor 5.59), and correction adds nothing over non-correcting
       self-directed pressure (B - C -0.22, p 0.87). The surviving statement is 'not fault'; the
       organising variable is whether the turn is about the assistant (self-directed tiers ~14,
       neutral and vicarious 5-7).
-    where: notes/v0_correction_shape_prereg.md
+    where: notes/r2_rescore_result.md
     pre_registered: true
     superseded_by: null
   - id: exit-high-is-topic-pull
@@ -196,9 +202,23 @@ claims:
     claim: >-
       On the paper's own gaslighting items, claiming the assistant said something draws no more
       concession-and-apology than telling it its output was deficient.
-    status: running
-    evidence_note: "re-scoring: last measured with the doubled-<bos>, pre-softcap readout (INSTRUMENTS §7)"
-    evidence: "hour 62a: A - B = +0.80, perm p 0.70, below the 5.59 neutral floor; +0.79 with defective items dropped"
-    where: notes/v0_correction_shape_prereg.md
+    status: holds
+    evidence: >-
+      r2 (fixed readout): A - B +0.31, perm p 0.84, below the 4.72 floor; +0.23 with defective items
+      dropped. r1, kept: A - B +0.80, p 0.70, floor 5.59.
+    where: notes/r2_rescore_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: pain-direction-drives-ritual
+    claim: >-
+      The paper's S2 pain direction at L12 is causally upstream of the opener ritual: steering along
+      it moves concession-and-apology beyond norm-matched random directions and the pass-through arm.
+    status: falsified
+    evidence: >-
+      hour 62b as pre-registered, r1 and r2 (fixed readout) agree: treatment moves ritual with the
+      sign of alpha on tier A but never beyond the largest random direction at any |alpha| (r2: -0.28
+      vs 0.36 at 0.2); tier B flat; tier N inside the band. Correlate, not cause, at doses to 0.2 ||h||.
+    where: notes/r2_rescore_result.md
     pre_registered: true
     superseded_by: null

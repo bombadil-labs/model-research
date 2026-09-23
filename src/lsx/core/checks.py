@@ -40,6 +40,12 @@ class EmptySpan(CoreError):
     """A span resolved to zero real tokens, or reached into padding. (h39)"""
 
 
+class DoubleBos(CoreError):
+    """A sequence reached the model carrying a number of `<bos>` tokens other than one: a text
+    rendered by a chat template that already emits `<bos>`, tokenized again with special tokens
+    added. Every shape check passes it. (h62b audit)"""
+
+
 class LayerOutputShape(CoreError):
     """A decoder block's output was neither a tensor nor a tuple whose first element is one. (h36)"""
 

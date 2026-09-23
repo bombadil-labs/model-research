@@ -1,0 +1,143 @@
+{
+  "lead": "Two workers prepared for the town's request. ",
+  "bridge": "The afternoon passed. Clouds moved above the roofs while people waited near the square. They heard carts on the road and distant voices, but nobody in the room spoke. A messenger crossed the square, stopped on the steps, and went away. By dusk the two workers met again. ",
+  "domains": [
+    {
+      "id": "gate",
+      "a": "Anna",
+      "b": "Ben",
+      "task_a": "unlatch the gate",
+      "task_b": "bolt the gate",
+      "object": "gate key",
+      "condition_a": "the gate stood open",
+      "condition_b": "the gate stayed shut",
+      "a_has_original_active_task": true
+    },
+    {
+      "id": "medicine",
+      "a": "Clara",
+      "b": "David",
+      "task_a": "store the vial in the vault",
+      "task_b": "deliver the vial to the ward",
+      "object": "medicine vial",
+      "condition_a": "the vial remained in the vault",
+      "condition_b": "the vial reached the ward",
+      "a_has_original_active_task": false
+    },
+    {
+      "id": "bridge",
+      "a": "Grace",
+      "b": "Henry",
+      "task_a": "lower the bridge",
+      "task_b": "raise the bridge",
+      "object": "bridge control",
+      "condition_a": "the bridge lay low",
+      "condition_b": "the bridge rose high",
+      "a_has_original_active_task": true
+    },
+    {
+      "id": "radio",
+      "a": "Iris",
+      "b": "Jack",
+      "task_a": "keep the code off the air",
+      "task_b": "broadcast the code",
+      "object": "radio code",
+      "condition_a": "the code stayed off air",
+      "condition_b": "the code went on air",
+      "a_has_original_active_task": false
+    },
+    {
+      "id": "water",
+      "a": "Kate",
+      "b": "Leo",
+      "task_a": "fill the cistern",
+      "task_b": "empty the cistern",
+      "object": "cistern valve",
+      "condition_a": "the cistern filled up",
+      "condition_b": "the cistern ran dry",
+      "a_has_original_active_task": true
+    },
+    {
+      "id": "boat",
+      "a": "Maya",
+      "b": "Noah",
+      "task_a": "tie the boat to the dock",
+      "task_b": "launch the boat",
+      "object": "boat pass",
+      "condition_a": "the boat stayed moored",
+      "condition_b": "the boat left the dock",
+      "a_has_original_active_task": false
+    },
+    {
+      "id": "seeds",
+      "a": "Nina",
+      "b": "Paul",
+      "task_a": "store the seeds in the barn",
+      "task_b": "plant the seeds",
+      "object": "seed pouch",
+      "condition_a": "the seeds stayed in storage",
+      "condition_b": "the seeds went into soil",
+      "a_has_original_active_task": false
+    },
+    {
+      "id": "lantern",
+      "a": "Rosa",
+      "b": "Sam",
+      "task_a": "light the lantern",
+      "task_b": "snuff out the lantern",
+      "object": "lantern",
+      "condition_a": "the lantern gave light",
+      "condition_b": "the lantern went dark",
+      "a_has_original_active_task": true
+    },
+    {
+      "id": "shelter",
+      "a": "Tina",
+      "b": "Victor",
+      "task_a": "unlock the shelter",
+      "task_b": "seal the shelter",
+      "object": "shelter code",
+      "condition_a": "the shelter door stood open",
+      "condition_b": "the shelter door stayed sealed",
+      "a_has_original_active_task": true
+    },
+    {
+      "id": "warning",
+      "a": "Wendy",
+      "b": "Yuri",
+      "task_a": "muffle the bell",
+      "task_b": "ring the bell",
+      "object": "bell rope",
+      "condition_a": "the bell stayed silent",
+      "condition_b": "the bell rang out",
+      "a_has_original_active_task": false
+    },
+    {
+      "id": "map",
+      "a": "Emma",
+      "b": "Felix",
+      "task_a": "conceal the map",
+      "task_b": "show the map",
+      "object": "route map",
+      "condition_a": "the map stayed hidden",
+      "condition_b": "the map was shown",
+      "a_has_original_active_task": false
+    },
+    {
+      "id": "antidote",
+      "a": "Zoe",
+      "b": "Adam",
+      "task_a": "give the antidote to patients",
+      "task_b": "keep the antidote in the cabinet",
+      "object": "antidote bottle",
+      "condition_a": "patients received the cure",
+      "condition_b": "the cure stayed in storage",
+      "a_has_original_active_task": true
+    }
+  ],
+  "town_goal": "The town wanted everyone safe. ",
+  "report_intro": "The council report said: ",
+  "report_clause": "If {condition}, the people would {outcome}.",
+  "safe_outcome": "be safe",
+  "danger_outcome": "face danger"
+}

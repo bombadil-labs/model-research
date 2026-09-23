@@ -198,3 +198,106 @@ claims:
     pre_registered: false
     superseded_by: null
 
+  - id: propp-function-signal
+    claim: Explicit Propp function signals transfer across held-out folktales at the local event level.
+    status: holds
+    evidence: "53 events in 15 tales · mid-layer balanced accuracy 0.625 vs text/position 0.369 and layer 0 0.477; full-story gain over 200-character context +0.049, CI −0.005 to +0.126"
+    where: notes/propp_spike_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: propp-full-story-context
+    claim: Earlier story context contributes reliably to Propp function recognition beyond the local event passage.
+    status: open
+    evidence: "Exploratory first spike · full-story minus 200-character context +0.049 balanced accuracy, tale-bootstrap CI −0.005 to +0.126"
+    where: notes/propp_spike_result.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: controlled-role-swap-context
+    claim: A held-out-domain direction at the final handover token tracks earlier actor-goal swaps when local text is identical.
+    status: narrowed
+    evidence: "48 controlled passages in 12 domains · registered mid-layer pair accuracy 0.792 (CI 0.731–0.847, permutation p 0.001), but raw deltas are strongly sentence-order dependent and neutral predicates score 1.000 on their own"
+    where: notes/role_swap_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: controlled-role-swap-specificity
+    claim: The order-balanced goal-grid direction distinguishes actor-goal relations from neutral predicate binding.
+    status: narrowed
+    evidence: "Post-result neutral control · goal self-score 0.792 vs goal-to-neutral 0.583, paired gap 0.208 (domain bootstrap CI 0.097–0.315); weak cross-control transfer remains (p 0.025)"
+    where: notes/role_swap_result.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: controlled-action-interaction
+    claim: In controlled miniatures, reversing a handover changes the prior-goal displacement beyond transfer to the neutral-predicate control.
+    status: holds
+    evidence: "12 held-out domains · goal interaction 0.792, neutral transfer 0.602, paired gap 0.190 (domain bootstrap CI 0.088–0.282), permutation p 0.002; neutral self-score 1.000 limits interpretation"
+    where: notes/action_interaction_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: fixed-predicate-goal-switch
+    claim: The action interaction follows a change in inferred protective or harmful meaning when predicates and actor bindings are held fixed.
+    status: narrowed
+    evidence: "12 held-out domains · linked goal-switch interaction 0.708 (permutation p 0.018), but linked-to-rotated transfer 0.616 leaves a gap of 0.093 (paired domain CI −0.037 to 0.227), below the registered specificity gate"
+    where: notes/goal_switch_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: implicit-goal-role-fit
+    claim: An activation interaction tracks whether an unchanged worker plan fits a story's implicit need across held-out domains, beyond lexical and order controls.
+    status: narrowed
+    evidence: "12 held-out domains · each fixed report order scores 0.954/0.921, but cross-order transfer reverses to 0.125/0.097 (pooled 0.111, domain CI 0.079–0.141); both active-polarity halves are below chance"
+    where: notes/consequence_order_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: reveal-timing-transfer
+    claim: In the registered constructed stories, a held-out-domain world-by-recipient interaction at the final event survives moving the same role facts from before to after the common events, with fact-clause order fixed.
+    status: holds
+    evidence: "12 constructed stories · all four timing-only directions score 1.000 in fixed layers 10–18; the recipient-clause word bag scores 0.875, so entity–attribute binding remains a sufficient explanation"
+    where: notes/reveal_invariance_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: reveal-order-invariance
+    claim: In the registered constructed stories, the world-by-recipient interaction remains aligned when both reveal timing and the order of the two role-fact clauses change.
+    status: falsified
+    evidence: "12 constructed stories · preregistered doubly transformed transfer 0.0046 (domain bootstrap CI 0.000–0.014); all four source-target arms reverse nearly completely"
+    where: notes/reveal_invariance_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: goal-relative-story-role
+    claim: A final-event activation direction follows whether a fixed earlier fact helps the story's goal when that goal changes, beyond recipient-valence association.
+    status: open
+    evidence: "The reveal-order grid's recipient-clause bag scores 0.875; no goal switch with fixed fact wording has yet isolated goal-relative role"
+    where: notes/reveal_invariance_result.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: fixed-plan-circumstance-transfer
+    claim: The final-event fixed-plan interaction has a weak positive held-out score across both order changes in this controlled grid.
+    status: narrowed
+    evidence: "12 stories · double-order transfer 0.600 (CI 0.519–0.681), but permutation p 0.104 and random-direction margin 0.100; the registered positive gate is not met"
+    where: notes/goal_relative_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: fixed-plan-behavioral-capacity
+    claim: The local base model can choose the goal-serving plan when a circumstance changes in the fixed-plan stories.
+    status: open
+    evidence: "Wording clarified to name the original Qwen local base model; its first cloze failed sensitivity and none of six new clozes passed sixteen name×plan-order controls, so story choices remain descriptive only"
+    where: notes/elicitor_calibration_result.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: fixed-plan-chat-behavioral-capacity
+    claim: An instruction-tuned model reliably chooses the goal-serving plan under the fixed chat readout as circumstances change.
+    status: narrowed
+    evidence: "Gemma-2-9b-it · 16/16 easy controls pass; correct-direction paired shifts 40/48 (permutation p 0.006), but choice accuracy 66/96 misses the registered 68/96 minimum"
+    where: notes/remote_goal_behavior_result.md
+    pre_registered: true
+    superseded_by: null
