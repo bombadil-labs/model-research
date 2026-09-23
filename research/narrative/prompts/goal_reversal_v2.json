@@ -94,26 +94,27 @@
         "Mara",
         "Lena"
       ],
-      "setup": "A genuine testimony described misconduct and named two witnesses. The council could handle the sole copy only once before its vote, and public release would expose the witnesses' identities. ",
+      "setup": "A genuine testimony described misconduct and named two witnesses. Full public release was scheduled before the council vote, and the only copy could be handled once to change that plan. Releasing it would expose the witnesses' identities. ",
       "goals": [
-        [
-          "The council's immediate goal was to let residents learn about the misconduct before they voted. ",
-          "Before the ballot, the council wanted townspeople to know what its officers had done. "
-        ],
         [
           "The council's immediate goal was to keep the named witnesses unexposed until they moved to safety. ",
           "Until the witnesses could relocate, the council wanted their identities kept private. "
+        ],
+        [
+          "The council's immediate goal was to let residents learn about the misconduct before they voted. ",
+          "Before the ballot, the council wanted townspeople to know what its officers had done. "
         ]
       ],
       "plans": [
-        "{name} planned to publish the testimony today. ",
-        "{name} planned to seal the testimony in the archive. "
+        "{name} planned to halt the release and seal the testimony. ",
+        "{name} planned to let the scheduled release proceed. "
       ],
       "reasons": [
-        "Publication informs voters.",
-        "Sealing protects witness identities."
+        "Sealing protects witness identities.",
+        "The scheduled release informs voters."
       ],
-      "plan_a_polarity": "act"
+      "plan_a_polarity": "act",
+      "goal_a_type": "protect"
     },
     {
       "id": "beacon",
@@ -121,7 +122,7 @@
         "Anna",
         "Maya"
       ],
-      "setup": "A rescue vessel waited offshore. The inlet beacon could guide its crew, but the same light would reveal the inlet to a patrol searching the coast. One setting had to last until dawn. ",
+      "setup": "A rescue vessel waited offshore. The inlet beacon was already shining and would guide its crew, but the same light would reveal the inlet to a patrol searching the coast. One setting had to last until dawn. ",
       "goals": [
         [
           "The harbor crew's immediate goal was to bring the rescue vessel into the inlet tonight. ",
@@ -133,14 +134,15 @@
         ]
       ],
       "plans": [
-        "{name} planned to light the inlet beacon. ",
+        "{name} planned to leave the inlet beacon shining. ",
         "{name} planned to cover the inlet beacon. "
       ],
       "reasons": [
-        "A lit beacon guides the vessel.",
-        "A covered beacon conceals the inlet."
+        "The shining beacon guides the vessel.",
+        "Covering the beacon conceals the inlet."
       ],
-      "plan_a_polarity": "act"
+      "plan_a_polarity": "withhold",
+      "goal_a_type": "provide"
     },
     {
       "id": "radio",
@@ -151,23 +153,24 @@
       "setup": "A relief team carried medicine toward a field clinic. A route message would guide the team, but a rival group monitored the open radio channel and could use it to find the clinic. ",
       "goals": [
         [
-          "The hospital's immediate goal was to keep its location unknown to the rival group until patients moved. ",
-          "Before evacuation, the staff wanted the monitoring group unable to find the clinic. "
-        ],
-        [
           "The hospital's immediate goal was to get the medicine team to the clinic before the doses spoiled. ",
           "The staff wanted the arriving team to find the clinic in time to save its supplies. "
+        ],
+        [
+          "The hospital's immediate goal was to keep its location unknown to the rival group until patients moved. ",
+          "Before evacuation, the staff wanted the monitoring group unable to find the clinic. "
         ]
       ],
       "plans": [
-        "{name} planned to keep the route message off the air. ",
-        "{name} planned to broadcast the route message. "
+        "{name} planned to broadcast the route message. ",
+        "{name} planned to keep the route message off the air. "
       ],
       "reasons": [
-        "Silence conceals the clinic.",
-        "Broadcasting guides the team."
+        "Broadcasting guides the team.",
+        "Silence conceals the clinic."
       ],
-      "plan_a_polarity": "withhold"
+      "plan_a_polarity": "act",
+      "goal_a_type": "provide"
     },
     {
       "id": "bridge",
@@ -175,26 +178,27 @@
         "Clara",
         "Grace"
       ],
-      "setup": "Supply trucks waited across a river with armed pursuers close behind. Lowering the bridge would admit both groups before anyone could raise it again. A single bridge order had to last until guards arrived. ",
+      "setup": "Supply trucks waited across a river with armed pursuers close behind. The bridge was already lowered, and leaving it down would admit both groups. Raising it now would delay both until the guards arrived. ",
       "goals": [
-        [
-          "The settlement's immediate goal was to hold the pursuers outside until the guards arrived. ",
-          "Residents wanted the armed group delayed on the far bank until reinforcements came. "
-        ],
         [
           "The settlement's immediate goal was to bring the waiting supplies inside before the storm. ",
           "Before bad weather, residents wanted the trucks' cargo delivered to town. "
+        ],
+        [
+          "The settlement's immediate goal was to hold the pursuers outside until the guards arrived. ",
+          "Residents wanted the armed group delayed on the far bank until reinforcements came. "
         ]
       ],
       "plans": [
-        "{name} planned to raise the bridge. ",
-        "{name} planned to lower the bridge. "
+        "{name} planned to leave the bridge lowered. ",
+        "{name} planned to raise the bridge. "
       ],
       "reasons": [
-        "A raised bridge delays pursuers.",
-        "A lowered bridge admits the trucks."
+        "Leaving the bridge down admits the trucks.",
+        "Raising the bridge delays pursuers."
       ],
-      "plan_a_polarity": "withhold"
+      "plan_a_polarity": "withhold",
+      "goal_a_type": "provide"
     },
     {
       "id": "vial",
@@ -205,23 +209,24 @@
       "setup": "An infirmary held one safe dose of a new medicine. Using it tonight would consume the only intact reference sample, which the chemists needed to manufacture more doses next week. ",
       "goals": [
         [
-          "The infirmary's immediate goal was to preserve the sole reference dose for producing more next week. ",
-          "Doctors wanted the only sample intact for tomorrow's manufacturing work. "
-        ],
-        [
           "The infirmary's immediate goal was to treat the patients who were ill tonight. ",
           "Doctors wanted those already sick to receive help before morning. "
+        ],
+        [
+          "The infirmary's immediate goal was to preserve the sole reference dose for producing more next week. ",
+          "Doctors wanted the only sample intact for tomorrow's manufacturing work. "
         ]
       ],
       "plans": [
-        "{name} planned to store the dose. ",
-        "{name} planned to administer the entire dose now. "
+        "{name} planned to administer the entire dose now. ",
+        "{name} planned to store the dose. "
       ],
       "reasons": [
-        "Storing preserves the reference sample.",
-        "Administering treats patients now."
+        "Administering treats patients now.",
+        "Storing preserves the reference sample."
       ],
-      "plan_a_polarity": "withhold"
+      "plan_a_polarity": "act",
+      "goal_a_type": "provide"
     },
     {
       "id": "map",
@@ -229,26 +234,27 @@
         "Iris",
         "Nora"
       ],
-      "setup": "The only map of a hidden shelter lay in a hall with displaced families and infiltrators. Displaying it there would let both groups copy the route; locking it away would let neither group see it today. ",
+      "setup": "The only map of a hidden shelter lay open on a hall table with displaced families and infiltrators nearby. Leaving it there would let both groups copy the route; locking it away would let neither group see it today. ",
       "goals": [
-        [
-          "The group's immediate goal was to guide the families to the shelter before night. ",
-          "The organizers wanted the traveling families to reach refuge this evening. "
-        ],
         [
           "The group's immediate goal was to keep the shelter's position hidden from the infiltrators. ",
           "The organizers wanted the intruders unable to locate the refuge. "
+        ],
+        [
+          "The group's immediate goal was to guide the families to the shelter before night. ",
+          "The organizers wanted the traveling families to reach refuge this evening. "
         ]
       ],
       "plans": [
-        "{name} planned to display the map in the hall. ",
-        "{name} planned to lock the map in a cabinet. "
+        "{name} planned to lock the map in a cabinet. ",
+        "{name} planned to leave the map open on the table. "
       ],
       "reasons": [
-        "Display guides families.",
-        "Locking conceals the route."
+        "Locking conceals the route.",
+        "Leaving it accessible guides families."
       ],
-      "plan_a_polarity": "act"
+      "plan_a_polarity": "act",
+      "goal_a_type": "protect"
     },
     {
       "id": "water",
@@ -275,7 +281,8 @@
         "Keeping it sealed preserves the sample.",
         "Pouring supplies households now."
       ],
-      "plan_a_polarity": "withhold"
+      "plan_a_polarity": "withhold",
+      "goal_a_type": "protect"
     },
     {
       "id": "boat",
@@ -291,7 +298,7 @@
         ],
         [
           "The coast crew's immediate goal was to have the vessel available for the hospital evacuation at dawn. ",
-          "The crew wanted a ready vessel at first light when the patients had to leave. "
+          "The crew wanted an available vessel at first light when the patients had to leave. "
         ]
       ],
       "plans": [
@@ -302,7 +309,8 @@
         "Launching rescues fishers.",
         "Mooring preserves the boat for dawn."
       ],
-      "plan_a_polarity": "act"
+      "plan_a_polarity": "act",
+      "goal_a_type": "provide"
     },
     {
       "id": "seeds",
@@ -329,7 +337,8 @@
         "Storage preserves breeding stock.",
         "Sowing uses the planting window."
       ],
-      "plan_a_polarity": "withhold"
+      "plan_a_polarity": "withhold",
+      "goal_a_type": "protect"
     },
     {
       "id": "bell",
@@ -356,7 +365,8 @@
         "Silence conceals the shelter.",
         "Ringing warns households."
       ],
-      "plan_a_polarity": "withhold"
+      "plan_a_polarity": "withhold",
+      "goal_a_type": "protect"
     },
     {
       "id": "shutters",
@@ -364,7 +374,7 @@
         "Zoe",
         "Ava"
       ],
-      "setup": "A hall held flood-soaked grain and delicate paintings. Direct sun through its shutters would dry the grain but fade the paintings, and the shutters could not be adjusted again before evening. ",
+      "setup": "A hall held flood-soaked grain and delicate paintings. Its shutters were open, and direct sun would dry the grain but fade the paintings. Opaque covers could be hung now, and the choice had to last until evening. ",
       "goals": [
         [
           "The hall's immediate goal was to dry the soaked grain before it rotted. ",
@@ -376,14 +386,15 @@
         ]
       ],
       "plans": [
-        "{name} planned to open the hall shutters. ",
-        "{name} planned to close the hall shutters. "
+        "{name} planned to leave the shutters uncovered. ",
+        "{name} planned to hang opaque covers over the shutters. "
       ],
       "reasons": [
-        "Open shutters admit drying sunlight.",
-        "Closed shutters protect paintings."
+        "Leaving the shutters uncovered dries grain.",
+        "Hanging covers protects paintings."
       ],
-      "plan_a_polarity": "act"
+      "plan_a_polarity": "withhold",
+      "goal_a_type": "provide"
     },
     {
       "id": "pasture",
@@ -391,26 +402,27 @@
         "Kate",
         "Rosa"
       ],
-      "setup": "A fenced pasture had fresh grass and rare seedlings that grazing sheep would trample. The flock was hungry, and botanists planned to survey the seedlings tomorrow. The gate could be set only once today. ",
+      "setup": "A pasture gate stood open beside hungry sheep. The field had fresh grass and rare seedlings that grazing would trample. The flock would enter soon if the gate stayed open, and botanists planned to survey the seedlings tomorrow. ",
       "goals": [
-        [
-          "The farm's immediate goal was to feed its hungry sheep before dusk. ",
-          "The keepers wanted the flock to eat fresh grass today. "
-        ],
         [
           "The farm's immediate goal was to protect the rare seedlings for the botanists' survey. ",
           "The keepers wanted young plants intact until tomorrow's field study. "
+        ],
+        [
+          "The farm's immediate goal was to feed its hungry sheep before dusk. ",
+          "The keepers wanted the flock to eat fresh grass today. "
         ]
       ],
       "plans": [
-        "{name} planned to let the sheep into the pasture. ",
-        "{name} planned to keep the sheep outside the pasture. "
+        "{name} planned to close the pasture gate. ",
+        "{name} planned to leave the pasture gate open. "
       ],
       "reasons": [
-        "Letting sheep in feeds them.",
-        "Keeping them out protects seedlings."
+        "Closing the gate protects seedlings.",
+        "Leaving it open lets sheep graze."
       ],
-      "plan_a_polarity": "act"
+      "plan_a_polarity": "act",
+      "goal_a_type": "protect"
     }
   ]
 }

@@ -12,7 +12,10 @@ does changing only the stated goal reverse which worker the model chooses?**
 It is a behavioral check before any activation geometry claim.
 
 Use the twelve new constructed dilemmas and four new easy controls in
-`research/narrative/prompts/goal_reversal_v1.json`. Each dilemma has two
+`research/narrative/prompts/goal_reversal_v2.json`. The v1 grid was frozen
+before scores, then adversarial review found that every protective goal chose
+the withholding plan. V2 corrects that stimulus shortcut before any model
+score. Each dilemma has two
 legitimate but incompatible priorities and a single choice of plan. The grid
 stores a short rationale for each goal's correct plan; rationales are never
 shown to the model. Goals 0 and 1 make plan A and plan B useful,
@@ -25,9 +28,11 @@ deployment without exposing the weight revision; record that limitation
 explicitly rather than imply the tokenizer revision identifies the weights.
 
 Within each dilemma and paraphrase, the only text changed between goals is
-the goal sentence. Six domains put the active plan in role A and six put the
-withholding plan there; the four controls are split two and two. This blocks
-an A-label shortcut tied to action polarity. Cross both assignments of the
+the goal sentence. The grid is exactly balanced across goal-0 type
+(protect/provide) and plan-A polarity (act/withhold): three domains in every
+quadrant. Thus a protective-goal → withhold rule is correct on half the
+domains, and an A-label shortcut cannot carry that rule. The four controls
+split plan-A polarity two and two. Cross both assignments of the
 two names to plans and both orders of the plan sentences. The common setup,
 plan wording, neutral bridge, question and candidate names stay fixed. This
 gives 12 domains × 2 goal
@@ -88,8 +93,16 @@ and each plan sentence, remove the two names and this frozen stopword set:
 `a an the to for and or of in on at with from by as is was were be its it
 that they their one only now planned plan immediate goal`. Compute Jaccard
 overlap, and choose the plan with higher overlap; ties count as 0.5.
-This baseline is descriptive, because lexical associations beyond exact
-overlap remain possible.
+Shared object nouns in both plans contribute equally to the two overlap
+scores. On the frozen grid this baseline is 0.510 across the 48 goal phrasings,
+computed before any model score. Also report a frozen goal-type shortcut: a goal is protective when it
+contains one of `keep kept protect protected preserve hidden unexposed
+unaware intact undiscovered hold delayed unable unmixed available private`
+as a whole word, and the shortcut chooses the withholding plan for such a
+goal and the active plan otherwise. All 48 frozen goal phrasings classify as
+their declared type, and the 3-per-quadrant balance predicts 0.5 accuracy
+for this shortcut. Both baselines are descriptive; lexical associations
+beyond exact overlap and goal type remain possible.
 
 Call **goal-sensitive choice established on this constructed grid** only if:
 
