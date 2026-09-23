@@ -421,3 +421,11 @@ claims:
     where: notes/firsthop_swap_behavior_result.md
     pre_registered: true
     superseded_by: null
+
+  - id: firsthop-winning-slot-cancellation
+    claim: At the fixed block-24 story-period token, transplanting a state with both the route world and plan order reversed has a near-zero later name-margin effect relative to the world-only and plan-only substitutions, consistent with preserving which listed plan slot wins.
+    status: holds
+    evidence: "The frozen follow-up passes all instrument and cancellation gates. Natural and world-norm-matched double flips shift the signed margin only +0.069 and +0.085 nat, with bootstrap CIs wholly inside ±0.40, while the within-run world-minus-double and plan-minus-double contrasts are +0.515 and +0.782 nat (8/8 domains each; exact p 1/256). Cancellation is near-exact in six domains; ship is an exception (+0.72 matched), also unusually sensitive to the slot-preserving clause-order control. This supports a winning listed-plan-slot component at the preselected token and dose, not a unique code or a causal story edit."
+    where: notes/firsthop_doubleflip_result.md
+    pre_registered: true
+    superseded_by: null
