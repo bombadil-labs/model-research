@@ -30,6 +30,15 @@ def _direction(saved: dict, stories: list[cross.Cell], block: int) -> np.ndarray
     return mean / np.linalg.norm(mean)
 
 
+def _norms_by_telling(saved: dict, stories: list[cross.Cell]) -> list[list[float]]:
+    h = np.stack([saved[c.id] for c in stories]).reshape(
+        8, 2, 2, 2, 2, 2, len(pilot.BLOCKS), -1).astype(np.float64)
+    interaction = (h[..., 0, 0, :, :] - h[..., 0, 1, :, :] -
+                   h[..., 1, 0, :, :] + h[..., 1, 1, :, :])
+    return np.median(np.linalg.norm(interaction, axis=-1),
+                     axis=(0, 2, 3)).tolist()
+
+
 def main() -> None:
     from lsx.core.remote import RemoteLM
 
@@ -78,6 +87,9 @@ def main() -> None:
               "prebridge_token_id": extraction_report["prebridge_token_id"],
               "prebridge_token_decoded": extraction_report["prebridge_token_decoded"],
               "prebridge_diagnostic": prebridge,
+              "interaction_norm_median_by_telling_and_block": {
+                  "prebridge": _norms_by_telling(prebridge_saved, stories),
+                  "bridge_end": _norms_by_telling(story_saved, stories)},
               "source_final_prompt_curve": source["transfer_curve"],
               "story_to_final_direction_cosine_block24": direction_cosine,
               "goal_token_length_audit": {

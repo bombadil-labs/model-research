@@ -107,7 +107,8 @@ full tokenization. Capture that token in the **same trace** as the bridge-end
 and final-prompt tokens. Repeat the core and truncated-prefix equivalence
 checks on the first prompt. Check the new vector's repeat drift, run the same
 fixed block-16/24 opposite-telling transfer analysis, and report its full
-curve and decision components separately. The bridge-end state remains the
+curve, decision components, transfer by target telling and interaction norms
+by telling separately. The bridge-end state remains the
 sole primary test. The earlier state is a secondary location diagnostic: if
 it passes while bridge-end fails, the neutral bridge is a candidate source of
 loss; if both fail, this readout still cannot distinguish a missing story
