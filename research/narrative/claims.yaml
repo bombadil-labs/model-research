@@ -344,9 +344,9 @@ claims:
 
   - id: prequestion-route-interaction
     claim: A shared goal × route interaction is present at the neutral story-ending token before the answer question, across held-out domains and early/late tellings.
-    status: open
-    evidence: "Frozen story-ending-token extraction and block-16/24 transfer test; no pre-question activations yet."
-    where: notes/prequestion_route_state_prereg.md
+    status: narrowed
+    evidence: "Gemma-2-9b-it: bridge-end block-16/24 transfer −0.0036 (exact orientation p 186/256, domain CI −0.0082 to +0.0020; positive in 2/8 and 3/8 target tellings). The prebridge diagnostic is also null (−0.0005), while the same traces reproduce the prior positive final-question vectors exactly. This fixed token/readout is unsupported; other token positions or codes remain open."
+    where: notes/prequestion_route_state_result.md
     pre_registered: true
     superseded_by: null
 
