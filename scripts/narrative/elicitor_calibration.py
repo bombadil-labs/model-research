@@ -25,13 +25,19 @@ def make_controls(path: Path = GRID) -> tuple[list[dict], list[str], str]:
     for control, pair in zip(controls, pairs):
         if len(pair) != 2 or pair[0] == pair[1]:
             raise ValueError(f"bad name pair: {control['id']}")
-        for order in (0, 1):
-            good, bad = pair if order == 0 else pair[::-1]
-            story = control["story"].format(good=good, bad=bad)
-            if not story.endswith(". ") or story.count(good) != 1 or story.count(bad) != 1:
-                raise ValueError(f"ambiguous control story: {control['id']}")
-            rows.append({"id": control["id"], "order": order,
-                         "good": good, "bad": bad, "story": story})
+        for name_order in (0, 1):
+            good, bad = pair if name_order == 0 else pair[::-1]
+            help_fact = control["help"].format(good=good)
+            harm_fact = control["harm"].format(bad=bad)
+            for plan_order in (0, 1):
+                facts = (help_fact, harm_fact) if plan_order == 0 else (harm_fact, help_fact)
+                story = control["lead"] + "".join(facts)
+                if (not all(control[k].endswith(". ") for k in ("lead", "help", "harm")) or
+                        story.count(good) != 1 or story.count(bad) != 1):
+                    raise ValueError(f"ambiguous control story: {control['id']}")
+                rows.append({"id": control["id"], "name_order": name_order,
+                             "plan_order": plan_order, "good": good,
+                             "bad": bad, "story": story})
     return rows, clozes, hashlib.sha256(raw).hexdigest()
 
 
@@ -56,15 +62,20 @@ def select(results: list[dict], n_clozes: int) -> tuple[list[dict], int | None]:
     scores = []
     for index, doc in enumerate(results):
         rows = doc["rows"]
-        if doc["index"] != index or len(rows) != 8:
+        if doc["index"] != index or len(rows) != 16:
             raise ValueError("missing calibration rows")
         margins = [float(r["good_logp"] - r["bad_logp"]) for r in rows]
         if not all(math.isfinite(x) for x in margins):
             raise ValueError("nonfinite calibration margin")
+        position = [margins[i] for i in range(0, 16, 2)]
+        reverse = [margins[i] for i in range(1, 16, 2)]
         scores.append({"index": index, "cloze": doc["cloze"],
                        "min_margin": min(margins),
                        "mean_margin": sum(margins) / len(margins),
-                       "correct_of_8": sum(x > 0 for x in margins),
+                       "correct_of_16": sum(x > 0 for x in margins),
+                       "good_first_mean_margin": sum(position) / len(position),
+                       "good_second_mean_margin": sum(reverse) / len(reverse),
+                       "position_effect": (sum(position) - sum(reverse)) / len(position),
                        "eligible": all(x > .1 for x in margins),
                        "margins": margins})
     chosen = next((x["index"] for x in scores if x["eligible"]), None)
@@ -87,7 +98,8 @@ def main() -> None:
         scored = []
         for row in rows:
             prefix = row["story"] + cloze
-            scored.append({"id": row["id"], "order": row["order"],
+            scored.append({"id": row["id"], "name_order": row["name_order"],
+                           "plan_order": row["plan_order"],
                            "good": row["good"], "bad": row["bad"],
                            "good_logp": lm.logprob(prefix, " " + row["good"]),
                            "bad_logp": lm.logprob(prefix, " " + row["bad"])})
