@@ -17,7 +17,19 @@ phrases that paraphrase the results of the workers' opposed plans. No condition
 phrase says which worker to choose. Every passage says the town wants its people
 safe, then describes the two fixed plans. The report assigns `safe` to condition A
 and `danger` to B, or the reverse. It also presents condition A first or B first.
-The only final action hands the same object to one of the two workers.
+The only final action hands the same object to one of the two workers. The JSON
+freezes the exact town-goal, report-introduction, clause and outcome templates.
+Each report contains the same `safe` and `danger` words once each; only their
+binding to the condition clauses changes.
+
+The previous grid put the active or enabling plan with worker A in every domain.
+This grid assigns that original plan to A in six domains and to B in six, swapping
+both the plan and its paraphrased condition. It keeps the original names and
+handover recipients. Report the two polarity halves separately; a direction that
+simply combines active-versus-restrictive plan polarity with the recipient should
+reverse sign between halves. Some plans (raising versus lowering a bridge, filling
+versus emptying a cistern) are both actions, so this operational split does not
+exhaust all semantic polarity cues.
 
 Cross worker-plan order (2), consequence mapping (2), report-clause order (2),
 and handover recipient (2): 16 passages per domain, 192 total. Condition phrases,
@@ -49,9 +61,11 @@ domains' two worker-plan orders from one report-clause order. Score the held-out
 interaction both at that clause order and at the opposite clause order. Repeat
 with each clause order as the training source. The primary accuracy is the mean
 of the two **cross-order** transfers over fixed layers 10–18. Report both
-within-order scores, the cross-order scores and all layer curves. A signal based
-on the first safe clause should reverse across clause order, while a consistent
-condition-to-recipient relation should transfer.
+within-order scores, the cross-order scores, the active-A and restrictive-A
+domain halves, and all layer curves. A signal based on the first safe clause
+should reverse across clause order; a signal based only on the original active
+plan should reverse between polarity halves. A consistent condition-to-recipient
+relation should transfer across both.
 
 Use 2,000 bootstrap resamples of the 12 domains on the fixed held-out
 predictions for the primary interval. For 1,000 permutation draws, flip the
@@ -78,7 +92,8 @@ ordered phrasing is understood semantically.
 The cross-order signal passes only if mean held-out accuracy is at least 0.70,
 exceeds random-direction mean by at least 0.15, permutation p is at most 0.05,
 and the 95% domain-bootstrap lower endpoint exceeds 0.5. Both transfer
-directions must exceed 0.5; otherwise an average can hide one reversed order.
+directions and both active-polarity halves must exceed 0.5; otherwise an
+average can hide one reversed order or one sign-flipped polarity group.
 Compare cross-order with within-order accuracy descriptively. Passing would
 support a consequence-to-recipient interaction that survives reversal of report
 position in these miniatures. It would still permit lexical paraphrase matching
