@@ -1,0 +1,30 @@
+{
+ "enact": {
+  "disputes": 1,
+  "n": 24
+ },
+ "enact_norecord": {
+  "disputes": 10,
+  "n": 24
+ },
+ "exit": {
+  "disputes": 0,
+  "n": 24
+ },
+ "neutral": {
+  "disputes": 0,
+  "n": 24
+ },
+ "neutral_b": {
+  "disputes": 1,
+  "n": 24
+ },
+ "report": {
+  "disputes": 8,
+  "n": 24
+ },
+ "true": {
+  "disputes": 0,
+  "n": 24
+ }
+}
