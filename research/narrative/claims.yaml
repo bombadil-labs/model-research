@@ -397,3 +397,11 @@ claims:
     where: notes/story_fact_token_patch_result.md
     pre_registered: true
     superseded_by: null
+
+  - id: firsthop-swap-story-patch
+    claim: A single post-fact period state can transmit a distant route–link assignment swap and bias a later name choice toward the other world's winner beyond matched presentation controls.
+    status: open
+    evidence: "Frozen follow-up moves the counterfactual from the immediately preceding destination clauses to the earlier first-hop route–link clauses, leaving the second-hop text and period suffix identical across worlds. Eligibility, margin-specificity and top-choice redirection are separate registered screens. No new model score has been read."
+    where: notes/firsthop_swap_patch_prereg.md
+    pre_registered: true
+    superseded_by: null
