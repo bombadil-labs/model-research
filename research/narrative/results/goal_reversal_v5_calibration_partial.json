@@ -1,0 +1,312 @@
+{
+  "model_checkpoint": "google/gemma-2-9b-it",
+  "deployment_weight_revision": null,
+  "deployment_revision_note": "NDIF pinned deployment did not expose a weight revision",
+  "tokenizer_snapshot_revision": "11c9b309abf73637e4b6f9a3fa1e92e615547819",
+  "digests": {
+    "grid_sha256": "3a68d1699c364b66fde57d81b794f8f46d3af915bd83a8d3202b46012c17ea91",
+    "code_sha256": "c431150fb8632a7566d7f289e23e401b52ee38031a5a92ac2cf0cef938f8e64f",
+    "tokenizer_revision": "11c9b309abf73637e4b6f9a3fa1e92e615547819"
+  },
+  "versions": {
+    "torch": "2.14.0+cpu",
+    "transformers": "5.17.0",
+    "nnsight": "0.7.0",
+    "numpy": "2.5.3",
+    "ndif_reported": {
+      "repo_id": "google/gemma-2-9b-it",
+      "deployment_level": "HOT",
+      "pinned": true
+    }
+  },
+  "stage": "V5 calibration, stopped early after gate failure",
+  "n_required": 32,
+  "n_completed": 15,
+  "n_failed": 3,
+  "failed_ids": [
+    "cal:01:0:0:1",
+    "cal:01:1:0:1",
+    "cal:01:1:1:0"
+  ],
+  "control_baselines": {
+    "goal_type_to_contain_accuracy": 0.5,
+    "goal_type_to_contain_correct_reversal": 0.5,
+    "goal_category_to_semantic_accuracy": 0.5,
+    "goal_category_correct_reversal": 0.5
+  },
+  "story_scores": 0,
+  "generation_scores": 0,
+  "gate_pass": false,
+  "rows": [
+    {
+      "id": "cal:00:0:0:0",
+      "domain": "bakery",
+      "name_order": 0,
+      "plan_order": 0,
+      "goal": 0,
+      "candidate_names": [
+        "Anna",
+        "Maya"
+      ],
+      "scores": [
+        -5.340576171875e-05,
+        -12.100605964660645
+      ],
+      "margin_plan_a_minus_b": 12.100552558898926,
+      "passes": true,
+      "fingerprint": "ba085bfdb823e1f2dec7521aaeda68599cd860750e21d88c3aab308735700719"
+    },
+    {
+      "id": "cal:00:0:0:1",
+      "domain": "bakery",
+      "name_order": 0,
+      "plan_order": 0,
+      "goal": 1,
+      "candidate_names": [
+        "Anna",
+        "Maya"
+      ],
+      "scores": [
+        -4.837699890136719,
+        -0.00911712646484375
+      ],
+      "margin_plan_a_minus_b": -4.828582763671875,
+      "passes": true,
+      "fingerprint": "6e06c818440df890d0b2f337ad192c992ec71550129f00cd2a0056f3c98b4492"
+    },
+    {
+      "id": "cal:00:0:1:0",
+      "domain": "bakery",
+      "name_order": 0,
+      "plan_order": 1,
+      "goal": 0,
+      "candidate_names": [
+        "Anna",
+        "Maya"
+      ],
+      "scores": [
+        -4.1961669921875e-05,
+        -11.074896812438965
+      ],
+      "margin_plan_a_minus_b": 11.074854850769043,
+      "passes": true,
+      "fingerprint": "40ae734cd9a7a997df3d18d22c9324f6c4298da8b16b7ec8f0c8a0c9b85b01c4"
+    },
+    {
+      "id": "cal:00:0:1:1",
+      "domain": "bakery",
+      "name_order": 0,
+      "plan_order": 1,
+      "goal": 1,
+      "candidate_names": [
+        "Anna",
+        "Maya"
+      ],
+      "scores": [
+        -10.308987617492676,
+        -9.72747802734375e-05
+      ],
+      "margin_plan_a_minus_b": -10.308890342712402,
+      "passes": true,
+      "fingerprint": "c83580389d5f567d60d0747a7c4eb422f933178a9db9bb76c3e6e5b5ef645d14"
+    },
+    {
+      "id": "cal:00:1:0:0",
+      "domain": "bakery",
+      "name_order": 1,
+      "plan_order": 0,
+      "goal": 0,
+      "candidate_names": [
+        "Anna",
+        "Maya"
+      ],
+      "scores": [
+        -11.667412757873535,
+        -3.814697265625e-05
+      ],
+      "margin_plan_a_minus_b": 11.667374610900879,
+      "passes": true,
+      "fingerprint": "62da40c4d3461a465e51dce2c2d4bf9061435facee39069d02a55f987ac7aa4e"
+    },
+    {
+      "id": "cal:00:1:0:1",
+      "domain": "bakery",
+      "name_order": 1,
+      "plan_order": 0,
+      "goal": 1,
+      "candidate_names": [
+        "Anna",
+        "Maya"
+      ],
+      "scores": [
+        -0.008081436157226562,
+        -4.933235168457031
+      ],
+      "margin_plan_a_minus_b": -4.925153732299805,
+      "passes": true,
+      "fingerprint": "df4694613d378c44218b3d32287a97eaee8955ba2166ece6006bc567657661bd"
+    },
+    {
+      "id": "cal:00:1:1:0",
+      "domain": "bakery",
+      "name_order": 1,
+      "plan_order": 1,
+      "goal": 0,
+      "candidate_names": [
+        "Anna",
+        "Maya"
+      ],
+      "scores": [
+        -10.708185195922852,
+        -4.9591064453125e-05
+      ],
+      "margin_plan_a_minus_b": 10.708135604858398,
+      "passes": true,
+      "fingerprint": "8453897937e79c90afd47fca0bb5367c834a54de2222e2d798829acaa5dd146c"
+    },
+    {
+      "id": "cal:00:1:1:1",
+      "domain": "bakery",
+      "name_order": 1,
+      "plan_order": 1,
+      "goal": 1,
+      "candidate_names": [
+        "Anna",
+        "Maya"
+      ],
+      "scores": [
+        -0.0002193450927734375,
+        -9.441858291625977
+      ],
+      "margin_plan_a_minus_b": -9.441638946533203,
+      "passes": true,
+      "fingerprint": "cabf8418f691f607edc86216fa14e74b3926e752f3dffc3561f2a1606c1c4fe8"
+    },
+    {
+      "id": "cal:01:0:0:0",
+      "domain": "greenhouse",
+      "name_order": 0,
+      "plan_order": 0,
+      "goal": 0,
+      "candidate_names": [
+        "Kate",
+        "Rosa"
+      ],
+      "scores": [
+        -0.0428314208984375,
+        -3.2138004302978516
+      ],
+      "margin_plan_a_minus_b": 3.170969009399414,
+      "passes": true,
+      "fingerprint": "d739e0a4276822a99a3e6d948e56ee997beaf099f1f1a0d4d4376f7ccfeb1162"
+    },
+    {
+      "id": "cal:01:0:0:1",
+      "domain": "greenhouse",
+      "name_order": 0,
+      "plan_order": 0,
+      "goal": 1,
+      "candidate_names": [
+        "Kate",
+        "Rosa"
+      ],
+      "scores": [
+        -0.19657325744628906,
+        -1.7374610900878906
+      ],
+      "margin_plan_a_minus_b": 1.5408878326416016,
+      "passes": false,
+      "fingerprint": "65e15878ee49bc1ef5e0c0b12c1eb08b99a937fa952c1919bf21877dfb62938c"
+    },
+    {
+      "id": "cal:01:0:1:0",
+      "domain": "greenhouse",
+      "name_order": 0,
+      "plan_order": 1,
+      "goal": 0,
+      "candidate_names": [
+        "Kate",
+        "Rosa"
+      ],
+      "scores": [
+        -0.05748748779296875,
+        -2.9178028106689453
+      ],
+      "margin_plan_a_minus_b": 2.8603153228759766,
+      "passes": true,
+      "fingerprint": "d33ba80de48cbdc493b96cb03f7faf4f23769960b1ebeb5df2badd267ce4ac2a"
+    },
+    {
+      "id": "cal:01:0:1:1",
+      "domain": "greenhouse",
+      "name_order": 0,
+      "plan_order": 1,
+      "goal": 1,
+      "candidate_names": [
+        "Kate",
+        "Rosa"
+      ],
+      "scores": [
+        -3.019163131713867,
+        -0.05148887634277344
+      ],
+      "margin_plan_a_minus_b": -2.9676742553710938,
+      "passes": true,
+      "fingerprint": "3e364ad7a8b578fe20713d543a557519cc2645f0f127e03b56c6b8dd982bed2b"
+    },
+    {
+      "id": "cal:01:1:0:0",
+      "domain": "greenhouse",
+      "name_order": 1,
+      "plan_order": 0,
+      "goal": 0,
+      "candidate_names": [
+        "Kate",
+        "Rosa"
+      ],
+      "scores": [
+        -5.1345062255859375,
+        -0.006855010986328125
+      ],
+      "margin_plan_a_minus_b": 5.127651214599609,
+      "passes": true,
+      "fingerprint": "94c107f8c0d775b5ac5558883e099bc5df54c6b0776b320c0a86f5c6f8433ba3"
+    },
+    {
+      "id": "cal:01:1:0:1",
+      "domain": "greenhouse",
+      "name_order": 1,
+      "plan_order": 0,
+      "goal": 1,
+      "candidate_names": [
+        "Kate",
+        "Rosa"
+      ],
+      "scores": [
+        -3.62237548828125,
+        -0.028791427612304688
+      ],
+      "margin_plan_a_minus_b": 3.5935840606689453,
+      "passes": false,
+      "fingerprint": "592def4e3aae8023d3623c9ab571f0cef7ef4dc7226eeee071be509919ac3408"
+    },
+    {
+      "id": "cal:01:1:1:0",
+      "domain": "greenhouse",
+      "name_order": 1,
+      "plan_order": 1,
+      "goal": 0,
+      "candidate_names": [
+        "Kate",
+        "Rosa"
+      ],
+      "scores": [
+        -0.23200035095214844,
+        -1.5840740203857422
+      ],
+      "margin_plan_a_minus_b": -1.3520736694335938,
+      "passes": false,
+      "fingerprint": "da93bcbb136f44139af938bfd28848d15123ab0e404b180a28a292a34c8d89e3"
+    }
+  ]
+}
