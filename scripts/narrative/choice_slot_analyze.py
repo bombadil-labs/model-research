@@ -88,8 +88,8 @@ def analyze(source_h: np.ndarray, targets: dict[str, np.ndarray],
         resolved = norms > 10 * drift[None, None, None, None, :]
         readable = bool(np.all(ratio <= .01) and np.all(resolved[..., PRIMARY]))
 
-        cross = _score(unit, source_direction)
-        by_domain = cross.mean(axis=(1, 2, 3))
+        cross_scores = _score(unit, source_direction)
+        by_domain = cross_scores.mean(axis=(1, 2, 3))
         cross_primary = float(by_domain[:, PRIMARY].mean())
         cross_ci = _bootstrap(by_domain[:, PRIMARY], seed_offset=bi)
         within = _within(unit)
@@ -126,13 +126,13 @@ def analyze(source_h: np.ndarray, targets: dict[str, np.ndarray],
             "max_repeat_l2_by_block": drift.tolist(),
             "repeat_to_interaction_ratio_by_block": ratio.tolist(),
             "unresolved_interactions_by_block": (~resolved).sum(axis=(0, 1, 2, 3)).tolist(),
-            "route_to_target_curve": cross.mean(axis=(0, 1, 2, 3)).tolist(),
+            "route_to_target_curve": cross_scores.mean(axis=(0, 1, 2, 3)).tolist(),
             "route_to_target_primary": cross_primary,
             "route_to_target_domain_block24": by_domain[:, PRIMARY].tolist(),
-            "route_to_target_by_telling_block24": cross[..., PRIMARY].mean(axis=(0, 2, 3)).tolist(),
-            "route_to_target_by_name_block24": cross[..., PRIMARY].mean(axis=(0, 1, 3)).tolist(),
-            "route_to_target_by_order_block24": cross[..., PRIMARY].mean(axis=(0, 1, 2)).tolist(),
-            "route_to_target_block16_24_mean": float(cross[..., list(pilot.PRIMARY)].mean()),
+            "route_to_target_by_telling_block24": cross_scores[..., PRIMARY].mean(axis=(0, 2, 3)).tolist(),
+            "route_to_target_by_name_block24": cross_scores[..., PRIMARY].mean(axis=(0, 1, 3)).tolist(),
+            "route_to_target_by_order_block24": cross_scores[..., PRIMARY].mean(axis=(0, 1, 2)).tolist(),
+            "route_to_target_block16_24_mean": float(cross_scores[..., list(pilot.PRIMARY)].mean()),
             "route_to_target_domain_bootstrap_ci95": cross_ci,
             "source_orientation_null": {
                 "draws": len(null), "mean": float(null.mean()),
