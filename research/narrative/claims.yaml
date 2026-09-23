@@ -301,3 +301,11 @@ claims:
     where: notes/remote_goal_behavior_result.md
     pre_registered: true
     superseded_by: null
+
+  - id: fixed-plan-goal-reversal-capacity
+    claim: The instruction-tuned model reliably reverses its plan choice when only the stated goal changes in fixed-fact stories.
+    status: open
+    evidence: "No story cells scored: V3 calibration passed 28/32; shortcut-balanced V5 stopped after three failures among 15 crossed control cells. A frozen goal-category-to-plan-verb rule already reverses 21/24 story pairs."
+    where: notes/goal_reversal_calibration_result.md
+    pre_registered: true
+    superseded_by: null

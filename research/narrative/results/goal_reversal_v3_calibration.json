@@ -1,0 +1,130 @@
+{
+  "model_checkpoint": "google/gemma-2-9b-it",
+  "deployment_weight_revision": null,
+  "deployment_revision_note": "NDIF reports pinned but exposes no weight revision hash",
+  "digests": {
+    "grid_sha256": "4124328c27b24fefa545f4048c3a09b39efa3a7d5682e380e4e5bd7051310df4",
+    "code_sha256": "76ac0d32d4009e3f0f73e523e61bd7360324a4265d0a2ddd15846dedfab2f418",
+    "tokenizer_revision": "11c9b309abf73637e4b6f9a3fa1e92e615547819"
+  },
+  "versions": {
+    "torch": "2.14.0+cpu",
+    "transformers": "5.17.0",
+    "nnsight": "0.7.0",
+    "numpy": "2.5.3",
+    "ndif_reported": {
+      "repo_id": "google/gemma-2-9b-it",
+      "deployment_level": "HOT",
+      "pinned": true
+    }
+  },
+  "question": "Which person's plan best serves the stated goal? Answer with the person's name only.",
+  "calibration": {
+    "margins": [
+      [
+        [
+          [
+            10.552062034606934,
+            -9.552482604980469
+          ],
+          [
+            8.290390014648438,
+            -8.07310962677002
+          ]
+        ],
+        [
+          [
+            10.653411865234375,
+            -9.739940643310547
+          ],
+          [
+            9.80053424835205,
+            -8.694897651672363
+          ]
+        ]
+      ],
+      [
+        [
+          [
+            7.5896196365356445,
+            6.082004547119141
+          ],
+          [
+            10.708059310913086,
+            0.38285064697265625
+          ]
+        ],
+        [
+          [
+            10.18812370300293,
+            7.7239484786987305
+          ],
+          [
+            11.286022186279297,
+            0.8563747406005859
+          ]
+        ]
+      ],
+      [
+        [
+          [
+            3.739154815673828,
+            -9.97559928894043
+          ],
+          [
+            6.158847808837891,
+            -11.830005645751953
+          ]
+        ],
+        [
+          [
+            12.99644947052002,
+            -7.837079048156738
+          ],
+          [
+            9.495287895202637,
+            -8.83325481414795
+          ]
+        ]
+      ],
+      [
+        [
+          [
+            6.58812141418457,
+            -6.692401885986328
+          ],
+          [
+            6.360622406005859,
+            -7.366034507751465
+          ]
+        ],
+        [
+          [
+            5.993255615234375,
+            -6.171072006225586
+          ],
+          [
+            5.70591926574707,
+            -7.269916534423828
+          ]
+        ]
+      ]
+    ],
+    "signed_min_margin": -7.7239484786987305,
+    "correct_of_32": 28,
+    "name_order_signed_means": [
+      6.688228487968445,
+      7.255302608013153
+    ],
+    "plan_order_signed_means": [
+      6.528926312923431,
+      7.4146047830581665
+    ],
+    "name_order_effect": -0.5670741200447083,
+    "plan_order_effect": -0.8856784701347351,
+    "gate_pass": false
+  },
+  "story": null,
+  "generation": null,
+  "gate_pass": false
+}
