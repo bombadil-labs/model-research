@@ -401,7 +401,15 @@ claims:
   - id: firsthop-swap-story-patch
     claim: A single post-fact period state can transmit a distant route–link assignment swap and bias a later name choice toward the other world's winner beyond matched presentation controls.
     status: open
-    evidence: "Frozen follow-up moves the counterfactual from the immediately preceding destination clauses to the earlier first-hop route–link clauses, leaving the second-hop text and period suffix identical across worlds. Eligibility, margin-specificity and top-choice redirection are separate registered screens. No new model score has been read."
+    evidence: "The frozen baseline eligibility gate passed on the earlier first-hop swap: 29/32 joint world×goal quartets, p 1/256, all factor halves and fact-order quadrants passing. State capture and controlled patch scoring are in progress. Margin specificity and top-choice redirection remain separate open screens."
     where: notes/firsthop_swap_patch_prereg.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: firsthop-swap-behavior
+    claim: The model's two-hop readout is sensitive to a route–link assignment swap located before identical second-hop destination clauses across the eight fixed story domains.
+    status: holds
+    evidence: "Gemma-2-9b-it passes the registered eligibility gate: 29/32 joint world×goal margin quartets exceed +0.25 nat, exact domain-relabel p 1/256; all four fact-order quadrants are 7/8 or 8/8. Absolute top-name choice is correct in 109/128 cells and all four cells in 19/32 quartets. The grid is conditional on domains used in earlier positive screens, and this is behavior, not a causal state result."
+    where: notes/firsthop_swap_behavior_result.md
     pre_registered: true
     superseded_by: null
