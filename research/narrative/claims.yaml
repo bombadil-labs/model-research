@@ -320,8 +320,8 @@ claims:
 
   - id: goal-route-cross-behavior
     claim: The instruction-tuned model's plan preference jointly tracks the requested destination and two-link route facts when either factor changes across early and late tellings.
-    status: open
-    evidence: "Pre-registered eight-domain goal × route-fact crossing; no scores on the new grid yet."
-    where: notes/goal_route_cross_prereg.md
+    status: holds
+    evidence: "Gemma-2-9b-it: direct sets 32/32, identical repeats exact, joint goal×route shifts 57/64 (exact orientation p 0.0039; domain CI 0.781–0.969); strict four-cell choices 49/64 and generated all-four correctness 13/16 on the fixed subset"
+    where: notes/goal_route_cross_result.md
     pre_registered: true
     superseded_by: null
