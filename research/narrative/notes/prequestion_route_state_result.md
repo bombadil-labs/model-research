@@ -37,6 +37,9 @@ reproduces every cached final-question vector at blocks 16 and 24 exactly
 (maximum relative L2 error 0), so a deployment or extraction shift cannot
 explain the location difference. Separate-job repeat drift is zero at every
 block and all primary interactions are above the registered noise floor.
+This falsifies the **specified bridge-end linear-direction transfer**:
+the interval's upper bound (+0.0020) is far below the prior final-question
+effect (+0.0854). It does not test every representation at that position.
 The block-24 fitted mean directions at bridge-end and after the question
 have cosine −0.015, nearly orthogonal.
 
