@@ -341,3 +341,11 @@ claims:
     where: notes/choice_slot_control_prereg.md
     pre_registered: true
     superseded_by: null
+
+  - id: prequestion-route-interaction
+    claim: A shared goal × route interaction is present at the neutral story-ending token before the answer question, across held-out domains and early/late tellings.
+    status: open
+    evidence: "Frozen story-ending-token extraction and block-16/24 transfer test; no pre-question activations yet."
+    where: notes/prequestion_route_state_prereg.md
+    pre_registered: true
+    superseded_by: null
