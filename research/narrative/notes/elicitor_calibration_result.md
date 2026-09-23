@@ -34,6 +34,13 @@ prior while leaving plan position as a shortcut. The crossed grid now exposes
 both effects. It does not establish a general failure of the model to reason
 about goals, and it does not alter the activation result.
 
+All six clozes have a positive mean helpful-name margin after averaging both
+name and plan orders (+0.32 to +0.90 nats). For five clozes, the mean becomes
+negative when the helpful plan is mentioned second; the original cloze is the
+exception at +0.37. These controls suggest content sensitivity on average
+with a stronger per-cell position effect. They are development data, so the
+same controls cannot independently certify a balanced contrast readout.
+
 The next behavioral instrument should first demonstrate content sensitivity
 under both name and plan-order reversal on fresh controls. A larger
 instruction-tuned model is a reasonable next comparison; its calibration
