@@ -99,7 +99,8 @@ def _encode(rlm, texts: Sequence[str], *, add_special_tokens: bool = True):
     return enc["input_ids"], enc["attention_mask"]
 
 
-def _pooled_job(rlm, texts: Sequence[str], *, add_special_tokens: bool = True) -> dict:
+def _pooled_job(rlm, texts: Sequence[str], *, add_special_tokens: bool = True,
+                layers: Sequence[int] | None = None) -> dict:
     """ONE NDIF job: masked-mean and final-token pooling at all block outputs + embeddings.
 
     Pooling happens INSIDE the trace on purpose. Returning [B, S, d] for 43 layers is ~300 MB a
@@ -114,7 +115,8 @@ def _pooled_job(rlm, texts: Sequence[str], *, add_special_tokens: bool = True) -
     ids, mask = _encode(rlm, texts, add_special_tokens=add_special_tokens)
     blocks = rlm.blocks
     embed = _embed_module(rlm)
-    n_layers = len(blocks)
+    captured = list(range(len(blocks))) if layers is None else [int(i) for i in layers]
+    n_layers = len(captured)
 
     def build(backend):
         with rlm.model.trace({"input_ids": ids, "attention_mask": mask}, backend=backend) as tracer:
@@ -126,7 +128,7 @@ def _pooled_job(rlm, texts: Sequence[str], *, add_special_tokens: bool = True) -
             denom = w.sum(dim=1).clamp(min=1.0)
             e_ft = eh[:, -1, :].save()
             e_mn = ((eh * w).sum(dim=1) / denom).save()
-            for i in range(n_layers):
+            for i in captured:
                 o = blocks[i].output
                 # BY TYPE, never by index: `o[0]` is batch row 0 on a bare-tensor block (h36).
                 h = (o if isinstance(o, torch.Tensor) else o[0]).float()
@@ -160,7 +162,7 @@ def _pooled_job(rlm, texts: Sequence[str], *, add_special_tokens: bool = True) -
                 "object is not the batch (h36).")
     if out["final_token"].shape[1] != n_layers:
         raise checks.LayerOutputShape(
-            f"captured {out['final_token'].shape[1]} layers, model has {n_layers} blocks")
+            f"captured {out['final_token'].shape[1]} layers, asked for {n_layers}")
     for k, arr in out.items():
         if not np.isfinite(arr).all():
             raise checks.LayerOutputShape(f"{k}: non-finite values in remote capture")
@@ -169,12 +171,15 @@ def _pooled_job(rlm, texts: Sequence[str], *, add_special_tokens: bool = True) -
 
 def extract_pooled(rlm, texts: Sequence[str], *, batch_size: int = 20,
                    equivalence_min_cos: float = 0.999, check_every: int = 1,
-                   add_special_tokens: bool = True, verbose: bool = True) -> Pooled:
-    """Pooled residuals at every layer for `texts`, with the §7 assertions on the way."""
+                   add_special_tokens: bool = True, verbose: bool = True,
+                   layers: Sequence[int] | None = None) -> Pooled:
+    """Pooled residuals at every block output for `texts` (or only at `layers`), with the §7
+    assertions on the way. `layers` exists for 80-block models whose full stacks do not fit
+    the local machine's RAM; the default captures every block, as before."""
     # (1) padding convention. We index end-relative; right padding would put pads at -1.
     checks.assert_padding_convention(rlm.padding_side, "end_relative")
 
-    n_layers = len(rlm.blocks)
+    n_layers = len(rlm.blocks) if layers is None else len(layers)
     d = int(rlm.model.config.hidden_size)
     ft = np.zeros((len(texts), n_layers, d), dtype=np.float32)
     mn = np.zeros_like(ft)
@@ -186,7 +191,7 @@ def extract_pooled(rlm, texts: Sequence[str], *, batch_size: int = 20,
     for bi, start in enumerate(range(0, len(texts), batch_size)):
         batch = list(texts[start:start + batch_size])
         t0 = time.time()
-        out = _pooled_job(rlm, batch, add_special_tokens=add_special_tokens)
+        out = _pooled_job(rlm, batch, add_special_tokens=add_special_tokens, layers=layers)
         n_jobs += 1
         ids, mask = _encode(rlm, batch, add_special_tokens=add_special_tokens)
         mask = np.asarray(mask)
@@ -208,7 +213,8 @@ def extract_pooled(rlm, texts: Sequence[str], *, batch_size: int = 20,
         # (2) batched-vs-single on the SHORTEST item: the maximally padded row.
         if check_every and bi % check_every == 0 and len(batch) > 1:
             j = checks.shortest_item_index([int(x) for x in n_real])
-            single = _pooled_job(rlm, [batch[j]], add_special_tokens=add_special_tokens)
+            single = _pooled_job(rlm, [batch[j]], add_special_tokens=add_special_tokens,
+                                 layers=layers)
             n_jobs += 1
             for name, bat, sing in (
                 ("mean@mid", out["mean"][j, n_layers // 2], single["mean"][0, n_layers // 2]),
