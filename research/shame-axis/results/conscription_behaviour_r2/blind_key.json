@@ -1,0 +1,674 @@
+{
+ "b000": {
+  "item": "fact05",
+  "arm": "neutral_b"
+ },
+ "b001": {
+  "item": "fact01",
+  "arm": "neutral_b"
+ },
+ "b002": {
+  "item": "limit01",
+  "arm": "report"
+ },
+ "b003": {
+  "item": "refusal02",
+  "arm": "neutral"
+ },
+ "b004": {
+  "item": "stance02",
+  "arm": "exit"
+ },
+ "b005": {
+  "item": "fact04",
+  "arm": "neutral_b"
+ },
+ "b006": {
+  "item": "fact06",
+  "arm": "neutral_b"
+ },
+ "b007": {
+  "item": "limit04",
+  "arm": "exit"
+ },
+ "b008": {
+  "item": "limit04",
+  "arm": "true"
+ },
+ "b009": {
+  "item": "stance03",
+  "arm": "enact"
+ },
+ "b010": {
+  "item": "fact02",
+  "arm": "exit"
+ },
+ "b011": {
+  "item": "fact01",
+  "arm": "enact_norecord"
+ },
+ "b012": {
+  "item": "fact02",
+  "arm": "true"
+ },
+ "b013": {
+  "item": "limit03",
+  "arm": "neutral"
+ },
+ "b014": {
+  "item": "limit04",
+  "arm": "report"
+ },
+ "b015": {
+  "item": "limit02",
+  "arm": "enact"
+ },
+ "b016": {
+  "item": "limit03",
+  "arm": "enact"
+ },
+ "b017": {
+  "item": "limit03",
+  "arm": "true"
+ },
+ "b018": {
+  "item": "limit02",
+  "arm": "report"
+ },
+ "b019": {
+  "item": "limit01",
+  "arm": "neutral"
+ },
+ "b020": {
+  "item": "limit05",
+  "arm": "enact"
+ },
+ "b021": {
+  "item": "limit02",
+  "arm": "enact_norecord"
+ },
+ "b022": {
+  "item": "limit05",
+  "arm": "neutral"
+ },
+ "b023": {
+  "item": "refusal01",
+  "arm": "report"
+ },
+ "b024": {
+  "item": "fact03",
+  "arm": "neutral"
+ },
+ "b025": {
+  "item": "refusal03",
+  "arm": "exit"
+ },
+ "b026": {
+  "item": "fact06",
+  "arm": "exit"
+ },
+ "b027": {
+  "item": "refusal02",
+  "arm": "true"
+ },
+ "b028": {
+  "item": "fact01",
+  "arm": "enact"
+ },
+ "b029": {
+  "item": "stance05",
+  "arm": "report"
+ },
+ "b030": {
+  "item": "limit06",
+  "arm": "true"
+ },
+ "b031": {
+  "item": "limit02",
+  "arm": "exit"
+ },
+ "b032": {
+  "item": "limit01",
+  "arm": "neutral_b"
+ },
+ "b033": {
+  "item": "refusal06",
+  "arm": "report"
+ },
+ "b034": {
+  "item": "fact06",
+  "arm": "report"
+ },
+ "b035": {
+  "item": "stance06",
+  "arm": "exit"
+ },
+ "b036": {
+  "item": "stance05",
+  "arm": "true"
+ },
+ "b037": {
+  "item": "fact01",
+  "arm": "report"
+ },
+ "b038": {
+  "item": "stance01",
+  "arm": "enact_norecord"
+ },
+ "b039": {
+  "item": "refusal04",
+  "arm": "enact_norecord"
+ },
+ "b040": {
+  "item": "stance05",
+  "arm": "neutral_b"
+ },
+ "b041": {
+  "item": "stance05",
+  "arm": "enact_norecord"
+ },
+ "b042": {
+  "item": "fact01",
+  "arm": "true"
+ },
+ "b043": {
+  "item": "fact05",
+  "arm": "enact_norecord"
+ },
+ "b044": {
+  "item": "stance02",
+  "arm": "enact"
+ },
+ "b045": {
+  "item": "refusal04",
+  "arm": "exit"
+ },
+ "b046": {
+  "item": "refusal04",
+  "arm": "report"
+ },
+ "b047": {
+  "item": "stance04",
+  "arm": "enact_norecord"
+ },
+ "b048": {
+  "item": "refusal04",
+  "arm": "neutral"
+ },
+ "b049": {
+  "item": "fact05",
+  "arm": "true"
+ },
+ "b050": {
+  "item": "stance01",
+  "arm": "true"
+ },
+ "b051": {
+  "item": "refusal01",
+  "arm": "enact_norecord"
+ },
+ "b052": {
+  "item": "stance05",
+  "arm": "enact"
+ },
+ "b053": {
+  "item": "stance04",
+  "arm": "true"
+ },
+ "b054": {
+  "item": "limit03",
+  "arm": "exit"
+ },
+ "b055": {
+  "item": "fact01",
+  "arm": "neutral"
+ },
+ "b056": {
+  "item": "limit03",
+  "arm": "report"
+ },
+ "b057": {
+  "item": "fact02",
+  "arm": "neutral_b"
+ },
+ "b058": {
+  "item": "fact03",
+  "arm": "exit"
+ },
+ "b059": {
+  "item": "fact04",
+  "arm": "enact"
+ },
+ "b060": {
+  "item": "refusal02",
+  "arm": "exit"
+ },
+ "b061": {
+  "item": "stance02",
+  "arm": "neutral"
+ },
+ "b062": {
+  "item": "limit05",
+  "arm": "true"
+ },
+ "b063": {
+  "item": "fact06",
+  "arm": "enact_norecord"
+ },
+ "b064": {
+  "item": "fact04",
+  "arm": "true"
+ },
+ "b065": {
+  "item": "refusal03",
+  "arm": "enact_norecord"
+ },
+ "b066": {
+  "item": "stance02",
+  "arm": "enact_norecord"
+ },
+ "b067": {
+  "item": "stance03",
+  "arm": "enact_norecord"
+ },
+ "b068": {
+  "item": "limit04",
+  "arm": "neutral"
+ },
+ "b069": {
+  "item": "refusal06",
+  "arm": "true"
+ },
+ "b070": {
+  "item": "fact03",
+  "arm": "neutral_b"
+ },
+ "b071": {
+  "item": "fact03",
+  "arm": "true"
+ },
+ "b072": {
+  "item": "stance05",
+  "arm": "neutral"
+ },
+ "b073": {
+  "item": "stance06",
+  "arm": "true"
+ },
+ "b074": {
+  "item": "fact05",
+  "arm": "report"
+ },
+ "b075": {
+  "item": "fact05",
+  "arm": "exit"
+ },
+ "b076": {
+  "item": "fact02",
+  "arm": "enact"
+ },
+ "b077": {
+  "item": "stance06",
+  "arm": "neutral"
+ },
+ "b078": {
+  "item": "fact01",
+  "arm": "exit"
+ },
+ "b079": {
+  "item": "refusal01",
+  "arm": "exit"
+ },
+ "b080": {
+  "item": "fact04",
+  "arm": "exit"
+ },
+ "b081": {
+  "item": "limit04",
+  "arm": "enact"
+ },
+ "b082": {
+  "item": "refusal05",
+  "arm": "neutral_b"
+ },
+ "b083": {
+  "item": "stance01",
+  "arm": "neutral"
+ },
+ "b084": {
+  "item": "stance03",
+  "arm": "exit"
+ },
+ "b085": {
+  "item": "refusal04",
+  "arm": "enact"
+ },
+ "b086": {
+  "item": "limit06",
+  "arm": "enact"
+ },
+ "b087": {
+  "item": "refusal03",
+  "arm": "report"
+ },
+ "b088": {
+  "item": "stance04",
+  "arm": "neutral_b"
+ },
+ "b089": {
+  "item": "refusal05",
+  "arm": "exit"
+ },
+ "b090": {
+  "item": "refusal05",
+  "arm": "enact"
+ },
+ "b091": {
+  "item": "refusal05",
+  "arm": "enact_norecord"
+ },
+ "b092": {
+  "item": "limit06",
+  "arm": "neutral"
+ },
+ "b093": {
+  "item": "fact03",
+  "arm": "report"
+ },
+ "b094": {
+  "item": "stance03",
+  "arm": "report"
+ },
+ "b095": {
+  "item": "refusal06",
+  "arm": "neutral_b"
+ },
+ "b096": {
+  "item": "limit06",
+  "arm": "enact_norecord"
+ },
+ "b097": {
+  "item": "stance06",
+  "arm": "enact_norecord"
+ },
+ "b098": {
+  "item": "stance04",
+  "arm": "enact"
+ },
+ "b099": {
+  "item": "refusal03",
+  "arm": "neutral"
+ },
+ "b100": {
+  "item": "stance01",
+  "arm": "exit"
+ },
+ "b101": {
+  "item": "fact02",
+  "arm": "enact_norecord"
+ },
+ "b102": {
+  "item": "fact06",
+  "arm": "neutral"
+ },
+ "b103": {
+  "item": "stance02",
+  "arm": "neutral_b"
+ },
+ "b104": {
+  "item": "stance02",
+  "arm": "true"
+ },
+ "b105": {
+  "item": "limit06",
+  "arm": "exit"
+ },
+ "b106": {
+  "item": "refusal04",
+  "arm": "neutral_b"
+ },
+ "b107": {
+  "item": "stance06",
+  "arm": "neutral_b"
+ },
+ "b108": {
+  "item": "stance04",
+  "arm": "exit"
+ },
+ "b109": {
+  "item": "refusal05",
+  "arm": "true"
+ },
+ "b110": {
+  "item": "limit05",
+  "arm": "enact_norecord"
+ },
+ "b111": {
+  "item": "stance03",
+  "arm": "neutral_b"
+ },
+ "b112": {
+  "item": "refusal01",
+  "arm": "true"
+ },
+ "b113": {
+  "item": "refusal02",
+  "arm": "enact_norecord"
+ },
+ "b114": {
+  "item": "fact02",
+  "arm": "report"
+ },
+ "b115": {
+  "item": "refusal01",
+  "arm": "enact"
+ },
+ "b116": {
+  "item": "refusal06",
+  "arm": "enact"
+ },
+ "b117": {
+  "item": "limit03",
+  "arm": "neutral_b"
+ },
+ "b118": {
+  "item": "limit01",
+  "arm": "exit"
+ },
+ "b119": {
+  "item": "stance02",
+  "arm": "report"
+ },
+ "b120": {
+  "item": "fact06",
+  "arm": "true"
+ },
+ "b121": {
+  "item": "limit01",
+  "arm": "true"
+ },
+ "b122": {
+  "item": "refusal02",
+  "arm": "report"
+ },
+ "b123": {
+  "item": "limit01",
+  "arm": "enact"
+ },
+ "b124": {
+  "item": "refusal06",
+  "arm": "exit"
+ },
+ "b125": {
+  "item": "fact02",
+  "arm": "neutral"
+ },
+ "b126": {
+  "item": "stance03",
+  "arm": "true"
+ },
+ "b127": {
+  "item": "refusal03",
+  "arm": "true"
+ },
+ "b128": {
+  "item": "stance06",
+  "arm": "enact"
+ },
+ "b129": {
+  "item": "limit04",
+  "arm": "enact_norecord"
+ },
+ "b130": {
+  "item": "fact05",
+  "arm": "enact"
+ },
+ "b131": {
+  "item": "limit05",
+  "arm": "report"
+ },
+ "b132": {
+  "item": "refusal04",
+  "arm": "true"
+ },
+ "b133": {
+  "item": "limit04",
+  "arm": "neutral_b"
+ },
+ "b134": {
+  "item": "refusal03",
+  "arm": "enact"
+ },
+ "b135": {
+  "item": "refusal05",
+  "arm": "neutral"
+ },
+ "b136": {
+  "item": "refusal01",
+  "arm": "neutral_b"
+ },
+ "b137": {
+  "item": "refusal02",
+  "arm": "neutral_b"
+ },
+ "b138": {
+  "item": "limit01",
+  "arm": "enact_norecord"
+ },
+ "b139": {
+  "item": "refusal02",
+  "arm": "enact"
+ },
+ "b140": {
+  "item": "stance01",
+  "arm": "neutral_b"
+ },
+ "b141": {
+  "item": "stance06",
+  "arm": "report"
+ },
+ "b142": {
+  "item": "refusal06",
+  "arm": "enact_norecord"
+ },
+ "b143": {
+  "item": "fact03",
+  "arm": "enact"
+ },
+ "b144": {
+  "item": "refusal05",
+  "arm": "report"
+ },
+ "b145": {
+  "item": "limit02",
+  "arm": "neutral"
+ },
+ "b146": {
+  "item": "fact03",
+  "arm": "enact_norecord"
+ },
+ "b147": {
+  "item": "refusal03",
+  "arm": "neutral_b"
+ },
+ "b148": {
+  "item": "limit06",
+  "arm": "report"
+ },
+ "b149": {
+  "item": "stance03",
+  "arm": "neutral"
+ },
+ "b150": {
+  "item": "stance05",
+  "arm": "exit"
+ },
+ "b151": {
+  "item": "fact04",
+  "arm": "neutral"
+ },
+ "b152": {
+  "item": "fact06",
+  "arm": "enact"
+ },
+ "b153": {
+  "item": "limit02",
+  "arm": "neutral_b"
+ },
+ "b154": {
+  "item": "stance04",
+  "arm": "neutral"
+ },
+ "b155": {
+  "item": "stance01",
+  "arm": "report"
+ },
+ "b156": {
+  "item": "limit02",
+  "arm": "true"
+ },
+ "b157": {
+  "item": "fact04",
+  "arm": "report"
+ },
+ "b158": {
+  "item": "limit03",
+  "arm": "enact_norecord"
+ },
+ "b159": {
+  "item": "fact05",
+  "arm": "neutral"
+ },
+ "b160": {
+  "item": "limit05",
+  "arm": "neutral_b"
+ },
+ "b161": {
+  "item": "fact04",
+  "arm": "enact_norecord"
+ },
+ "b162": {
+  "item": "limit06",
+  "arm": "neutral_b"
+ },
+ "b163": {
+  "item": "stance04",
+  "arm": "report"
+ },
+ "b164": {
+  "item": "refusal01",
+  "arm": "neutral"
+ },
+ "b165": {
+  "item": "refusal06",
+  "arm": "neutral"
+ },
+ "b166": {
+  "item": "stance01",
+  "arm": "enact"
+ },
+ "b167": {
+  "item": "limit05",
+  "arm": "exit"
+ }
+}
