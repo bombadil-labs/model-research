@@ -113,6 +113,23 @@ rule, and the protect-by-release/contain balance predicts 0.5 for it too.
 These baselines are descriptive; semantic associations beyond these two
 coarse rules remain possible.
 
+An adversarial review of V3 identified a stronger ceiling that uses the goal
+sentence and the plan verbs but no setup or causal facts. Freeze this ordered
+goal-category rule before scoring: choose **release** if the goal contains a
+whole-word match from `unsafe reef rocks flood floodplain floodline pressure
+bursting smoke fumes warn alerted`; otherwise choose **contain** if it matches
+`raider raiders patrol rival pursuer pursuers interception unknown undiscovered
+unaware monitoring hiding` or `preserve intact available warm warmth retain
+supply breeding reference sample unexposed`; otherwise choose **release**.
+Map that category to the one plan bearing the containment marker listed
+above, or to the other plan for release. Across the 48 goal phrasings, this
+frozen rule has 45/48 correct individual choices and 21/24 correct paired
+reversals (0.875), before any model score. Its errors are one bridge phrasing
+and both pasture delivery phrasings. Report the model's reversal fraction
+alongside this ceiling. A model pass below it supports goal-sensitive choice
+but remains consistent with goal-category-to-plan-verb matching without using
+the dilemma's causal facts.
+
 Call **goal-sensitive choice established on this constructed grid** only if:
 
 1. The 32-control calibration passes.
