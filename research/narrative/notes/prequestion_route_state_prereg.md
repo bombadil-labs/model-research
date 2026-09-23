@@ -26,7 +26,10 @@ across every four-cell set and equal across all 256 prompts. The tokenized
 prefix ending at the period must equal the corresponding prefix of the full
 prompt. An offline audit before this prereg found all 256 prefixes stable,
 one token ID, and position indices 150–160; the run repeats these as hard
-checks. Record prompt lengths and story-end indices by domain and goal.
+checks. Record the token ID, its decoded string, prompt lengths and
+story-end indices by domain and goal. A tokenizer merge with the following
+newlines is allowed only if the token contains no question text; disclose
+that boundary in the result.
 
 Extract that story-end vector and the **final prompt-token vector in the same
 single-prompt job**. The latter must match every one of the pilot's 256
@@ -89,4 +92,7 @@ A pass would show goal × route information in the neutral story-ending state
 before the answer question. It would not prove a graph operator, a causal
 role, or generalization to literary stories. A null is limited by the long
 neutral bridge and this final-token readout; it cannot establish absence of
-a story representation elsewhere in the prompt or model.
+a story representation elsewhere in the prompt or model. If the final-prompt
+pilot remains positive while this location is null, the next frozen test
+should shorten the neutral bridge to separate question-driven assembly from
+loss across the intervening text.
