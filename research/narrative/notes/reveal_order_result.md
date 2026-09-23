@@ -46,7 +46,11 @@ exceed 0.50. That `00` quadrant is the weakest in **all three** tellings:
 5/8 chronological, 6/8 late, 4/8 near adjacent. Its two domains are
 clinic and library, each 2/4 in the near-adjacent telling. The grid has
 only two domains in this quadrant, so domain identity and fact order
-cannot be separated here. All other near-adjacent quadrants are 8/8.
+cannot be separated here. Descriptively, all four near-adjacent misses
+are the plan-order-1 cells in those two domains, across both name
+assignments; plan-order 0 passes 16/16. That pattern does not isolate a
+cause, but it locates the sensitivity more precisely. All other
+near-adjacent quadrants are 8/8.
 Chronological and late reveal pass their four quadrant gates and all
 other format-specific gates. Five of the eight domains pass all four
 quartets in all three tellings; clinic and library pass only two each,
