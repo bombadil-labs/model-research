@@ -1,0 +1,34 @@
+{
+  "name_pairs": [
+    ["Mara", "Lena"],
+    ["Anna", "Maya"],
+    ["Niko", "Oren"],
+    ["Kate", "Rosa"]
+  ],
+  "controls": [
+    {
+      "id": "food",
+      "story": "The town needed food before winter. {good} planned to carry grain to the town. {bad} planned to burn the grain. "
+    },
+    {
+      "id": "rescue",
+      "story": "The rescue crew wanted the stranded hikers found before night. {good} planned to tell the search party where to go. {bad} planned to hide the map from the search party. "
+    },
+    {
+      "id": "fire",
+      "story": "The village wanted to stop the fire reaching its homes. {good} planned to pour water on the flames. {bad} planned to pour oil on the flames. "
+    },
+    {
+      "id": "clinic",
+      "story": "The clinic wanted its fever patients to recover. {good} planned to administer the antidote. {bad} planned to administer poison. "
+    }
+  ],
+  "clozes": [
+    "The person whose plan would best serve the stated goal is",
+    "The worker who would help achieve the goal is",
+    "To achieve the goal, choose",
+    "The right person to choose is",
+    "Answer with the name of the person who would help the goal:",
+    "Which person should be chosen to achieve the goal? Answer:"
+  ]
+}
