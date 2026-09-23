@@ -70,8 +70,8 @@ geometry** across these two-name questions. It does not show that the
 property and route tasks use the same computation, that the generic
 component is sufficient to explain every part of the route result, or that
 an intervention on the direction would change the chosen name. The
-[pre-question location test](prequestion_route_state_result.md) found this
-particular shared direction absent at two story-ending tokens. Together,
+[pre-question location test](prequestion_route_state_result.md) found no
+transfer of this direction at two story-ending tokens. Together,
 the results point to answer selection after the explicit question as the
 next causal target; a later patching study needs no-patch, pass-through,
 matched-random and signed-treatment arms on held-out prompts.
