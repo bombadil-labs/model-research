@@ -12,10 +12,11 @@ does changing only the stated goal reverse which worker the model chooses?**
 It is a behavioral check before any activation geometry claim.
 
 Use the twelve new constructed dilemmas and four new easy controls in
-`research/narrative/prompts/goal_reversal_v2.json`. The v1 grid was frozen
+`research/narrative/prompts/goal_reversal_v3.json`. The v1 grid was frozen
 before scores, then adversarial review found that every protective goal chose
-the withholding plan. V2 corrects that stimulus shortcut before any model
-score. Each dilemma has two
+the withholding plan. V2 balanced the status quo but a second review found
+that all protective goals still chose containing/closing verbs. V3 corrects
+the semantic shortcut before any model score. Each dilemma has two
 legitimate but incompatible priorities and a single choice of plan. The grid
 stores a short rationale for each goal's correct plan; rationales are never
 shown to the model. Goals 0 and 1 make plan A and plan B useful,
@@ -29,10 +30,12 @@ explicitly rather than imply the tokenizer revision identifies the weights.
 
 Within each dilemma and paraphrase, the only text changed between goals is
 the goal sentence. The grid is exactly balanced across goal-0 type
-(protect/provide) and plan-A polarity (act/withhold): three domains in every
-quadrant. Thus a protective-goal → withhold rule is correct on half the
-domains, and an A-label shortcut cannot carry that rule. The four controls
-split plan-A polarity two and two. Cross both assignments of the
+(protect/provide) and plan-A physical meaning (release/contain): three
+domains in every quadrant. A protective goal is served by release in six
+domains and by containment in six; it is served by an act in six and by
+withholding in six. Plan A itself is act/withhold 6/6. Thus the two shortcuts
+found in review each score 0.5 by construction. The four controls split
+plan-A polarity two and two. Cross both assignments of the
 two names to plans and both orders of the plan sentences. The common setup,
 plan wording, neutral bridge, question and candidate names stay fixed. This
 gives 12 domains × 2 goal
@@ -64,8 +67,8 @@ performance is not graded. Report each control margin and both order effects.
 After story scoring, greedily generate at most eight new tokens on a fixed
 subset chosen **before** scores: all twelve domains × both goals × both name
 assignments, with plan order 0 and paraphrase 0 (48 prompts). A generated
-answer is parseable only if it starts with exactly one of the two names,
-optionally followed by punctuation or whitespace. Report parseability and
+answer is parseable only if the entire continuation consists of exactly one
+of the two names, optionally followed by punctuation or whitespace. Report parseability and
 agreement with the forced-name winner. Require at least 90% parseability and
 90% agreement among parseable answers to treat forced-name choices as a
 faithful readout. Any failure narrows the conclusion to the scored
@@ -94,15 +97,21 @@ and each plan sentence, remove the two names and this frozen stopword set:
 that they their one only now planned plan immediate goal`. Compute Jaccard
 overlap, and choose the plan with higher overlap; ties count as 0.5.
 Shared object nouns in both plans contribute equally to the two overlap
-scores. On the frozen grid this baseline is 0.510 across the 48 goal phrasings,
+scores. On the frozen grid this baseline is 0.490 across the 48 goal phrasings,
 computed before any model score. Also report a frozen goal-type shortcut: a goal is protective when it
 contains one of `keep kept protect protected preserve hidden unexposed
 unaware intact undiscovered hold delayed unable unmixed available private`
 as a whole word, and the shortcut chooses the withholding plan for such a
 goal and the active plan otherwise. All 48 frozen goal phrasings classify as
-their declared type, and the 3-per-quadrant balance predicts 0.5 accuracy
-for this shortcut. Both baselines are descriptive; lexical associations
-beyond exact overlap and goal type remain possible.
+their declared type, and the six/six status-quo balance predicts 0.5 accuracy
+for this shortcut. The second frozen shortcut uses the same goal detector
+but chooses the **containing** plan for protective goals and the releasing
+plan otherwise. The containing plan is identified by exactly one of the two
+plan sentences containing a whole-word match from `sealed dark off raise
+store locked close moored silent closed`. All twelve plan pairs meet that
+rule, and the protect-by-release/contain balance predicts 0.5 for it too.
+These baselines are descriptive; semantic associations beyond these two
+coarse rules remain possible.
 
 Call **goal-sensitive choice established on this constructed grid** only if:
 
