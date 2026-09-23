@@ -67,6 +67,8 @@ def _state(cell: cross.Cell, fp: str, hidden: int) -> np.ndarray | None:
         if z["id"].item() != cell.id or z["fp"].item() != fp:
             raise ValueError(f"stale state capture: {cell.id}")
         arr = np.asarray(z["state"], dtype=np.float32)
+        if z["state_sha256"].item() != _sha(arr.tobytes()):
+            raise ValueError(f"state content hash changed: {cell.id}")
     if (arr.shape != (2, hidden) or not np.isfinite(arr).all() or
             not np.array_equal(arr[0], arr[1])):
         raise ValueError(f"invalid two-row state: {cell.id}")
@@ -76,9 +78,10 @@ def _state(cell: cross.Cell, fp: str, hidden: int) -> np.ndarray | None:
 def _save_state(cell: cross.Cell, fp: str, arr: np.ndarray) -> None:
     path = _state_path(cell)
     tmp = path.with_suffix(".tmp.npz")
+    value = np.asarray(arr, dtype=np.float32)
     with tmp.open("wb") as handle:
         np.savez_compressed(handle, id=cell.id, fp=fp,
-                            state=np.asarray(arr, dtype=np.float32))
+                            state=value, state_sha256=_sha(value.tobytes()))
         handle.flush()
         os.fsync(handle.fileno())
     os.replace(tmp, path)
@@ -373,12 +376,14 @@ def main() -> None:
 
     expected = {}
     for cell in cells:
-        pair_digests = {**digests,
-                        **{kind + "_state_fp": state_fp[which] for kind, which in (
-                            ("target", cell.id),
+        pair_digests = {**digests}
+        for kind, which in (("target", cell.id),
                             ("source", metrics[cell.id]["source_id"]),
                             ("plan", metrics[cell.id]["plan_id"]),
-                            ("first_order", metrics[cell.id]["first_order_id"]))}}
+                            ("first_order", metrics[cell.id]["first_order_id"])):
+            pair_digests[kind + "_state_fp"] = state_fp[which]
+            pair_digests[kind + "_state_sha256"] = metrics[cell.id][
+                kind + "_state_sha256"]
         for arm in ARMS:
             expected[f"{cell.id}|{arm}"] = _fp(
                 cell, located[cell.id], "score", arm,

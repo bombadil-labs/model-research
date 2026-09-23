@@ -5,6 +5,9 @@ import json
 from pathlib import Path
 import sys
 
+import numpy as np
+import pytest
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts/narrative"))
 
 import firsthop_swap_grid as grid
@@ -60,3 +63,19 @@ def test_secondary_contrasts_refuse_failed_instrument():
     report = _report(compression=False, instrument_ok=False)
     assert not report["specific_margin_screen"]
     assert not any(report["secondary_contrast_screen"].values())
+
+
+def test_cached_capture_rejects_changed_state_bytes(tmp_path, monkeypatch):
+    cell = grid.make_cells()[0][0]
+    monkeypatch.setattr(patch, "OUT", tmp_path)
+    (tmp_path / "states").mkdir()
+    original = np.ones((2, 4), dtype=np.float32)
+    patch._save_state(cell, "frozen", original)
+    assert np.array_equal(patch._state(cell, "frozen", 4), original)
+    path = patch._state_path(cell)
+    with np.load(path, allow_pickle=False) as z:
+        saved_hash = z["state_sha256"].item()
+    np.savez_compressed(path, id=cell.id, fp="frozen",
+                        state=original * 2, state_sha256=saved_hash)
+    with pytest.raises(ValueError, match="state content hash changed"):
+        patch._state(cell, "frozen", 4)
