@@ -52,7 +52,7 @@ nodes:
     parent: null
     motivated_by: "research/shame-axis/notes/double_bos_audit.md:28; commits a9d34bc, e2a3774"
     status: proposed
-    budget: {ndif_jobs: 250, wall_hours: 4}
+    budget: {ndif_jobs: 250, wall_hours: 4}   # with the local Gemma stack cache; ~400 jobs and 8 h without it (PROGRAM_v2 C2)
     spent: {ndif_jobs: 0, wall_hours: 0}
     outcomes:
       - {if: "two arms' generation-loss rates differ by more than 10 points", then: escalate}
