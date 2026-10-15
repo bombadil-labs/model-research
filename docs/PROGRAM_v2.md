@@ -1,6 +1,6 @@
 # Program v2: what this repository is doing, how each line ends, and what each result triggers
 
-*Status: **proposal, v0.3**, with rule D amended by the author's first decision (D-001). Two reviews have been folded in. The first was an adversarial review
+*Status: **accepted, v0.3** (D-002, 2026-10-15), with rule D amended by the author's first decision (D-001). Two reviews have been folded in. The first was an adversarial review
 ([`program_v2/review_1.md`](program_v2/review_1.md)); the second was a verification pass, summarised
 in §10. Claude drafted the document in a cloud session on 2026-10-15 at the author's request.*
 
@@ -485,8 +485,18 @@ flowchart TD
 Defaults take effect only after acceptance. Each date then reads as the later of the date shown and
 acceptance + 14 days. Every default is one of the node's own terminal outcomes (R4).
 
-**Decided so far** (`docs/decisions.yaml`): **D-001**, rule D. The author decides in chat, and the
-agent records his words verbatim with the session link.
+**Decided so far** (`docs/decisions.yaml`, each with the author's words and the session link):
+- **D-001**, rule D: decisions are made in chat and recorded verbatim.
+- **D-002**, this document: accepted.
+- **D-003**, PR #9: merged.
+- **D-004**, narrative N0: option D, close now.
+- **D-005**, NC1 not funded, because the local caches are gone, so `generic-choice-slot-explanation`
+  retires.
+- **D-006**, shame-axis S1: c, close now.
+- **D-007 to D-012**: the narrative retirements that option D defines (`nc2a`, `nc2b`, `na1`,
+  `na2`, `nb1`, `nb2`).
+
+Still open, each with its default: #2 (PR #12), #7, #8, #9, #10, #11, #12, #13, #14, #15, #16.
 
 | # | decision | node | options | recommended | default (2026-10-29) |
 |---|---|---|---|---|---|

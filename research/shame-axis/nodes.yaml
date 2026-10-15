@@ -1,10 +1,10 @@
 # The shame-axis line's decision tree, as data (docs/PROGRAM_v2.md §5; rules R1-R5, D).
 # Validated by `python scripts/check_nodes.py shame-axis`. Hop is computed, never declared.
-# PROPOSAL: `accepted` stays null until the author accepts PROGRAM_v2 in a session, recorded in
-# docs/decisions.yaml (rule D). Once accepted, each date reads as the later of the date shown and
+# ACCEPTED (D-002, 2026-10-15): decided nodes point at their record in docs/decisions.yaml (rule D).
+# `funded` = decided, execution pending; `done` = executed. Once accepted, each date reads as the later of the date shown and
 # acceptance + 14 days.
 line: shame-axis
-accepted: null
+accepted: D-002
 
 nodes:
   - id: s0-merge-pr9
@@ -12,7 +12,8 @@ nodes:
     kind: decide
     claims: []
     parent: null
-    status: proposed
+    status: done
+    author_decision: D-003
     outcomes:
       - {if: "merge, with the delegation confirmed in the author's own words", then: close}
       - {if: "merge", then: close}
@@ -25,7 +26,8 @@ nodes:
     kind: decide
     claims: [shame-not-pain]
     parent: null
-    status: proposed
+    status: funded
+    author_decision: D-006
     outcomes:
       - {if: "c: close now", then: close}
       - {if: "b: one axis rerun with h65's three lessons", then: continue, child: s1b-axis-rerun}
@@ -41,7 +43,7 @@ nodes:
     chain_from:
       experiments: ["h53 painaxis_scenarios (self/other split)", "h64 crossmodel", "h65 shame_vs_pain (PR 9)"]
     motivated_by: "research/shame-axis/notes/shame_vs_pain_result.md:97"
-    status: proposed
+    status: retired
     end_state: true
     author_decision: null
     budget: {ndif_jobs: 400, wall_hours: 6}
@@ -75,7 +77,7 @@ nodes:
     kind: infra
     claims: []
     parent: null
-    status: proposed
+    status: funded
     budget: {wall_hours: 3}
 
   - id: writeup-first
@@ -83,5 +85,5 @@ nodes:
     kind: writeup
     claims: []
     parent: null
-    status: proposed
+    status: funded
     budget: {wall_hours: 6}

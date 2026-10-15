@@ -1,10 +1,10 @@
 # The narrative line's decision tree, as data (docs/PROGRAM_v2.md §3-§4; rules R1-R5, D).
 # Validated by `python scripts/check_nodes.py narrative`. Hop is computed, never declared.
-# PROPOSAL: `accepted` stays null until the author accepts PROGRAM_v2 in a session, recorded in
-# docs/decisions.yaml (rule D). Until then nothing here is funded and no default runs. Once accepted,
+# ACCEPTED (D-002, 2026-10-15): decided nodes point at their record in docs/decisions.yaml (rule D).
+# `funded` = decided, execution pending; `done` = executed. Until then nothing here is funded and no default runs. Once accepted,
 # each date reads as the later of the date shown and acceptance + 14 days.
 line: narrative
-accepted: null
+accepted: D-002
 
 nodes:
   - id: n0-scope
@@ -12,7 +12,8 @@ nodes:
     kind: decide
     claims: []
     parent: null
-    status: proposed
+    status: done
+    author_decision: D-004
     outcomes:
       - {if: "D: close now", then: close}
       - {if: "D plus NC1 (local Gemma caches exist)", then: continue, child: nc1-slot-sufficiency}
@@ -38,7 +39,7 @@ nodes:
   - id: c1-merge-pr12
     title: Merge PR 12, and apply its proposed in-place EXPERIMENTS.md retraction?
     kind: decide
-    claims: []
+    claims: [permutation-arm-below-null]
     parent: null
     status: proposed
     outcomes:
@@ -66,7 +67,7 @@ nodes:
     claims: [generation-recomposition]
     parent: null
     motivated_by: "research/shame-axis/notes/double_bos_audit.md:28"
-    status: proposed
+    status: funded
     # <= 250 jobs with the local Gemma stack cache; <= 290 without it (36 stack + 30 re-read jobs)
     budget: {ndif_jobs: 290, wall_hours: 8}
     spent: {ndif_jobs: 0, wall_hours: 0}
@@ -101,7 +102,8 @@ nodes:
     kind: retire
     claims: [generic-choice-slot-explanation]
     parent: null
-    status: proposed
+    status: funded
+    author_decision: D-005
     outcomes:
       - {if: "N0 = D plus NC1", then: continue, child: nc1-slot-sufficiency}
       - {if: "retire: sufficiency test not funded under D", then: retire}
@@ -117,7 +119,7 @@ nodes:
       experiments: ["#12 fact_flip_twohop", "#13 goal_route_cross", "#14 goal_route_activation_pilot",
                     "#15 choice_slot_control", "#17 choice_slot_replication", "#19 answer_slot_patch"]
     motivated_by: "research/narrative/notes/choice_slot_replication_result.md:67"
-    status: proposed
+    status: retired
     end_state: true
     author_decision: null
     budget: {ndif_jobs: 528, wall_hours: 6}
@@ -143,7 +145,8 @@ nodes:
     kind: retire
     claims: [fixed-plan-behavioral-capacity, fixed-plan-goal-reversal-capacity, propp-full-story-context]
     parent: null
-    status: proposed
+    status: funded
+    author_decision: D-007
     outcomes:
       - {if: "retire with the reasons in PROGRAM_v2 §4 NC2", then: retire}
       - {if: "fund a reopen trigger instead", then: continue}
@@ -155,7 +158,8 @@ nodes:
     kind: retire
     claims: [goal-relative-story-role]
     parent: nc1-slot-sufficiency
-    status: proposed
+    status: funded
+    author_decision: D-008
     # under D+NC1 the date reads as the later of this date and NC1's result
     outcomes:
       - {if: "NC1 falsifies: a route-specific component exists", then: continue}
@@ -168,7 +172,8 @@ nodes:
     kind: retire
     claims: [depth-fraction-confound]
     parent: null
-    status: proposed
+    status: funded
+    author_decision: D-009
     outcomes:
       - {if: "fund a new spec: era and theme generation sweeps added to piece 2, graded A-E", then: continue}
       - {if: "retire: the generation boundary is reported as measured, on two models", then: retire}
@@ -180,7 +185,8 @@ nodes:
     kind: retire
     claims: [mood-voice-interference]
     parent: null
-    status: proposed
+    status: funded
+    author_decision: D-010
     outcomes:
       - {if: "retire on scope: serves neither product, no spec or grid", then: retire}
       - {if: "fund a spec and grid", then: continue}
@@ -205,7 +211,8 @@ nodes:
     kind: retire
     claims: [token-cloud-correspondence]
     parent: null
-    status: proposed
+    status: funded
+    author_decision: D-011
     outcomes:
       - {if: "fund under PROGRAM_v2 §4's rules (Claude disclosed a bias toward this one)", then: continue}
       - {if: "retire: not funded under D", then: retire}
@@ -217,7 +224,8 @@ nodes:
     kind: retire
     claims: [paraphrase-effective-n]
     parent: null
-    status: proposed
+    status: funded
+    author_decision: D-012
     outcomes:
       - {if: "fund only if NB1 is falsified or underpowered", then: continue}
       - {if: "retire: not funded under D", then: retire}
@@ -229,7 +237,7 @@ nodes:
     kind: infra
     claims: []
     parent: null
-    status: proposed
+    status: funded
     budget: {wall_hours: 3}
 
   - id: writeup-fifth-draft
@@ -237,5 +245,5 @@ nodes:
     kind: writeup
     claims: []
     parent: null
-    status: proposed
+    status: funded
     budget: {wall_hours: 6}
