@@ -1,7 +1,8 @@
-# The narrative line's decision tree, as data (docs/PROGRAM_v2.md §4; rules R1-R5).
+# The narrative line's decision tree, as data (docs/PROGRAM_v2.md §3-§4; rules R1-R5, D).
 # Validated by `python scripts/check_nodes.py narrative`. Hop is computed, never declared.
-# PROPOSAL: `accepted` stays null until the author accepts PROGRAM_v2 in his own words (rule D).
-# Until then nothing here is funded and no default executes.
+# PROPOSAL: `accepted` stays null until the author accepts PROGRAM_v2 by a commit signed with his
+# registered key (rule D). Until then nothing here is funded and no default runs. Once accepted,
+# each date reads as the later of the date shown and acceptance + 14 days.
 line: narrative
 accepted: null
 
@@ -24,14 +25,28 @@ nodes:
     kind: test
     claims: [permutation-arm-below-null]
     parent: null
-    motivated_by: "docs/EXPERIMENTS.md:2188"
+    motivated_by: "research/narrative/docs/EXPERIMENTS.md:2188"
     status: done
+    retrospective: true
     budget: {wall_hours: 1}
     spent: {wall_hours: 0.9, ndif_jobs: 0}
     outcomes:
       - {if: "mean over independent seeds at chance and seed 0 explained", then: withdraw}
       - {if: "mean over independent seeds off chance", then: holds}
-    result: "withdrawn in PR #12: +0.002 over 64 seeds vs -0.106 at seed 0; notes/permutation_seed_audit.md"
+    result: "withdrawn in PR 12: +0.002 over 64 seeds vs -0.106 at seed 0; notes/permutation_seed_audit.md"
+
+  - id: c1-merge-pr12
+    title: Merge PR 12, and apply its proposed in-place EXPERIMENTS.md retraction?
+    kind: decide
+    claims: []
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "merge; the EXPERIMENTS.md retraction stays proposed", then: close}
+      - {if: "merge and apply the EXPERIMENTS.md retraction", then: close}
+      - {if: "close unmerged", then: close}
+    default: "merge; the EXPERIMENTS.md retraction stays proposed"
+    decide_by: 2026-10-29
 
   - id: c1a-seeding
     title: Keep seed 0 for bit-exact ledger rows, or seed every row separately?
@@ -50,17 +65,21 @@ nodes:
     kind: test
     claims: [generation-recomposition]
     parent: null
-    motivated_by: "research/shame-axis/notes/double_bos_audit.md:28; commits a9d34bc, e2a3774"
+    motivated_by: "research/shame-axis/notes/double_bos_audit.md:28"
     status: proposed
-    budget: {ndif_jobs: 250, wall_hours: 4}   # with the local Gemma stack cache; ~400 jobs and 8 h without it (PROGRAM_v2 C2)
+    # <= 250 jobs with the local Gemma stack cache; <= 290 without it (36 stack + 30 re-read jobs)
+    budget: {ndif_jobs: 290, wall_hours: 8}
     spent: {ndif_jobs: 0, wall_hours: 0}
+    procedure: >-
+      Primary scoring uses (item, target era) pairs whose base, shift and random generations all
+      returned; loss per arm is reported on all items. If no-patch or random sits off its null, the
+      nulls are re-declared from this run's no-patch arm, recorded, and the branches applied.
     outcomes:
-      - {if: "two arms' generation-loss rates differ by more than 10 points", then: escalate}
-      - {if: "no-patch in its Wilson interval around 0.1111, random in no-patch's, treatment interval overlaps 0.8364", then: holds}
-      - {if: "treatment drops but its interval still clears random's", then: narrow}
-      - {if: "treatment interval overlaps random's (writeup claims 8-10 escalate)", then: withdraw}
-      - {if: "no-patch or random off its null: re-declare nulls from this run's no-patch, then re-apply", then: continue}
-    default: "close: record unreadable and keep the caveat in the claim's evidence"
+      - {if: "fewer than 24 paired items survive generation loss", then: escalate}
+      - {if: "no-patch in its Wilson interval around 0.1111, random in no-patch's, treatment interval overlapping or wholly above 0.8364", then: holds}
+      - {if: "treatment upper bound below 0.8364 but its interval still clears random's", then: narrow}
+      - {if: "treatment interval overlaps random's (and escalate: writeup claims 8-10 rest on it)", then: withdraw}
+    default: "narrow: integrity rerun unreadable"
     decide_by: 2026-10-29
 
   - id: c4-phase2-gate
@@ -70,11 +89,23 @@ nodes:
     parent: null
     status: proposed
     outcomes:
-      - {if: "amend: the fifth draft labels each un-ledgered claim with its blocker", then: close}
+      - {if: "amend: NOT-DERIVED labels in WRITEUP.md and the ledger, no crosstalk build", then: close}
       - {if: "amend, then build `crosstalk` alone", then: continue}
       - {if: "raise the budget", then: continue}
       - {if: "cut the writeup to what the core can carry", then: close}
-    default: "amend, no crosstalk build"
+    default: "amend: NOT-DERIVED labels in WRITEUP.md and the ledger, no crosstalk build"
+    decide_by: 2026-10-29
+
+  - id: nc1-unfunded
+    title: Retire generic-choice-slot-explanation if NC1 is not funded
+    kind: retire
+    claims: [generic-choice-slot-explanation]
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "N0 = D plus NC1", then: continue, child: nc1-slot-sufficiency}
+      - {if: "retire: sufficiency test not funded under D", then: retire}
+    default: "retire: sufficiency test not funded under D"
     decide_by: 2026-10-29
 
   - id: nc1-slot-sufficiency
@@ -82,32 +113,54 @@ nodes:
     kind: test
     claims: [generic-choice-slot-explanation]
     parent: null
-    chain_from: {note: "docs/program_v2/narrative_audit.md §4, chain B (#12 #13 #14 #15 #17 #19)", hops: 5}
-    motivated_by: "notes/choice_slot_replication_result.md"
+    chain_from:
+      experiments: ["#12 fact_flip_twohop", "#13 goal_route_cross", "#14 goal_route_activation_pilot",
+                    "#15 choice_slot_control", "#17 choice_slot_replication", "#19 answer_slot_patch"]
+    motivated_by: "research/narrative/notes/choice_slot_replication_result.md:67"
     status: proposed
     end_state: true
     author_decision: null
-    budget: {ndif_jobs: 520, wall_hours: 6}
+    budget: {ndif_jobs: 528, wall_hours: 6}
     spent: {ndif_jobs: 0, wall_hours: 0}
+    procedure: >-
+      PROGRAM_v2 §4 NC1: rho = T_proj / T0 on the pilot's registered block-16/24 statistic, p_b fitted
+      on the eight property domains; nulls are the pilot's exact 2^8 world-label orientation null and
+      64 cosine-matched directions; delta is simulated at 80% power and committed before projection.
+      Branches are mutually exclusive; first match wins.
     outcomes:
-      - {if: "gate 0: T0 fails to reproduce +0.0854 within recorded repeat drift", then: close}
-      - {if: "T_proj inside the orientation null and below the q05 of cosine-matched residuals", then: holds}
-      - {if: "lower bound of rho's CI > delta and T_proj > orientation-null q95 (route-specific component)", then: escalate}
-      - {if: "rho's CI spans both 0 and delta", then: underpowered}
-      - {if: "otherwise", then: narrow}
-    default: "close: chain B ends, no causal node"
+      - {if: "gate 0 fails: T0 not within 0.0005 of +0.0854, or the repeat-drift gate fails on re-extraction", then: escalate}
+      - {if: "delta >= 0.5: underpowered by design, NC1 does not run", then: escalate}
+      - {if: "rho_hi < delta and T_proj < q05 of the cosine-matched residuals", then: holds, child: nc2b-goal-relative}
+      - {if: "rho_lo > delta and T_proj > the orientation null's q95", then: falsify}
+      - {if: "the same falsified result: fund one causal node?", then: escalate}
+      - {if: "rho_lo <= 0 and rho_hi >= delta", then: underpowered, child: nc2b-goal-relative}
+      - {if: "otherwise", then: narrow, child: nc2b-goal-relative}
+    default: "close: no causal node; the claim keeps its terminal status"
     decide_by: 2026-10-29
 
-  - id: nc2-retire-story-role
-    title: Retire the story-role claims whose designs are exhausted
+  - id: nc2a-retire-exhausted
+    title: Retire three claims whose own rules or corpus end them
     kind: retire
-    claims: [goal-relative-story-role, fixed-plan-behavioral-capacity, fixed-plan-goal-reversal-capacity, propp-full-story-context]
+    claims: [fixed-plan-behavioral-capacity, fixed-plan-goal-reversal-capacity, propp-full-story-context]
     parent: null
     status: proposed
     outcomes:
-      - {if: "NC1 falsifies (route-specific component exists)", then: continue}
-      - {if: "otherwise", then: retire}
-    default: retire
+      - {if: "retire with the reasons in PROGRAM_v2 §4 NC2", then: retire}
+      - {if: "fund a reopen trigger instead", then: continue}
+    default: "retire with the reasons in PROGRAM_v2 §4 NC2"
+    decide_by: 2026-10-29
+
+  - id: nc2b-goal-relative
+    title: Retire goal-relative-story-role unless NC1 finds a route-specific component
+    kind: retire
+    claims: [goal-relative-story-role]
+    parent: nc1-slot-sufficiency
+    status: proposed
+    # under D+NC1 the date reads as the later of this date and NC1's result
+    outcomes:
+      - {if: "NC1 falsifies: a route-specific component exists", then: continue}
+      - {if: "retire: no design separated role from slot", then: retire}
+    default: "retire: no design separated role from slot"
     decide_by: 2026-10-29
 
   - id: na1-depth-sweep
@@ -117,9 +170,9 @@ nodes:
     parent: null
     status: proposed
     outcomes:
-      - {if: "funded: a new spec (planner + review) adds era and theme generation sweeps to piece 2 and grades A-E", then: continue}
-      - {if: "not funded", then: retire}
-    default: retire
+      - {if: "fund a new spec: era and theme generation sweeps added to piece 2, graded A-E", then: continue}
+      - {if: "retire: the generation boundary is reported as measured, on two models", then: retire}
+    default: "retire: the generation boundary is reported as measured, on two models"
     decide_by: 2026-10-29
 
   - id: na2-mood-voice
@@ -130,7 +183,8 @@ nodes:
     status: proposed
     outcomes:
       - {if: "retire on scope: serves neither product, no spec or grid", then: retire}
-    default: retire
+      - {if: "fund a spec and grid", then: continue}
+    default: "retire on scope: serves neither product, no spec or grid"
     decide_by: 2026-10-29
 
   - id: na3-human-grid
@@ -153,9 +207,9 @@ nodes:
     parent: null
     status: proposed
     outcomes:
-      - {if: "funded (Claude disclosed a bias toward this one): the rules in PROGRAM_v2 §4 apply", then: continue}
-      - {if: "not funded under D", then: retire}
-    default: retire
+      - {if: "fund under PROGRAM_v2 §4's rules (Claude disclosed a bias toward this one)", then: continue}
+      - {if: "retire: not funded under D", then: retire}
+    default: "retire: not funded under D"
     decide_by: 2026-10-29
 
   - id: nb2-paraphrase
@@ -165,10 +219,18 @@ nodes:
     parent: null
     status: proposed
     outcomes:
-      - {if: "kept: fund only if NB1 is falsified or underpowered", then: continue}
-      - {if: "not funded under D", then: retire}
-    default: retire
+      - {if: "fund only if NB1 is falsified or underpowered", then: continue}
+      - {if: "retire: not funded under D", then: retire}
+    default: "retire: not funded under D"
     decide_by: 2026-10-29
+
+  - id: hygiene-meter
+    title: Make the meter honest - missing rows, re-ids with the old wording kept (PROGRAM_v2 §7)
+    kind: infra
+    claims: []
+    parent: null
+    status: proposed
+    budget: {wall_hours: 3}
 
   - id: writeup-fifth-draft
     title: The fifth-draft writeup, every number linked to a claims row or a committed artifact

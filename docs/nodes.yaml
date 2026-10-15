@@ -1,20 +1,21 @@
-# Shared infrastructure nodes (docs/PROGRAM_v2.md §3), validated by `python scripts/check_nodes.py`.
-# They name no claims; each is a decision with a default (R4).
-# PROPOSAL: `accepted` stays null until the author accepts PROGRAM_v2 in his own words (rule D).
+# Shared nodes (docs/PROGRAM_v2.md §3 and §6), validated by `python scripts/check_nodes.py`.
+# They name no claims. Decisions carry a default and a date (R4); infra nodes carry a budget.
+# PROPOSAL: `accepted` stays null until the author accepts PROGRAM_v2 by a commit signed with his
+# registered key (rule D).
 line: shared
 accepted: null
 
 nodes:
-  - id: c3-ci
-    title: Run the core tests, check_claims, check_nodes and the claim-text diff in CI on every pull request?
+  - id: c3-ci-and-hooks
+    title: Run core tests, check_claims, check_nodes and the claim-text diff on every PR, and fix or delete the hooks?
     kind: decide
     claims: []
     parent: null
     status: proposed
     outcomes:
-      - {if: "apply, or approve an agent to apply: >= 380 tests collected, skips listed, a new skip fails", then: continue}
+      - {if: "apply, or approve an agent to apply (>= 380 tests collected, skips listed, a new skip fails)", then: continue}
       - {if: "leave", then: close}
-    default: leave
+    default: "leave"
     decide_by: 2026-10-29
 
   - id: c5-doc-sweep
@@ -25,7 +26,7 @@ nodes:
     status: proposed
     outcomes:
       - {if: "authorize", then: continue}
-      - {if: "don't", then: close}
+      - {if: "not authorized", then: close}
     default: "not authorized"
     decide_by: 2026-10-29
 
@@ -38,7 +39,8 @@ nodes:
     outcomes:
       - {if: "re-close via proxy injection", then: continue}
       - {if: "a new waiver, in the author's own words", then: close}
-    default: "recorded as still open"
+      - {if: "recorded open, with a dated risk note", then: close}
+    default: "recorded open, with a dated risk note"
     decide_by: 2026-10-29
 
   - id: c6-core-paths
@@ -48,3 +50,51 @@ nodes:
     parent: null
     status: proposed
     budget: {wall_hours: 2}
+
+  - id: d13-statuses
+    title: Measured-but-inconclusive claims - amend `retired`, or add a new terminal status?
+    kind: decide
+    claims: []
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "amend claims_v1.md:28 to 'abandoned deliberately, reason on record'; no new status", then: close}
+      - {if: "add an `underpowered` terminal status to claims_v1 and check_claims", then: close}
+    default: "amend claims_v1.md:28 to 'abandoned deliberately, reason on record'; no new status"
+    decide_by: 2026-10-29
+
+  - id: d15-rule-d-key
+    title: Register a signing key in docs/AUTHOR_KEY so that author decisions can be told from agent text?
+    kind: decide
+    claims: []
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "register a key (a prerequisite for accepting PROGRAM_v2 at all)", then: close}
+      - {if: "no key yet: PROGRAM_v2 cannot be accepted, so nothing in it runs", then: close}
+    default: "no key yet: PROGRAM_v2 cannot be accepted, so nothing in it runs"
+    decide_by: 2026-10-29
+
+  - id: d16-done-definition
+    title: Strengthen CLAUDE.md's definition of done to require rows for every README question and writeup claim?
+    kind: decide
+    claims: []
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "yes, edit CLAUDE.md", then: close}
+      - {if: "no; rows are added under R5 anyway", then: close}
+    default: "no; rows are added under R5 anyway"
+    decide_by: 2026-10-29
+
+  - id: d17-external
+    title: Does either line become something external (a preprint, a post)?
+    kind: decide
+    claims: []
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "yes, after both writeups exist", then: close}
+      - {if: "no", then: close}
+    default: "no"
+    decide_by: 2026-10-29

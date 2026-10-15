@@ -1,6 +1,8 @@
-# The shame-axis line's decision tree, as data (docs/PROGRAM_v2.md §5; rules R1-R5).
+# The shame-axis line's decision tree, as data (docs/PROGRAM_v2.md §5; rules R1-R5, D).
 # Validated by `python scripts/check_nodes.py shame-axis`. Hop is computed, never declared.
-# PROPOSAL: `accepted` stays null until the author accepts PROGRAM_v2 in his own words (rule D).
+# PROPOSAL: `accepted` stays null until the author accepts PROGRAM_v2 by a commit signed with his
+# registered key (rule D). Once accepted, each date reads as the later of the date shown and
+# acceptance + 14 days.
 line: shame-axis
 accepted: null
 
@@ -13,8 +15,9 @@ nodes:
     status: proposed
     outcomes:
       - {if: "merge, with the delegation confirmed in the author's own words", then: close}
+      - {if: "merge", then: close}
       - {if: "close unmerged", then: close}
-    default: merge
+    default: "merge"
     decide_by: 2026-10-29
 
   - id: s1-after-h65
@@ -24,8 +27,8 @@ nodes:
     parent: null
     status: proposed
     outcomes:
-      - {if: "c: close now; shame-not-pain terminal with reason 'registered test unreadable (h65); stimulus-dependent'", then: close}
-      - {if: "b: one rerun on the axis with h65's three lessons", then: continue, child: s1b-axis-rerun}
+      - {if: "c: close now", then: close}
+      - {if: "b: one axis rerun with h65's three lessons", then: continue, child: s1b-axis-rerun}
       - {if: "a: a new line's charter, opened only after this line closes", then: close}
     default: "c: close now"
     decide_by: 2026-10-29
@@ -35,20 +38,45 @@ nodes:
     kind: test
     claims: [shame-not-pain]
     parent: null
-    chain_from: {note: "research/shame-axis/notes/shame_vs_pain_result.md (h65, PR 9)", hops: 1}
-    motivated_by: "shame_vs_pain_result.md: three lessons for any rerun"
+    chain_from:
+      experiments: ["h53 painaxis_scenarios (self/other split)", "h64 crossmodel", "h65 shame_vs_pain (PR 9)"]
+    motivated_by: "research/shame-axis/notes/shame_vs_pain_result.md:97"
     status: proposed
+    end_state: true
+    author_decision: null
     budget: {ndif_jobs: 400, wall_hours: 6}
     spent: {ndif_jobs: 0, wall_hours: 0}
+    procedure: >-
+      First match wins. Step 2 is a procedure, not an outcome: evaluate only the models whose
+      positive control passes on other data; the rest are reported unreadable. h65's five effect
+      criteria and a power estimate are committed before data.
     outcomes:
-      - {if: "positive control fails in every model", then: underpowered}
-      - {if: "control passes in some models only: evaluate there, the rest unreadable", then: continue}
-      - {if: "control passes; all five h65 effect criteria met in both author sets", then: holds}
-      - {if: "control passes; criteria unmet in both author sets", then: falsify}
-      - {if: "the two authors disagree in sign", then: underpowered}
-      - {if: "effect gone after valence adjustment", then: falsify}
-    default: "close: shame-not-pain terminal as unreadable"
+      - {if: "1. the positive control fails in every model (axis unfit)", then: underpowered}
+      - {if: "3. the two author sets disagree in sign in any evaluated model (stimulus-dependent)", then: underpowered}
+      - {if: "4. all five criteria met in both sets in every evaluated model, and still after valence adjustment", then: holds}
+      - {if: "5. the effect is gone after valence adjustment in either set", then: falsify}
+      - {if: "6. criteria unmet in both sets, with at least 80% power for h65's effect size", then: falsify}
+      - {if: "7. otherwise", then: underpowered}
+
+  - id: s14-conscription-row
+    title: README question 4's own row (conscription-hypothesis) - narrowed or falsified?
+    kind: decide
+    claims: []
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "narrowed: falsified on the dense axis, passes on the opener readout, instruments disagree (Q28)", then: close}
+      - {if: "falsified", then: close}
+    default: "narrowed: falsified on the dense axis, passes on the opener readout, instruments disagree (Q28)"
     decide_by: 2026-10-29
+
+  - id: hygiene-meter
+    title: Make the meter honest - missing rows, QUESTIONS triage, labelled attributions (PROGRAM_v2 §7)
+    kind: infra
+    claims: []
+    parent: null
+    status: proposed
+    budget: {wall_hours: 3}
 
   - id: writeup-first
     title: The line's first writeup, every number linked to a claims row or a committed artifact
