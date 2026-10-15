@@ -3,7 +3,7 @@
 Each test pins one way a decision tree could let a chain run on without anyone deciding: a hop
 count that is declared or reset instead of computed, a fourth hop funded without the author, a
 decision with no terminal default, a budget overrun that keeps running, a tree that drifts from its
-claims table, and an "author decision" an agent could have written.
+claims table, and an "author decision" that is not the author's recorded words.
 """
 from __future__ import annotations
 
@@ -22,11 +22,21 @@ TODAY = dt.date(2026, 10, 15)
 CLAIMS = {"open-claim": "open", "done-claim": "holds"}
 
 
-def run(tmp_path, nodes, *, accepted=None, claims=CLAIMS, today=TODAY, raw=None):
+SESSION = "https://claude.ai/code/session_013zLwtWkVdkTDNgy7DbpQCP"
+
+
+def record(node, outcome="accept", **kw):
+    r = {"id": "D-001", "date": "2026-10-15", "node": node, "outcome": outcome,
+         "quote": "yes, accept it", "session": SESSION}
+    r.update(kw)
+    return r
+
+
+def run(tmp_path, nodes, *, accepted=None, claims=CLAIMS, today=TODAY, raw=None, decisions=None):
     p = tmp_path / "nodes.yaml"
     p.write_text(raw if raw is not None else
                  yaml.safe_dump({"line": "demo", "accepted": accepted, "nodes": nodes}))
-    return cn.check_file(p, claims, today)
+    return cn.check_file(p, claims, today, decisions or {})
 
 
 def node(nid, parent=None, **kw):
@@ -72,11 +82,12 @@ def test_a_child_that_does_not_name_its_parent_cannot_restart_its_hop(tmp_path):
     assert any("must name 'c' as its parent" in e for e in errs)
 
 
-def test_a_fourth_hop_funded_without_a_signed_author_decision_is_refused(tmp_path):
+def test_a_fourth_hop_funded_without_a_recorded_author_decision_is_refused(tmp_path):
     n = node("d", chain_from=exps(3), end_state=True, status="funded",
              author_decision="the author said yes in chat")
     errs, _ = run(tmp_path, [n])
-    assert any("funded without an author decision" in e for e in errs)
+    assert any("funded without the author's recorded decision" in e for e in errs)
+    assert any("not a decision record for this node" in e for e in errs)
 
 
 def test_a_proposed_fourth_hop_is_listed_as_needing_the_authors_go(tmp_path):
@@ -117,18 +128,54 @@ def test_an_escalation_needs_a_default_and_a_date(tmp_path):
     assert any("needs a `default`" in e for e in errs) and any("decide_by" in e for e in errs)
 
 
-def test_defaults_are_due_only_once_the_plan_is_accepted(tmp_path, monkeypatch):
+def test_defaults_are_due_only_once_the_plan_is_accepted(tmp_path):
     d = decision("d", kind="retire", claims=["open-claim"], decide_by="2026-10-01")
     errs, r = run(tmp_path, [d])
     assert errs == [] and r["due"] == []
-    monkeypatch.setattr(cn, "signed_by_author", lambda sha: True)
-    errs, r = run(tmp_path, [d], accepted="abc1234")
+    errs, r = run(tmp_path, [d], accepted="D-001",
+                  decisions={"D-001": record(cn.ACCEPT_NODE)})
     assert errs == [] and r["due"] and "retire" in r["due"][0]
 
 
-def test_acceptance_must_be_a_commit_signed_with_the_authors_key(tmp_path):
+def test_acceptance_must_be_a_recorded_decision_for_the_acceptance_node(tmp_path):
     errs, _ = run(tmp_path, [decision("d")], accepted="yes per the author")
     assert any("rule D" in e for e in errs)
+    errs, _ = run(tmp_path, [decision("d")], accepted="D-001",
+                  decisions={"D-001": record("some-other-node")})
+    assert any("rule D" in e for e in errs)
+
+
+def test_accepting_the_program_is_the_one_decision_without_a_default(tmp_path):
+    acc = decision(cn.ACCEPT_NODE, default=None, decide_by=None,
+                   outcomes=[{"if": "accept", "then": "close"}, {"if": "reject", "then": "close"}])
+    errs, _ = run(tmp_path, [acc])
+    assert errs == []
+    errs, _ = run(tmp_path, [dict(acc, default="accept", decide_by="2026-10-29")])
+    assert any("no default" in e for e in errs)
+
+
+def test_a_decision_record_needs_the_verbatim_quote_and_its_session(tmp_path):
+    p = tmp_path / "decisions.yaml"
+    good = record("d15-rule-d")
+    p.write_text(yaml.safe_dump({"decisions": [good]}))
+    recs, errs = cn.load_decisions(p)
+    assert errs == [] and "D-001" in recs
+    for bad in ({"quote": ""}, {"session": "the chat"}, {"id": "decision one"}):
+        p.write_text(yaml.safe_dump({"decisions": [dict(good, **bad)]}))
+        assert cn.load_decisions(p)[1], bad
+
+
+def test_an_author_decision_must_be_recorded_for_that_very_node(tmp_path):
+    n = node("d", chain_from=exps(3), end_state=True, status="funded", author_decision="D-001")
+    errs, _ = run(tmp_path, [n], decisions={"D-001": record("another-node")})
+    assert any("not a decision record for this node" in e for e in errs)
+    errs, _ = run(tmp_path, [n], decisions={"D-001": record("d")})
+    assert errs == []
+
+
+def test_the_repositorys_decision_log_is_well_formed():
+    recs, errs = cn.load_decisions()
+    assert errs == [] and recs["D-001"]["node"] == "d15-rule-d"
 
 
 def test_a_node_naming_a_claim_the_table_lacks_is_refused(tmp_path):
@@ -160,12 +207,11 @@ def test_parent_cycles_are_caught(tmp_path):
     assert any("cycle" in e for e in errs)
 
 
-def test_once_accepted_every_open_claim_needs_a_live_node(tmp_path, monkeypatch):
-    monkeypatch.setattr(cn, "signed_by_author", lambda sha: True)
+def test_once_accepted_every_open_claim_needs_a_live_node(tmp_path):
     n = node("a", status="done")
     errs, r = run(tmp_path, [n])
     assert errs == [] and r["uncovered"] == ["open-claim"]
-    errs, _ = run(tmp_path, [n], accepted="abc1234")
+    errs, _ = run(tmp_path, [n], accepted="D-001", decisions={"D-001": record(cn.ACCEPT_NODE)})
     assert any("open claims with no node" in e for e in errs)
 
 

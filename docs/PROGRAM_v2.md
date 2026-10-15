@@ -1,6 +1,6 @@
 # Program v2: what this repository is doing, how each line ends, and what each result triggers
 
-*Status: **proposal, v0.3**. Two reviews have been folded in. The first was an adversarial review
+*Status: **proposal, v0.3**, with rule D amended by the author's first decision (D-001). Two reviews have been folded in. The first was an adversarial review
 ([`program_v2/review_1.md`](program_v2/review_1.md)); the second was a verification pass, summarised
 in §10. Claude drafted the document in a cloud session on 2026-10-15 at the author's request.*
 
@@ -10,8 +10,9 @@ hypotheses with a planned response to each possible finding. His reason, paraphr
 work chases its tail too often. His own words are in that session's conversation, not in a commit.*
 
 *Nothing below is decided. Items marked **DECIDE** belong to the author.*
-- *Accepting the document must be a commit signed with the author's registered key (rule D). Step
-  zero is therefore registering a key (§6, #1).*
+- *The author decides in a Claude session. The agent records his words verbatim, with the
+  session's link, in `docs/decisions.yaml` (rule D, as amended by decision D-001). Accepting this
+  document is such a decision (§6, #1).*
 - *Each decision has a **default** and a **date**. Defaults take effect only after acceptance. A
   date then reads as the later of the date shown and acceptance + 14 days.*
 - *An unaccepted plan funds nothing and defaults nothing. A plan an agent wrote cannot bring itself
@@ -80,7 +81,7 @@ But unless C3 is applied, no script runs in CI. That is the decay this document 
 - **Narrative closure.** The narrative line closes, under the recommended option D at N0.
 
 ### Short term: the next one to three sessions
-- **Acceptance.** Register a signing key, then accept, amend or reject this document.
+- **Acceptance.** In a session, accept, amend or reject this document.
 - **Open PRs.** Decide on PR #9 and PR #12.
 - **The meter.** Make it honest (`hygiene-meter` nodes, §7).
 - **Hooks.** Fix or delete the three hooks. They are config, so the author applies the fix or
@@ -101,7 +102,8 @@ But unless C3 is applied, no script runs in CI. That is the decay this document 
 - **New nodes.** A node not in the accepted tree needs an author decision (rule D). *Not yet
   enforced in code: diffing node ids against the accepted commit.*
 - **Built on this branch:**
-  - the script, with 26 tests in `tests/lsx/test_check_nodes.py`;
+  - the script, with 30 tests in `tests/lsx/test_check_nodes.py`;
+  - the decision log, `docs/decisions.yaml`, which the script validates;
   - the trees of §3–§5, encoded as data. Every node is `proposed`, except `c1-permutation-arm`,
     which is `done` and marked `retrospective`.
 
@@ -153,14 +155,41 @@ But unless C3 is applied, no script runs in CI. That is the decay this document 
 - **Budgets** are in NDIF jobs and wall hours, which are metered; tokens are estimated.
   `check_nodes.py` fails any node past 1.5× its metered budget that has not stopped.
 
-**Rule D: what counts as an author decision.** A commit signed with the author's personal key,
-whose fingerprint is in `docs/AUTHOR_KEY`, itself committed under that key. `check_nodes.py` verifies
-this with `git log --format=%G?/%GF/%cn`. These do **not** count:
-- **A commit whose committer is GitHub.** Web-flow signatures verify, but agents can produce them.
-- **A GitHub comment.** Agents post under the author's account, sometimes without a footer.
+**Rule D: what counts as an author decision** (amended by D-001; v0.3 proposed signed commits, and
+the author chose chat instead, in words relayed verbatim as D-001: "yeah the signing key is too much,
+I prefer to work with you here in the chat").
+
+**What it is.** The author's own message in a Claude session, copied **verbatim** by the agent into
+`docs/decisions.yaml`. Each record carries:
+- the date;
+- the node it decides, and which of that node's outcomes;
+- the quote;
+- the session's link.
+
+Under non-negotiable 7 it is labelled relayed text, not a commit by the author. Anyone can open the
+transcript and check the quote.
+
+**What `check_nodes.py` checks:**
+- every record has a quote and a session link;
+- it names a real node, and one of that node's own outcomes;
+- `accepted` and every `author_decision` point at a record for the right node.
+
+**The agent's obligations:**
+- record only what the author said, in words, in the session it is working in;
+- never relay a decision from another session, a note or a PR comment;
+- never infer one. Anything the author did not say is a proposal.
+
+The author corrects a record by saying so in any later session; the correction becomes a new entry.
+
+**What does not count:**
+- **A GitHub comment, or a commit's author field.** Agents post and commit under the author's
+  account.
 - **An agent's paraphrase, ever.** That includes the "WAIVED by the user" line
   (`EXPERIMENTS.md:1687`) and "per Mykola's explicit instruction"
   (`action_interaction_prereg.md:30-31`).
+
+**Residual risk.** An agent could misquote. The session link is what makes that checkable, and the
+record lands in a PR diff the author sees.
 
 **What survives unchanged:**
 - every non-negotiable in `CLAUDE.md`;
@@ -456,9 +485,12 @@ flowchart TD
 Defaults take effect only after acceptance. Each date then reads as the later of the date shown and
 acceptance + 14 days. Every default is one of the node's own terminal outcomes (R4).
 
+**Decided so far** (`docs/decisions.yaml`): **D-001**, rule D. The author decides in chat, and the
+agent records his words verbatim with the session link.
+
 | # | decision | node | options | recommended | default (2026-10-29) |
 |---|---|---|---|---|---|
-| 1 | **Register a signing key**, then accept this document | `d15-rule-d-key` | key + accept / amend / reject | key, then accept with amendments | no key yet: the document cannot be accepted, so nothing runs |
+| 1 | **Accept this document** | `accept-program-v2` | accept / accept with amendments / reject | accept with amendments | **none**: an unaccepted plan funds nothing and defaults nothing |
 | 2 | PR #12 (4i) and its `EXPERIMENTS.md` retraction | `c1-merge-pr12` | merge / merge and apply / close | merge and apply | merge; the retraction stays proposed |
 | 3 | PR #9 (hour 65) | `s0-merge-pr9` | merge with confirmation / merge / close | merge, confirming the delegation in your words | merge |
 | 4 | N0: narrative | `n0-scope` | D / D+NC1 / A / B / C | D+NC1 if the caches exist, else D | D |
@@ -603,8 +635,9 @@ v0.2 modified two of the review's proposals: R3's downgrade, and rule D's mechan
 - **B2.** NC1's "holds" could fire with about 70% of the transfer remaining, and it overlapped
   "underpowered". NC1 now has power-bounded, mutually exclusive branches, an exact null, a defined
   p_b, and a gate 0 that can actually be tested.
-- **B3.** Rule D's GitHub route could be forged, because agents post as the author. Rule D now
-  accepts signed commits only.
+- **B3.** Rule D's GitHub route could be forged, because agents post as the author. v0.3 proposed
+  signed commits. The author declined (D-001), so rule D is now a verbatim chat record with its
+  session link.
 - **B4.** §8 overclaimed what the validator computes. It now says which checks are code and which
   are by hand.
 - **B5.** Hops could be declared or reset. `chain_from` now lists units, and children must point

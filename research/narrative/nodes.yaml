@@ -1,7 +1,7 @@
 # The narrative line's decision tree, as data (docs/PROGRAM_v2.md §3-§4; rules R1-R5, D).
 # Validated by `python scripts/check_nodes.py narrative`. Hop is computed, never declared.
-# PROPOSAL: `accepted` stays null until the author accepts PROGRAM_v2 by a commit signed with his
-# registered key (rule D). Until then nothing here is funded and no default runs. Once accepted,
+# PROPOSAL: `accepted` stays null until the author accepts PROGRAM_v2 in a session, recorded in
+# docs/decisions.yaml (rule D). Until then nothing here is funded and no default runs. Once accepted,
 # each date reads as the later of the date shown and acceptance + 14 days.
 line: narrative
 accepted: null

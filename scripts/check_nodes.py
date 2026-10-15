@@ -22,16 +22,17 @@ Schema, one entry per node:
     procedure:     free text the outcome table assumes (ignored by the checker)
     outcomes:      [{if: result, then: response, child: node id}]
     end_state:     true when the outcome table states the chain's end      (required at hop >= 3)
-    author_decision: a commit SHA signed with the author's key (rule D)   (required at hop >= 4
-                   before a test is funded)
+    author_decision: the id of a record in docs/decisions.yaml for THIS node (rule D)
+                   (required at hop >= 4 before a test is funded)
     default:       for decide/retire nodes, the `if` text of one of its TERMINAL outcomes; for a
                    test that can escalate, the response that runs if nobody decides
     decide_by:     YYYY-MM-DD; defaults run only after the file is `accepted`
 
-`accepted` (top level) is null until the author accepts PROGRAM_v2; set, it must be a commit SHA
-signed with the key whose fingerprint is in `docs/AUTHOR_KEY` and not committed by GitHub's web
-flow. Hop is COMPUTED: the depth along `parent` links (a root is hop 1) plus the units listed in
-`chain_from.experiments`.
+`accepted` (top level) is null until the author accepts PROGRAM_v2; set, it must be the id of a
+record in `docs/decisions.yaml` whose node is `accept-program-v2`. A decision record is the
+author's own message, copied verbatim by the agent from the Claude session it was made in, with
+that session's link (rule D). Hop is COMPUTED: the depth along `parent` links (a root is hop 1)
+plus the units listed in `chain_from.experiments`.
 
 Usage:  python scripts/check_nodes.py               # every file
         python scripts/check_nodes.py narrative     # one line
@@ -42,7 +43,6 @@ from __future__ import annotations
 import datetime as dt
 import pathlib
 import re
-import subprocess
 import sys
 
 import yaml
@@ -50,12 +50,14 @@ import yaml
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 RESEARCH = ROOT / "research"
 SHARED = ROOT / "docs" / "nodes.yaml"
-AUTHOR_KEY = ROOT / "docs" / "AUTHOR_KEY"
+DECISIONS = ROOT / "docs" / "decisions.yaml"
+ACCEPT_NODE = "accept-program-v2"
 sys.path.insert(0, str(ROOT / "scripts"))
 import check_claims as cc  # noqa: E402  -- the claims statuses and terminality live there, once
 
 ID_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
-SHA_RE = re.compile(r"^[0-9a-f]{7,40}$")
+DECISION_ID_RE = re.compile(r"^D-\d{3,}$")
+SESSION_RE = re.compile(r"^https://claude\.ai/code/session_[A-Za-z0-9]+$")
 KINDS = {"test", "retire", "decide", "infra", "writeup"}
 STATUSES = {"proposed", "funded", "running", "done", "stopped", "retired", "defaulted"}
 LIVE = {"proposed", "funded", "running"}          # a node in one of these still owes a result
@@ -82,24 +84,53 @@ def _num(x):
     return x if isinstance(x, (int, float)) and not isinstance(x, bool) and x >= 0 else None
 
 
-def signed_by_author(sha) -> bool:
-    """Rule D: a commit signed with the author's registered key, not GitHub's web-flow signature.
+def load_decisions(path: pathlib.Path | None = None) -> tuple[dict, list[str]]:
+    """Rule D's log: {id: record}, and the problems with it.
 
-    Agents post and commit under the author's account, so neither the author field nor a GitHub
-    comment can tell his text from theirs. A signature by a key agents never hold can.
+    Agents post and commit under the author's account, so neither a commit's author field nor a
+    GitHub comment can tell his text from theirs. The author chose to decide in chat instead
+    (D-001), so a decision is his message copied VERBATIM from the Claude session it was made in,
+    with that session's link: anyone can open the transcript and check the quote. A record with no
+    quote or no session link is not a decision, whatever it says.
     """
-    if not isinstance(sha, str) or not SHA_RE.match(sha.strip()) or not AUTHOR_KEY.exists():
-        return False
-    key = AUTHOR_KEY.read_text().split()
-    if not key:
-        return False
+    path = path or DECISIONS
+    if not path.exists():
+        return {}, []
     try:
-        out = subprocess.run(["git", "-C", str(ROOT), "log", "-1", "--format=%G?%n%GF%n%cn",
-                              sha.strip()], capture_output=True, text=True, timeout=20).stdout
-    except (OSError, subprocess.SubprocessError):
-        return False
-    status, fpr, committer = (out.splitlines() + ["", "", ""])[:3]
-    return status in ("G", "U") and fpr.strip() == key[0] and committer != "GitHub"
+        doc = yaml.safe_load(path.read_text()) or {}
+    except yaml.YAMLError as e:
+        return {}, [f"{path.name}: not valid YAML ({e})"]
+    recs = doc.get("decisions") if isinstance(doc, dict) else None
+    if not isinstance(recs, list):
+        return {}, [f"{path.name}: `decisions` must be a list"]
+    out, errs = {}, []
+    for i, r in enumerate(recs):
+        if not isinstance(r, dict):
+            errs.append(f"{path.name}[{i}]: a decision must be a mapping")
+            continue
+        did = r.get("id")
+        tag = f"{path.name}[{did or i}]"
+        if not isinstance(did, str) or not DECISION_ID_RE.match(did):
+            errs.append(f"{tag}: id must look like D-001")
+            continue
+        if did in out:
+            errs.append(f"{tag}: duplicate id")
+        if _date(r.get("date")) is None:
+            errs.append(f"{tag}: needs a `date`")
+        for f in ("node", "outcome", "quote"):
+            if not str(r.get(f) or "").strip():
+                errs.append(f"{tag}: needs `{f}`" + (" -- the author's words, verbatim" if f == "quote" else ""))
+        if not SESSION_RE.match(str(r.get("session") or "")):
+            errs.append(f"{tag}: needs the `session` link the quote was copied from")
+        out[did] = r
+    return out, errs
+
+
+def decided(ref, node: str, decisions: dict) -> bool:
+    """Is `ref` a well-formed decision record for `node`?"""
+    r = decisions.get(ref) if isinstance(ref, str) else None
+    return bool(r) and r.get("node") == node and bool(str(r.get("quote") or "").strip()) \
+        and bool(SESSION_RE.match(str(r.get("session") or "")))
 
 
 def hops(nodes: dict, errs: list[str] | None = None) -> dict:
@@ -140,8 +171,10 @@ def _empty_report(accepted=None) -> dict:
             "accepted": accepted}
 
 
-def check_file(path: pathlib.Path, claims: dict | None, today: dt.date) -> tuple[list[str], dict]:
+def check_file(path: pathlib.Path, claims: dict | None, today: dt.date,
+               decisions: dict | None = None) -> tuple[list[str], dict]:
     """Errors, plus a report: nodes by status, max hop, defaults due, uncovered open claims."""
+    decisions = load_decisions()[0] if decisions is None else decisions
     tag0 = path.relative_to(ROOT).as_posix() if path.is_relative_to(ROOT) else path.name
     try:
         doc = yaml.safe_load(path.read_text()) or {}
@@ -155,9 +188,9 @@ def check_file(path: pathlib.Path, claims: dict | None, today: dt.date) -> tuple
         errs.append(f"{tag0}: `nodes` must be a list")
         raw = []
     accepted = doc.get("accepted")
-    if accepted is not None and not signed_by_author(accepted):
-        errs.append(f"{tag0}: `accepted` {accepted!r} is not a commit signed with the author's "
-                    "registered key (rule D)")
+    if accepted is not None and not decided(accepted, ACCEPT_NODE, decisions):
+        errs.append(f"{tag0}: `accepted` {accepted!r} is not a decision record for "
+                    f"{ACCEPT_NODE!r} in docs/decisions.yaml (rule D)")
     nodes: dict = {}
     for i, n in enumerate(raw):
         if not isinstance(n, dict):
@@ -222,7 +255,11 @@ def check_file(path: pathlib.Path, claims: dict | None, today: dt.date) -> tuple
         # R4: nothing lapses through silence
         escalates = any(o.get("then") == "escalate" for o in outs)
         d, by = n.get("default"), _date(n.get("decide_by"))
-        if kind in ("decide", "retire") or escalates:
+        if nid == ACCEPT_NODE:
+            # the one decision with no default: a plan an agent wrote cannot accept itself by silence
+            if d is not None:
+                errs.append(f"{tag}: accepting PROGRAM_v2 must have no default (R4's exception)")
+        elif kind in ("decide", "retire") or escalates:
             if not str(d or "").strip():
                 errs.append(f"{tag}: a decision or escalation needs a `default` (R4)")
             elif NOT_A_DEFAULT.match(str(d)):
@@ -245,10 +282,14 @@ def check_file(path: pathlib.Path, claims: dict | None, today: dt.date) -> tuple
                 errs.append(f"{tag}: hop {h}: the outcome table must state the chain's end (R3)")
             if any(o.get("then") == "continue" for o in outs):
                 errs.append(f"{tag}: hop {h}: an end-state table cannot continue (R3)")
-        if kind == "test" and h >= 4 and not signed_by_author(n.get("author_decision")):
+        ad = n.get("author_decision")
+        if ad is not None and not decided(ad, nid, decisions):
+            errs.append(f"{tag}: author_decision {ad!r} is not a decision record for this node "
+                        "in docs/decisions.yaml (rule D)")
+        if kind == "test" and h >= 4 and not decided(ad, nid, decisions):
             if status in COMMITTED:
-                errs.append(f"{tag}: hop {h} is funded without an author decision signed with "
-                            "the author's key (R3, rule D)")
+                errs.append(f"{tag}: hop {h} is funded without the author's recorded decision "
+                            "(R3, rule D)")
             elif status in LIVE:
                 needs_go.append(f"{nid} (hop {h})")
         # R5: budgets are metered, and a node past 1.5x that has not stopped is a failure (§8.3)
@@ -290,6 +331,10 @@ def main(argv: list[str], today: dt.date | None = None) -> int:
     today = today or dt.date.today()
     total = 0
     targets = []
+    decisions, derrs = load_decisions()
+    for e in derrs:
+        print(f"  FAIL {e}")
+    total += len(derrs)
     if len(argv) > 1:
         if not (RESEARCH / argv[1] / "claims.yaml").exists():
             print(f"  FAIL no research line {argv[1]!r}")
@@ -308,7 +353,7 @@ def main(argv: list[str], today: dt.date | None = None) -> int:
     if len(argv) <= 1 and SHARED.exists():
         targets.append((SHARED, None))
     for path, claims in targets:
-        errs, r = check_file(path, claims, today)
+        errs, r = check_file(path, claims, today, decisions)
         state = "accepted" if r["accepted"] else "PROPOSED (not accepted; nothing funded, no default runs)"
         name = path.relative_to(ROOT).as_posix() if path.is_relative_to(ROOT) else str(path)
         print(f"{name:32s} {r['nodes']} nodes · max hop {r['max_hop']} · {state}")
@@ -322,6 +367,26 @@ def main(argv: list[str], today: dt.date | None = None) -> int:
         for e in errs:
             print(f"  FAIL {e}")
         total += len(errs)
+    # every decision names a real node and one of that node's own outcomes
+    all_nodes = {}
+    for path, _ in targets:
+        try:
+            for n in (yaml.safe_load(path.read_text()) or {}).get("nodes") or []:
+                if isinstance(n, dict) and isinstance(n.get("id"), str):
+                    all_nodes[n["id"]] = n
+        except (yaml.YAMLError, AttributeError):
+            pass
+    for did, r in decisions.items():
+        n = all_nodes.get(r.get("node"))
+        if n is None:
+            print(f"  FAIL decisions.yaml[{did}]: node {r.get('node')!r} is in no nodes.yaml")
+            total += 1
+        elif not any(str(o.get("if") or "").strip() == str(r.get("outcome") or "").strip()
+                     for o in (n.get("outcomes") or []) if isinstance(o, dict)):
+            print(f"  FAIL decisions.yaml[{did}]: outcome {r.get('outcome')!r} is not one of "
+                  f"{r.get('node')!r}'s outcomes")
+            total += 1
+    print(f"docs/decisions.yaml              {len(decisions)} decision(s) recorded")
     print(f"\n{'OK' if not total else str(total) + ' problem(s)'}")
     return 1 if total else 0
 

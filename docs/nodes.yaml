@@ -1,7 +1,7 @@
 # Shared nodes (docs/PROGRAM_v2.md §3 and §6), validated by `python scripts/check_nodes.py`.
 # They name no claims. Decisions carry a default and a date (R4); infra nodes carry a budget.
-# PROPOSAL: `accepted` stays null until the author accepts PROGRAM_v2 by a commit signed with his
-# registered key (rule D).
+# PROPOSAL: `accepted` stays null until the author accepts PROGRAM_v2 in a session, recorded in
+# docs/decisions.yaml (rule D).
 line: shared
 accepted: null
 
@@ -63,16 +63,29 @@ nodes:
     default: "amend claims_v1.md:28 to 'abandoned deliberately, reason on record'; no new status"
     decide_by: 2026-10-29
 
-  - id: d15-rule-d-key
-    title: Register a signing key in docs/AUTHOR_KEY so that author decisions can be told from agent text?
+  - id: accept-program-v2
+    title: Accept PROGRAM_v2 (as amended), so that its nodes can be funded and its defaults can run?
     kind: decide
     claims: []
     parent: null
     status: proposed
+    # the one decision with no default (R4): a plan an agent wrote cannot accept itself by silence
     outcomes:
-      - {if: "register a key (a prerequisite for accepting PROGRAM_v2 at all)", then: close}
-      - {if: "no key yet: PROGRAM_v2 cannot be accepted, so nothing in it runs", then: close}
-    default: "no key yet: PROGRAM_v2 cannot be accepted, so nothing in it runs"
+      - {if: "accept", then: close}
+      - {if: "accept with amendments, stated in the session", then: close}
+      - {if: "reject", then: close}
+
+  - id: d15-rule-d
+    title: How are the author's decisions told apart from agent text (rule D)?
+    kind: decide
+    claims: []
+    parent: null
+    status: done
+    author_decision: D-001
+    outcomes:
+      - {if: "register a signing key; decisions are signed commits", then: close}
+      - {if: "decide in chat; Claude records the words verbatim with the session link", then: close}
+    default: "decide in chat; Claude records the words verbatim with the session link"
     decide_by: 2026-10-29
 
   - id: d16-done-definition
