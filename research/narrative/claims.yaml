@@ -160,9 +160,17 @@ claims:
 
   - id: permutation-arm-below-null
     claim: The permutation arm sits below its declared null across the replication rows.
-    status: open
-    evidence: "h48 · below null on 25 of 25 rows, mean −0.117 — an arm off its null is a bug until proven otherwise"
-    where: docs/EXPERIMENTS.md
+    status: withdrawn
+    evidence: "h48 saw 25 of 25 rows below null (mean −0.117), but every row ran at seed 0, so 21 of 25 share one set of shuffles and the other 4 a second; over 64 independent seeds the arm is at chance (+0.002) and no row is refused at up to 256 draws"
+    where: notes/permutation_seed_audit.md
+    pre_registered: false
+    superseded_by: permutation-arm-at-null
+
+  - id: permutation-arm-at-null
+    claim: The h8 readout's permutation arm is at its declared null in expectation, and hour 48's residue was the seed-0 draw set.
+    status: holds
+    evidence: "Qwen2.5-1.5B, 19 live rows · seed 0 reproduces all 19 committed values; mean over 64 seeds +0.002 vs seed 0 −0.106 (rank 1 of 64); seed 0's shuffles carry ~3.5 SD excess true-label overlap"
+    where: notes/permutation_seed_audit.md
     pre_registered: false
     superseded_by: null
 
