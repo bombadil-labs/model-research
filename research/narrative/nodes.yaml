@@ -1,0 +1,179 @@
+# The narrative line's decision tree, as data (docs/PROGRAM_v2.md §4; rules R1-R5).
+# Validated by `python scripts/check_nodes.py narrative`. Hop is computed, never declared.
+# PROPOSAL: `accepted` stays null until the author accepts PROGRAM_v2 in his own words (rule D).
+# Until then nothing here is funded and no default executes.
+line: narrative
+accepted: null
+
+nodes:
+  - id: n0-scope
+    title: What is this line answering, and does it close now?
+    kind: decide
+    claims: []
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "D: close now", then: close}
+      - {if: "D plus NC1 (local Gemma caches exist)", then: continue, child: nc1-slot-sufficiency}
+      - {if: "A, B or C: fund that program's nodes instead of retiring them", then: continue}
+    default: "D: close now"
+    decide_by: 2026-10-29
+
+  - id: c1-permutation-arm
+    title: Is the h8 readout's permutation arm biased below its null (open problem 4i)?
+    kind: test
+    claims: [permutation-arm-below-null]
+    parent: null
+    motivated_by: "docs/EXPERIMENTS.md:2188"
+    status: done
+    budget: {wall_hours: 1}
+    spent: {wall_hours: 0.9, ndif_jobs: 0}
+    outcomes:
+      - {if: "mean over independent seeds at chance and seed 0 explained", then: withdraw}
+      - {if: "mean over independent seeds off chance", then: holds}
+    result: "withdrawn in PR #12: +0.002 over 64 seeds vs -0.106 at seed 0; notes/permutation_seed_audit.md"
+
+  - id: c1a-seeding
+    title: Keep seed 0 for bit-exact ledger rows, or seed every row separately?
+    kind: decide
+    claims: []
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "(a) keep seed 0; pooled statistics draw independent seeds", then: close}
+      - {if: "(b) per-row hashlib seeds; re-land the 15 Qwen ledger rows", then: continue}
+    default: "(a) keep seed 0; pooled statistics draw independent seeds"
+    decide_by: 2026-10-29
+
+  - id: c2-h29-double-bos
+    title: Does the double-<bos> bug change h29's generation-recomposition numbers?
+    kind: test
+    claims: [generation-recomposition]
+    parent: null
+    motivated_by: "research/shame-axis/notes/double_bos_audit.md:28; commits a9d34bc, e2a3774"
+    status: proposed
+    budget: {ndif_jobs: 250, wall_hours: 4}
+    spent: {ndif_jobs: 0, wall_hours: 0}
+    outcomes:
+      - {if: "two arms' generation-loss rates differ by more than 10 points", then: escalate}
+      - {if: "no-patch in its Wilson interval around 0.1111, random in no-patch's, treatment interval overlaps 0.8364", then: holds}
+      - {if: "treatment drops but its interval still clears random's", then: narrow}
+      - {if: "treatment interval overlaps random's (writeup claims 8-10 escalate)", then: withdraw}
+      - {if: "no-patch or random off its null: re-declare nulls from this run's no-patch, then re-apply", then: continue}
+    default: "close: record unreadable and keep the caveat in the claim's evidence"
+    decide_by: 2026-10-29
+
+  - id: c4-phase2-gate
+    title: v1's phase-2 gate - raise the budget, amend to NOT-DERIVED, or cut the writeup?
+    kind: decide
+    claims: []
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "amend: the fifth draft labels each un-ledgered claim with its blocker", then: close}
+      - {if: "amend, then build `crosstalk` alone", then: continue}
+      - {if: "raise the budget", then: continue}
+      - {if: "cut the writeup to what the core can carry", then: close}
+    default: "amend, no crosstalk build"
+    decide_by: 2026-10-29
+
+  - id: nc1-slot-sufficiency
+    title: Is a generic answer-slot direction sufficient to explain route transfer?
+    kind: test
+    claims: [generic-choice-slot-explanation]
+    parent: null
+    chain_from: {note: "docs/program_v2/narrative_audit.md §4, chain B (#12 #13 #14 #15 #17 #19)", hops: 5}
+    motivated_by: "notes/choice_slot_replication_result.md"
+    status: proposed
+    end_state: true
+    author_decision: null
+    budget: {ndif_jobs: 520, wall_hours: 6}
+    spent: {ndif_jobs: 0, wall_hours: 0}
+    outcomes:
+      - {if: "gate 0: T0 fails to reproduce +0.0854 within recorded repeat drift", then: close}
+      - {if: "T_proj inside the orientation null and below the q05 of cosine-matched residuals", then: holds}
+      - {if: "lower bound of rho's CI > delta and T_proj > orientation-null q95 (route-specific component)", then: escalate}
+      - {if: "rho's CI spans both 0 and delta", then: underpowered}
+      - {if: "otherwise", then: narrow}
+    default: "close: chain B ends, no causal node"
+    decide_by: 2026-10-29
+
+  - id: nc2-retire-story-role
+    title: Retire the story-role claims whose designs are exhausted
+    kind: retire
+    claims: [goal-relative-story-role, fixed-plan-behavioral-capacity, fixed-plan-goal-reversal-capacity, propp-full-story-context]
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "NC1 falsifies (route-specific component exists)", then: continue}
+      - {if: "otherwise", then: retire}
+    default: retire
+    decide_by: 2026-10-29
+
+  - id: na1-depth-sweep
+    title: Does depth fraction explain the 70B generation cap?
+    kind: retire
+    claims: [depth-fraction-confound]
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "funded: a new spec (planner + review) adds era and theme generation sweeps to piece 2 and grades A-E", then: continue}
+      - {if: "not funded", then: retire}
+    default: retire
+    decide_by: 2026-10-29
+
+  - id: na2-mood-voice
+    title: Do two register-like factors interfere more than era does with either?
+    kind: retire
+    claims: [mood-voice-interference]
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "retire on scope: serves neither product, no spec or grid", then: retire}
+    default: retire
+    decide_by: 2026-10-29
+
+  - id: na3-human-grid
+    title: The human-written grid - the author's time, a public corpus, or retire with the limitation stated?
+    kind: decide
+    claims: []
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "the author writes the 18 cells", then: continue}
+      - {if: "a human-written public corpus stands in", then: continue}
+      - {if: "retire; the writeup states the limitation", then: retire}
+    default: "retire; the writeup states the limitation"
+    decide_by: 2026-10-29
+
+  - id: nb1-token-clouds
+    title: Does an assumption-free Gromov-Wasserstein correspondence recover role structure?
+    kind: retire
+    claims: [token-cloud-correspondence]
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "funded (Claude disclosed a bias toward this one): the rules in PROGRAM_v2 §4 apply", then: continue}
+      - {if: "not funded under D", then: retire}
+    default: retire
+    decide_by: 2026-10-29
+
+  - id: nb2-paraphrase
+    title: Do real per-domain paraphrases raise the effective n enough to recover a content shape?
+    kind: retire
+    claims: [paraphrase-effective-n]
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "kept: fund only if NB1 is falsified or underpowered", then: continue}
+      - {if: "not funded under D", then: retire}
+    default: retire
+    decide_by: 2026-10-29
+
+  - id: writeup-fifth-draft
+    title: The fifth-draft writeup, every number linked to a claims row or a committed artifact
+    kind: writeup
+    claims: []
+    parent: null
+    status: proposed
+    budget: {wall_hours: 6}

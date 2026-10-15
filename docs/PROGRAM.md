@@ -1,5 +1,8 @@
 # Research program, v1 — for Opus to run
 
+> **Proposed successor:** [`PROGRAM_v2.md`](PROGRAM_v2.md), covering both lines (2026-10-15, not yet accepted).
+> This document is kept as written; v1's phase-2 gate decision is item C4 there.
+
 *Drafted by Fable after 40 stages, six retractions, and the delegation pattern in `docs/DELEGATION.md`.
 This is sequenced deliberately: the phases that are least interesting come first and gate everything
 after them. That ordering is the whole design. Opus's documented failure mode is racing to the

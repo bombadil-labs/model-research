@@ -1,0 +1,59 @@
+# The shame-axis line's decision tree, as data (docs/PROGRAM_v2.md §5; rules R1-R5).
+# Validated by `python scripts/check_nodes.py shame-axis`. Hop is computed, never declared.
+# PROPOSAL: `accepted` stays null until the author accepts PROGRAM_v2 in his own words (rule D).
+line: shame-axis
+accepted: null
+
+nodes:
+  - id: s0-merge-pr9
+    title: Merge PR 9 (hour 65, the registered test of shame-not-pain)?
+    kind: decide
+    claims: []
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "merge, with the delegation confirmed in the author's own words", then: close}
+      - {if: "close unmerged", then: close}
+    default: merge
+    decide_by: 2026-10-29
+
+  - id: s1-after-h65
+    title: After hour 65's unreadable verdict - close now, one axis rerun, or a new-line charter?
+    kind: decide
+    claims: [shame-not-pain]
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "c: close now; shame-not-pain terminal with reason 'registered test unreadable (h65); stimulus-dependent'", then: close}
+      - {if: "b: one rerun on the axis with h65's three lessons", then: continue, child: s1b-axis-rerun}
+      - {if: "a: a new line's charter, opened only after this line closes", then: close}
+    default: "c: close now"
+    decide_by: 2026-10-29
+
+  - id: s1b-axis-rerun
+    title: With the layer chosen on other data and vocabulary matched, does the pain axis separate shame from witness?
+    kind: test
+    claims: [shame-not-pain]
+    parent: null
+    chain_from: {note: "research/shame-axis/notes/shame_vs_pain_result.md (h65, PR 9)", hops: 1}
+    motivated_by: "shame_vs_pain_result.md: three lessons for any rerun"
+    status: proposed
+    budget: {ndif_jobs: 400, wall_hours: 6}
+    spent: {ndif_jobs: 0, wall_hours: 0}
+    outcomes:
+      - {if: "positive control fails in every model", then: underpowered}
+      - {if: "control passes in some models only: evaluate there, the rest unreadable", then: continue}
+      - {if: "control passes; all five h65 effect criteria met in both author sets", then: holds}
+      - {if: "control passes; criteria unmet in both author sets", then: falsify}
+      - {if: "the two authors disagree in sign", then: underpowered}
+      - {if: "effect gone after valence adjustment", then: falsify}
+    default: "close: shame-not-pain terminal as unreadable"
+    decide_by: 2026-10-29
+
+  - id: writeup-first
+    title: The line's first writeup, every number linked to a claims row or a committed artifact
+    kind: writeup
+    claims: []
+    parent: null
+    status: proposed
+    budget: {wall_hours: 6}

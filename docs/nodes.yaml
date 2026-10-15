@@ -1,0 +1,50 @@
+# Shared infrastructure nodes (docs/PROGRAM_v2.md §3), validated by `python scripts/check_nodes.py`.
+# They name no claims; each is a decision with a default (R4).
+# PROPOSAL: `accepted` stays null until the author accepts PROGRAM_v2 in his own words (rule D).
+line: shared
+accepted: null
+
+nodes:
+  - id: c3-ci
+    title: Run the core tests, check_claims, check_nodes and the claim-text diff in CI on every pull request?
+    kind: decide
+    claims: []
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "apply, or approve an agent to apply: >= 380 tests collected, skips listed, a new skip fails", then: continue}
+      - {if: "leave", then: close}
+    default: leave
+    decide_by: 2026-10-29
+
+  - id: c5-doc-sweep
+    title: Authorize a mechanical sweep of dead links and counts in line documents (never statuses or wording)?
+    kind: decide
+    claims: []
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "authorize", then: continue}
+      - {if: "don't", then: close}
+    default: "not authorized"
+    decide_by: 2026-10-29
+
+  - id: c6-credentials
+    title: Re-close v1's item 0.3 (keys through the proxy), or record a new waiver in the author's own words?
+    kind: decide
+    claims: []
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "re-close via proxy injection", then: continue}
+      - {if: "a new waiver, in the author's own words", then: close}
+    default: "recorded as still open"
+    decide_by: 2026-10-29
+
+  - id: c6-core-paths
+    title: Move the core's hard-coded narrative paths into configuration and give reproduce.py a __main__
+    kind: infra
+    claims: []
+    parent: null
+    status: proposed
+    budget: {wall_hours: 2}
