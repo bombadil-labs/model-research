@@ -1,0 +1,249 @@
+# The narrative line's decision tree, as data (docs/PROGRAM_v2.md §3-§4; rules R1-R5, D).
+# Validated by `python scripts/check_nodes.py narrative`. Hop is computed, never declared.
+# ACCEPTED (D-002, 2026-10-15): decided nodes point at their record in docs/decisions.yaml (rule D).
+# `funded` = decided, execution pending; `done` = executed. Until then nothing here is funded and no default runs. Once accepted,
+# each date reads as the later of the date shown and acceptance + 14 days.
+line: narrative
+accepted: D-002
+
+nodes:
+  - id: n0-scope
+    title: What is this line answering, and does it close now?
+    kind: decide
+    claims: []
+    parent: null
+    status: done
+    author_decision: D-004
+    outcomes:
+      - {if: "D: close now", then: close}
+      - {if: "D plus NC1 (local Gemma caches exist)", then: continue, child: nc1-slot-sufficiency}
+      - {if: "A, B or C: fund that program's nodes instead of retiring them", then: continue}
+    default: "D: close now"
+    decide_by: 2026-10-29
+
+  - id: c1-permutation-arm
+    title: Is the h8 readout's permutation arm biased below its null (open problem 4i)?
+    kind: test
+    claims: [permutation-arm-below-null]
+    parent: null
+    motivated_by: "research/narrative/docs/EXPERIMENTS.md:2188"
+    status: done
+    retrospective: true
+    budget: {wall_hours: 1}
+    spent: {wall_hours: 0.9, ndif_jobs: 0}
+    outcomes:
+      - {if: "mean over independent seeds at chance and seed 0 explained", then: withdraw}
+      - {if: "mean over independent seeds off chance", then: holds}
+    result: "withdrawn in PR 12: +0.002 over 64 seeds vs -0.106 at seed 0; notes/permutation_seed_audit.md"
+
+  - id: c1-merge-pr12
+    title: Merge PR 12, and apply its proposed in-place EXPERIMENTS.md retraction?
+    kind: decide
+    claims: [permutation-arm-below-null]
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "merge; the EXPERIMENTS.md retraction stays proposed", then: close}
+      - {if: "merge and apply the EXPERIMENTS.md retraction", then: close}
+      - {if: "close unmerged", then: close}
+    default: "merge; the EXPERIMENTS.md retraction stays proposed"
+    decide_by: 2026-10-29
+
+  - id: c1a-seeding
+    title: Keep seed 0 for bit-exact ledger rows, or seed every row separately?
+    kind: decide
+    claims: []
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "(a) keep seed 0; pooled statistics draw independent seeds", then: close}
+      - {if: "(b) per-row hashlib seeds; re-land the 15 Qwen ledger rows", then: continue}
+    default: "(a) keep seed 0; pooled statistics draw independent seeds"
+    decide_by: 2026-10-29
+
+  - id: c2-h29-double-bos
+    title: Does the double-<bos> bug change h29's generation-recomposition numbers?
+    kind: test
+    claims: [generation-recomposition]
+    parent: null
+    motivated_by: "research/shame-axis/notes/double_bos_audit.md:28"
+    status: funded
+    # <= 250 jobs with the local Gemma stack cache; <= 290 without it (36 stack + 30 re-read jobs)
+    budget: {ndif_jobs: 290, wall_hours: 8}
+    spent: {ndif_jobs: 0, wall_hours: 0}
+    procedure: >-
+      Primary scoring uses (item, target era) pairs whose base, shift and random generations all
+      returned; loss per arm is reported on all items. If no-patch or random sits off its null, the
+      nulls are re-declared from this run's no-patch arm, recorded, and the branches applied.
+    outcomes:
+      - {if: "fewer than 24 paired items survive generation loss", then: escalate}
+      - {if: "no-patch in its Wilson interval around 0.1111, random in no-patch's, treatment interval overlapping or wholly above 0.8364", then: holds}
+      - {if: "treatment upper bound below 0.8364 but its interval still clears random's", then: narrow}
+      - {if: "treatment interval overlaps random's (and escalate: writeup claims 8-10 rest on it)", then: withdraw}
+    default: "narrow: integrity rerun unreadable"
+    decide_by: 2026-10-29
+
+  - id: c4-phase2-gate
+    title: v1's phase-2 gate - raise the budget, amend to NOT-DERIVED, or cut the writeup?
+    kind: decide
+    claims: []
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "amend: NOT-DERIVED labels in WRITEUP.md and the ledger, no crosstalk build", then: close}
+      - {if: "amend, then build `crosstalk` alone", then: continue}
+      - {if: "raise the budget", then: continue}
+      - {if: "cut the writeup to what the core can carry", then: close}
+    default: "amend: NOT-DERIVED labels in WRITEUP.md and the ledger, no crosstalk build"
+    decide_by: 2026-10-29
+
+  - id: nc1-unfunded
+    title: Retire generic-choice-slot-explanation if NC1 is not funded
+    kind: retire
+    claims: [generic-choice-slot-explanation]
+    parent: null
+    status: funded
+    author_decision: D-005
+    outcomes:
+      - {if: "N0 = D plus NC1", then: continue, child: nc1-slot-sufficiency}
+      - {if: "retire: sufficiency test not funded under D", then: retire}
+    default: "retire: sufficiency test not funded under D"
+    decide_by: 2026-10-29
+
+  - id: nc1-slot-sufficiency
+    title: Is a generic answer-slot direction sufficient to explain route transfer?
+    kind: test
+    claims: [generic-choice-slot-explanation]
+    parent: null
+    chain_from:
+      experiments: ["#12 fact_flip_twohop", "#13 goal_route_cross", "#14 goal_route_activation_pilot",
+                    "#15 choice_slot_control", "#17 choice_slot_replication", "#19 answer_slot_patch"]
+    motivated_by: "research/narrative/notes/choice_slot_replication_result.md:67"
+    status: retired
+    end_state: true
+    author_decision: null
+    budget: {ndif_jobs: 528, wall_hours: 6}
+    spent: {ndif_jobs: 0, wall_hours: 0}
+    procedure: >-
+      PROGRAM_v2 §4 NC1: rho = T_proj / T0 on the pilot's registered block-16/24 statistic, p_b fitted
+      on the eight property domains; nulls are the pilot's exact 2^8 world-label orientation null and
+      64 cosine-matched directions; delta is simulated at 80% power and committed before projection.
+      Branches are mutually exclusive; first match wins.
+    outcomes:
+      - {if: "gate 0 fails: T0 not within 0.0005 of +0.0854, or the repeat-drift gate fails on re-extraction", then: escalate}
+      - {if: "delta >= 0.5: underpowered by design, NC1 does not run", then: escalate}
+      - {if: "rho_hi < delta and T_proj < q05 of the cosine-matched residuals", then: holds, child: nc2b-goal-relative}
+      - {if: "rho_lo > delta and T_proj > the orientation null's q95", then: falsify}
+      - {if: "the same falsified result: fund one causal node?", then: escalate}
+      - {if: "rho_lo <= 0 and rho_hi >= delta", then: underpowered, child: nc2b-goal-relative}
+      - {if: "otherwise", then: narrow, child: nc2b-goal-relative}
+    default: "close: no causal node; the claim keeps its terminal status"
+    decide_by: 2026-10-29
+
+  - id: nc2a-retire-exhausted
+    title: Retire three claims whose own rules or corpus end them
+    kind: retire
+    claims: [fixed-plan-behavioral-capacity, fixed-plan-goal-reversal-capacity, propp-full-story-context]
+    parent: null
+    status: funded
+    author_decision: D-007
+    outcomes:
+      - {if: "retire with the reasons in PROGRAM_v2 §4 NC2", then: retire}
+      - {if: "fund a reopen trigger instead", then: continue}
+    default: "retire with the reasons in PROGRAM_v2 §4 NC2"
+    decide_by: 2026-10-29
+
+  - id: nc2b-goal-relative
+    title: Retire goal-relative-story-role unless NC1 finds a route-specific component
+    kind: retire
+    claims: [goal-relative-story-role]
+    parent: nc1-slot-sufficiency
+    status: funded
+    author_decision: D-008
+    # under D+NC1 the date reads as the later of this date and NC1's result
+    outcomes:
+      - {if: "NC1 falsifies: a route-specific component exists", then: continue}
+      - {if: "retire: no design separated role from slot", then: retire}
+    default: "retire: no design separated role from slot"
+    decide_by: 2026-10-29
+
+  - id: na1-depth-sweep
+    title: Does depth fraction explain the 70B generation cap?
+    kind: retire
+    claims: [depth-fraction-confound]
+    parent: null
+    status: funded
+    author_decision: D-009
+    outcomes:
+      - {if: "fund a new spec: era and theme generation sweeps added to piece 2, graded A-E", then: continue}
+      - {if: "retire: the generation boundary is reported as measured, on two models", then: retire}
+    default: "retire: the generation boundary is reported as measured, on two models"
+    decide_by: 2026-10-29
+
+  - id: na2-mood-voice
+    title: Do two register-like factors interfere more than era does with either?
+    kind: retire
+    claims: [mood-voice-interference]
+    parent: null
+    status: funded
+    author_decision: D-010
+    outcomes:
+      - {if: "retire on scope: serves neither product, no spec or grid", then: retire}
+      - {if: "fund a spec and grid", then: continue}
+    default: "retire on scope: serves neither product, no spec or grid"
+    decide_by: 2026-10-29
+
+  - id: na3-human-grid
+    title: The human-written grid - the author's time, a public corpus, or retire with the limitation stated?
+    kind: decide
+    claims: []
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "the author writes the 18 cells", then: continue}
+      - {if: "a human-written public corpus stands in", then: continue}
+      - {if: "retire; the writeup states the limitation", then: retire}
+    default: "retire; the writeup states the limitation"
+    decide_by: 2026-10-29
+
+  - id: nb1-token-clouds
+    title: Does an assumption-free Gromov-Wasserstein correspondence recover role structure?
+    kind: retire
+    claims: [token-cloud-correspondence]
+    parent: null
+    status: funded
+    author_decision: D-011
+    outcomes:
+      - {if: "fund under PROGRAM_v2 §4's rules (Claude disclosed a bias toward this one)", then: continue}
+      - {if: "retire: not funded under D", then: retire}
+    default: "retire: not funded under D"
+    decide_by: 2026-10-29
+
+  - id: nb2-paraphrase
+    title: Do real per-domain paraphrases raise the effective n enough to recover a content shape?
+    kind: retire
+    claims: [paraphrase-effective-n]
+    parent: null
+    status: funded
+    author_decision: D-012
+    outcomes:
+      - {if: "fund only if NB1 is falsified or underpowered", then: continue}
+      - {if: "retire: not funded under D", then: retire}
+    default: "retire: not funded under D"
+    decide_by: 2026-10-29
+
+  - id: hygiene-meter
+    title: Make the meter honest - missing rows, re-ids with the old wording kept (PROGRAM_v2 §7)
+    kind: infra
+    claims: []
+    parent: null
+    status: funded
+    budget: {wall_hours: 3}
+
+  - id: writeup-fifth-draft
+    title: The fifth-draft writeup, every number linked to a claims row or a committed artifact
+    kind: writeup
+    claims: []
+    parent: null
+    status: funded
+    budget: {wall_hours: 6}

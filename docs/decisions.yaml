@@ -1,0 +1,110 @@
+# Rule D's log: the author's decisions, made in a Claude session and recorded there by the agent.
+#
+# Each `quote` is the author's message copied VERBATIM from the session linked in `session`; anyone
+# can open the transcript and check it. Under non-negotiable 7 this is relayed text, not a commit by
+# the author, and it is labelled so. An agent records only what the author said in the session it
+# is working in -- never a decision relayed from another session, a note, or a PR comment, and never
+# one it inferred. Something the author did not say in words is a proposal, not an entry here.
+# To correct a record, the author says so in any session; the correction is a new entry.
+decisions:
+  - id: D-001
+    date: 2026-10-15
+    node: d15-rule-d
+    outcome: "decide in chat; Claude records the words verbatim with the session link"
+    quote: "yeah the signing key is too much, I prefer to work with you here in the chat"
+    session: https://claude.ai/code/session_013zLwtWkVdkTDNgy7DbpQCP
+    provenance: relayed verbatim from the session by Claude (non-negotiable 7; not a commit by the author)
+
+  - id: D-002
+    date: 2026-10-15
+    node: accept-program-v2
+    outcome: "accept"
+    quote: "accept, merge #9, close both lines (local machine no longer has cache)"
+    session: https://claude.ai/code/session_013zLwtWkVdkTDNgy7DbpQCP
+    provenance: relayed verbatim from the session by Claude (non-negotiable 7; not a commit by the author)
+
+  - id: D-003
+    date: 2026-10-15
+    node: s0-merge-pr9
+    outcome: "merge"
+    quote: "accept, merge #9, close both lines (local machine no longer has cache)"
+    session: https://claude.ai/code/session_013zLwtWkVdkTDNgy7DbpQCP
+    provenance: relayed verbatim from the session by Claude (non-negotiable 7; not a commit by the author)
+
+  - id: D-004
+    date: 2026-10-15
+    node: n0-scope
+    outcome: "D: close now"
+    quote: "accept, merge #9, close both lines (local machine no longer has cache)"
+    session: https://claude.ai/code/session_013zLwtWkVdkTDNgy7DbpQCP
+    provenance: relayed verbatim from the session by Claude (non-negotiable 7; not a commit by the author)
+
+  - id: D-005
+    date: 2026-10-15
+    node: nc1-unfunded
+    outcome: "retire: sufficiency test not funded under D"
+    quote: "accept, merge #9, close both lines (local machine no longer has cache)"
+    session: https://claude.ai/code/session_013zLwtWkVdkTDNgy7DbpQCP
+    provenance: relayed verbatim from the session by Claude (non-negotiable 7; not a commit by the author)
+
+  - id: D-006
+    date: 2026-10-15
+    node: s1-after-h65
+    outcome: "c: close now"
+    quote: "accept, merge #9, close both lines (local machine no longer has cache)"
+    session: https://claude.ai/code/session_013zLwtWkVdkTDNgy7DbpQCP
+    provenance: relayed verbatim from the session by Claude (non-negotiable 7; not a commit by the author)
+
+  - id: D-007
+    date: 2026-10-15
+    node: nc2a-retire-exhausted
+    outcome: "retire with the reasons in PROGRAM_v2 \xA74 NC2"
+    quote: "accept, merge #9, close both lines (local machine no longer has cache)"
+    session: https://claude.ai/code/session_013zLwtWkVdkTDNgy7DbpQCP
+    via: D-004  # option D, as defined in PROGRAM_v2 §4 when accepted, retires this node's claim
+    provenance: relayed verbatim from the session by Claude (non-negotiable 7; not a commit by the author)
+
+  - id: D-008
+    date: 2026-10-15
+    node: nc2b-goal-relative
+    outcome: "retire: no design separated role from slot"
+    quote: "accept, merge #9, close both lines (local machine no longer has cache)"
+    session: https://claude.ai/code/session_013zLwtWkVdkTDNgy7DbpQCP
+    via: D-004  # option D, as defined in PROGRAM_v2 §4 when accepted, retires this node's claim
+    provenance: relayed verbatim from the session by Claude (non-negotiable 7; not a commit by the author)
+
+  - id: D-009
+    date: 2026-10-15
+    node: na1-depth-sweep
+    outcome: "retire: the generation boundary is reported as measured, on two models"
+    quote: "accept, merge #9, close both lines (local machine no longer has cache)"
+    session: https://claude.ai/code/session_013zLwtWkVdkTDNgy7DbpQCP
+    via: D-004  # option D, as defined in PROGRAM_v2 §4 when accepted, retires this node's claim
+    provenance: relayed verbatim from the session by Claude (non-negotiable 7; not a commit by the author)
+
+  - id: D-010
+    date: 2026-10-15
+    node: na2-mood-voice
+    outcome: "retire on scope: serves neither product, no spec or grid"
+    quote: "accept, merge #9, close both lines (local machine no longer has cache)"
+    session: https://claude.ai/code/session_013zLwtWkVdkTDNgy7DbpQCP
+    via: D-004  # option D, as defined in PROGRAM_v2 §4 when accepted, retires this node's claim
+    provenance: relayed verbatim from the session by Claude (non-negotiable 7; not a commit by the author)
+
+  - id: D-011
+    date: 2026-10-15
+    node: nb1-token-clouds
+    outcome: "retire: not funded under D"
+    quote: "accept, merge #9, close both lines (local machine no longer has cache)"
+    session: https://claude.ai/code/session_013zLwtWkVdkTDNgy7DbpQCP
+    via: D-004  # option D, as defined in PROGRAM_v2 §4 when accepted, retires this node's claim
+    provenance: relayed verbatim from the session by Claude (non-negotiable 7; not a commit by the author)
+
+  - id: D-012
+    date: 2026-10-15
+    node: nb2-paraphrase
+    outcome: "retire: not funded under D"
+    quote: "accept, merge #9, close both lines (local machine no longer has cache)"
+    session: https://claude.ai/code/session_013zLwtWkVdkTDNgy7DbpQCP
+    via: D-004  # option D, as defined in PROGRAM_v2 §4 when accepted, retires this node's claim
+    provenance: relayed verbatim from the session by Claude (non-negotiable 7; not a commit by the author)

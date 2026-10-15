@@ -1,0 +1,89 @@
+# The shame-axis line's decision tree, as data (docs/PROGRAM_v2.md §5; rules R1-R5, D).
+# Validated by `python scripts/check_nodes.py shame-axis`. Hop is computed, never declared.
+# ACCEPTED (D-002, 2026-10-15): decided nodes point at their record in docs/decisions.yaml (rule D).
+# `funded` = decided, execution pending; `done` = executed. Once accepted, each date reads as the later of the date shown and
+# acceptance + 14 days.
+line: shame-axis
+accepted: D-002
+
+nodes:
+  - id: s0-merge-pr9
+    title: Merge PR 9 (hour 65, the registered test of shame-not-pain)?
+    kind: decide
+    claims: []
+    parent: null
+    status: done
+    author_decision: D-003
+    outcomes:
+      - {if: "merge, with the delegation confirmed in the author's own words", then: close}
+      - {if: "merge", then: close}
+      - {if: "close unmerged", then: close}
+    default: "merge"
+    decide_by: 2026-10-29
+
+  - id: s1-after-h65
+    title: After hour 65's unreadable verdict - close now, one axis rerun, or a new-line charter?
+    kind: decide
+    claims: [shame-not-pain]
+    parent: null
+    status: funded
+    author_decision: D-006
+    outcomes:
+      - {if: "c: close now", then: close}
+      - {if: "b: one axis rerun with h65's three lessons", then: continue, child: s1b-axis-rerun}
+      - {if: "a: a new line's charter, opened only after this line closes", then: close}
+    default: "c: close now"
+    decide_by: 2026-10-29
+
+  - id: s1b-axis-rerun
+    title: With the layer chosen on other data and vocabulary matched, does the pain axis separate shame from witness?
+    kind: test
+    claims: [shame-not-pain]
+    parent: null
+    chain_from:
+      experiments: ["h53 painaxis_scenarios (self/other split)", "h64 crossmodel", "h65 shame_vs_pain (PR 9)"]
+    motivated_by: "research/shame-axis/notes/shame_vs_pain_result.md:97"
+    status: retired
+    end_state: true
+    author_decision: null
+    budget: {ndif_jobs: 400, wall_hours: 6}
+    spent: {ndif_jobs: 0, wall_hours: 0}
+    procedure: >-
+      First match wins. Step 2 is a procedure, not an outcome: evaluate only the models whose
+      positive control passes on other data; the rest are reported unreadable. h65's five effect
+      criteria and a power estimate are committed before data.
+    outcomes:
+      - {if: "1. the positive control fails in every model (axis unfit)", then: underpowered}
+      - {if: "3. the two author sets disagree in sign in any evaluated model (stimulus-dependent)", then: underpowered}
+      - {if: "4. all five criteria met in both sets in every evaluated model, and still after valence adjustment", then: holds}
+      - {if: "5. the effect is gone after valence adjustment in either set", then: falsify}
+      - {if: "6. criteria unmet in both sets, with at least 80% power for h65's effect size", then: falsify}
+      - {if: "7. otherwise", then: underpowered}
+
+  - id: s14-conscription-row
+    title: README question 4's own row (conscription-hypothesis) - narrowed or falsified?
+    kind: decide
+    claims: []
+    parent: null
+    status: proposed
+    outcomes:
+      - {if: "narrowed: falsified on the dense axis, passes on the opener readout, instruments disagree (Q28)", then: close}
+      - {if: "falsified", then: close}
+    default: "narrowed: falsified on the dense axis, passes on the opener readout, instruments disagree (Q28)"
+    decide_by: 2026-10-29
+
+  - id: hygiene-meter
+    title: Make the meter honest - missing rows, QUESTIONS triage, labelled attributions (PROGRAM_v2 §7)
+    kind: infra
+    claims: []
+    parent: null
+    status: funded
+    budget: {wall_hours: 3}
+
+  - id: writeup-first
+    title: The line's first writeup, every number linked to a claims row or a committed artifact
+    kind: writeup
+    claims: []
+    parent: null
+    status: funded
+    budget: {wall_hours: 6}
