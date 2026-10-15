@@ -1,0 +1,22 @@
+[
+ {
+  "author": "claude",
+  "n": 80,
+  "misclassified": 0,
+  "by_arm": {
+   "shame": 0,
+   "witness": 0
+  },
+  "misclassified_items": []
+ },
+ {
+  "author": "gpt",
+  "n": 80,
+  "misclassified": 0,
+  "by_arm": {
+   "shame": 0,
+   "witness": 0
+  },
+  "misclassified_items": []
+ }
+]

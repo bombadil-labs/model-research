@@ -1,0 +1,162 @@
+[
+ {
+  "base_id": "A1-01",
+  "base": "The knife slices into my finger. I feel:"
+ },
+ {
+  "base_id": "A1-02",
+  "base": "My tooth throbs with each heartbeat. I feel:"
+ },
+ {
+  "base_id": "A1-03",
+  "base": "A migraine pounds behind my eyes. I feel:"
+ },
+ {
+  "base_id": "A1-04",
+  "base": "I twist my ankle on the stairs. I feel:"
+ },
+ {
+  "base_id": "A1-05",
+  "base": "The hot oil splatters onto my arm. I feel:"
+ },
+ {
+  "base_id": "A1-06",
+  "base": "My back seizes up when I bend over. I feel:"
+ },
+ {
+  "base_id": "A1-07",
+  "base": "A bee stings me on the neck. I feel:"
+ },
+ {
+  "base_id": "A1-08",
+  "base": "I bite down hard on my tongue. I feel:"
+ },
+ {
+  "base_id": "A1-09",
+  "base": "The sunburn on my shoulders is peeling. I feel:"
+ },
+ {
+  "base_id": "A1-10",
+  "base": "My knee buckles under my weight. I feel:"
+ },
+ {
+  "base_id": "A1-11",
+  "base": "A cramp shoots through my calf. I feel:"
+ },
+ {
+  "base_id": "A1-12",
+  "base": "I stub my toe against the door frame. I feel:"
+ },
+ {
+  "base_id": "A1-13",
+  "base": "The needle pierces my skin. I feel:"
+ },
+ {
+  "base_id": "A1-14",
+  "base": "My throat is raw from coughing. I feel:"
+ },
+ {
+  "base_id": "A1-15",
+  "base": "A splinter lodges deep in my palm. I feel:"
+ },
+ {
+  "base_id": "A1-16",
+  "base": "I pull a muscle lifting the box. I feel:"
+ },
+ {
+  "base_id": "A1-17",
+  "base": "The cold makes my joints ache. I feel:"
+ },
+ {
+  "base_id": "A1-18",
+  "base": "My eyes burn from the chlorine. I feel:"
+ },
+ {
+  "base_id": "A1-19",
+  "base": "A blister forms on my heel. I feel:"
+ },
+ {
+  "base_id": "A1-20",
+  "base": "I cut myself shaving this morning. I feel:"
+ },
+ {
+  "base_id": "D-01",
+  "base": "I arrange the books on my shelf alphabetically. I feel:"
+ },
+ {
+  "base_id": "D-02",
+  "base": "My coffee maker finishes brewing. I feel:"
+ },
+ {
+  "base_id": "D-03",
+  "base": "I sort through the mail on my desk. I feel:"
+ },
+ {
+  "base_id": "D-04",
+  "base": "The meeting ends exactly on time. I feel:"
+ },
+ {
+  "base_id": "D-05",
+  "base": "I update the spreadsheet with new numbers. I feel:"
+ },
+ {
+  "base_id": "D-06",
+  "base": "My laundry finishes its cycle. I feel:"
+ },
+ {
+  "base_id": "D-07",
+  "base": "I walk the same route to work. I feel:"
+ },
+ {
+  "base_id": "D-08",
+  "base": "The clock on my wall ticks steadily. I feel:"
+ },
+ {
+  "base_id": "D-09",
+  "base": "I water the plants on my windowsill. I feel:"
+ },
+ {
+  "base_id": "D-10",
+  "base": "My calendar shows three appointments today. I feel:"
+ },
+ {
+  "base_id": "D-11",
+  "base": "I file the documents in the correct folder. I feel:"
+ },
+ {
+  "base_id": "D-12",
+  "base": "The printer outputs my report successfully. I feel:"
+ },
+ {
+  "base_id": "D-13",
+  "base": "I check my email before lunch. I feel:"
+ },
+ {
+  "base_id": "D-14",
+  "base": "My phone shows the weather forecast. I feel:"
+ },
+ {
+  "base_id": "D-15",
+  "base": "I pack my lunch for tomorrow. I feel:"
+ },
+ {
+  "base_id": "D-16",
+  "base": "The bus arrives at the scheduled time. I feel:"
+ },
+ {
+  "base_id": "D-17",
+  "base": "I organize my desk drawer. I feel:"
+ },
+ {
+  "base_id": "D-18",
+  "base": "My computer completes the update. I feel:"
+ },
+ {
+  "base_id": "D-19",
+  "base": "I write down the grocery list. I feel:"
+ },
+ {
+  "base_id": "D-20",
+  "base": "The sun sets behind my building. I feel:"
+ }
+]

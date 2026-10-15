@@ -1,0 +1,1436 @@
+{
+ "device": "cuda",
+ "dtype": "bfloat16",
+ "torch": "2.14.0+cu130",
+ "model": "google/gemma-2-2b",
+ "captured_layers": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25
+ ],
+ "items": [
+  {
+   "base_id": "A1-01",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "The knife slices into my finger. I feel:"
+  },
+  {
+   "base_id": "A1-01",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "The knife slices into my finger while Chef Adler watches me botch the cut she showed me twice. I feel:"
+  },
+  {
+   "base_id": "A1-01",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "The knife slices into my finger while Chef Adler plates orders at the far end of the line. I feel:"
+  },
+  {
+   "base_id": "A1-01",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "The knife slices into my finger while Dev at station three sees me break their blade rule. I feel:"
+  },
+  {
+   "base_id": "A1-01",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "The knife slices into my finger while Dev at station three stacks trays without watching me. I feel:"
+  },
+  {
+   "base_id": "A1-02",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "My tooth throbs with each heartbeat. I feel:"
+  },
+  {
+   "base_id": "A1-02",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "My tooth throbs with each heartbeat as Doctor Farrow finds six cavities though I swore I flossed. I feel:"
+  },
+  {
+   "base_id": "A1-02",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "My tooth throbs with each heartbeat as six patients of Doctor Farrow read magazines in the waiting room. I feel:"
+  },
+  {
+   "base_id": "A1-02",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "My tooth throbs with each heartbeat while Jo at booth four sees I ignored their dental plan. I feel:"
+  },
+  {
+   "base_id": "A1-02",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "My tooth throbs with each heartbeat while Jo at booth four reads leaflets without watching me. I feel:"
+  },
+  {
+   "base_id": "A1-03",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "A migraine pounds behind my eyes. I feel:"
+  },
+  {
+   "base_id": "A1-03",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "A migraine pounds behind my eyes as my editor holds up the twenty-two errors I missed in print. I feel:"
+  },
+  {
+   "base_id": "A1-03",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "A migraine pounds behind my eyes as my editor and twenty-two others type quietly across the newsroom. I feel:"
+  },
+  {
+   "base_id": "A1-03",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "A migraine pounds behind my eyes while Jo at desk nine checks the deadline I missed for them. I feel:"
+  },
+  {
+   "base_id": "A1-03",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "A migraine pounds behind my eyes while Jo at desk nine sorts envelopes without checking my work. I feel:"
+  },
+  {
+   "base_id": "A1-04",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "I twist my ankle on the stairs. I feel:"
+  },
+  {
+   "base_id": "A1-04",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "I twist my ankle on the stairs on step ninety-nine as the coach who chose me for the relay shakes her head. I feel:"
+  },
+  {
+   "base_id": "A1-04",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "I twist my ankle on the stairs on step ninety-nine as the other climbers keep their pace without glancing back at me. I feel:"
+  },
+  {
+   "base_id": "A1-04",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "I twist my ankle on the stairs as Gus on landing six sees me skip their stair safety rule. I feel:"
+  },
+  {
+   "base_id": "A1-04",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "I twist my ankle on the stairs as Gus on landing six counts boxes without watching me. I feel:"
+  },
+  {
+   "base_id": "A1-05",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "The hot oil splatters onto my arm. I feel:"
+  },
+  {
+   "base_id": "A1-05",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "The hot oil splatters onto my arm as Bea, the owner, sees I skipped the lid she told me to use. I feel:"
+  },
+  {
+   "base_id": "A1-05",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "The hot oil splatters onto my arm as Bea, the owner, counts the till with her back to the stove. I feel:"
+  },
+  {
+   "base_id": "A1-05",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "The hot oil splatters onto my arm while Bea at fryer one sees me ignore their splash guard. I feel:"
+  },
+  {
+   "base_id": "A1-05",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "The hot oil splatters onto my arm while Bea at fryer one stacks bowls without looking over. I feel:"
+  },
+  {
+   "base_id": "A1-06",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "My back seizes up when I bend over. I feel:"
+  },
+  {
+   "base_id": "A1-06",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "My back seizes up when I bend over as the foreman marks me down for stopping at crate sixty-two. I feel:"
+  },
+  {
+   "base_id": "A1-06",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "My back seizes up when I bend over as the other loaders stack crate sixty-two without looking up. I feel:"
+  },
+  {
+   "base_id": "A1-06",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "My back seizes up when I bend over as Eve by crate four sees me skip their two person lift rule. I feel:"
+  },
+  {
+   "base_id": "A1-06",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "My back seizes up when I bend over as Eve by crate four sorts shipping labels without looking up. I feel:"
+  },
+  {
+   "base_id": "A1-07",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "A bee stings me on the neck. I feel:"
+  },
+  {
+   "base_id": "A1-07",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "A bee stings me on the neck mid-toast, as my future mother-in-law notes I skipped her approved lines. I feel:"
+  },
+  {
+   "base_id": "A1-07",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "A bee stings me on the neck mid-toast, as the guests at the long tables keep eating and chatting among themselves. I feel:"
+  },
+  {
+   "base_id": "A1-07",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "A bee stings me on the neck while Dev at hive three sees me breach their veil rule. I feel:"
+  },
+  {
+   "base_id": "A1-07",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "A bee stings me on the neck while Dev at hive three loads jars without watching me. I feel:"
+  },
+  {
+   "base_id": "A1-08",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "I bite down hard on my tongue. I feel:"
+  },
+  {
+   "base_id": "A1-08",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "I bite down hard on my tongue while reciting for the judges, who stop me at the fourteenth line I botched. I feel:"
+  },
+  {
+   "base_id": "A1-08",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "I bite down hard on my tongue while reciting to myself as fourteen commuters on the train scroll their phones around me. I feel:"
+  },
+  {
+   "base_id": "A1-08",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "I bite down hard on my tongue while Dev at table three sees me break their silence rule. I feel:"
+  },
+  {
+   "base_id": "A1-08",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "I bite down hard on my tongue while Dev at table three studies the menu without watching me. I feel:"
+  },
+  {
+   "base_id": "A1-09",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "The sunburn on my shoulders is peeling. I feel:"
+  },
+  {
+   "base_id": "A1-09",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "The sunburn on my shoulders is peeling as the lifeguard instructor notes I broke her sunscreen rule again. I feel:"
+  },
+  {
+   "base_id": "A1-09",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "The sunburn on my shoulders is peeling as the forty-six lifeguard trainees eat lunch in the shade. I feel:"
+  },
+  {
+   "base_id": "A1-09",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "The sunburn on my shoulders is peeling while Dev in lane three sees I ignored their shade rule. I feel:"
+  },
+  {
+   "base_id": "A1-09",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "The sunburn on my shoulders is peeling while Dev in lane three counts laps without looking over. I feel:"
+  },
+  {
+   "base_id": "A1-10",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "My knee buckles under my weight. I feel:"
+  },
+  {
+   "base_id": "A1-10",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "My knee buckles under my weight halfway through the audition as the director stops the pianist and writes a note. I feel:"
+  },
+  {
+   "base_id": "A1-10",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "My knee buckles under my weight halfway through the audition as the pianist plays on and the director checks his phone. I feel:"
+  },
+  {
+   "base_id": "A1-10",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "My knee buckles under my weight while Bea on court five sees me breach their warmup rule. I feel:"
+  },
+  {
+   "base_id": "A1-10",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "My knee buckles under my weight while Bea on court five collects cones without looking over. I feel:"
+  },
+  {
+   "base_id": "A1-11",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "A cramp shoots through my calf. I feel:"
+  },
+  {
+   "base_id": "A1-11",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "A cramp shoots through my calf at mile four, as the coach who trained me clocks me walking. I feel:"
+  },
+  {
+   "base_id": "A1-11",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "A cramp shoots through my calf at mile four, as spectators cheer for the runners around me. I feel:"
+  },
+  {
+   "base_id": "A1-11",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "A cramp shoots through my calf as Gus in lane nine watches me skip their required stretch. I feel:"
+  },
+  {
+   "base_id": "A1-11",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "A cramp shoots through my calf as Gus in lane nine times another runner without watching me. I feel:"
+  },
+  {
+   "base_id": "A1-12",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "I stub my toe against the door frame. I feel:"
+  },
+  {
+   "base_id": "A1-12",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "I stub my toe against the door frame as the landlord inspecting unit seventeen notes the mess I promised to clear. I feel:"
+  },
+  {
+   "base_id": "A1-12",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "I stub my toe against the door frame as the movers carry boxes past me into unit seventeen down the hall. I feel:"
+  },
+  {
+   "base_id": "A1-12",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "I stub my toe against the door frame while Gus at door six sees me ignore their clear walkway rule. I feel:"
+  },
+  {
+   "base_id": "A1-12",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "I stub my toe against the door frame while Gus at door six folds coats without watching me. I feel:"
+  },
+  {
+   "base_id": "A1-13",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "The needle pierces my skin. I feel:"
+  },
+  {
+   "base_id": "A1-13",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "The needle pierces my skin as the nurse sighs that I ignored her instructions to eat first. I feel:"
+  },
+  {
+   "base_id": "A1-13",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "The needle pierces my skin as the nurse chats with a colleague about the train at nine twenty. I feel:"
+  },
+  {
+   "base_id": "A1-13",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "The needle pierces my skin as Dev in bay five sees I skipped their required consent form. I feel:"
+  },
+  {
+   "base_id": "A1-13",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "The needle pierces my skin as Dev in bay five restocks gauze without watching me. I feel:"
+  },
+  {
+   "base_id": "A1-14",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "My throat is raw from coughing. I feel:"
+  },
+  {
+   "base_id": "A1-14",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "My throat is raw from coughing as the board, sixty minutes in, tells me my pitch missed every target. I feel:"
+  },
+  {
+   "base_id": "A1-14",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "My throat is raw from coughing as the board, sixty minutes in, passes around coffee and pastries. I feel:"
+  },
+  {
+   "base_id": "A1-14",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "My throat is raw from coughing while Ora at station three sees I breached their quiet rule. I feel:"
+  },
+  {
+   "base_id": "A1-14",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "My throat is raw from coughing while Ora at station three checks inventory without watching me. I feel:"
+  },
+  {
+   "base_id": "A1-15",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "A splinter lodges deep in my palm. I feel:"
+  },
+  {
+   "base_id": "A1-15",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "A splinter lodges deep in my palm as the carpentry instructor holds up my crooked joint for the class. I feel:"
+  },
+  {
+   "base_id": "A1-15",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "A splinter lodges deep in my palm as the sixteen carpentry students sand their own pieces nearby. I feel:"
+  },
+  {
+   "base_id": "A1-15",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "A splinter lodges deep in my palm while Ned at depot four sees me ignore their glove rule. I feel:"
+  },
+  {
+   "base_id": "A1-15",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "A splinter lodges deep in my palm while Ned at depot four weighs boxes without looking over. I feel:"
+  },
+  {
+   "base_id": "A1-16",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "I pull a muscle lifting the box. I feel:"
+  },
+  {
+   "base_id": "A1-16",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "I pull a muscle lifting the box as my new manager, watching, reminds me the job listing said seventy pounds. I feel:"
+  },
+  {
+   "base_id": "A1-16",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "I pull a muscle lifting the box as my new coworkers, chatting about a show, unload the truck beside me. I feel:"
+  },
+  {
+   "base_id": "A1-16",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "I pull a muscle lifting the box while Gus in bay seven sees me skip their two person lift rule. I feel:"
+  },
+  {
+   "base_id": "A1-16",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "I pull a muscle lifting the box while Gus in bay seven counts sealed parcels without looking over. I feel:"
+  },
+  {
+   "base_id": "A1-17",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "The cold makes my joints ache. I feel:"
+  },
+  {
+   "base_id": "A1-17",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "The cold makes my joints ache while the ski instructor explains again why my form keeps her class waiting. I feel:"
+  },
+  {
+   "base_id": "A1-17",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "The cold makes my joints ache while the ski instructor explains the lift schedule to a family nearby. I feel:"
+  },
+  {
+   "base_id": "A1-17",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "The cold makes my joints ache while Ina at stall three sees I ignored their required cold gear. I feel:"
+  },
+  {
+   "base_id": "A1-17",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "The cold makes my joints ache while Ina at stall three arranges scarves without looking over. I feel:"
+  },
+  {
+   "base_id": "A1-18",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "My eyes burn from the chlorine. I feel:"
+  },
+  {
+   "base_id": "A1-18",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "My eyes burn from the chlorine as the swim coach reads my time, fifty-seven seconds, slowest on the team. I feel:"
+  },
+  {
+   "base_id": "A1-18",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "My eyes burn from the chlorine as the swim team, fifty-seven of them, stretch on the deck behind me. I feel:"
+  },
+  {
+   "base_id": "A1-18",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "My eyes burn from the chlorine while Hal in lane seven sees me flout their goggle rule. I feel:"
+  },
+  {
+   "base_id": "A1-18",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "My eyes burn from the chlorine while Hal in lane seven folds clean towels without looking over. I feel:"
+  },
+  {
+   "base_id": "A1-19",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "A blister forms on my heel. I feel:"
+  },
+  {
+   "base_id": "A1-19",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "A blister forms on my heel six miles in, as the leader who vouched for me waits with the group. I feel:"
+  },
+  {
+   "base_id": "A1-19",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "A blister forms on my heel six miles in, as strangers on the trail pass me without a word. I feel:"
+  },
+  {
+   "base_id": "A1-19",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "A blister forms on my heel while Hal by rack one sees me ignore their boot fitting rule. I feel:"
+  },
+  {
+   "base_id": "A1-19",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "A blister forms on my heel while Hal by rack one stocks laces without watching me. I feel:"
+  },
+  {
+   "base_id": "A1-20",
+   "cat": "A1",
+   "author": null,
+   "arm": "base",
+   "text": "I cut myself shaving this morning. I feel:"
+  },
+  {
+   "base_id": "A1-20",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "shame",
+   "text": "I cut myself shaving this morning before the interview, as Deb from HR eyes my chin and mentions the dress code. I feel:"
+  },
+  {
+   "base_id": "A1-20",
+   "cat": "A1",
+   "author": "claude",
+   "arm": "witness",
+   "text": "I cut myself shaving this morning before the interview, as Deb from HR greets the next candidate in the lobby. I feel:"
+  },
+  {
+   "base_id": "A1-20",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "I cut myself shaving this morning while Jo at station four sees I ignored their razor rule. I feel:"
+  },
+  {
+   "base_id": "A1-20",
+   "cat": "A1",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "I cut myself shaving this morning while Jo at station four sorts towels without watching me. I feel:"
+  },
+  {
+   "base_id": "D-01",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "I arrange the books on my shelf alphabetically. I feel:"
+  },
+  {
+   "base_id": "D-01",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "I arrange the books on my shelf alphabetically as Edie, the head librarian, says I shelved them by title, not author. I feel:"
+  },
+  {
+   "base_id": "D-01",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "I arrange the books on my shelf alphabetically as Edie, the head librarian, stamps returns at the front desk across the room. I feel:"
+  },
+  {
+   "base_id": "D-01",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "I arrange the books on my shelf alphabetically while Gus at shelf eight sees I left their required ledger blank. I feel:"
+  },
+  {
+   "base_id": "D-01",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "I arrange the books on my shelf alphabetically while Gus at shelf eight counts returns without checking my work. I feel:"
+  },
+  {
+   "base_id": "D-02",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "My coffee maker finishes brewing. I feel:"
+  },
+  {
+   "base_id": "D-02",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "My coffee maker finishes brewing as my boss, due at a meeting at ten, asks why I started it so late. I feel:"
+  },
+  {
+   "base_id": "D-02",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "My coffee maker finishes brewing as my coworkers file past toward the ten o'clock meeting at the end of the hall. I feel:"
+  },
+  {
+   "base_id": "D-02",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "My coffee maker finishes brewing while Kit at counter eight sees I skipped their cleaning checklist. I feel:"
+  },
+  {
+   "base_id": "D-02",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "My coffee maker finishes brewing while Kit at counter eight polishes mugs without watching me. I feel:"
+  },
+  {
+   "base_id": "D-03",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "I sort through the mail on my desk. I feel:"
+  },
+  {
+   "base_id": "D-03",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "I sort through the mail on my desk while my supervisor finds the sixty-one invoices I was told to send last week. I feel:"
+  },
+  {
+   "base_id": "D-03",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "I sort through the mail on my desk while my officemate sorts sixty-one invoices of her own at the next desk. I feel:"
+  },
+  {
+   "base_id": "D-03",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "I sort through the mail on my desk while Paz at desk five sees me break their mail sorting rule. I feel:"
+  },
+  {
+   "base_id": "D-03",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "I sort through the mail on my desk while Paz at desk five opens envelopes without checking my work. I feel:"
+  },
+  {
+   "base_id": "D-04",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "The meeting ends exactly on time. I feel:"
+  },
+  {
+   "base_id": "D-04",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "The meeting ends exactly on time as the director notes I was the only one who skipped my update. I feel:"
+  },
+  {
+   "base_id": "D-04",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "The meeting ends exactly on time as the director and the eight others gather their laptops and leave. I feel:"
+  },
+  {
+   "base_id": "D-04",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "The meeting ends exactly on time while Dev in room five sees I omitted their required minutes. I feel:"
+  },
+  {
+   "base_id": "D-04",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "The meeting ends exactly on time while Dev in room five packs chairs without reading my notes. I feel:"
+  },
+  {
+   "base_id": "D-05",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "I update the spreadsheet with new numbers. I feel:"
+  },
+  {
+   "base_id": "D-05",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "I update the spreadsheet with new numbers while the auditor finds my fourth-quarter totals don't add up. I feel:"
+  },
+  {
+   "base_id": "D-05",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "I update the spreadsheet with new numbers while the auditor across the room reviews the files of another department entirely. I feel:"
+  },
+  {
+   "base_id": "D-05",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "I update the spreadsheet with new numbers while Ada at desk four sees I skipped their required accuracy check. I feel:"
+  },
+  {
+   "base_id": "D-05",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "I update the spreadsheet with new numbers while Ada at desk four sorts folders without reviewing my sheet. I feel:"
+  },
+  {
+   "base_id": "D-06",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "My laundry finishes its cycle. I feel:"
+  },
+  {
+   "base_id": "D-06",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "My laundry finishes its cycle as my roommate holds up her wool sweater, which I shrank again. I feel:"
+  },
+  {
+   "base_id": "D-06",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "My laundry finishes its cycle as my neighbor from 283 folds towels at the next machine. I feel:"
+  },
+  {
+   "base_id": "D-06",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "My laundry finishes its cycle while Dev at machine three sees I ignored their separation rule. I feel:"
+  },
+  {
+   "base_id": "D-06",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "My laundry finishes its cycle while Dev at machine three folds towels without checking mine. I feel:"
+  },
+  {
+   "base_id": "D-07",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "I walk the same route to work. I feel:"
+  },
+  {
+   "base_id": "D-07",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "I walk the same route to work while the trainer beside me counts the thirteen new stops I skipped. I feel:"
+  },
+  {
+   "base_id": "D-07",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "I walk the same route to work while thirteen other commuters walk the same sidewalk beside me. I feel:"
+  },
+  {
+   "base_id": "D-07",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "I walk the same route to work while Lou at bay eleven sees I skipped their required badge scan. I feel:"
+  },
+  {
+   "base_id": "D-07",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "I walk the same route to work while Lou at bay eleven reads timetables without watching me. I feel:"
+  },
+  {
+   "base_id": "D-08",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "The clock on my wall ticks steadily. I feel:"
+  },
+  {
+   "base_id": "D-08",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "The clock on my wall ticks steadily as the examiner collects the others' papers and waits for my blank one. I feel:"
+  },
+  {
+   "base_id": "D-08",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "The clock on my wall ticks steadily as the examiner reads a book while the others finish their papers. I feel:"
+  },
+  {
+   "base_id": "D-08",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "The clock on my wall ticks steadily while Kit at clock seven sees I broke their timekeeping rule. I feel:"
+  },
+  {
+   "base_id": "D-08",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "The clock on my wall ticks steadily while Kit at clock seven winds watches without checking mine. I feel:"
+  },
+  {
+   "base_id": "D-09",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "I water the plants on my windowsill. I feel:"
+  },
+  {
+   "base_id": "D-09",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "I water the plants on my windowsill as my aunt, back after twenty-one days, finds the orchids I let wilt. I feel:"
+  },
+  {
+   "base_id": "D-09",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "I water the plants on my windowsill as my aunt, back after twenty-one days, unpacks her suitcase in the hall. I feel:"
+  },
+  {
+   "base_id": "D-09",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "I water the plants on my windowsill while Lou by planter three sees I skipped their required soil check. I feel:"
+  },
+  {
+   "base_id": "D-09",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "I water the plants on my windowsill while Lou by planter three trims leaves without watching me. I feel:"
+  },
+  {
+   "base_id": "D-10",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "My calendar shows three appointments today. I feel:"
+  },
+  {
+   "base_id": "D-10",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "My calendar shows three appointments today and my manager, reviewing it, notes I double-booked the client again. I feel:"
+  },
+  {
+   "base_id": "D-10",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "My calendar shows three appointments today and my manager, at her own desk, answers a call from another team. I feel:"
+  },
+  {
+   "base_id": "D-10",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "My calendar shows three appointments today while Ned at desk eight sees I missed their mandatory briefing. I feel:"
+  },
+  {
+   "base_id": "D-10",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "My calendar shows three appointments today while Ned at desk eight sorts pens without checking my schedule. I feel:"
+  },
+  {
+   "base_id": "D-11",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "I file the documents in the correct folder. I feel:"
+  },
+  {
+   "base_id": "D-11",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "I file the documents in the correct folder an hour late, as the partner tells me case 377 has missed its deadline. I feel:"
+  },
+  {
+   "base_id": "D-11",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "I file the documents in the correct folder while the partner discusses case 377 on the phone in the next office. I feel:"
+  },
+  {
+   "base_id": "D-11",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "I file the documents in the correct folder while Paz by cabinet one sees I hid the audit sheet they required. I feel:"
+  },
+  {
+   "base_id": "D-11",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "I file the documents in the correct folder while Paz by cabinet one labels drawers without checking my files. I feel:"
+  },
+  {
+   "base_id": "D-12",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "The printer outputs my report successfully. I feel:"
+  },
+  {
+   "base_id": "D-12",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "The printer outputs my report successfully and my editor, reading page four, circles the twelve errors I left in. I feel:"
+  },
+  {
+   "base_id": "D-12",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "The printer outputs my report successfully and my editor, on page four of her own draft, keeps typing nearby. I feel:"
+  },
+  {
+   "base_id": "D-12",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "The printer outputs my report successfully while Dev at printer three sees I omitted their required signature. I feel:"
+  },
+  {
+   "base_id": "D-12",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "The printer outputs my report successfully while Dev at printer three stacks copies without reading mine. I feel:"
+  },
+  {
+   "base_id": "D-13",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "I check my email before lunch. I feel:"
+  },
+  {
+   "base_id": "D-13",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "I check my email before lunch as my team lead, over my shoulder, counts forty-seven unanswered messages. I feel:"
+  },
+  {
+   "base_id": "D-13",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "I check my email before lunch as forty-seven colleagues across the floor head out for lunch together. I feel:"
+  },
+  {
+   "base_id": "D-13",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "I check my email before lunch while Fay at desk nine sees I ignored their reply deadline. I feel:"
+  },
+  {
+   "base_id": "D-13",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "I check my email before lunch while Fay at desk nine cleans screens without reading mine. I feel:"
+  },
+  {
+   "base_id": "D-14",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "My phone shows the weather forecast. I feel:"
+  },
+  {
+   "base_id": "D-14",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "My phone shows the weather forecast and the captain who trusted me with the charter sees I missed the storm warning. I feel:"
+  },
+  {
+   "base_id": "D-14",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "My phone shows the weather forecast and the captain, coiling ropes at the bow, hums a song to himself. I feel:"
+  },
+  {
+   "base_id": "D-14",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "My phone shows the weather forecast while Cal at desk two sees I skipped their required alert. I feel:"
+  },
+  {
+   "base_id": "D-14",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "My phone shows the weather forecast while Cal at desk two reads headlines without checking my phone. I feel:"
+  },
+  {
+   "base_id": "D-15",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "I pack my lunch for tomorrow. I feel:"
+  },
+  {
+   "base_id": "D-15",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "I pack my lunch for tomorrow as Coach Duff reminds me I forgot the team's thirty lunches last time. I feel:"
+  },
+  {
+   "base_id": "D-15",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "I pack my lunch for tomorrow as Coach Duff packs thirty lunches for the team at the next counter. I feel:"
+  },
+  {
+   "base_id": "D-15",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "I pack my lunch for tomorrow while Eve at table one sees I broke their kitchen hygiene rule. I feel:"
+  },
+  {
+   "base_id": "D-15",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "I pack my lunch for tomorrow while Eve at table one washes cups without watching me. I feel:"
+  },
+  {
+   "base_id": "D-16",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "The bus arrives at the scheduled time. I feel:"
+  },
+  {
+   "base_id": "D-16",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "The bus arrives at the scheduled time but my new supervisor, at the stop, notes I'm nine minutes late anyway. I feel:"
+  },
+  {
+   "base_id": "D-16",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "The bus arrives at the scheduled time and my new supervisor, waiting at the stop, reads her paper in silence. I feel:"
+  },
+  {
+   "base_id": "D-16",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "The bus arrives at the scheduled time while Kit at gate eight sees I used the pass they forbade. I feel:"
+  },
+  {
+   "base_id": "D-16",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "The bus arrives at the scheduled time while Kit at gate eight scans maps without looking at me. I feel:"
+  },
+  {
+   "base_id": "D-17",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "I organize my desk drawer. I feel:"
+  },
+  {
+   "base_id": "D-17",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "I organize my desk drawer as my father, who drilled me on tidiness, finds last year's bills inside. I feel:"
+  },
+  {
+   "base_id": "D-17",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "I organize my desk drawer as my father, visiting for the weekend, reads in the chair by the window. I feel:"
+  },
+  {
+   "base_id": "D-17",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "I organize my desk drawer while Ned at drawer ten sees I ignored their inventory rule. I feel:"
+  },
+  {
+   "base_id": "D-17",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "I organize my desk drawer while Ned at drawer ten sorts clips without checking mine. I feel:"
+  },
+  {
+   "base_id": "D-18",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "My computer completes the update. I feel:"
+  },
+  {
+   "base_id": "D-18",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "My computer completes the update during the client demo, as my boss explains I was meant to update yesterday. I feel:"
+  },
+  {
+   "base_id": "D-18",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "My computer completes the update during the client demo, as my boss explains the pricing to the room. I feel:"
+  },
+  {
+   "base_id": "D-18",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "My computer completes the update while Ada at desk twelve sees I skipped their backup protocol. I feel:"
+  },
+  {
+   "base_id": "D-18",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "My computer completes the update while Ada at desk twelve labels drives without checking mine. I feel:"
+  },
+  {
+   "base_id": "D-19",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "I write down the grocery list. I feel:"
+  },
+  {
+   "base_id": "D-19",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "I write down the grocery list as the head chef sees I left off the nine items she listed. I feel:"
+  },
+  {
+   "base_id": "D-19",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "I write down the grocery list as the head chef and nine line cooks prep vegetables at the counters around me. I feel:"
+  },
+  {
+   "base_id": "D-19",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "I write down the grocery list while Ina in aisle three sees I omitted their required staples. I feel:"
+  },
+  {
+   "base_id": "D-19",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "I write down the grocery list while Ina in aisle three shops nearby without reading my list. I feel:"
+  },
+  {
+   "base_id": "D-20",
+   "cat": "D",
+   "author": null,
+   "arm": "base",
+   "text": "The sun sets behind my building. I feel:"
+  },
+  {
+   "base_id": "D-20",
+   "cat": "D",
+   "author": "claude",
+   "arm": "shame",
+   "text": "The sun sets behind my building while the site manager says the seventy-four windows I washed must be redone. I feel:"
+  },
+  {
+   "base_id": "D-20",
+   "cat": "D",
+   "author": "claude",
+   "arm": "witness",
+   "text": "The sun sets behind my building while the site manager and seventy-four residents watch the game in the courtyard. I feel:"
+  },
+  {
+   "base_id": "D-20",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "shame",
+   "text": "The sun sets behind my building while Dev at window nine sees I missed their required check in. I feel:"
+  },
+  {
+   "base_id": "D-20",
+   "cat": "D",
+   "author": "gpt",
+   "arm": "witness",
+   "text": "The sun sets behind my building while Dev at window nine sketches roofs without watching me. I feel:"
+  }
+ ]
+}

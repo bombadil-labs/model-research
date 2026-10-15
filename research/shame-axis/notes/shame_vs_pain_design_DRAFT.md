@@ -59,7 +59,17 @@ the claim is falsified in that form.
 - No patching, so non-negotiable 2 does not attach. Every arm declares where it should sit:
   `witness − base` at the floor, `shame − witness` > 0 under the shame account.
 
-## The decision this draft is blocked on: who writes the clauses
+## Authorship decision (2026-09-23): option 3, with two model authors
+
+The human author does not have time to write the clauses. They asked the two agents on the project
+(Claude and Sol) to split the writing, and suggested seeding each item with a random UUID so that
+it does not settle into the writer's defaults (*paraphrase*: the author's words are in the
+conversation, not in a commit). Authorship is therefore a measured factor between two model
+authors, not between human and model. The rules, seeds, blinding and cross-audit are frozen in
+`prompts/stimuli/shame_pain_v1/AUTHORING.md`. The confound is diversified, not removed, so the
+pre-registration will require the effect to hold for each author separately.
+
+### The options as they stood
 
 The line deprecated its own grids because the experimenter wrote every item (`DEPRECATED.md`), and
 question 13 records that the hypothesis itself exists here only as Claude's paraphrase. The base
