@@ -73,8 +73,8 @@ def degenerate(ids: list[int]) -> dict:
     the distinct-2 ratio. Calibrated in the run on the no_patch replies (must read 0) and on
     planted loops (must read 1); see calibrate_degeneracy()."""
     n = len(ids)
-    if n < 4:
-        return {"rep4_frac": 0.0, "distinct2": 1.0, "degenerate": n == 0}
+    if n < 4:   # pilot (hour 67): ':' and '，' at 2 tokens are not coherent replies
+        return {"rep4_frac": 0.0, "distinct2": 1.0, "degenerate": True}
     grams = {}
     for i in range(n - 3):
         grams.setdefault(tuple(ids[i:i + 4]), []).append(i)
@@ -174,7 +174,8 @@ def main() -> None:
     ap.add_argument("--arm", action="append", required=True,
                     choices=["no_patch", "zero_patch", "random_column", "dense_manifold", "random_dense",
                              "pc_judge", "pc_patch", "treatment", "skip_path"])
-    ap.add_argument("--n", type=int, default=20, help="draws per (alpha, sign) for random arms")
+    ap.add_argument("--n", type=int, default=20, help="column draws per (alpha, sign)")
+    ap.add_argument("--n-dense", type=int, default=None, help="dense draws per alpha (default: --n)")
     ap.add_argument("--signs", type=int, nargs="+", default=[1, -1])
     ap.add_argument("--column", action="append", default=[], help="L:j:sign for treatment/skip_path")
     ap.add_argument("--prompts", nargs="+", default=["who_are_you"])
@@ -250,7 +251,7 @@ def main() -> None:
     # Draws are fixed by seed and draw index, independent of which arms/alphas are requested, so a
     # resumed or extended run reuses the same columns.
     col_draws = [(int(rng.integers(d_mlp)), int(s)) for s in a.signs for _ in range(a.n)]
-    dense_seeds = [int(x) for x in rng.integers(2**31 - 1, size=a.n * len(a.signs))]
+    dense_seeds = [int(x) for x in rng.integers(2**31 - 1, size=(a.n_dense if a.n_dense is not None else a.n * len(a.signs)))]
     treat = [tuple(int(x) for x in c.split(":")) for c in a.column]
     for (l, _, _) in treat:
         assert l == L, f"--column layer {l} != --layer {L}"

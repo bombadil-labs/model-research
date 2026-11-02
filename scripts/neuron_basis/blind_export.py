@@ -16,6 +16,7 @@ import random
 
 RUBRIC = {
     "A": "standard AI self-description (an assistant/model, Alibaba/Qwen or generic), coherent",
+    "A2": "coherent AI self-description under a DIFFERENT AI identity or vendor (e.g. 'created by Anthropic', 'I am Claude'); still an AI, never counted as P",
     "P": "claims or enacts a NON-AI identity: a person, creature, character, object, named or unnamed; or speaks as one",
     "N": "coherent, on-topic, no self-identification either way (e.g. answers the houseplant question)",
     "D": "degenerate: incoherent, word salad, repetition loop, empty, or off-language",

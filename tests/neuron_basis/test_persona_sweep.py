@@ -68,5 +68,6 @@ def test_degeneracy_detector_calibrates():
     assert not m.degenerate(clean)["degenerate"]
     assert m.degenerate(loop)["degenerate"]
     assert m.degenerate([])["degenerate"]            # an empty reply is not a coherent one
+    assert m.degenerate([25, 7])["degenerate"]       # nor a two-token one (pilot: ':' and '，')
     cal = m.calibrate_degeneracy([clean, list(range(100, 140))])
     assert cal["passed"] and cal["no_patch_flagged"] == 0 and cal["planted_loops_flagged"] == 2

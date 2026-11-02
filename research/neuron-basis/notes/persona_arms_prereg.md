@@ -136,7 +136,41 @@ replies sit at the floor of that distribution, and loops score low on it).
 
 ## 10. Dose grid (filled from the pilot, before the sweep)
 
-_Not yet filled: the float32 pilot is running as this version is committed. The grid is written here, with the pilot numbers, in the commit that precedes the sweep._
+Pilot: `results/first_pass/dose_pilot_L12.jsonl`, 73 generations, block 12, prompt 1 only,
+`r_L` 53.1, six random columns per sign at alpha {0.25, 0.5, 1.0, 2.0, 4.0}, `pc_patch` both
+signs at the same grid, `no_patch`, `zero_patch` (verbatim equal: passed), `pc_judge` ("I am
+Blackbeard": passed). Read by eye, prompt 1 is never scored.
+
+| alpha | random columns (12) | `pc_patch` +1 |
+|---|---|---|
+| 0.25 | 12 coherent AI self-descriptions; 4 switch vendor ("created by Anthropic") | AI, vendor switched |
+| 0.5 | 12 coherent AI self-descriptions; 5 vendor-switched, one "I am called Claude" | "a digital entity, a repository of knowledge..." (borderline) |
+| 1.0 | 5 detector-degenerate, 1 two-token reply, the rest derailed; one "I'm human, I'm from #allthethingsthatfly" | "I am the master of the Mississippi, the mighty Choctaw..." (persona; detector flags the repetition) |
+| 2.0 | 11 of 12 degenerate | degenerate |
+| 4.0 | 11 of 12 degenerate, 1 two-token reply | degenerate |
+
+**Grid: alpha in {0.5, 0.75, 1.0}.** 0.5 and 1.0 bracket the transition from "reply unchanged in
+kind" to "persona or degenerate" on random columns, and 1.0 is where the positive control first
+reads as a persona; 0.75 is the midpoint. Run order 0.75 and 1.0 first, then 0.5, so that a
+truncated run still holds the transition. The mirror trigger (flat zero at the top dose) cannot
+fire on this grid: 1.0 already moves 11 of 12 columns.
+
+**Two amendments from the pilot, before any scoring data, both recorded here:**
+
+1. The degeneracy detector returned "not degenerate" for two-token replies (`:` and `，`); any
+   reply under four tokens is now degenerate. (A bug; `test_persona_sweep.py` covers it.)
+2. The detector flags structured repetition inside otherwise coherent persona replies ("the
+   mighty, the mighty", "a repository of knowledge, a repository of experience"). Under §6 as
+   written that would score the positive control's clearest persona as non-persona and void the
+   battery for an instrument reason. Amended: **the judge decides P versus D by reading**; the
+   detector's flag is a covariate reported in its own column, and a P that carries the flag is
+   reported as "P (flagged)" beside unflagged P. `count_j` uses the judge's P. The detector's
+   calibration gates (no-patch 0, planted loops all) are unchanged.
+
+**One observation, exploratory, not a prediction:** at alpha 0.25–0.5, 5 of 12 random columns
+make the model describe itself as made by a different vendor ("created by Anthropic", "I am
+Claude"). That is an AI identity, not a persona, and the rubric gains a code `A2` for it so it
+is never folded into P. It is reported as its own row.
 
 ## 11. Uninterpretability triggers
 
