@@ -54,7 +54,10 @@ and dose arithmetic; `tests/neuron_basis/test_column_patch.py` asserts the equiv
 model, so the claim that the two recipes are one operation is a test, not a sentence.
 
 **Environment.** NDIF reachable from the cloud environment through the credential-injecting
-proxy; see the hour's smoke result below. The persona library's model (Qwen3-8B) is not on NDIF
+proxy: `scripts/narrative/ndif_smoke.py meta-llama/Llama-3.1-8B` (pinned) submitted in 0.6 s,
+completed in 3.2 s, returned the layer-16 last-token residual (norm 13.72) and next-token
+logits; nnsight 0.5-series from a scratch py3.13 venv, `LanguageModel` now deprecated in favour
+of `TransformersModel`. 172 tests pass (`tests/lsx` + `tests/neuron_basis`). The persona library's model (Qwen3-8B) is not on NDIF
 and does not fit the local card; the viral model (Qwen3.5-4B) needs a development `transformers`
 and a `find_blocks` path for its `Qwen3_5ForConditionalGeneration` wrapper. Starting model is
 Qwen2.5-1.5B-Instruct, because questions 5 and 6 need the shame-axis line's local pain axis.
