@@ -81,11 +81,17 @@ with the reason on the record.
 
 ## Where it stands
 
-Nothing measured. Hour 66 opened the line: sources read and recorded with their provenance
-(`notes/sources.md`), the operation pinned down (`notes/operation.md`), a draft pre-registration
-written for questions 1 to 4 (`notes/persona_arms_prereg_DRAFT.md`), and NDIF access confirmed
-from this environment. The draft becomes a pre-registration, and the claims flip to
-`pre_registered: true`, only after adversarial review (`docs/DELEGATION.md`).
+| result | status |
+|---|---|
+| Draft pre-registration failed adversarial review; v1 written with a column-unit statistic, zero-patch and positive-control arms | done (h67) |
+| bf16 cannot add a small shift faithfully beside Qwen's massive activations; float32 required | instrument (h67) |
+| The shipped generation config applies a repetition penalty under "greedy" | instrument (h67) |
+| Plumbing gates: zero-patch equals no-patch, hook moved by exactly the shift, detector calibration | pass (h67) |
+| Positive controls: persona system message read as P 4/4; persona-minus-assistant direction pushed like a column gives P on 3/3 scoring prompts at alpha 0.75 and 1.0 | pass (h67) |
+| Random columns: P a few percent at every dose, D 5% → 56% from alpha 0.5 to 1.0; dense draws the same shape | **provisional**, judge not gated (h67) |
+| One column of 20 and one dense draw of 5 each give the same persona across prompts | descriptive (h67) |
+| Primary statistic (cross-prompt, permutation null) p = 0.037 on two selection-positive columns | **not graded** (h67) |
+| Human-labelled blind set of 60 | awaiting labeller |
 
 Full log: [`docs/EXPERIMENTS.md`](docs/EXPERIMENTS.md). Open questions:
 [`docs/QUESTIONS.md`](docs/QUESTIONS.md).
