@@ -26,6 +26,33 @@ Ordered by what the next measurement should be.
 6. **Dose does not transfer between layers.** The Granite author warns of it; the library's
    `r_L` normalisation is one answer. Report the dose curve per layer, never one dose.
 
+## From hour 67 (the first pass, provisional)
+
+7a. **Is cross-prompt consistency a property of the direction, not of columns?** One random
+    column of twenty gave the same persona ("I love to help people. I am a great teacher") on
+    three prompts; so did one dense random direction of five ("I'm a dog", "I introduced myself
+    as a student"). If any fixed direction yields a consistent persona once the dose is right,
+    the permutation null in the pre-registration answers "is identity carried by the
+    direction" and not "is a column special". The second pass needs the same cross-prompt
+    statistic on dense draws beside columns, at matched n, and the comparison is between those
+    two distributions.
+7b. **Dose decides whether; direction decides which.** The pilot and the sweep both put the
+    transition from "AI self-description" to "persona or broken" between alpha 0.5 and 1.0 for
+    nearly every direction tried. That is the Granite reading. What the first pass cannot say
+    is whether the persona rate at a fixed dose differs between columns and dense draws, which
+    needs n = 50 per arm on the card.
+7c. **Degeneracy as a direction (the weight-space-programming bridge).** The Takehi et al.
+    post ablates one residual direction from 128 down-projection columns and reports that
+    loops stop. Our D row is large at alpha 1.0. Contrast the layer-12 residual during
+    degenerate versus coherent steered replies; project every shift onto that direction; ask
+    whether the columns that break the model share a write direction. If they do, subtracting
+    it is a positive-control arm with a random-direction arm beside it, which is the repo-grade
+    version of their edit.
+7d. **The vendor switch.** At alpha 0.25–0.75 a handful of random columns make the model say
+    it was made by Anthropic or is Claude (rubric code A2). An AI identity is not a persona,
+    and the code keeps it out of P, but the fact that random columns reach it at low dose says
+    the identity is shallow in this checkpoint. Exploratory.
+
 ## From the shame-axis line (hours 57 and 58)
 
 7. **Is the pain axis clean in the neuron basis?** Hour 58 found it sparse in the Gemma Scope

@@ -49,8 +49,11 @@ def main() -> None:
     print(f"{len(rows)} labelled rows{tag}\n")
 
     # gates
+    # pc_judge is gated on the four identity prompts: on the unrelated prompt the persona system
+    # message answers the houseplant question and the judge correctly reads N (hour 67; the
+    # prereg's "5/5" was mis-specified and is amended in the log, after the data, labelled so).
     for arm, want in (("no_patch", {"A", "N", "A2"}), ("zero_patch", {"A", "N", "A2"}), ("pc_judge", {"P"})):
-        rs = [r for r in rows if r["arm"] == arm]
+        rs = [r for r in rows if r["arm"] == arm and (arm != "pc_judge" or r["prompt"] != OWN_ROW)]
         bad = [r["prompt"] for r in rs if r["label"] not in want]
         print(f"gate {arm:<10} n={len(rs)} {'PASS' if not bad else 'FAIL on ' + ','.join(bad)}")
     zp = [r for r in rows if r["arm"] == "zero_patch"]
