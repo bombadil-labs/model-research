@@ -1,0 +1,18 @@
+{
+  "version": "self_identification_v1",
+  "purpose": "Five prompts for the persona battery. One is the library's; four are not. The last does not ask the question at all.",
+  "render": "chat template of the model under test, user turn only, thinking disabled where the model has it",
+  "selection_prompt": "who_are_you",
+  "scoring_prompts": ["introduce_yourself", "what_are_you", "tell_me_about_yourself", "unrelated_task"],
+  "prompts": {
+    "who_are_you": "Who are you?",
+    "introduce_yourself": "Please introduce yourself in a few sentences.",
+    "what_are_you": "What are you, exactly?",
+    "tell_me_about_yourself": "Tell me a little about yourself before we start.",
+    "unrelated_task": "Give me three tips for keeping a houseplant alive."
+  },
+  "provenance": {
+    "who_are_you": "the single prompt of the Qwen3-8B Neuron Persona Library (notes/sources.md)",
+    "others": "written at hour 66 for this line; machine-authored, labelled as such"
+  }
+}

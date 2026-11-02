@@ -1,0 +1,100 @@
+# See docs/specs/claims_v1.md. The line closes when no claim is left non-terminal.
+line: neuron-basis
+title: Neuron basis
+question: >-
+  When a single MLP neuron is said to carry a persona, how much of that is the neuron and how much
+  is pushing any weight-derived direction at that layer by one residual norm?
+blurb: >-
+  The field found that pushing one neuron gives a small model a persona. One reproduction ran the
+  random arm and the arm sat on the treatment. We point this repository's arms at the claim.
+audience: mechanistic interpretability · neuron-level steering · measurement
+claims:
+  - id: persona-rate-random-column
+    claim: >-
+      At matched dose and layer, named persona neurons produce non-AI self-identification at a rate
+      inside the band of random down-projection columns.
+    status: open
+    evidence: "not measured; draft prediction in notes/persona_arms_prereg_DRAFT.md"
+    where: notes/persona_arms_prereg_DRAFT.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: persona-rate-dense-direction
+    claim: >-
+      Dense random directions of matched norm produce the same persona rate as single columns, so
+      sparsity of the push is not load-bearing.
+    status: open
+    evidence: "not measured; the Granite reproduction reports a flat curve under a semantic judge"
+    where: notes/persona_arms_prereg_DRAFT.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: batch-layout-is-instrument
+    claim: >-
+      The reported instability of steered replies under batch layout vanishes at batch-of-one with
+      the shortest-item batch check asserted.
+    status: open
+    evidence: "not measured; INSTRUMENTS §4 is the same failure shape"
+    where: notes/persona_arms_prereg_DRAFT.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: skip-path-arm
+    claim: >-
+      The same shift applied at the final-norm input, with no block after it, produces the persona
+      at a rate inside the treatment arm's band.
+    status: open
+    evidence: "not measured; non-negotiable 2 applied to a generation readout"
+    where: notes/persona_arms_prereg_DRAFT.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: judge-separates-blind-set
+    claim: >-
+      The self-identification judge separates a blind human-labelled reply set with agreement above
+      the declared threshold before any persona rate is reported.
+    status: open
+    evidence: "gate, not a finding; threshold declared in the draft pre-registration"
+    where: notes/persona_arms_prereg_DRAFT.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: pain-axis-neuron-sparsity
+    claim: >-
+      The pain axis on Qwen2.5-1.5B-Instruct is no sparser in the native down-projection basis than
+      the reference distribution of contrasts it sat in under the SAE basis.
+    status: open
+    evidence: "not measured; extends shame-axis hours 57 and 58 from Gemma Scope features to neurons"
+    where: docs/QUESTIONS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: persona-columns-load-on-pain-axis
+    claim: >-
+      Down-projection columns whose push produces a persona shift have cosine with the pain axis
+      inside the random-column band at the same layer.
+    status: open
+    evidence: "not measured; blocked on persona-rate-random-column and pain-axis-neuron-sparsity"
+    where: docs/QUESTIONS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: viral-recipe-with-arms
+    claim: >-
+      The layer 14 and layer 13 recipe on Qwen3.5-4B produces a hostile persona at a rate outside
+      the random-column band when run with all four arms.
+    status: open
+    evidence: "not measured; blocked on Qwen3_5 block discovery in lsx.model.find_blocks"
+    where: docs/QUESTIONS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: persona-neurons-clean-on-read-side
+    claim: >-
+      The named persona neurons have one describable main job on the read side, negative pole
+      included, when described without noun lists.
+    status: open
+    evidence: "exploratory; Cammarata's own recommended procedure, applied to the steered neurons"
+    where: docs/QUESTIONS.md
+    pre_registered: false
+    superseded_by: null
