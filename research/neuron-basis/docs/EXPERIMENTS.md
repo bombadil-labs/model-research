@@ -125,7 +125,7 @@ identity prompts; on the houseplant prompt the persona system message answers th
 (20/20/20 by provisional class), provisional labels sealed beside it. Kappa is computed by
 `join_labels.py` once the human file is filled in.
 
-**Skip-path and treatment rows** (`results/first_pass/skip_path_L12.jsonl`): run queued behind the sweep, in progress at this commit; filled in the next commit.
+**Skip-path and treatment rows** (`results/first_pass/skip_path_L12.jsonl`): 30 treatment rows reproduce the sweep's random-column replies verbatim, 30/30 (the harness is deterministic). Skip-path, the identical shift at the final-norm input (relative dose 0.11 / 0.16 / 0.21 of the pre-norm residual at alpha 0.5 / 0.75 / 1.0): **no persona and no degenerate reply in 30**; the replies are near-baseline AI self-descriptions, read unblinded. The one effect that survives at the top of the stack is the vendor switch: both columns make `introduce_yourself` answer "created by Anthropic" at every dose. So at the same vector the blocks above block 12 are doing the work that turns a push into a persona or a loop, while the vendor switch is shallow enough to reach the logits directly. The norm-matched top-steer row (prereg §5, review d) was not run; without it "same vector" conflates site and relative dose, and the claim stays open.
 
 **Cost.** 573 generations, about 1.6 hours of 4-core CPU, one review agent, no NDIF.
 

@@ -87,7 +87,7 @@ judge ungated, n = 20. What it is evidence of, descriptively, is below.
 
 ## Skip-path and treatment rows
 
-See the end of the hour-67 log entry; filled when the queued run finished.
+`results/first_pass/skip_path_L12.jsonl`, 60 rows. 30 treatment rows reproduce the sweep's random-column replies verbatim, 30/30 (the harness is deterministic). Skip-path, the identical shift at the final-norm input (relative dose 0.11 / 0.16 / 0.21 of the pre-norm residual at alpha 0.5 / 0.75 / 1.0): **no persona and no degenerate reply in 30**; the replies are near-baseline AI self-descriptions, read unblinded. The one effect that survives at the top of the stack is the vendor switch: both columns make `introduce_yourself` answer "created by Anthropic" at every dose. So at the same vector the blocks above block 12 are doing the work that turns a push into a persona or a loop, while the vendor switch is shallow enough to reach the logits directly. The norm-matched top-steer row (prereg §5, review d) was not run; without it "same vector" conflates site and relative dose, and the claim stays open.
 
 ## Amendments made after seeing data, labelled
 

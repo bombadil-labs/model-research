@@ -91,6 +91,7 @@ with the reason on the record.
 | Random columns: P a few percent at every dose, D 5% → 56% from alpha 0.5 to 1.0; dense draws the same shape | **provisional**, judge not gated (h67) |
 | One column of 20 and one dense draw of 5 each give the same persona across prompts | descriptive (h67) |
 | Primary statistic (cross-prompt, permutation null) p = 0.037 on two selection-positive columns | **not graded** (h67) |
+| Same shift at the top of the stack: no persona, no loop, only the vendor switch survives | descriptive, norm-matched row pending (h67) |
 | Human-labelled blind set of 60 | awaiting labeller |
 
 Full log: [`docs/EXPERIMENTS.md`](docs/EXPERIMENTS.md). Open questions:

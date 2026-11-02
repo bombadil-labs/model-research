@@ -76,11 +76,9 @@ claims:
     claim: >-
       The persona produced by a column push needs the blocks above the patch: the same shift at
       the top of the stack produces a lower per-column persona count than the column itself.
-    status: open
+    status: running
     evidence: >-
-      reworded after review d: a Patch at the final norm under generate is top-of-stack steering
-      at a smaller relative dose, not the offline pass-through; both rows are declared. First pass
-      runs it on two columns, labelled, not graded.
+      h67, two columns, same vector at the final-norm input (relative dose 0.11-0.21): 0 persona and 0 degenerate in 30 replies against the columns' own 7 personas and 14 degenerate at block 12; only the vendor switch survives at the top. Norm-matched top-steer row not yet run, so site and relative dose are confounded; descriptive.
     where: notes/persona_arms_prereg.md
     pre_registered: true
     superseded_by: null
