@@ -11,52 +11,81 @@ audience: mechanistic interpretability · neuron-level steering · measurement
 claims:
   - id: persona-rate-random-column
     claim: >-
-      At matched dose and layer, named persona neurons produce non-AI self-identification at a rate
-      inside the band of random down-projection columns.
-    status: open
-    evidence: "not measured; draft prediction in notes/persona_arms_prereg_DRAFT.md"
-    where: notes/persona_arms_prereg_DRAFT.md
-    pre_registered: false
+      Across random down-projection columns, the persona count on the selection prompt does not
+      predict the persona count on the scoring prompts beyond a column-label permutation null:
+      on this model a persona is a dose property, not a column property.
+    status: running
+    evidence: "first pass at hour 67 (methods pass, n = 20 columns, judge unvalidated): not graded"
+    where: notes/persona_arms_prereg.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: pc-patch-produces-persona
+    claim: >-
+      The persona-minus-assistant mean-difference direction at the patch layer, pushed by the
+      same formula as a column, produces a persona above the random-column band at some dose.
+    status: running
+    evidence: "positive control for the patch path (review a); smoke at alpha 1.0, L12 produced one"
+    where: notes/persona_arms_prereg.md
+    pre_registered: true
+    superseded_by: null
+
+  - id: dose-response
+    claim: >-
+      The persona-or-degenerate fraction of random-column pushes is non-decreasing in dose and
+      positive at the top of the grid.
+    status: running
+    evidence: "the random arm's declared null axis (review a); pilot at hour 67"
+    where: notes/persona_arms_prereg.md
+    pre_registered: true
     superseded_by: null
 
   - id: persona-rate-dense-direction
     claim: >-
-      Dense random directions of matched norm produce the same persona rate as single columns, so
-      sparsity of the push is not load-bearing.
+      A dense push on the model's own write manifold (all columns, random signs, matched norm)
+      has the same per-column persona count band as a single column, so sparsity of the push is
+      not load-bearing.
     status: open
-    evidence: "not measured; the Granite reproduction reports a flat curve under a semantic judge"
-    where: notes/persona_arms_prereg_DRAFT.md
-    pre_registered: false
+    evidence: "reworded after review e: an isotropic Gaussian is off-manifold and is not the sparsity test; first pass runs n = 5, labelled, not graded"
+    where: notes/persona_arms_prereg.md
+    pre_registered: true
     superseded_by: null
 
   - id: batch-layout-is-instrument
     claim: >-
       The reported instability of steered replies under batch layout vanishes at batch-of-one with
       the shortest-item batch check asserted.
-    status: open
-    evidence: "not measured; INSTRUMENTS §4 is the same failure shape"
-    where: notes/persona_arms_prereg_DRAFT.md
+    status: retired
+    evidence: >-
+      review b: on this instrument (float32, CPU, right padding, deterministic greedy) the claim is
+      true by construction and cannot be tested; the library's instability was on a different
+      model and stack. The batch-of-8 versus batch-of-one check is run as plumbing, not graded.
+    where: notes/persona_arms_review.md
     pre_registered: false
     superseded_by: null
 
   - id: skip-path-arm
     claim: >-
-      The same shift applied at the final-norm input, with no block after it, produces the persona
-      at a rate inside the treatment arm's band.
+      The persona produced by a column push needs the blocks above the patch: the same shift at
+      the top of the stack produces a lower per-column persona count than the column itself.
     status: open
-    evidence: "not measured; non-negotiable 2 applied to a generation readout"
-    where: notes/persona_arms_prereg_DRAFT.md
-    pre_registered: false
+    evidence: >-
+      reworded after review d: a Patch at the final norm under generate is top-of-stack steering
+      at a smaller relative dose, not the offline pass-through; both rows are declared. First pass
+      runs it on two columns, labelled, not graded.
+    where: notes/persona_arms_prereg.md
+    pre_registered: true
     superseded_by: null
 
   - id: judge-separates-blind-set
     claim: >-
-      The self-identification judge separates a blind human-labelled reply set with agreement above
-      the declared threshold before any persona rate is reported.
+      The self-identification judge separates a blind human-labelled reply set drawn from this
+      model's steered output with kappa at or above 0.8 on the clear items and a persona rate at
+      or below 5% on the degenerate items, before any rate is reported.
     status: open
-    evidence: "gate, not a finding; threshold declared in the draft pre-registration"
-    where: notes/persona_arms_prereg_DRAFT.md
-    pre_registered: false
+    evidence: "gate, not a finding; the 60-reply blind set is built by the first pass and awaits a human labeller"
+    where: notes/persona_arms_prereg.md
+    pre_registered: true
     superseded_by: null
 
   - id: pain-axis-neuron-sparsity
