@@ -1,0 +1,56 @@
+# See docs/specs/claims_v1.md. The line closes when no claim is left non-terminal.
+line: platonic-rotation
+title: Platonic rotation
+question: >-
+  Can one frozen language model use another's hidden state through nothing more than a rotation
+  and a scale?
+blurb: >-
+  A replication of Hazy Research's Plato's Key result on one model pair, with our own facts and
+  controls. It holds on that pair; whether a looped model's passes are related the same way is next.
+audience: mechanistic interpretability · representation alignment
+claims:
+  - id: rotation-transfer
+    claim: A rotation plus one global scale, fit in closed form, transfers a subject key between Llama-3.1-8B and Qwen2.5-7B far above every control.
+    status: holds
+    evidence: >-
+      2026-11-26 · test n=457: Llama→Qwen 41.1% [36.7, 45.7], Qwen→Llama 44.2% [39.7, 48.8];
+      self-swap 46.2% / 55.8%; random, shuffled and mean-only nulls 0.9–5.0%; no-patch 0.0%.
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: scale-direction
+    claim: The scale that transfers is the recipient's spread over the donor's, not the reciprocal that the post's equation renders as.
+    status: holds
+    evidence: "2026-11-26 · reciprocal scale transfers at 4.6% / 5.7%, the level of the nulls"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: off-span-completion
+    claim: Dropping the part of the rotation that fewer-facts-than-dimensions leaves undetermined does not lower transfer.
+    status: holds
+    evidence: "2026-11-26 · span-only map 44.0% / 44.6% vs completed map 41.1% / 44.2%, n=457, intervals overlap"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: other-pairs
+    claim: The transfer holds on model pairs other than Llama-3.1-8B and Qwen2.5-7B.
+    status: open
+    pre_registered: false
+
+  - id: rotation-vs-linear
+    claim: An orthogonal map transfers at least as well as an unconstrained linear map on held-out subjects.
+    status: open
+    pre_registered: false
+
+  - id: donor-layer-late
+    claim: The late, flat donor-layer optimum reflects a stable subject key rather than the donor's answer being read out.
+    status: open
+    pre_registered: false
+
+  - id: loop-pass-rotation
+    claim: In Inkling 2 Mini the hidden state on loop pass 2 is approximately a rotation of the state on pass 1.
+    status: open
+    pre_registered: false

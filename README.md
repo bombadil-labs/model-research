@@ -10,6 +10,7 @@ else: its own stimuli, results, experiment log and public page, under `research/
 |---|---|---|
 | **[shame-axis](research/shame-axis/README.md)** | Is the reported "pain axis" better understood as a shame axis — and is the injury in the content of a false frame or in having to enact it? | active |
 | **[narrative](research/narrative/README.md)** | Can the relational structure of a narrative be measured, fit as an operator, and pointed at a domain where the parts are unknown? | active |
+| **[platonic-rotation](research/platonic-rotation/README.md)** | Can one frozen model use another's hidden state through a rotation and a scale (Hazy Research's "Plato's Key")? | active |
 
 ## Why one repo
 

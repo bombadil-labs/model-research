@@ -1,0 +1,326 @@
+{
+ "donor": "Qwen/Qwen2.5-7B",
+ "recipient": "meta-llama/Llama-3.1-8B",
+ "lA": 24,
+ "lB": 6,
+ "layer_convention": "index l = output of decoder block l (0-based)",
+ "n_train": 2123,
+ "n_test_pairs": 457,
+ "d_donor": 3584,
+ "d_recipient": 4096,
+ "n_minus_1_lt_d": true,
+ "off_train_span_energy": {
+  "donor_test_keys": 0.19153603671845698,
+  "recipient_test_keys": 0.18933426639863693
+ },
+ "scale_s": 0.02693335241210659,
+ "scale_reciprocal": 37.1286865704285,
+ "success": "greedy 8-token continuation begins with the donor's answer",
+ "arms": {
+  "treatment": {
+   "expected": "the claim: well above every control",
+   "n": 457,
+   "transfer": 0.4420131291028446,
+   "transfer_ci95": [
+    0.3972,
+    0.4878
+   ],
+   "recipient_answer_kept": 0.3588621444201313
+  },
+  "self_swap": {
+   "expected": "ceiling: the recipient's own key for the donor subject",
+   "n": 457,
+   "transfer": 0.5579868708971554,
+   "transfer_ci95": [
+    0.5122,
+    0.6028
+   ],
+   "recipient_answer_kept": 0.3282275711159737
+  },
+  "no_patch": {
+   "expected": "null: transfer ~0, recipient answer kept ~1",
+   "n": 457,
+   "transfer": 0.0,
+   "transfer_ci95": [
+    0.0,
+    0.0083
+   ],
+   "recipient_answer_kept": 0.9956236323851203
+  },
+  "identity": {
+   "expected": "null: the recipient's own key for its own subject; must match no_patch",
+   "n": 457,
+   "transfer": 0.0,
+   "transfer_ci95": [
+    0.0,
+    0.0083
+   ],
+   "recipient_answer_kept": 0.9912472647702407
+  },
+  "random_rotation_0": {
+   "expected": "null",
+   "n": 457,
+   "transfer": 0.05032822757111598,
+   "transfer_ci95": [
+    0.0338,
+    0.0744
+   ],
+   "recipient_answer_kept": 0.5973741794310722
+  },
+  "random_rotation_1": {
+   "expected": "null",
+   "n": 457,
+   "transfer": 0.028446389496717725,
+   "transfer_ci95": [
+    0.0167,
+    0.0481
+   ],
+   "recipient_answer_kept": 0.6148796498905909
+  },
+  "shuffled_pairing": {
+   "expected": "null",
+   "n": 457,
+   "transfer": 0.0262582056892779,
+   "transfer_ci95": [
+    0.0151,
+    0.0453
+   ],
+   "recipient_answer_kept": 0.5361050328227571
+  },
+  "mean_only": {
+   "expected": "null: the recipient's mean key, no donor information",
+   "n": 457,
+   "transfer": 0.024070021881838075,
+   "transfer_ci95": [
+    0.0135,
+    0.0426
+   ],
+   "recipient_answer_kept": 0.6345733041575492
+  },
+  "treatment_train_span": {
+   "expected": "exploratory: the map without the SVD's arbitrary off-span completion",
+   "n": 457,
+   "transfer": 0.44638949671772427,
+   "transfer_ci95": [
+    0.4014,
+    0.4922
+   ],
+   "recipient_answer_kept": 0.3588621444201313
+  },
+  "scale_reciprocal": {
+   "expected": "exploratory: the scale as the post's equation was extracted",
+   "n": 457,
+   "transfer": 0.05689277899343545,
+   "transfer_ci95": [
+    0.0391,
+    0.0821
+   ],
+   "recipient_answer_kept": 0.6323851203501094
+  }
+ },
+ "by_relation": {
+  "P101": {
+   "n": 2,
+   "treatment": 0.0,
+   "self_swap": 0.5,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.0
+  },
+  "P103": {
+   "n": 41,
+   "treatment": 0.5366,
+   "self_swap": 0.561,
+   "random_rotation_0": 0.1707,
+   "mean_only": 0.1707
+  },
+  "P106": {
+   "n": 2,
+   "treatment": 0.5,
+   "self_swap": 1.0,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.0
+  },
+  "P108": {
+   "n": 3,
+   "treatment": 0.6667,
+   "self_swap": 1.0,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.0
+  },
+  "P127": {
+   "n": 2,
+   "treatment": 0.5,
+   "self_swap": 0.5,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.0
+  },
+  "P1303": {
+   "n": 14,
+   "treatment": 0.7143,
+   "self_swap": 0.9286,
+   "random_rotation_0": 0.5,
+   "mean_only": 0.1429
+  },
+  "P140": {
+   "n": 6,
+   "treatment": 0.5,
+   "self_swap": 0.6667,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.0
+  },
+  "P159": {
+   "n": 33,
+   "treatment": 0.3333,
+   "self_swap": 0.7576,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.0
+  },
+  "P17": {
+   "n": 17,
+   "treatment": 0.5882,
+   "self_swap": 0.7059,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.0
+  },
+  "P176": {
+   "n": 67,
+   "treatment": 0.1045,
+   "self_swap": 0.0896,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.0
+  },
+  "P178": {
+   "n": 62,
+   "treatment": 0.4677,
+   "self_swap": 0.4516,
+   "random_rotation_0": 0.0323,
+   "mean_only": 0.0
+  },
+  "P19": {
+   "n": 6,
+   "treatment": 0.1667,
+   "self_swap": 0.5,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.0
+  },
+  "P20": {
+   "n": 2,
+   "treatment": 0.5,
+   "self_swap": 1.0,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.0
+  },
+  "P27": {
+   "n": 34,
+   "treatment": 0.3529,
+   "self_swap": 0.6765,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.0
+  },
+  "P276": {
+   "n": 7,
+   "treatment": 0.0,
+   "self_swap": 0.2857,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.0
+  },
+  "P30": {
+   "n": 26,
+   "treatment": 0.5385,
+   "self_swap": 0.5385,
+   "random_rotation_0": 0.0385,
+   "mean_only": 0.0
+  },
+  "P36": {
+   "n": 3,
+   "treatment": 1.0,
+   "self_swap": 1.0,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.0
+  },
+  "P364": {
+   "n": 40,
+   "treatment": 0.55,
+   "self_swap": 0.525,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.0
+  },
+  "P37": {
+   "n": 43,
+   "treatment": 0.6977,
+   "self_swap": 0.7907,
+   "random_rotation_0": 0.1163,
+   "mean_only": 0.0233
+  },
+  "P39": {
+   "n": 2,
+   "treatment": 1.0,
+   "self_swap": 1.0,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.5
+  },
+  "P407": {
+   "n": 2,
+   "treatment": 0.5,
+   "self_swap": 0.5,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.0
+  },
+  "P413": {
+   "n": 2,
+   "treatment": 0.5,
+   "self_swap": 1.0,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.0
+  },
+  "P449": {
+   "n": 19,
+   "treatment": 0.5263,
+   "self_swap": 0.6842,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.0
+  },
+  "P495": {
+   "n": 5,
+   "treatment": 0.4,
+   "self_swap": 0.8,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.0
+  },
+  "P641": {
+   "n": 7,
+   "treatment": 0.7143,
+   "self_swap": 0.8571,
+   "random_rotation_0": 0.1429,
+   "mean_only": 0.0
+  },
+  "P937": {
+   "n": 10,
+   "treatment": 0.2,
+   "self_swap": 0.7,
+   "random_rotation_0": 0.0,
+   "mean_only": 0.0
+  }
+ },
+ "provenance": {
+  "date_utc": "2026-11-26T21:13:06+00:00",
+  "nnsight": "0.8.4",
+  "torch": "2.15.0+cpu",
+  "transformers": "5.24.1",
+  "execution": "NDIF remote, bfloat16",
+  "models": {
+   "qwen": {
+    "repo_id": "Qwen/Qwen2.5-7B",
+    "ndif_revision": null,
+    "ndif_dtype": "bfloat16",
+    "hf_main_sha_at_run": "d149729398750b98c0af14eb82c78cfe92750796"
+   },
+   "llama": {
+    "repo_id": "meta-llama/Llama-3.1-8B",
+    "ndif_revision": null,
+    "ndif_dtype": "bfloat16",
+    "hf_main_sha_at_run": "d04e592bb4f6aa9cfee91e2e20afa771667e1d4b"
+   }
+  }
+ }
+}
