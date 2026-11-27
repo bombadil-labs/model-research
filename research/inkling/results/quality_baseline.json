@@ -1,0 +1,83 @@
+{
+  "provenance": {
+    "model_repo": "mlx-community/Inkling-2-Mini-4bit",
+    "model_revision": "9c0e2960609ba7cb40daf92c6f7bf8ed56e1dd62",
+    "base_model": "thinkingmachines/Inkling-2-Mini",
+    "mlx_lm_version": "0.1.dev1008+ge2b5bbd3b",
+    "mlx_lm_source": "ml-explore/mlx-lm PR #2086 (unmerged)",
+    "mlx_version": "0.32.5",
+    "python": "3.12.11",
+    "chip": "Apple M1 Max",
+    "ram_gb": 32.0,
+    "macos": "15.4.1",
+    "device": "mlx-metal",
+    "utc": "2026-11-27T01:08:35Z"
+  },
+  "decoding": "greedy",
+  "seed": 0,
+  "n": 100,
+  "max_tokens": 2048,
+  "num_passes": 3,
+  "arms": {
+    "gsm8k|effort=none": {
+      "n": 100,
+      "correct": 95,
+      "accuracy": 0.95,
+      "wilson95": [
+        0.8882480347279118,
+        0.9784566385436864
+      ],
+      "no_final": 2,
+      "truncated": 2,
+      "unparsed": 2,
+      "mean_gen_tokens": 288.34,
+      "mean_gen_tps": 18.147076296851374,
+      "determinism_identical": "5/5"
+    },
+    "mmlu|effort=none": {
+      "n": 100,
+      "correct": 81,
+      "accuracy": 0.81,
+      "wilson95": [
+        0.7222097592919214,
+        0.8748534600729574
+      ],
+      "no_final": 8,
+      "truncated": 8,
+      "unparsed": 8,
+      "mean_gen_tokens": 539.49,
+      "mean_gen_tps": 18.149716364480724,
+      "determinism_identical": "5/5"
+    },
+    "gsm8k|effort=default": {
+      "n": 100,
+      "correct": 95,
+      "accuracy": 0.95,
+      "wilson95": [
+        0.8882480347279118,
+        0.9784566385436864
+      ],
+      "no_final": 2,
+      "truncated": 2,
+      "unparsed": 2,
+      "mean_gen_tokens": 401.53,
+      "mean_gen_tps": 18.398562616435928,
+      "determinism_identical": "5/5"
+    },
+    "mmlu|effort=default": {
+      "n": 100,
+      "correct": 74,
+      "accuracy": 0.74,
+      "wilson95": [
+        0.6462882736813838,
+        0.8159542187301354
+      ],
+      "no_final": 19,
+      "truncated": 19,
+      "unparsed": 19,
+      "mean_gen_tokens": 811.32,
+      "mean_gen_tps": 19.317649589291392,
+      "determinism_identical": "5/5"
+    }
+  }
+}

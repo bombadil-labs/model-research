@@ -1,0 +1,51 @@
+# See docs/specs/claims_v1.md. The line closes when no claim is left non-terminal.
+line: inkling
+title: Inkling
+question: >-
+  Can the control parameters of a looped mixture-of-experts model be edited into small,
+  removable, goal-specific overlays that beat a random edit of the same size?
+blurb: >-
+  Inkling 2 Mini runs its middle layers three times and steers 26 billion quantized weights with
+  a few tens of millions of plain floats. We measure a baseline, then ask what editing those
+  floats can and cannot do.
+audience: mechanistic interpretability · local inference
+claims:
+  - id: decode-linear-in-passes
+    claim: Decode time per token on this port rises linearly with loop count, about 17 ms per pass on an M1 Max.
+    status: holds
+    evidence: "2026-11-26 · 22, 39, 55, 71, 88 ms/token at 1 to 5 passes, n=3 each"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: port-faithful
+    claim: The mlx-lm port in PR 2086 reproduces the reference implementation's outputs.
+    status: open
+    pre_registered: false
+    superseded_by: null
+
+  - id: quality-baseline
+    claim: The unedited model has a measured accuracy and failure-mode profile on fixed GSM8K and MMLU subsets.
+    status: holds
+    evidence: "2026-11-26 · n=100 each, greedy · GSM8K 95/100 at both efforts · MMLU 81/100 (minimum effort), 74/100 (default) · no answer within 2,048 tokens on 2, 2, 8, 19 items"
+    where: docs/EXPERIMENTS.md
+    pre_registered: false
+    superseded_by: null
+
+  - id: routing-differs-by-domain
+    claim: Expert routing differs measurably between prompt domains, above a within-domain noise floor.
+    status: open
+    pre_registered: false
+    superseded_by: null
+
+  - id: overlay-beats-random
+    claim: An edit to float control parameters improves a target evaluation by more than a random edit of the same size.
+    status: open
+    pre_registered: false
+    superseded_by: null
+
+  - id: effort-raises-cap-hits
+    claim: At default reasoning effort the model fails to answer within a fixed token cap more often than at minimum effort, without a matching gain in accuracy.
+    status: open
+    pre_registered: false
+    superseded_by: null
